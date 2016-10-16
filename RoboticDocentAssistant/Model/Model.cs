@@ -11,47 +11,47 @@ namespace HENRY.Model
 
     public class Student : INotifyPropertyChanged
     {
-        private string firstName;
-        private string lastName;
+        private string userThing;
+        private string devThing;
 
-        public string FirstName
+        public string UserThing
         {
             get
             {
-                return firstName;
+                return userThing;
             }
 
             set
             {
-                if (firstName != value)
+                if (userThing != value)
                 {
-                    firstName = value;
-                    RaisePropertyChanged("FirstName");
-                    RaisePropertyChanged("FullName");
+                    userThing = value;
+                    RaisePropertyChanged("UserThing");
+                    RaisePropertyChanged("BothThings");
                 }
             }
         }
 
-        public string LastName
+        public string DevThing
         {
-            get { return lastName; }
+            get { return devThing; }
 
             set
             {
-                if (lastName != value)
+                if (devThing != value)
                 {
-                    lastName = value;
-                    RaisePropertyChanged("LastName");
-                    RaisePropertyChanged("FullName");
+                    devThing = value;
+                    RaisePropertyChanged("DevThing");
+                    RaisePropertyChanged("BothThings");
                 }
             }
         }
 
-        public string FullName
+        public string BothThings
         {
             get
             {
-                return firstName + " " + lastName;
+                return userThing + " " + devThing;
             }
         }
 

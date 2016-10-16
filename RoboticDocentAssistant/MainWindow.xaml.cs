@@ -16,6 +16,8 @@ using System.Threading;
 using HENRY.Model;
 using System.Collections.ObjectModel;
 
+using HENRY.ViewModel;
+
 namespace HENRY
 {
     /// <summary>
@@ -23,25 +25,41 @@ namespace HENRY
     /// </summary>
     public partial class MainWindow : Window
     {
+        MasterModel mastermodel;
+        MasterViewModel masterviewmodel;
+
         public MainWindow()
         {
+            mastermodel = new MasterModel();
+            masterviewmodel = new MasterViewModel();
+
+            masterviewmodel.InitializeViewmodel(mastermodel);
+
+            DataContext = masterviewmodel;
+
+
             InitializeComponent();
         }
 
-        private void ViewControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserViewControl_Loaded(object sender, RoutedEventArgs e)
         {
-            HENRY.ViewModel.ViewModel ViewModelObject = new HENRY.ViewModel.ViewModel();
+            UserViewModel ViewModelObject1 = new UserViewModel();
 
-            ObservableCollection<Student> students = new ObservableCollection<Student>();
+            ViewModelObject1.InitializeViewmodel("user", 123);
+            UserViewControl.DataContext = ViewModelObject1;
+        }
 
-            students.Add(new Student { FirstName = "Mark", LastName = "Allain" });
-            students.Add(new Student { FirstName = "Allen", LastName = "Brown" });
-            students.Add(new Student { FirstName = "Linda", LastName = "Hamerski" });
+        private void DevViewControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DevViewModel ViewModelObject2 = new DevViewModel();
 
-            ViewModelObject.LoadStudents(students);
-            ViewControl.DataContext = ViewModelObject;
+            ViewModelObject2.InitializeViewmodel("developer", 777);
+            DevViewControl.DataContext = ViewModelObject2;
+        }
 
-
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            mastermodel.SetUser();
         }
     }
 }

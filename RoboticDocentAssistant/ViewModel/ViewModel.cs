@@ -11,7 +11,7 @@ namespace HENRY.ViewModel
     public class ViewModel
     {
 
-        public ObservableCollection<Student> Students
+        public ObservableCollection<Student> Things
         {
             get;
             set;
@@ -27,7 +27,7 @@ namespace HENRY.ViewModel
             students.Add(new Student { FirstName = "Linda", LastName = "Hamerski" });
             */
 
-            Students = thingie;
+            Things = thingie;
         }
     } 
 }
