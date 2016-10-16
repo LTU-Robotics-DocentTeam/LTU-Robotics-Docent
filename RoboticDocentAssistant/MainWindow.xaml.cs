@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
-using MVVMTest.Model;
+using HENRY.Model;
 using System.Collections.ObjectModel;
 
-namespace MVVMTest
+namespace HENRY
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -30,7 +30,7 @@ namespace MVVMTest
 
         private void ViewControl_Loaded(object sender, RoutedEventArgs e)
         {
-            MVVMTest.ViewModel.ViewModel ViewModelObject = new MVVMTest.ViewModel.ViewModel();
+            HENRY.ViewModel.ViewModel ViewModelObject = new HENRY.ViewModel.ViewModel();
 
             ObservableCollection<Student> students = new ObservableCollection<Student>();
 

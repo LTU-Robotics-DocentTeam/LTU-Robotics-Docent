@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVVMTest.Model;
+using HENRY.Model;
 using System.Collections.ObjectModel;
 
-namespace MVVMTest.ViewModel
+namespace HENRY.ViewModel
 {
     public class ViewModel
     {
