@@ -1,0 +1,10 @@
+﻿<Window x:Class="MVVMTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local = "clr-namespace:MVVMTest"
+        xmlns:views = "clr-namespace:MVVMTest.View"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <views:View x:Name="ViewControl" Loaded ="ViewControl_Loaded"/>
+    </Grid>
+</Window>
