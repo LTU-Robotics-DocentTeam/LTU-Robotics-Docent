@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HENRY.View
+namespace HENRY.Views
 {
     /// <summary>
-    /// Interaction logic for View.xaml
+    /// Interaction logic for UserView.xaml
     /// </summary>
-    public partial class View : UserControl
+    public partial class UserView : UserControl
     {
-        public View()
+        public UserView()
         {
             InitializeComponent();
         }
