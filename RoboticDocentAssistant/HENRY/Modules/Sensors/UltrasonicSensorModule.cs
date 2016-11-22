@@ -8,9 +8,14 @@ namespace HENRY.Modules.Sensors
 {
     class UltrasonicSensorModule : GenericSensorModule
     {
+        const int UltraSNum = 8;
+
         public UltrasonicSensorModule()
         {
+            for (int i = 0; i <= UltraSNum; i++)
+                SetPropertyValue("UltraS" + i.ToString(), 0.0);
 
+            SetPropertyValue("UltraSNum", UltraSNum);
         }
         
         public override string GetModuleName()

@@ -8,12 +8,14 @@ namespace HENRY.Modules.Sensors
 {
     class ImpactSensorModule : GenericSensorModule
     {
+        const int ImpactNum = 4;
+        
         public ImpactSensorModule()
         {
-            SetPropertyValue("ImpactFront",false);
-            SetPropertyValue("ImpactBack", false);
-            SetPropertyValue("ImpactRight", false);
-            SetPropertyValue("ImpactLeft", false);
+            for (int i = 1; i <= ImpactNum; i++)
+                SetPropertyValue("Impact" + i.ToString(), false);
+
+            SetPropertyValue("ImpactNum", ImpactNum);
         }
         
         public override string GetModuleName()

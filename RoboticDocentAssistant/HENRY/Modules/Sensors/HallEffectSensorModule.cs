@@ -1,20 +1,18 @@
 ﻿using HENRY.ModuleSystem;
-using System.Timers;
 
 
 namespace HENRY.Modules.Sensors
 {
     class HallEffectSensorModule : GenericSensorModule
     {
-        //Timer t;
+        const int ArrayNum = 10; // Number of sensors in hall effect array
         
         public HallEffectSensorModule()
         {
-            SetPropertyValue("ArraySensor1", false);
-            SetPropertyValue("ArraySensor2", false);
-            SetPropertyValue("ArraySensor3", false);
-            SetPropertyValue("ArraySensor4", false);
-            SetPropertyValue("ArraySensor5", false);
+            for (int i = 1; i <= ArrayNum; i++)
+                SetPropertyValue("ArraySensor" + i.ToString(), false);
+
+            SetPropertyValue("ArrayNum", ArrayNum);
         }
 
         public override string GetModuleName()

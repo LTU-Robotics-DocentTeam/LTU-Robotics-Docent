@@ -8,12 +8,14 @@ namespace HENRY.Modules.Sensors
 {
     class InfraredSensorModule : GenericSensorModule
     {
+        const int IRNum = 8;
+
         public InfraredSensorModule()
         {
-            SetPropertyValue("IR1", 0);
-            SetPropertyValue("IR2", 0);
-            SetPropertyValue("IR3", 0);
-            SetPropertyValue("IR4", 0);
+            for (int i = 1; i <= IRNum; i++)
+                SetPropertyValue("IR1", 0.0);
+            
+            SetPropertyValue("IRNum", IRNum);
         }
 
         public override string GetModuleName()
