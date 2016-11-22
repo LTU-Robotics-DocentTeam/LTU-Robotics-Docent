@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HENRY.ModuleSystem;
 
-namespace HENRY.Modules.Sensors
+namespace HENRY.Modules.Navigation
 {
-    class UltrasonicSensorModule : GenericSensorModule
+    class BaseNav : LengarioModuleCore
     {
-        public UltrasonicSensorModule()
-        {
-
-        }
-        
         public override string GetModuleName()
         {
-            return "UltrasonicSensorModule";
+            throw new NotImplementedException();
         }
     }
 }

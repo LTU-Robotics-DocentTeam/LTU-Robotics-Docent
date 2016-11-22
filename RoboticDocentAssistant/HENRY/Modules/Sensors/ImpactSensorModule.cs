@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace HENRY.Modules.Sensors
 {
-    class ImpactSensorModule
+    class ImpactSensorModule : GenericSensorModule
     {
+        public ImpactSensorModule()
+        {
+            SetPropertyValue("ImpactFront",false);
+            SetPropertyValue("ImpactBack", false);
+            SetPropertyValue("ImpactRight", false);
+            SetPropertyValue("ImpactLeft", false);
+        }
+        
+        public override string GetModuleName()
+        {
+            return "ImpactSensorModule";
+        }
     }
 }

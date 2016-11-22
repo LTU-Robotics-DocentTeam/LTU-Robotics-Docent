@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Modules\GenericSensorModule.cs" />
+    <Compile Include="Modules\Navigation\BaseNav.cs" />
     <Compile Include="Modules\Sensors\HallEffectSensorModule.cs" />
     <Compile Include="Modules\Sensors\ImpactSensorModule.cs" />
     <Compile Include="Modules\Sensors\InfraredSensorModule.cs" />
@@ -119,9 +120,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Navigation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
