@@ -36,7 +36,7 @@ namespace HENRY.Modules.Sensors
 
             for (int i = 0; i < ArrayNum; i++)
             {
-                arr[i] = GetPropertyValue("ArrayNum" + (i+1).ToString()).ToBoolean();
+                arr[i] = GetPropertyValue("ArraySensor" + (i+1).ToString()).ToBoolean();
 
                 // if any three adjacent sensors are triggered, that means there's a line there.
                 // if on the first sensor or last sensor, check for current sensor and the only adjacent sensor available instead
