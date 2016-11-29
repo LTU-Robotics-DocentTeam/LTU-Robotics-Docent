@@ -31,9 +31,38 @@ namespace HENRY.Modules
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
-            SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
-            SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
+            //SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
+            //SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
+            //SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
+            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
+            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+            int line = r.Next(0, ArrayNum); // pick a random sensor to place line
+
+            for (int i = 1; i <= ArrayNum; i++)
+            {
+                if (i > line - 2 && i < line + 2)
+                    SetPropertyValue("ArraySensor" + i.ToString(), true);
+                else
+                    SetPropertyValue("ArraySensor" + i.ToString(), false);
+            }
+
+            for (int i = 1; i <= 8; i++)
+            {
+                SetPropertyValue("IR" + i.ToString(), r.NextDouble()*100.0);
+                SetPropertyValue("UltraS" + i.ToString(), r.NextDouble()*100.0);
+            }
+
+            if (r.Next(0, 100) < 10)
+            {
+                SetPropertyValue("Impact" + r.Next(0, ImpactNum).ToString(), true);
+            }
+            else
+            {
+                for (int i = 1; i <= ImpactNum; i++)
+                {
+                    SetPropertyValue("Impact" + i.ToString(), false);
+                }
+            }
         }
 
 

@@ -16,7 +16,7 @@ namespace HENRY.Modules.Sensors
 
             SetPropertyValue("ImpactNum", ImpactNum);
 
-            SetPropertyValue("EStop", false)
+            SetPropertyValue("EStop", false);
 
             t = new Timer();
             t.Interval = 330;

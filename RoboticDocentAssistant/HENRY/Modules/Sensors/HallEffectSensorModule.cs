@@ -8,7 +8,8 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
         
-        const int ArrayNum = 10; // Number of sensors in hall effect array
+        const int ArrayNum = 20; // Number of sensors in hall effect array
+        double prevline = -1;
         
         public HallEffectSensorModule()
         {
@@ -33,7 +34,6 @@ namespace HENRY.Modules.Sensors
             double lineloc = -1; // start as negative number, so if no line is found, a negative number is sent to main module
                                  // Negative number means error state in nav module, so no line
 
-
             for (int i = 0; i < ArrayNum; i++)
             {
                 arr[i] = GetPropertyValue("ArraySensor" + (i+1).ToString()).ToBoolean();
@@ -45,7 +45,16 @@ namespace HENRY.Modules.Sensors
                     lineloc = anglestep * (i + 1); // give angle where the line is located based on middle sensor triggered location
                 }
 
-                SetPropertyValue("LineAngle", lineloc);
+                if (prevline > -1 && (lineloc < prevline + 10 && lineloc > prevline - 10))
+                {
+                    SetPropertyValue("LineAngle", lineloc);
+                    prevline = lineloc;
+                }
+                else
+                {
+                    lineloc = -1;
+                    SetPropertyValue("LineAngle", lineloc);
+                }
             }
 
 
