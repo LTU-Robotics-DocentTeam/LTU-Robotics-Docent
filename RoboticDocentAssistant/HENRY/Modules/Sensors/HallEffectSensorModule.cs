@@ -40,10 +40,25 @@ namespace HENRY.Modules.Sensors
 
                 // if any three adjacent sensors are triggered, that means there's a line there.
                 // if on the first sensor or last sensor, check for current sensor and the only adjacent sensor available instead
-                if ((arr[i] && arr[i-1] && arr[i+1] && (i != 0) && (i != ArrayNum)) || (arr[i] && arr[i+1] && (i == 0)) || (arr[i] && arr[i-1] && (i == ArrayNum)))
-                {
-                    lineloc = anglestep * (i + 1); // give angle where the line is located based on middle sensor triggered location
-                }
+                if ((i != 0) && (i != ArrayNum))
+                    if (arr[i] && arr[i - 1] && arr[i + 1])
+                        lineloc = anglestep * (i + 1);
+                    else ;
+                else if ((i == 0))
+                    if (arr[i] && arr[i + 1])
+                        lineloc = anglestep * (i + 1);
+                    else ;
+                else if ((i == ArrayNum))
+                    if (arr[i] && arr[i - 1])
+                        lineloc = anglestep * (i + 1);
+                    else ;
+
+
+                
+                //if ((arr[i] && arr[i-1] && arr[i+1] && (i != 0) && (i != ArrayNum)) || (arr[i] && arr[i+1] && (i == 0)) || (arr[i] && arr[i-1] && (i == ArrayNum)))
+                //{
+                //    lineloc = anglestep * (i + 1); // give angle where the line is located based on middle sensor triggered location
+                //}
 
                 if (prevline > -1 && (lineloc < prevline + 10 && lineloc > prevline - 10))
                 {
