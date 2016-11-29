@@ -33,7 +33,7 @@ namespace HENRY.Modules.Navigation
 
             for (int i = 1; i <= ImpactNum; i++)
             {
-                if (GetPropertyValue("IR" + i.ToString()).ToBoolean())
+                if (GetPropertyValue("Impact" + i.ToString()).ToBoolean())
                     SetPropertyValue("EStop", true);
             }
             
