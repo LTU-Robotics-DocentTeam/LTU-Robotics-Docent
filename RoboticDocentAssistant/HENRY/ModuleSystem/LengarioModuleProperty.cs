@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HENRY.ModuleSystem
 {
@@ -47,7 +48,7 @@ namespace HENRY.ModuleSystem
             }
             else
             {
-                Console.WriteLine("New value " + newValue + "does not match type " + type + " in property owned by " + owner);
+                MessageBox.Show("New value " + newValue + "does not match type " + type + " in property owned by " + owner);
             }
         }
 
@@ -71,6 +72,10 @@ namespace HENRY.ModuleSystem
         public char ToChar()
         {
             return Convert.ToChar(pvalue);
+        }
+        public double ToDouble()
+        {
+            return Convert.ToDouble(pvalue);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
-    class InfraredSensorModule : GenericSensorModule
+    class InfraredSensorModule : LengarioModuleAuxiliary
     {
         //Timer t;
         

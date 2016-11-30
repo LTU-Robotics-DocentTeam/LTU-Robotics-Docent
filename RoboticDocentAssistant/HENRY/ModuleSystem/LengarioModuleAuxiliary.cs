@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HENRY.ModuleSystem
 {
@@ -50,7 +51,8 @@ namespace HENRY.ModuleSystem
                 }
                 else
                 {
-                    Console.WriteLine("ERR: Module " + moduleName + " attepted to write to unowned property " + name);
+                    MessageBox.Show("ERR: Module " + moduleName + " attepted to write to unowned property " + name);
+                    //Console.WriteLine("ERR: Module " + moduleName + " attepted to write to unowned property " + name);
                 }
             }
             else

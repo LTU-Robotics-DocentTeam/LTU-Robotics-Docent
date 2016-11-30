@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
-    class UltrasonicSensorModule : GenericSensorModule
+    class UltrasonicSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
         

@@ -1,22 +1,26 @@
 ﻿using HENRY.ModuleSystem;
 using System;
 using System.Timers;
+using System.Windows.Forms;
+
+using TimersTimer = System.Timers.Timer;
 
 namespace HENRY.Modules
 {
     class SerialCommModule : LengarioModuleCore
     {
-        Timer t;
+        TimersTimer t;
         Random r;
 
         public SerialCommModule()
         {
-            t = new Timer();
-            t.Interval = 100;
+            t = new TimersTimer();
+            t.Interval = 1000;
             t.Elapsed += t_Elapsed;
             t.Start();
 
             r = new Random();
+
         }
 
         // Ok this is goofy I know, but this sort of emulates what the SerialCommModule
@@ -31,13 +35,19 @@ namespace HENRY.Modules
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            //SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
-            //SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
-            //SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
+            SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
+            SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
+            SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
+            
+
+
+
             int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
             int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
             int line = r.Next(0, ArrayNum); // pick a random sensor to place line
 
+            
+            
             for (int i = 1; i <= ArrayNum; i++)
             {
                 if (i > line - 2 && i < line + 2)
@@ -45,16 +55,15 @@ namespace HENRY.Modules
                 else
                     SetPropertyValue("ArraySensor" + i.ToString(), false);
             }
-
             for (int i = 1; i <= 8; i++)
             {
                 SetPropertyValue("IR" + i.ToString(), r.NextDouble()*100.0);
                 SetPropertyValue("UltraS" + i.ToString(), r.NextDouble()*100.0);
             }
 
-            if (r.Next(0, 100) < 10)
+            if (r.Next(0, 100) < 50)
             {
-                SetPropertyValue("Impact" + r.Next(0, ImpactNum).ToString(), true);
+                SetPropertyValue("Impact" + r.Next(0, ImpactNum-1).ToString(), true);
             }
             else
             {

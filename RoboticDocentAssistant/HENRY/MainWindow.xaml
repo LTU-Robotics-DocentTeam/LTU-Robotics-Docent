@@ -4,6 +4,11 @@
         xmlns:views = "clr-namespace:HENRY.Views"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded"></views:UserView>  
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="thingpanel"></Border>
+        <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="1"></views:UserView>  
     </Grid>
 </Window>

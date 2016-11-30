@@ -121,6 +121,7 @@ namespace HENRY.Modules
             }
         }
 
+        
         public int Generic_Output1
         {
             get
@@ -146,5 +147,141 @@ namespace HENRY.Modules
                 RaisePropertyChanged("Generic_Multiply");
             }
         }
+
+
+        public bool ArraySensor1
+        {
+            get { return GetPropertyValue("ArraySensor1").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor1", value); RaisePropertyChanged("ArraySensor1"); }
+        }
+        public bool ArraySensor2
+        {
+            get { return GetPropertyValue("ArraySensor2").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor2", value); RaisePropertyChanged("ArraySensor2"); }
+        }
+        public bool ArraySensor3
+        {
+            get { return GetPropertyValue("ArraySensor3").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor3", value); RaisePropertyChanged("ArraySensor3"); }
+        }
+        public bool ArraySensor4
+        {
+            get { return GetPropertyValue("ArraySensor4").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor4", value); RaisePropertyChanged("ArraySensor4"); }
+        }
+        public bool ArraySensor5
+        {
+            get { return GetPropertyValue("ArraySensor5").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor5", value); RaisePropertyChanged("ArraySensor5"); }
+        }
+        public bool ArraySensor6
+        {
+            get { return GetPropertyValue("ArraySensor6").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor6", value); RaisePropertyChanged("ArraySensor6"); }
+        }
+        public bool ArraySensor7
+        {
+            get { return GetPropertyValue("ArraySensor7").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor7", value); RaisePropertyChanged("ArraySensor7"); }
+        }
+        public bool ArraySensor8
+        {
+            get { return GetPropertyValue("ArraySensor8").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor8", value); RaisePropertyChanged("ArraySensor8"); }
+        }
+        public bool ArraySensor9
+        {
+            get { return GetPropertyValue("ArraySensor9").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor9", value); RaisePropertyChanged("ArraySensor9"); }
+        }
+        public bool ArraySensor10
+        {
+            get { return GetPropertyValue("ArraySensor10").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor10", value); RaisePropertyChanged("ArraySensor10"); }
+        }
+        public bool ArraySensor11
+        {
+            get { return GetPropertyValue("ArraySensor11").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor11", value); RaisePropertyChanged("ArraySensor11"); }
+        }
+        public bool ArraySensor12
+        {
+            get { return GetPropertyValue("ArraySensor12").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor12", value); RaisePropertyChanged("ArraySensor12"); }
+        }
+        public bool ArraySensor13
+        {
+            get { return GetPropertyValue("ArraySensor13").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor13", value); RaisePropertyChanged("ArraySensor13"); }
+        }
+        public bool ArraySensor14
+        {
+            get { return GetPropertyValue("ArraySensor14").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor14", value); RaisePropertyChanged("ArraySensor14"); }
+        }
+        public bool ArraySensor15
+        {
+            get { return GetPropertyValue("ArraySensor15").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor15", value); RaisePropertyChanged("ArraySensor15"); }
+        }
+        public bool ArraySensor16
+        {
+            get { return GetPropertyValue("ArraySensor16").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor16", value); RaisePropertyChanged("ArraySensor16"); }
+        }
+        public bool ArraySensor17
+        {
+            get { return GetPropertyValue("ArraySensor17").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor17", value); RaisePropertyChanged("ArraySensor17"); }
+        }
+        public bool ArraySensor18
+        {
+            get { return GetPropertyValue("ArraySensor18").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor18", value); RaisePropertyChanged("ArraySensor18"); }
+        }
+        public bool ArraySensor19
+        {
+            get { return GetPropertyValue("ArraySensor19").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor19", value); RaisePropertyChanged("ArraySensor19"); }
+        }
+        public bool ArraySensor20
+        {
+            get { return GetPropertyValue("ArraySensor20").ToBoolean(); }
+            set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
+        }
+
+        public double LineAngle
+        {
+            get { return GetPropertyValue("LineAngle").ToDouble(); }
+            set { SetPropertyValue("LineAngle", value); RaisePropertyChanged("LineAngle"); }
+        }
+
+        public bool Impact1
+        {
+            get { return GetPropertyValue("Impact1").ToBoolean(); }
+            set { SetPropertyValue("Impact1", value); RaisePropertyChanged("Impact1"); }
+        }
+        public bool Impact2
+        {
+            get { return GetPropertyValue("Impact2").ToBoolean(); }
+            set { SetPropertyValue("Impact2", value); RaisePropertyChanged("Impact2"); }
+        }
+        public bool Impact3
+        {
+            get { return GetPropertyValue("Impact3").ToBoolean(); }
+            set { SetPropertyValue("Impact3", value); RaisePropertyChanged("Impact3"); }
+        }
+        public bool Impact4
+        {
+            get { return GetPropertyValue("Impact4").ToBoolean(); }
+            set { SetPropertyValue("Impact4", value); RaisePropertyChanged("Impact4"); }
+        }
+
+        public bool EStop
+        {
+            get { return GetPropertyValue("EStop").ToBoolean(); }
+            set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
+        }
+
     }
 }

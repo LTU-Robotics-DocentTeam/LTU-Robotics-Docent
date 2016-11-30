@@ -26,6 +26,11 @@ namespace HENRY.ModuleSystem
             }
         }
 
+        public static Dictionary<string, LengarioModuleProperty> GetTheBin()
+        {
+            return theValueBin;
+        }
+
         public abstract LengarioModuleProperty GetPropertyValue(string name);
         public abstract void SetPropertyValue(string name, object value);
 
