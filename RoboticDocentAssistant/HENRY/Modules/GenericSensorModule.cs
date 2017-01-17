@@ -6,10 +6,10 @@ namespace HENRY.Modules
     class GenericSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
-        /*
-        ============================================ Constructor =============================================
-        
-         * This module represents a sort of template to
+
+        //============================================ Constructor =============================================
+
+        /* This module represents a sort of template to
          * build basic processing modules off of. For
          * example, a Hall Effect Module that takes the
          * many raw boolean inputs in the array and
