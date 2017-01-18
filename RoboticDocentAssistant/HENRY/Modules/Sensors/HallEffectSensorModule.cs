@@ -18,6 +18,7 @@ namespace HENRY.Modules.Sensors
 
             SetPropertyValue("ArrayNum", ArrayNum);
 
+            //0 is Hard left, 90 is straight on
             SetPropertyValue("LineAngle", 0.0);
 
             t = new Timer();
