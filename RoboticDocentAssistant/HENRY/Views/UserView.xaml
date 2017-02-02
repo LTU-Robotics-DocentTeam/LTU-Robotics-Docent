@@ -31,7 +31,7 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="Hall Effect">
+        <TabItem Header="Sensors">
             <StackPanel>
                 <TextBlock HorizontalAlignment="Center">Hall Effect Sensors</TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -69,10 +69,12 @@
                 <TextBlock Text="E Stop Triggered:" HorizontalAlignment="Center"/>
                 <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
                 <Separator></Separator>
+                <TextBlock Text="Enable Manual Drive:" HorizontalAlignment="Center"/>
+                <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />
             </StackPanel>
         </TabItem>
 
     </TabControl>
-    
-    
+
+
 </UserControl>

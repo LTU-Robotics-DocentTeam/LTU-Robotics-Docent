@@ -148,6 +148,18 @@ namespace HENRY.Modules
             }
         }
 
+        public bool ManualDriveEnabled
+        {
+            get
+            {
+                return GetPropertyValue("ManualDriveEnabled").ToBoolean();
+            }
+            set
+            {
+                SetPropertyValue("ManualDriveEnabled", value);
+                RaisePropertyChanged("ManualDriveEnabled");
+            }
+        }
 
         public bool ArraySensor1
         {

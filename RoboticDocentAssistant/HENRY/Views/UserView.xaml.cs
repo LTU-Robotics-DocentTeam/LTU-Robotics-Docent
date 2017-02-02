@@ -22,8 +22,8 @@ namespace HENRY.Views
     {
         public UserView()
         {
-            
             InitializeComponent();
         }
+
     }
 }
