@@ -1,5 +1,8 @@
 ﻿using HENRY.ModuleSystem;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Documents;
 
 namespace HENRY.Modules
 {
@@ -148,107 +151,150 @@ namespace HENRY.Modules
             }
         }
 
+        //public System.Collections.ObjectModel.ObservableCollection<bool> ArraySensor
+        //{
+        //    get
+        //    {
+        //        List<Boolean> arr = new List<Boolean>();
+        //        for (int i = 0; i < 20; i++)
+        //        {
+        //            arr.Add(GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean());
+        //        }
+        //        return new System.Collections.ObjectModel.ObservableCollection<bool>(arr);
+        //    }
+        //    set
+        //    {
+        //        //bool[] arr = new bool[20];
+        //        //for (int i = 0; i < 20; i++)
+        //        //{
+        //        //    SetPropertyValue("ArraySensor" + (i + 1).ToString(), value.GetValue(i));
+        //        //    RaisePropertyChanged("ArraySensor" + (i + 1).ToString());
+        //        //}
+        //    }
+        //}
 
-        public bool ArraySensor1
+        public Array ArraySensor
         {
-            get { return GetPropertyValue("ArraySensor1").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor1", value); RaisePropertyChanged("ArraySensor1"); }
+            get
+            {
+                Array arr = new bool[20];
+                for (int i = 0; i < 20; i++)
+                {
+                    arr.SetValue(GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean(), i);
+                }
+                return arr;
+            }
+            set
+            {
+                //bool[] arr = new bool[20];
+                for (int i = 0; i < 20; i++)
+                {
+                    SetPropertyValue("ArraySensor" + (i + 1).ToString(), value.GetValue(i));
+                    RaisePropertyChanged("ArraySensor" + (i + 1).ToString());
+                }
+            }
         }
-        public bool ArraySensor2
-        {
-            get { return GetPropertyValue("ArraySensor2").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor2", value); RaisePropertyChanged("ArraySensor2"); }
-        }
-        public bool ArraySensor3
-        {
-            get { return GetPropertyValue("ArraySensor3").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor3", value); RaisePropertyChanged("ArraySensor3"); }
-        }
-        public bool ArraySensor4
-        {
-            get { return GetPropertyValue("ArraySensor4").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor4", value); RaisePropertyChanged("ArraySensor4"); }
-        }
-        public bool ArraySensor5
-        {
-            get { return GetPropertyValue("ArraySensor5").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor5", value); RaisePropertyChanged("ArraySensor5"); }
-        }
-        public bool ArraySensor6
-        {
-            get { return GetPropertyValue("ArraySensor6").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor6", value); RaisePropertyChanged("ArraySensor6"); }
-        }
-        public bool ArraySensor7
-        {
-            get { return GetPropertyValue("ArraySensor7").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor7", value); RaisePropertyChanged("ArraySensor7"); }
-        }
-        public bool ArraySensor8
-        {
-            get { return GetPropertyValue("ArraySensor8").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor8", value); RaisePropertyChanged("ArraySensor8"); }
-        }
-        public bool ArraySensor9
-        {
-            get { return GetPropertyValue("ArraySensor9").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor9", value); RaisePropertyChanged("ArraySensor9"); }
-        }
-        public bool ArraySensor10
-        {
-            get { return GetPropertyValue("ArraySensor10").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor10", value); RaisePropertyChanged("ArraySensor10"); }
-        }
-        public bool ArraySensor11
-        {
-            get { return GetPropertyValue("ArraySensor11").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor11", value); RaisePropertyChanged("ArraySensor11"); }
-        }
-        public bool ArraySensor12
-        {
-            get { return GetPropertyValue("ArraySensor12").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor12", value); RaisePropertyChanged("ArraySensor12"); }
-        }
-        public bool ArraySensor13
-        {
-            get { return GetPropertyValue("ArraySensor13").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor13", value); RaisePropertyChanged("ArraySensor13"); }
-        }
-        public bool ArraySensor14
-        {
-            get { return GetPropertyValue("ArraySensor14").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor14", value); RaisePropertyChanged("ArraySensor14"); }
-        }
-        public bool ArraySensor15
-        {
-            get { return GetPropertyValue("ArraySensor15").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor15", value); RaisePropertyChanged("ArraySensor15"); }
-        }
-        public bool ArraySensor16
-        {
-            get { return GetPropertyValue("ArraySensor16").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor16", value); RaisePropertyChanged("ArraySensor16"); }
-        }
-        public bool ArraySensor17
-        {
-            get { return GetPropertyValue("ArraySensor17").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor17", value); RaisePropertyChanged("ArraySensor17"); }
-        }
-        public bool ArraySensor18
-        {
-            get { return GetPropertyValue("ArraySensor18").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor18", value); RaisePropertyChanged("ArraySensor18"); }
-        }
-        public bool ArraySensor19
-        {
-            get { return GetPropertyValue("ArraySensor19").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor19", value); RaisePropertyChanged("ArraySensor19"); }
-        }
-        public bool ArraySensor20
-        {
-            get { return GetPropertyValue("ArraySensor20").ToBoolean(); }
-            set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
-        }
+
+        //public bool ArraySensor1
+        //{
+        //    get { return GetPropertyValue("ArraySensor1").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor1", value); RaisePropertyChanged("ArraySensor1"); }
+        //}
+        //public bool ArraySensor2
+        //{
+        //    get { return GetPropertyValue("ArraySensor2").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor2", value); RaisePropertyChanged("ArraySensor2"); }
+        //}
+        //public bool ArraySensor3
+        //{
+        //    get { return GetPropertyValue("ArraySensor3").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor3", value); RaisePropertyChanged("ArraySensor3"); }
+        //}
+        //public bool ArraySensor4
+        //{
+        //    get { return GetPropertyValue("ArraySensor4").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor4", value); RaisePropertyChanged("ArraySensor4"); }
+        //}
+        //public bool ArraySensor5
+        //{
+        //    get { return GetPropertyValue("ArraySensor5").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor5", value); RaisePropertyChanged("ArraySensor5"); }
+        //}
+        //public bool ArraySensor6
+        //{
+        //    get { return GetPropertyValue("ArraySensor6").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor6", value); RaisePropertyChanged("ArraySensor6"); }
+        //}
+        //public bool ArraySensor7
+        //{
+        //    get { return GetPropertyValue("ArraySensor7").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor7", value); RaisePropertyChanged("ArraySensor7"); }
+        //}
+        //public bool ArraySensor8
+        //{
+        //    get { return GetPropertyValue("ArraySensor8").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor8", value); RaisePropertyChanged("ArraySensor8"); }
+        //}
+        //public bool ArraySensor9
+        //{
+        //    get { return GetPropertyValue("ArraySensor9").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor9", value); RaisePropertyChanged("ArraySensor9"); }
+        //}
+        //public bool ArraySensor10
+        //{
+        //    get { return GetPropertyValue("ArraySensor10").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor10", value); RaisePropertyChanged("ArraySensor10"); }
+        //}
+        //public bool ArraySensor11
+        //{
+        //    get { return GetPropertyValue("ArraySensor11").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor11", value); RaisePropertyChanged("ArraySensor11"); }
+        //}
+        //public bool ArraySensor12
+        //{
+        //    get { return GetPropertyValue("ArraySensor12").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor12", value); RaisePropertyChanged("ArraySensor12"); }
+        //}
+        //public bool ArraySensor13
+        //{
+        //    get { return GetPropertyValue("ArraySensor13").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor13", value); RaisePropertyChanged("ArraySensor13"); }
+        //}
+        //public bool ArraySensor14
+        //{
+        //    get { return GetPropertyValue("ArraySensor14").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor14", value); RaisePropertyChanged("ArraySensor14"); }
+        //}
+        //public bool ArraySensor15
+        //{
+        //    get { return GetPropertyValue("ArraySensor15").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor15", value); RaisePropertyChanged("ArraySensor15"); }
+        //}
+        //public bool ArraySensor16
+        //{
+        //    get { return GetPropertyValue("ArraySensor16").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor16", value); RaisePropertyChanged("ArraySensor16"); }
+        //}
+        //public bool ArraySensor17
+        //{
+        //    get { return GetPropertyValue("ArraySensor17").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor17", value); RaisePropertyChanged("ArraySensor17"); }
+        //}
+        //public bool ArraySensor18
+        //{
+        //    get { return GetPropertyValue("ArraySensor18").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor18", value); RaisePropertyChanged("ArraySensor18"); }
+        //}
+        //public bool ArraySensor19
+        //{
+        //    get { return GetPropertyValue("ArraySensor19").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor19", value); RaisePropertyChanged("ArraySensor19"); }
+        //}
+        //public bool ArraySensor20
+        //{
+        //    get { return GetPropertyValue("ArraySensor20").ToBoolean(); }
+        //    set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
+        //}
 
         public double LineAngle
         {

@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <converters:Int32ToStringConverter x:Key="Int32ToStringConverter" />
         <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+        <converters:ArrayConverter x:Key="ArrayConverter" />
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="Old">
@@ -35,26 +36,26 @@
             <StackPanel>
                 <TextBlock HorizontalAlignment="Center">Hall Effect Sensors</TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <CheckBox IsChecked="{Binding ArraySensor1}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor2}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor3}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor4}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor5}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor6}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor7}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor8}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor9}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor10}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor11}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor12}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor13}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor14}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor15}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor16}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor17}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor18}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor19}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor20}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[0], Converter={StaticResource ArrayConverter}}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[1], Converter={StaticResource ArrayConverter}}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[2]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[3]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[4]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[5]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[6]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[7]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[8]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[9]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[10]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[11]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[12]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[13]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[14]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[15]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[16]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[17]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[18]}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor[19]}"></CheckBox>
                 </StackPanel>
                 <TextBlock Text="Line Angle Computed:" HorizontalAlignment="Center"/>
                 <TextBlock Text="{Binding LineAngle, Converter={StaticResource DoubleToStringConverter}}" HorizontalAlignment="Center" FontWeight="Bold"/>

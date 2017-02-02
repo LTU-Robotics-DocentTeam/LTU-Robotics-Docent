@@ -62,6 +62,7 @@
     <Compile Include="Modules\Sensors\UltrasonicSensorModule.cs" />
     <Compile Include="Modules\SerialCommModule.cs" />
     <Compile Include="Modules\ViewModel.cs" />
+    <Compile Include="ValueConverters\ArrayConverter.cs" />
     <Compile Include="ValueConverters\DoubleToStringConverter.cs" />
     <Compile Include="ValueConverters\IntToStringConverter.cs" />
     <Compile Include="Views\DevView.xaml.cs">
