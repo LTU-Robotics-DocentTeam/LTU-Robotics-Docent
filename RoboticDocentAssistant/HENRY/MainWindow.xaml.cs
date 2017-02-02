@@ -36,6 +36,8 @@ namespace HENRY
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
 
+        ManualDrive mnd;
+
         public MainWindow()
         {
             hem = new HallEffectSensorModule();
@@ -43,6 +45,7 @@ namespace HENRY
             vm = new ViewModel();
             scm = new SerialCommModule();
             gsm = new GenericSensorModule();
+            mnd = new ManualDrive();
 
 
             
