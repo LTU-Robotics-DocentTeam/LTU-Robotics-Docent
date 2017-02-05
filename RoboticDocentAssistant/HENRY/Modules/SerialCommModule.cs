@@ -1,8 +1,8 @@
 ﻿using HENRY.ModuleSystem;
 using System;
+using System.IO.Ports;
 using System.Timers;
 using System.Windows.Forms;
-
 using TimersTimer = System.Timers.Timer;
 
 namespace HENRY.Modules
@@ -12,8 +12,23 @@ namespace HENRY.Modules
         TimersTimer t;
         Random r;
 
+        SerialPort serPort;
+        string ComPort = "COM4";
+        string signal = ""; // signal from the arduino. Perhaos pack all data as one long string, and then parse it?
+
         public SerialCommModule()
         {
+            // These are all Serial Port initializations. Comment out to be able to run program without serial comms
+            //====================================================================================================
+            //serPort = new SerialPort(ComPort);
+            //serPort.BaudRate = 9600;
+            //serPort.DataBits = 8;
+            //serPort.Parity = Parity.None;
+            //serPort.StopBits = StopBits.One;
+            //serPort.Open();
+            //serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
+            //====================================================================================================
+
             t = new TimersTimer();
             t.Interval = 1000;
             t.Elapsed += t_Elapsed;
@@ -21,6 +36,11 @@ namespace HENRY.Modules
 
             r = new Random();
 
+        }
+
+        void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            signal = serPort.ReadLine(); // Receiving Arduino data as one string
         }
 
         // Ok this is goofy I know, but this sort of emulates what the SerialCommModule
