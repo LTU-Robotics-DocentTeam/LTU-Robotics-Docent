@@ -161,6 +161,30 @@ namespace HENRY.Modules
             }
         }
 
+        public bool Forward
+        {
+            get { return GetPropertyValue("Forward").ToBoolean(); }
+            set { SetPropertyValue("Forward", value); RaisePropertyChanged("Forward"); }
+        }
+
+        public bool Backward
+        {
+            get { return GetPropertyValue("Backward").ToBoolean(); }
+            set { SetPropertyValue("Backward", value); RaisePropertyChanged("Backward"); }
+        }
+
+        public bool Right
+        {
+            get { return GetPropertyValue("Right").ToBoolean(); }
+            set { SetPropertyValue("Right", value); RaisePropertyChanged("Right"); }
+        }
+
+        public bool Left
+        {
+            get { return GetPropertyValue("Left").ToBoolean(); }
+            set { SetPropertyValue("Left", value); RaisePropertyChanged("Left"); }
+        }
+
         public bool ArraySensor1
         {
             get { return GetPropertyValue("ArraySensor1").ToBoolean(); }

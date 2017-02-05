@@ -48,7 +48,6 @@ namespace HENRY
             mnd = new ManualDrive();
 
 
-            
 
             InitializeComponent();
 
@@ -88,6 +87,37 @@ namespace HENRY
         private void userViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             userViewControl.DataContext = vm;
+        }
+
+        public void keyDownEventHandler(object sender, KeyEventArgs e)
+        {
+            if (vm.ManualDriveEnabled)
+            {
+                if (e.Key == Key.W)
+                    vm.Forward = true;
+                if (e.Key == Key.S)
+                    vm.Backward = true;
+                if (e.Key == Key.D)
+                    vm.Right = true;
+                if (e.Key == Key.A)
+                    vm.Left = true;
+
+            }
+        }
+
+        public void keyUpEventHandler(object sender, KeyEventArgs e)
+        {
+            if (vm.ManualDriveEnabled)
+            {
+                if (e.Key == Key.W)
+                    vm.Forward = false;
+                if (e.Key == Key.S)
+                    vm.Backward = false;
+                if (e.Key == Key.D)
+                    vm.Right = false;
+                if (e.Key == Key.A)
+                    vm.Left = false;
+            }
         }
 
         public class ThingClass : INotifyPropertyChanged

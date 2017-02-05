@@ -12,6 +12,10 @@ namespace HENRY.Modules
         public ManualDrive()
         {
             SetPropertyValue("ManualDriveEnabled", false);
+            SetPropertyValue("Forward", false);
+            SetPropertyValue("Backward", false);
+            SetPropertyValue("Right", false);
+            SetPropertyValue("Left", false);
         }
 
 

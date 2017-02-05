@@ -71,6 +71,13 @@
                 <Separator></Separator>
                 <TextBlock Text="Enable Manual Drive:" HorizontalAlignment="Center"/>
                 <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />
+                <TextBlock Text="Motion:" HorizontalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Forward}" HorizontalAlignment="Center"></CheckBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <CheckBox IsChecked="{Binding Left}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Backward}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Right}"></CheckBox>
+                </StackPanel>
             </StackPanel>
         </TabItem>
 
