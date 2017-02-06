@@ -20,17 +20,17 @@ namespace HENRY.Modules
         {
             // These are all Serial Port initializations. Comment out to be able to run program without serial comms
             //====================================================================================================
-            //serPort = new SerialPort(ComPort);
-            //serPort.BaudRate = 9600;
-            //serPort.DataBits = 8;
-            //serPort.Parity = Parity.None;
-            //serPort.StopBits = StopBits.One;
-            //serPort.Open();
-            //serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
+            serPort = new SerialPort(ComPort);
+            serPort.BaudRate = 9600;
+            serPort.DataBits = 8;
+            serPort.Parity = Parity.None;
+            serPort.StopBits = StopBits.One;
+            serPort.Open();
+            serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
             //====================================================================================================
 
             t = new TimersTimer();
-            t.Interval = 1000;
+            t.Interval = 400;
             t.Elapsed += t_Elapsed;
             t.Start();
 
@@ -91,6 +91,27 @@ namespace HENRY.Modules
                 {
                     SetPropertyValue("Impact" + i.ToString(), false);
                 }
+            }
+
+            if (GetPropertyValue("Forward").ToBoolean())
+            {
+                serPort.Write("A\n");
+            }
+            else if (GetPropertyValue("Backward").ToBoolean())
+            {
+                serPort.Write("B\n");
+            }
+            else if (GetPropertyValue("Right").ToBoolean())
+            {
+                serPort.Write("C\n");
+            }
+            else if (GetPropertyValue("Left").ToBoolean())
+            {
+                serPort.Write("D\n");
+            }
+            else
+            {
+                serPort.Write("S\n");
             }
         }
 
