@@ -65,6 +65,20 @@ namespace HENRY.Modules
         
         //There will be a ton here, but they are easy to copy and paste
 
+        public string ConnectionText
+        {
+            get
+            {
+                if (GetPropertyValue("Connection").ToBoolean())
+                {
+                    return "Connected";
+                }
+                else
+                {
+                    return "Disconnected";
+                }
+            }
+        }
 
         public int Generic_Sensor1
         {

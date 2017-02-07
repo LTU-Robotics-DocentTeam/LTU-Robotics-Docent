@@ -1,7 +1,9 @@
 ﻿using HENRY.ModuleSystem;
 using System;
+using System.IO;
 using System.IO.Ports;
 using System.Timers;
+using System.Windows;
 using System.Windows.Forms;
 using TimersTimer = System.Timers.Timer;
 
@@ -9,25 +11,32 @@ namespace HENRY.Modules
 {
     class SerialCommModule : LengarioModuleCore
     {
+        public enum Connection { Unknown, Disconnected, Connected };
+
+        public Connection robotConn;
+        
         TimersTimer t;
         Random r;
 
         SerialPort serPort;
-        string ComPort = "COM4";
+        
         string signal = ""; // signal from the arduino. Perhaos pack all data as one long string, and then parse it?
 
         public SerialCommModule()
         {
-            // These are all Serial Port initializations. Comment out to be able to run program without serial comms
+            // These are all Serial Port initializations. Exception handling allows for running without having to comment out
             //====================================================================================================
-            serPort = new SerialPort(ComPort);
+            robotConn = Connection.Unknown;
+            serPort = new SerialPort();
             serPort.BaudRate = 9600;
             serPort.DataBits = 8;
             serPort.Parity = Parity.None;
             serPort.StopBits = StopBits.One;
-            serPort.Open();
+            //serPort.Open();
             serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
             //====================================================================================================
+
+            ConnectBot();
 
             t = new TimersTimer();
             t.Interval = 400;
@@ -36,6 +45,45 @@ namespace HENRY.Modules
 
             r = new Random();
 
+        }
+
+        void ConnectBot()
+        {
+            string ComPort = string.Empty;
+            int i = 0;
+            while (robotConn == Connection.Unknown)
+            {
+                string[] ports = SerialPort.GetPortNames();
+
+                try
+                {
+                    serPort.PortName = ports[i];
+                }
+                catch (System.IndexOutOfRangeException e)
+                {
+                    if (System.Windows.MessageBox.Show("No robots found. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        robotConn = Connection.Disconnected;
+                    }
+                }
+                try
+                {
+                    serPort.Open();
+                }
+                catch (IOException e)
+                {
+                    i++;
+                    continue;
+                }
+                if (serPort.IsOpen)
+                {
+                    robotConn = Connection.Connected;
+                }
+            }
+            if (robotConn == Connection.Connected)
+                SetPropertyValue("Connection", true);
+            else
+                SetPropertyValue("Connection", false);
         }
 
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -93,26 +141,31 @@ namespace HENRY.Modules
                 }
             }
 
-            if (GetPropertyValue("Forward").ToBoolean())
+            if (robotConn == Connection.Connected)
             {
-                serPort.Write("A\n");
+                if (GetPropertyValue("Forward").ToBoolean())
+                {
+                    serPort.Write("A\n");
+                }
+                else if (GetPropertyValue("Backward").ToBoolean())
+                {
+                    serPort.Write("B\n");
+                }
+                else if (GetPropertyValue("Right").ToBoolean())
+                {
+                    serPort.Write("C\n");
+                }
+                else if (GetPropertyValue("Left").ToBoolean())
+                {
+                    serPort.Write("D\n");
+                }
+                else
+                {
+                    serPort.Write("S\n");
+                }
             }
-            else if (GetPropertyValue("Backward").ToBoolean())
-            {
-                serPort.Write("B\n");
-            }
-            else if (GetPropertyValue("Right").ToBoolean())
-            {
-                serPort.Write("C\n");
-            }
-            else if (GetPropertyValue("Left").ToBoolean())
-            {
-                serPort.Write("D\n");
-            }
-            else
-            {
-                serPort.Write("S\n");
-            }
+
+            
         }
 
 
