@@ -7,7 +7,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
         <Border x:Name="thingpanel"></Border>
         <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="1"></views:UserView>  

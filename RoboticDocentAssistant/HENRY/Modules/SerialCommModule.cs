@@ -21,6 +21,7 @@ namespace HENRY.Modules
         SerialPort serPort;
         
         string signal = ""; // signal from the arduino. Perhaos pack all data as one long string, and then parse it?
+        int prvr = 0, prvl = 0;
 
         public SerialCommModule()
         {
@@ -32,18 +33,19 @@ namespace HENRY.Modules
             serPort.DataBits = 8;
             serPort.Parity = Parity.None;
             serPort.StopBits = StopBits.One;
-            //serPort.Open();
             serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
             //====================================================================================================
 
             ConnectBot();
 
             t = new TimersTimer();
-            t.Interval = 400;
+            t.Interval = 50;
             t.Elapsed += t_Elapsed;
             t.Start();
 
             r = new Random();
+            SetPropertyValue("ArduinoData", "No Data In");
+
 
         }
 
@@ -88,7 +90,8 @@ namespace HENRY.Modules
 
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            signal = serPort.ReadLine(); // Receiving Arduino data as one string
+            signal += serPort.ReadLine(); // Receiving Arduino data as one string
+            
         }
 
         // Ok this is goofy I know, but this sort of emulates what the SerialCommModule
@@ -103,66 +106,77 @@ namespace HENRY.Modules
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
-            SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
-            SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
-            
-
-
-
-            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
-            int line = r.Next(0, ArrayNum); // pick a random sensor to place line
-
-            
-            
-            for (int i = 1; i <= ArrayNum; i++)
+            if (robotConn == Connection.Disconnected)
             {
-                if (i > line - 2 && i < line + 2)
-                    SetPropertyValue("ArraySensor" + i.ToString(), true);
-                else
-                    SetPropertyValue("ArraySensor" + i.ToString(), false);
-            }
-            for (int i = 1; i <= 8; i++)
-            {
-                SetPropertyValue("IR" + i.ToString(), r.NextDouble()*100.0);
-                SetPropertyValue("UltraS" + i.ToString(), r.NextDouble()*100.0);
-            }
+                SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
+                SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
+                SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
 
-            if (r.Next(0, 100) < 50)
-            {
-                SetPropertyValue("Impact" + r.Next(0, ImpactNum-1).ToString(), true);
-            }
-            else
-            {
-                for (int i = 1; i <= ImpactNum; i++)
+                int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
+                int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+                int line = r.Next(0, ArrayNum); // pick a random sensor to place line
+
+
+
+                for (int i = 1; i <= ArrayNum; i++)
                 {
-                    SetPropertyValue("Impact" + i.ToString(), false);
+                    if (i > line - 2 && i < line + 2)
+                        SetPropertyValue("ArraySensor" + i.ToString(), true);
+                    else
+                        SetPropertyValue("ArraySensor" + i.ToString(), false);
+                }
+                for (int i = 1; i <= 8; i++)
+                {
+                    SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
+                    SetPropertyValue("UltraS" + i.ToString(), r.NextDouble() * 100.0);
+                }
+
+                if (r.Next(0, 100) < 50)
+                {
+                    SetPropertyValue("Impact" + r.Next(0, ImpactNum - 1).ToString(), true);
+                }
+                else
+                {
+                    for (int i = 1; i <= ImpactNum; i++)
+                    {
+                        SetPropertyValue("Impact" + i.ToString(), false);
+                    }
                 }
             }
-
             if (robotConn == Connection.Connected)
             {
-                if (GetPropertyValue("Forward").ToBoolean())
+                if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
-                    serPort.Write("A\n");
+                    serPort.WriteLine("R:" + GetPropertyValue("RightMSpeed").ToString() + "L:" + GetPropertyValue("LeftMSpeed").ToString());
+                    prvr = GetPropertyValue("RightMSpeed").ToInt32();
+                    prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
-                else if (GetPropertyValue("Backward").ToBoolean())
-                {
-                    serPort.Write("B\n");
-                }
-                else if (GetPropertyValue("Right").ToBoolean())
-                {
-                    serPort.Write("C\n");
-                }
-                else if (GetPropertyValue("Left").ToBoolean())
-                {
-                    serPort.Write("D\n");
-                }
-                else
-                {
-                    serPort.Write("S\n");
-                }
+                    
+                
+
+                
+                //System.Windows.MessageBox.Show("Sending");
+                //SetPropertyValue("ArduinoData", signal);
+                //if (GetPropertyValue("Forward").ToBoolean())
+                //{
+                //    serPort.Write("A\n");
+                //}
+                //else if (GetPropertyValue("Backward").ToBoolean())
+                //{
+                //    serPort.Write("B\n");
+                //}
+                //else if (GetPropertyValue("Right").ToBoolean())
+                //{
+                //    serPort.Write("C\n");
+                //}
+                //else if (GetPropertyValue("Left").ToBoolean())
+                //{
+                //    serPort.Write("D\n");
+                //}
+                //else
+                //{
+                //    serPort.Write("S\n");
+                //}
             }
 
             

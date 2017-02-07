@@ -80,6 +80,19 @@ namespace HENRY.Modules
             }
         }
 
+        public string ArduinoData
+        {
+            get
+            {
+                return GetPropertyValue("ArduinoData").ToString();
+            }
+            set
+            {
+                SetPropertyValue("ArduinoData", value);
+                RaisePropertyChanged("ArduinoData");
+            }
+        }
+
         public int Generic_Sensor1
         {
             get
@@ -197,6 +210,17 @@ namespace HENRY.Modules
         {
             get { return GetPropertyValue("Left").ToBoolean(); }
             set { SetPropertyValue("Left", value); RaisePropertyChanged("Left"); }
+        }
+
+        public string RightMSpeed
+        {
+            get { return GetPropertyValue("RightMSpeed").ToString(); }
+            set { SetPropertyValue("RightMSpeed", value); RaisePropertyChanged("RightMSpeed"); }
+        }
+        public string LeftMSpeed
+        {
+            get { return GetPropertyValue("LeftMSpeed").ToString(); }
+            set { SetPropertyValue("LeftMSpeed", value); RaisePropertyChanged("LeftMSpeed"); }
         }
 
         public bool ArraySensor1

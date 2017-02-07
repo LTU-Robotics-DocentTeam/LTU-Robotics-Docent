@@ -35,6 +35,7 @@
             <StackPanel>
                 <TextBlock Text="Connection Status:" TextAlignment="Left"></TextBlock>
                 <TextBlock Text="{Binding ConnectionText}" TextAlignment="Left"></TextBlock>
+                <TextBlock Text="{Binding ArduinoData}" TextAlignment="Left"></TextBlock>
                 <TextBlock HorizontalAlignment="Center">Hall Effect Sensors</TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                     <CheckBox IsChecked="{Binding ArraySensor1}"></CheckBox>
@@ -79,6 +80,11 @@
                     <CheckBox IsChecked="{Binding Left}"></CheckBox>
                     <CheckBox IsChecked="{Binding Backward}"></CheckBox>
                     <CheckBox IsChecked="{Binding Right}"></CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding LeftMSpeed}" ></TextBlock>
+                    <TextBlock Text=" " ></TextBlock>
+                    <TextBlock Text="{Binding RightMSpeed}" ></TextBlock>
                 </StackPanel>
             </StackPanel>
         </TabItem>
