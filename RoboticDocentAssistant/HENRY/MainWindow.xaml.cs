@@ -47,8 +47,18 @@ namespace HENRY
             scm = new SerialCommModule();
             gsm = new GenericSensorModule();
 
-
             InitializeComponent();
+
+            if (vm.DevModeOn)
+            {
+                devViewControl.Visibility = System.Windows.Visibility.Visible;
+                userViewControl.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                devViewControl.Visibility = System.Windows.Visibility.Hidden;
+                userViewControl.Visibility = System.Windows.Visibility.Visible;
+            }
 
             //ThingClass t = new ThingClass();
             //t.SomeText = "bitch";
@@ -86,6 +96,11 @@ namespace HENRY
         private void userViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             userViewControl.DataContext = vm;
+        }
+
+        private void devViewControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            devViewControl.DataContext = vm;
         }
 
         public void keyDownEventHandler(object sender, KeyEventArgs e)
@@ -164,6 +179,8 @@ namespace HENRY
                 }
             }
         }
+
+        
         
     }
 }

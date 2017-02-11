@@ -65,6 +65,12 @@ namespace HENRY.Modules
         
         //There will be a ton here, but they are easy to copy and paste
 
+        public bool DevModeOn
+        {
+            get { return GetPropertyValue("DevModeOn").ToBoolean(); }
+            set { SetPropertyValue("DevModeOn", value); RaisePropertyChanged("DevModeOn"); }
+        }
+        
         public string ConnectionText
         {
             get

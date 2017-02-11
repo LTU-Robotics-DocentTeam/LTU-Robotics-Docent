@@ -45,6 +45,7 @@ namespace HENRY.Modules
 
             r = new Random();
             SetPropertyValue("ArduinoData", "No Data In");
+            SetPropertyValue("DevModeOn", true);
 
 
         }

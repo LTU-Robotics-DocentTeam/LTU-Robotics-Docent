@@ -10,6 +10,7 @@
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
         <Border x:Name="thingpanel"></Border>
-        <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="1"></views:UserView>  
+        <views:DevView x:Name="devViewControl" Loaded="devViewControl_Loaded" Grid.Row="1"></views:DevView>
+        <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="1"></views:UserView>
     </Grid>
 </Window>
