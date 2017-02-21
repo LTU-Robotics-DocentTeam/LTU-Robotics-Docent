@@ -330,6 +330,12 @@ namespace HENRY.Modules
             set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
         }
 
+        public string UltraS1
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS1").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS1", value); RaisePropertyChanged("UltraS1"); }
+        }
+
         public double LineAngle
         {
             get { return GetPropertyValue("LineAngle").ToDouble(); }

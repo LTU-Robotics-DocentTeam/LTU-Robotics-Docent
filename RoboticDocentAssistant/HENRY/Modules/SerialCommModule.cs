@@ -91,8 +91,29 @@ namespace HENRY.Modules
 
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            signal += serPort.ReadLine(); // Receiving Arduino data as one string
-            
+            signal = serPort.ReadLine(); // Receiving Arduino data as one string
+            int startin = signal.IndexOf('<');
+            int endin = signal.IndexOf('>');
+            int msglngth = endin - startin;
+            string msg = signal.Substring(startin+1, msglngth);
+            char key = msg[0];
+            string value = msg.Substring(1);
+
+            switch (key)
+            {
+                case 'H': 
+                    for (int i = 0; i < GetPropertyValue("ArrayNum").ToInt32(); i++ )
+                    {
+                        SetPropertyValue("ArrayNum" + (i + 1).ToString(), value[i]);
+                    }
+                        break;
+                case 'J': SetPropertyValue("UltraS1", value);
+                        break;
+                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!");
+                    break;
+
+            }
+
         }
 
         // Ok this is goofy I know, but this sort of emulates what the SerialCommModule
@@ -152,6 +173,8 @@ namespace HENRY.Modules
                     prvr = GetPropertyValue("RightMSpeed").ToInt32();
                     prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
+
+
                     
                 
 
