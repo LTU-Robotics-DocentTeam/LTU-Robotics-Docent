@@ -46,7 +46,7 @@
                     <CheckBox IsChecked="{Binding ArraySensor5}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor6}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor7}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor8}"></CheckBox>
+                    <!--<CheckBox IsChecked="{Binding ArraySensor8}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor9}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor10}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor11}"></CheckBox>
@@ -58,7 +58,7 @@
                     <CheckBox IsChecked="{Binding ArraySensor17}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor18}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor19}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor20}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor20}"></CheckBox>-->
                 </StackPanel>
                 <TextBlock Text="Line Angle Computed:" HorizontalAlignment="Center"/>
                 <TextBlock Text="{Binding LineAngle, Converter={StaticResource DoubleToStringConverter}}" HorizontalAlignment="Center" FontWeight="Bold"/>

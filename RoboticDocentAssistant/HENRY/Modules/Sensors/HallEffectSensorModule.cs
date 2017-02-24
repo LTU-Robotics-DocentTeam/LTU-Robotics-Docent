@@ -8,8 +8,8 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
         
-        const int ArrayNum = 20; // Number of sensors in hall effect array
-        double prevline = -1;
+        const int ArrayNum = 7; // Number of sensors in hall effect array (At 7 for testing purposes)
+        //double prevline = -1;
         
         public HallEffectSensorModule()
         {
@@ -46,19 +46,20 @@ namespace HENRY.Modules.Sensors
 
                 // if any three adjacent sensors are triggered, that means there's a line there.
                 // if on the first sensor or last sensor, check for current sensor and the only adjacent sensor available instead
-                if ((i != 0) && (i != ArrayNum-1))
-                    if (arr[i] && arr[i - 1] && arr[i + 1])
-                        lineloc = anglestep * (i + 1);
-                    else ;
-                else if ((i == 0))
-                    if (arr[i] && arr[i + 1])
-                        lineloc = anglestep * (i + 1);
-                    else ;
-                else if ((i == ArrayNum-1))
-                    if (arr[i] && arr[i - 1])
-                        lineloc = anglestep * (i + 1);
-                    else ;
-
+                //if ((i != 0) && (i != ArrayNum-1))
+                //    if (arr[i] && arr[i - 1] && arr[i + 1])
+                //        lineloc = anglestep * (i + 1);
+                //    else ;
+                //else if ((i == 0))
+                //    if (arr[i] && arr[i + 1])
+                //        lineloc = anglestep * (i + 1);
+                //    else ;
+                //else if ((i == ArrayNum-1))
+                //    if (arr[i] && arr[i - 1])
+                //        lineloc = anglestep * (i + 1);
+                //    else ;
+                if (arr[i])
+                    lineloc = anglestep * (i + 1);
 
 
                 //if ((arr[i] && arr[i - 1] && arr[i + 1] && (i != 0) && (i != ArrayNum)) || (arr[i] && arr[i + 1] && (i == 0)) || (arr[i] && arr[i - 1] && (i == ArrayNum)))

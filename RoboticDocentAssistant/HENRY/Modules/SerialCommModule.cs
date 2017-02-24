@@ -21,6 +21,7 @@ namespace HENRY.Modules
         SerialPort serPort;
         
         string signal = ""; // signal from the arduino. Perhaos pack all data as one long string, and then parse it?
+        string msg = "";
         int prvr = 0, prvl = 0;
 
         public SerialCommModule()
@@ -29,7 +30,7 @@ namespace HENRY.Modules
             //====================================================================================================
             robotConn = Connection.Unknown;
             serPort = new SerialPort();
-            serPort.BaudRate = 9600;
+            serPort.BaudRate = 115200;
             serPort.DataBits = 8;
             serPort.Parity = Parity.None;
             serPort.StopBits = StopBits.One;
@@ -95,7 +96,7 @@ namespace HENRY.Modules
             int startin = signal.IndexOf('<');
             int endin = signal.IndexOf('>');
             int msglngth = endin - startin;
-            string msg = signal.Substring(startin+1, msglngth);
+            msg = signal.Substring(startin+1, msglngth-1);
             char key = msg[0];
             string value = msg.Substring(1);
 
@@ -104,15 +105,29 @@ namespace HENRY.Modules
                 case 'H': 
                     for (int i = 0; i < GetPropertyValue("ArrayNum").ToInt32(); i++ )
                     {
-                        SetPropertyValue("ArrayNum" + (i + 1).ToString(), value[i]);
+                        if (value[i] == '1')
+                        {
+                            SetPropertyValue("ArraySensor" + (i + 1).ToString(), true);
+                        }
+                        else
+                        {
+                            SetPropertyValue("ArraySensor" + (i + 1).ToString(), false);
+                        }
+                        
                     }
                         break;
                 case 'J': SetPropertyValue("UltraS1", value);
+                        break;
+                case 'L': if (value == "0")
+                        {
+                            SetPropertyValue("EStop", true);
+                        }
                         break;
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!");
                     break;
 
             }
+            //signal = msg;
 
         }
 
@@ -180,7 +195,7 @@ namespace HENRY.Modules
 
                 
                 //System.Windows.MessageBox.Show("Sending");
-                //SetPropertyValue("ArduinoData", signal);
+                SetPropertyValue("ArduinoData", msg);
                 //if (GetPropertyValue("Forward").ToBoolean())
                 //{
                 //    serPort.Write("A\n");
