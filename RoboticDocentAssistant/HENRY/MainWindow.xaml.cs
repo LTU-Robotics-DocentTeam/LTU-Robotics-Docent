@@ -35,6 +35,8 @@ namespace HENRY
 
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
+        InfraredSensorModule irm;
+        UltrasonicSensorModule usm;
 
         ManualDrive mnd;
 
@@ -42,6 +44,8 @@ namespace HENRY
         {
             hem = new HallEffectSensorModule();
             ism = new ImpactSensorModule();
+            irm = new InfraredSensorModule();
+            usm = new UltrasonicSensorModule();
             vm = new ViewModel();
             mnd = new ManualDrive();
             scm = new SerialCommModule();

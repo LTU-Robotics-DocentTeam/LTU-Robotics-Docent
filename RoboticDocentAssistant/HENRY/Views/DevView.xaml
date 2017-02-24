@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:HENRY.Views" x:Class="HENRY.Views.DevView"
              xmlns:converters="clr-namespace:HENRY.ValueConverters"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="450">
+             d:DesignHeight="400" d:DesignWidth="450">
     <UserControl.Resources>
         <converters:Int32ToStringConverter x:Key="Int32ToStringConverter" />
         <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
     </UserControl.Resources>
     <TabControl>
-        <TabItem Header="Old">
+        <!--<TabItem Header="Old">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Margin="5">
                     <TextBlock Text="Sensor 1:" TextAlignment="Right"></TextBlock>
@@ -30,7 +30,7 @@
                     <CheckBox x:Name="multiplySetting" Content="Output * 1000" IsChecked="{Binding Generic_Multiply}"/>
                 </StackPanel>
             </StackPanel>
-        </TabItem>
+        </TabItem>-->
 
         <TabItem Header="Sensors">
             <StackPanel>
@@ -46,7 +46,7 @@
                     <CheckBox IsChecked="{Binding ArraySensor5}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor6}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor7}"></CheckBox>
-                    <!--<CheckBox IsChecked="{Binding ArraySensor8}"></CheckBox>
+                    <CheckBox IsChecked="{Binding ArraySensor8}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor9}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor10}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor11}"></CheckBox>
@@ -55,7 +55,7 @@
                     <CheckBox IsChecked="{Binding ArraySensor14}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor15}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor16}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor17}"></CheckBox>
+                    <!--<CheckBox IsChecked="{Binding ArraySensor17}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor18}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor19}"></CheckBox>
                     <CheckBox IsChecked="{Binding ArraySensor20}"></CheckBox>-->
@@ -63,17 +63,48 @@
                 <TextBlock Text="Line Angle Computed:" HorizontalAlignment="Center"/>
                 <TextBlock Text="{Binding LineAngle, Converter={StaticResource DoubleToStringConverter}}" HorizontalAlignment="Center" FontWeight="Bold"/>
                 <Separator></Separator>
+                <TextBlock Text="Infrared Sensors: " HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <CheckBox IsChecked="{Binding IR1}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox IsChecked="{Binding IR2}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox IsChecked="{Binding IR3}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox IsChecked="{Binding IR4}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox IsChecked="{Binding IR5}" HorizontalAlignment="Center"></CheckBox>
+                    <CheckBox IsChecked="{Binding IR6}" HorizontalAlignment="Center"></CheckBox>
+                </StackPanel>
+                <Separator></Separator>
                 <TextBlock Text="Impact Sensors:" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                     <CheckBox IsChecked="{Binding Impact1}"></CheckBox>
                     <CheckBox IsChecked="{Binding Impact2}"></CheckBox>
                     <CheckBox IsChecked="{Binding Impact3}"></CheckBox>
                     <CheckBox IsChecked="{Binding Impact4}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact5}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact6}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact7}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact8}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact9}"></CheckBox>
+                    <CheckBox IsChecked="{Binding Impact10}"></CheckBox>
                 </StackPanel>
                 <TextBlock Text="E Stop Triggered:" HorizontalAlignment="Center"/>
                 <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
+                <Separator></Separator>
                 <TextBlock Text="Ultrasonic:" HorizontalAlignment="Center"/>
-                <TextBlock Text="{Binding UltraS1}" HorizontalAlignment="Center"></TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text ="U1: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS1}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text =" U2: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS2}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text =" U3: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS3}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text =" U4: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS4}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text =" U5: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS5}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text =" U6: " HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding UltraS6}" HorizontalAlignment="Center"></TextBlock>
+                </StackPanel>
+                
                 <Separator></Separator>
                 <TextBlock Text="Enable Manual Drive:" HorizontalAlignment="Center"/>
                 <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />

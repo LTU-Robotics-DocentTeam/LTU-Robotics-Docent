@@ -329,19 +329,73 @@ namespace HENRY.Modules
             get { return GetPropertyValue("ArraySensor20").ToBoolean(); }
             set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
         }
-
-        public string UltraS1
-        {
-            get { return System.Math.Round(GetPropertyValue("UltraS1").ToDouble(), 1).ToString(); }
-            set { SetPropertyValue("UltraS1", value); RaisePropertyChanged("UltraS1"); }
-        }
-
         public double LineAngle
         {
             get { return GetPropertyValue("LineAngle").ToDouble(); }
             set { SetPropertyValue("LineAngle", value); RaisePropertyChanged("LineAngle"); }
         }
 
+        public string UltraS1
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS1").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS1", value); RaisePropertyChanged("UltraS1"); }
+        }
+        public string UltraS2
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS2").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS2", value); RaisePropertyChanged("UltraS2"); }
+        }
+        public string UltraS3
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS3").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS3", value); RaisePropertyChanged("UltraS3"); }
+        }
+        public string UltraS4
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS4").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS4", value); RaisePropertyChanged("UltraS4"); }
+        }
+        public string UltraS5
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS5").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS5", value); RaisePropertyChanged("UltraS5"); }
+        }
+        public string UltraS6
+        {
+            get { return System.Math.Round(GetPropertyValue("UltraS6").ToDouble(), 1).ToString(); }
+            set { SetPropertyValue("UltraS6", value); RaisePropertyChanged("UltraS6"); }
+        }
+
+        public bool IR1
+        {
+            get { return GetPropertyValue("IR1").ToBoolean(); }
+            set { SetPropertyValue("IR1", value); RaisePropertyChanged("IR1"); }
+        }
+        public bool IR2
+        {
+            get { return GetPropertyValue("IR2").ToBoolean(); }
+            set { SetPropertyValue("IR2", value); RaisePropertyChanged("IR2"); }
+        }
+        public bool IR3
+        {
+            get { return GetPropertyValue("IR3").ToBoolean(); }
+            set { SetPropertyValue("IR3", value); RaisePropertyChanged("IR3"); }
+        }
+        public bool IR4
+        {
+            get { return GetPropertyValue("IR4").ToBoolean(); }
+            set { SetPropertyValue("IR4", value); RaisePropertyChanged("IR4"); }
+        }
+        public bool IR5
+        {
+            get { return GetPropertyValue("IR5").ToBoolean(); }
+            set { SetPropertyValue("IR5", value); RaisePropertyChanged("IR5"); }
+        }
+        public bool IR6
+        {
+            get { return GetPropertyValue("IR6").ToBoolean(); }
+            set { SetPropertyValue("IR6", value); RaisePropertyChanged("IR6"); }
+        }
         public bool Impact1
         {
             get { return GetPropertyValue("Impact1").ToBoolean(); }
@@ -362,7 +416,36 @@ namespace HENRY.Modules
             get { return GetPropertyValue("Impact4").ToBoolean(); }
             set { SetPropertyValue("Impact4", value); RaisePropertyChanged("Impact4"); }
         }
-
+        public bool Impact5
+        {
+            get { return GetPropertyValue("Impact5").ToBoolean(); }
+            set { SetPropertyValue("Impact5", value); RaisePropertyChanged("Impact5"); }
+        }
+        public bool Impact6
+        {
+            get { return GetPropertyValue("Impact6").ToBoolean(); }
+            set { SetPropertyValue("Impact6", value); RaisePropertyChanged("Impact6"); }
+        }
+        public bool Impact7
+        {
+            get { return GetPropertyValue("Impact7").ToBoolean(); }
+            set { SetPropertyValue("Impact7", value); RaisePropertyChanged("Impact7"); }
+        }
+        public bool Impact8
+        {
+            get { return GetPropertyValue("Impact8").ToBoolean(); }
+            set { SetPropertyValue("Impact8", value); RaisePropertyChanged("Impact8"); }
+        }
+        public bool Impact9
+        {
+            get { return GetPropertyValue("Impact9").ToBoolean(); }
+            set { SetPropertyValue("Impact9", value); RaisePropertyChanged("Impact9"); }
+        }
+        public bool Impact10
+        {
+            get { return GetPropertyValue("Impact10").ToBoolean(); }
+            set { SetPropertyValue("Impact10", value); RaisePropertyChanged("Impact10"); }
+        }
         public bool EStop
         {
             get { return GetPropertyValue("EStop").ToBoolean(); }

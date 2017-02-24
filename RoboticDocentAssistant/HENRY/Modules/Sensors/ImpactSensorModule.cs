@@ -7,7 +7,7 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
 
-        const int ImpactNum = 4;
+        const int ImpactNum = 10;
         
         public ImpactSensorModule()
         {

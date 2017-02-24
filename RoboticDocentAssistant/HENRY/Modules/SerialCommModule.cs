@@ -145,12 +145,15 @@ namespace HENRY.Modules
         {
             if (robotConn == Connection.Disconnected)
             {
+                t.Interval = 500;
                 SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
                 SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
                 SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
 
                 int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
                 int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+                int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
+                int IRNum = GetPropertyValue("IRNum").ToInt32();
                 int line = r.Next(0, ArrayNum); // pick a random sensor to place line
 
 
@@ -162,21 +165,26 @@ namespace HENRY.Modules
                     else
                         SetPropertyValue("ArraySensor" + i.ToString(), false);
                 }
-                for (int i = 1; i <= 8; i++)
+                for (int i = 1; i <= UltraSNum; i++)
                 {
-                    SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
+                    //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
                     SetPropertyValue("UltraS" + i.ToString(), r.NextDouble() * 100.0);
                 }
 
                 if (r.Next(0, 100) < 50)
                 {
                     SetPropertyValue("Impact" + r.Next(0, ImpactNum - 1).ToString(), true);
+                    SetPropertyValue("IR" + r.Next(0, IRNum - 1).ToString(), true);
                 }
                 else
                 {
                     for (int i = 1; i <= ImpactNum; i++)
                     {
                         SetPropertyValue("Impact" + i.ToString(), false);
+                    }
+                    for (int i = 1 ; i <= IRNum; i++)
+                    {
+                        SetPropertyValue("IR" + i.ToString(), false);
                     }
                 }
             }
