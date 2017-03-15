@@ -331,38 +331,38 @@ namespace HENRY.Modules
         }
         public double LineAngle
         {
-            get { return GetPropertyValue("LineAngle").ToDouble(); }
+            get { return System.Math.Round(GetPropertyValue("LineAngle").ToDouble(), 1); }
             set { SetPropertyValue("LineAngle", value); RaisePropertyChanged("LineAngle"); }
         }
 
-        public string UltraS1
+        public double UltraS1
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS1").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS1").ToDouble(), 1); }
             set { SetPropertyValue("UltraS1", value); RaisePropertyChanged("UltraS1"); }
         }
-        public string UltraS2
+        public double UltraS2
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS2").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS2").ToDouble(), 1); }
             set { SetPropertyValue("UltraS2", value); RaisePropertyChanged("UltraS2"); }
         }
-        public string UltraS3
+        public double UltraS3
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS3").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS3").ToDouble(), 1); }
             set { SetPropertyValue("UltraS3", value); RaisePropertyChanged("UltraS3"); }
         }
-        public string UltraS4
+        public double UltraS4
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS4").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS4").ToDouble(), 1); }
             set { SetPropertyValue("UltraS4", value); RaisePropertyChanged("UltraS4"); }
         }
-        public string UltraS5
+        public double UltraS5
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS5").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS5").ToDouble(), 1); }
             set { SetPropertyValue("UltraS5", value); RaisePropertyChanged("UltraS5"); }
         }
-        public string UltraS6
+        public double UltraS6
         {
-            get { return System.Math.Round(GetPropertyValue("UltraS6").ToDouble(), 1).ToString(); }
+            get { return System.Math.Round(GetPropertyValue("UltraS6").ToDouble(), 1); }
             set { SetPropertyValue("UltraS6", value); RaisePropertyChanged("UltraS6"); }
         }
 

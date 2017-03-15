@@ -4,13 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HENRY.ValueConverters"
-             mc:Ignorable="d" 
+             Loaded="Window_Loaded" mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="450">
+    <UserControl.Background>
+        <ImageBrush ImageSource="Images/BG.jpg" />
+    </UserControl.Background>
     <UserControl.Resources>
-        <converters:Int32ToStringConverter x:Key="Int32ToStringConverter" />
-        <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+        <!-- Start Fade -->
+        <Storyboard x:Key="FadeIn" >
+            <DoubleAnimation Duration="0:0:.25" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+        </Storyboard>
+        <Storyboard x:Key="FadeOut">
+            <DoubleAnimation Duration="0:0:.5" Storyboard.TargetProperty="Opacity" To="0" />
+        </Storyboard>
+        <!-- End Fade -->
     </UserControl.Resources>
-    <TextBlock Text="Nothing to see here..." ></TextBlock>
+
+    <Canvas Width="1024" Height="768">
+        <Image x:Name="myImage" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1024" Height="768">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="0" Y="0" />
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="myImage2" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1024" Height="768">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="0" Y="0" />
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBlock TextWrapping="Wrap" x:Name="ErrorText" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" Visibility="Collapsed" Text="The specified folder does not exist" FontSize="20" />
+    </Canvas>
 
 
 </UserControl>
