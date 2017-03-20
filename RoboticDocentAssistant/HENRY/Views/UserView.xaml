@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HENRY.ValueConverters"
              Loaded="Window_Loaded" mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="450">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Background>
         <ImageBrush ImageSource="Images/BG.jpg" />
     </UserControl.Background>
@@ -20,15 +20,15 @@
         <!-- End Fade -->
     </UserControl.Resources>
 
-    <Canvas Width="1024" Height="768">
-        <Image x:Name="myImage" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1024" Height="768">
+    <Canvas Width="1280" Height="720" d:IsHidden="True">
+        <Image x:Name="myImage" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1280" Height="720">
             <Image.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform X="0" Y="0" />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="myImage2" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1024" Height="768">
+        <Image x:Name="myImage2" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1280" Height="720">
             <Image.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform X="0" Y="0" />
