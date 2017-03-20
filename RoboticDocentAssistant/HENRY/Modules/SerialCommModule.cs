@@ -38,15 +38,16 @@ namespace HENRY.Modules
             //====================================================================================================
 
             ConnectBot();
+            SetPropertyValue("ArduinoData", "No Data In");
+            SetPropertyValue("DevModeOn", false);
 
             t = new TimersTimer();
-            t.Interval = 50;
+            t.Interval = 10;
             t.Elapsed += t_Elapsed;
             t.Start();
 
             r = new Random();
-            SetPropertyValue("ArduinoData", "No Data In");
-            SetPropertyValue("DevModeOn", true);
+            
 
 
         }
@@ -92,6 +93,11 @@ namespace HENRY.Modules
 
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
+            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
+            int IRNum = GetPropertyValue("IRNum").ToInt32();
+            
             signal = serPort.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
             int endin = signal.IndexOf('>');
@@ -102,32 +108,69 @@ namespace HENRY.Modules
 
             switch (key)
             {
-                case 'H': 
-                    for (int i = 0; i < GetPropertyValue("ArrayNum").ToInt32(); i++ )
+                case 'H': // Hall Effect sensors
+                    for (int i = 0; i < ArrayNum; i++ )
                     {
                         if (value[i] == '1')
                         {
                             SetPropertyValue("ArraySensor" + (i + 1).ToString(), true);
                         }
-                        else
+                        else if (value[i] == '0')
                         {
                             SetPropertyValue("ArraySensor" + (i + 1).ToString(), false);
                         }
-                        
                     }
                         break;
+                case 'I': // Infrared Sensors
+                    for (int i = 0; i < IRNum; i++)
+                    {
+                        if (value[i] == '1')
+                        {
+                            SetPropertyValue("IR" + (i + 1).ToString(), true);
+                        }
+                        else if (value[i] == '0')
+                        {
+                            SetPropertyValue("IR" + (i + 1).ToString(), false);
+                        }
+                    }
+                    break;
+                case 'B': // Impact Sensors
+                    for (int i = 0; i < ImpactNum; i++)
+                    {
+                        if (value[i] == '1')
+                        {
+                            SetPropertyValue("Impact" + (i + 1).ToString(), true);
+                        }
+                        else if (value[i] == '0')
+                        {
+                            SetPropertyValue("Impact" + (i + 1).ToString(), false);
+                        }
+                    }
+                    break;
+                // Ultrasonic Sensors========================
                 case 'J': SetPropertyValue("UltraS1", value);
                         break;
-                case 'L': if (value == "0")
-                        {
-                            SetPropertyValue("EStop", true);
-                        }
+                case 'K': SetPropertyValue("UltraS2", value);
                         break;
+                case 'P': SetPropertyValue("UltraS3", value);
+                        break;
+                case 'V': SetPropertyValue("UltraS4", value);
+                        break;
+                case 'N': SetPropertyValue("UltraS5", value);
+                        break;
+                case 'M': SetPropertyValue("UltraS6", value);
+                        break;
+                // ==========================================
+                // Motor Values =================================
+                case 'L': SetPropertyValue("LeftMSpeed", value);
+                        break;
+                case 'R': SetPropertyValue("RightMSpeed", value);
+                        break;
+                // ==============================================
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!");
                     break;
 
             }
-            //signal = msg;
 
         }
 
@@ -192,38 +235,11 @@ namespace HENRY.Modules
             {
                 if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
-                    serPort.WriteLine("R:" + GetPropertyValue("RightMSpeed").ToString() + "L:" + GetPropertyValue("LeftMSpeed").ToString());
+                    serPort.WriteLine("<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">");
                     prvr = GetPropertyValue("RightMSpeed").ToInt32();
                     prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
-
-
-                    
-                
-
-                
-                //System.Windows.MessageBox.Show("Sending");
                 SetPropertyValue("ArduinoData", msg);
-                //if (GetPropertyValue("Forward").ToBoolean())
-                //{
-                //    serPort.Write("A\n");
-                //}
-                //else if (GetPropertyValue("Backward").ToBoolean())
-                //{
-                //    serPort.Write("B\n");
-                //}
-                //else if (GetPropertyValue("Right").ToBoolean())
-                //{
-                //    serPort.Write("C\n");
-                //}
-                //else if (GetPropertyValue("Left").ToBoolean())
-                //{
-                //    serPort.Write("D\n");
-                //}
-                //else
-                //{
-                //    serPort.Write("S\n");
-                //}
             }
 
             
