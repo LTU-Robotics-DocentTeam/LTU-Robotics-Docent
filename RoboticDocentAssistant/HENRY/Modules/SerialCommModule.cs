@@ -20,13 +20,12 @@ namespace HENRY.Modules
 
         SerialPort serPort;
         
-        string signal = ""; // signal from the arduino. Perhaos pack all data as one long string, and then parse it?
-        string msg = "";
+        string signal = "", msg = "";
         int prvr = 0, prvl = 0;
 
         public SerialCommModule()
         {
-            // These are all Serial Port initializations. Exception handling allows for running without having to comment out
+            // These are all Serial Port initializations
             //====================================================================================================
             robotConn = Connection.Unknown;
             serPort = new SerialPort();
@@ -37,9 +36,10 @@ namespace HENRY.Modules
             serPort.DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
             //====================================================================================================
 
-            ConnectBot();
+            ConnectBot(); // Function that handles robot connection initialization
             SetPropertyValue("ArduinoData", "No Data In");
-            SetPropertyValue("DevModeOn", false);
+            SetPropertyValue("DevModeOn", true);
+            SetPropertyValue("UserModeOn", false);
 
             t = new TimersTimer();
             t.Interval = 10;
@@ -150,8 +150,8 @@ namespace HENRY.Modules
                     }
                     break;
                 // Ultrasonic Sensors========================
-                //Load serial data into ultrasonic objects,  each sensor is its own object
-                case 'J': SetPropertyValue("UltraS1", value);
+                //Load serial data into ultrasonic objects,  each sensor is its own object and his its own key
+                case 'J': SetPropertyValue("UltraS1", value); // saves the incoming value to the corresponding sensor object 
                         break;
                 case 'K': SetPropertyValue("UltraS2", value);
                         break;
@@ -171,22 +171,23 @@ namespace HENRY.Modules
                 case 'R': SetPropertyValue("RightMSpeed", value);
                         break;
                 // ==============================================
+                case 'U': 
+                    if (value == "1")
+                    {
+                        SetPropertyValue("DevModeOn", false);
+                        SetPropertyValue("UserModeOn", true);
+                    }
+                    else if (value == "0")
+                    {
+                        SetPropertyValue("DevModeOn", true);
+                        SetPropertyValue("UserModeOn", false);
+                    }
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!"); //Catch statement
                     break;
 
             }
 
         }
-
-        // Ok this is goofy I know, but this sort of emulates what the SerialCommModule
-        // would do, take in data and assign it to various properties. This example uses
-        // a timer event to trigger random property writes. When implementing the real
-        // thing we can swap the timer for the real serial port read event.
-
-        // Note: It is legal for this module to write to Properties it doesn't own, because
-        // it inherits the LengarioModuleCore. The only Core Modules we will need are probably this
-        // one, the ViewModel, and maybe a main navigation/control one that uses the finished
-        // and refined data from all of the Auxiliary Modules.
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {

@@ -70,6 +70,12 @@ namespace HENRY.Modules
             get { return GetPropertyValue("DevModeOn").ToBoolean(); }
             set { SetPropertyValue("DevModeOn", value); RaisePropertyChanged("DevModeOn"); }
         }
+
+        public bool UserModeOn
+        {
+            get { return GetPropertyValue("UserModeOn").ToBoolean(); }
+            set { SetPropertyValue("UserModeOn", value); RaisePropertyChanged("UserModeOn"); }
+        }
         
         public string ConnectionText
         {

@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <converters:Int32ToStringConverter x:Key="Int32ToStringConverter" />
         <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+        <BooleanToVisibilityConverter x:Key="BooltoVisConverter" />
     </UserControl.Resources>
     <TabControl>
         <!--<TabItem Header="Old">

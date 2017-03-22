@@ -42,6 +42,7 @@ namespace HENRY
 
         public MainWindow()
         {
+            // 
             hem = new HallEffectSensorModule();
             ism = new ImpactSensorModule();
             irm = new InfraredSensorModule();
@@ -51,49 +52,22 @@ namespace HENRY
             scm = new SerialCommModule();
             gsm = new GenericSensorModule();
 
+            
+
             InitializeComponent();
+            
+            MWindow.DataContext = vm;
 
-            if (vm.DevModeOn)
-            {
-                devViewControl.Visibility = System.Windows.Visibility.Visible;
-                userViewControl.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-            {
-                devViewControl.Visibility = System.Windows.Visibility.Hidden;
-                userViewControl.Visibility = System.Windows.Visibility.Visible;
-            }
-
-            //ThingClass t = new ThingClass();
-            //t.SomeText = "bitch";
-            //t.SomeDic = new Dictionary<string, string>();
-            //t.SomeDic.Add("egg", "poop");
-
-
-            //TextBlock b = new TextBlock();
-
-            //Binding binding = new Binding();
-            //binding.Path = new PropertyPath("SomeDic[1]");
-            //binding.Source = t;  // view model?
-
-            //BindingOperations.SetBinding(b, TextBlock.TextProperty, binding);
-
-
-            //thingpanel.Child = b;
-
-            //t.SomeText = "bitch2";
-
-
-
-            //Dictionary<string, LengarioModuleProperty> thing = LengarioModuleBase.GetTheBin();
-
-            //String stringthing = "";
-
-            //foreach(KeyValuePair<string, LengarioModuleProperty> i in thing)
+            //if (vm.DevModeOn)
             //{
-            //    stringthing += i.Key + Environment.NewLine;
+            //    devViewControl.Visibility = System.Windows.Visibility.Visible;
+            //    userViewControl.Visibility = System.Windows.Visibility.Hidden;
             //}
-            //MessageBox.Show(stringthing);
+            //else
+            //{
+            //    devViewControl.Visibility = System.Windows.Visibility.Hidden;
+            //    userViewControl.Visibility = System.Windows.Visibility.Visible;
+            //}
 
         }
 
