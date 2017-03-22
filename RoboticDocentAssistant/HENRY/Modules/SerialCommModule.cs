@@ -106,10 +106,12 @@ namespace HENRY.Modules
             char key = msg[0];
             string value = msg.Substring(1);
 
+            //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
+
             switch (key)
             {
                 case 'H': // Hall Effect sensors
-                    for (int i = 0; i < ArrayNum; i++ )
+                    for (int i = 0; i < ArrayNum; i++ ) //Load serial data into hall array properties, each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -122,7 +124,7 @@ namespace HENRY.Modules
                     }
                         break;
                 case 'I': // Infrared Sensors
-                    for (int i = 0; i < IRNum; i++)
+                        for (int i = 0; i < IRNum; i++)//Load serial data into infrared objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -135,7 +137,7 @@ namespace HENRY.Modules
                     }
                     break;
                 case 'B': // Impact Sensors
-                    for (int i = 0; i < ImpactNum; i++)
+                    for (int i = 0; i < ImpactNum; i++)//Load serial data into impact sensor objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -148,6 +150,7 @@ namespace HENRY.Modules
                     }
                     break;
                 // Ultrasonic Sensors========================
+                //Load serial data into ultrasonic objects,  each sensor is its own object
                 case 'J': SetPropertyValue("UltraS1", value);
                         break;
                 case 'K': SetPropertyValue("UltraS2", value);
@@ -162,12 +165,13 @@ namespace HENRY.Modules
                         break;
                 // ==========================================
                 // Motor Values =================================
+                //Load serial data into motor objects,  each motor is its own object
                 case 'L': SetPropertyValue("LeftMSpeed", value);
                         break;
                 case 'R': SetPropertyValue("RightMSpeed", value);
                         break;
                 // ==============================================
-                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!");
+                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!"); //Catch statement
                     break;
 
             }
