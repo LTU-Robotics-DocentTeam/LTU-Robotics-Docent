@@ -13,25 +13,6 @@
         <BooleanToVisibilityConverter x:Key="BooltoVisConverter" />
     </UserControl.Resources>
     <TabControl>
-        <!--<TabItem Header="Old">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="5">
-                    <TextBlock Text="Sensor 1:" TextAlignment="Right"></TextBlock>
-                    <TextBlock Text="Sensor 2:" TextAlignment="Right"></TextBlock>
-                    <TextBlock Text="Sensor 3:" TextAlignment="Right"></TextBlock>
-                    <TextBlock Text="(S1+S2+S3) Output 1:" TextAlignment="Right"></TextBlock>
-                    <TextBlock Text="Multiply Setting:" TextAlignment="Right"></TextBlock>
-
-                </StackPanel>
-                <StackPanel Margin="5">
-                    <TextBlock x:Name="sensor1" Text="{Binding Generic_Sensor1, Converter={StaticResource Int32ToStringConverter}}"></TextBlock>
-                    <TextBlock x:Name="sensor2" Text="{Binding Generic_Sensor2, Converter={StaticResource Int32ToStringConverter}}"></TextBlock>
-                    <TextBlock x:Name="sensor3" Text="{Binding Generic_Sensor3, Converter={StaticResource Int32ToStringConverter}}"></TextBlock>
-                    <TextBlock x:Name="output1" Text="{Binding Generic_Output1, Converter={StaticResource Int32ToStringConverter}}"></TextBlock>
-                    <CheckBox x:Name="multiplySetting" Content="Output * 1000" IsChecked="{Binding Generic_Multiply}"/>
-                </StackPanel>
-            </StackPanel>
-        </TabItem>-->
 
         <TabItem Header="Sensors">
             <StackPanel>

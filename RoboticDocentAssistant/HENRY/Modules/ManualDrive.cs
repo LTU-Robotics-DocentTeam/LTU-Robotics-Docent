@@ -11,9 +11,12 @@ namespace HENRY.Modules
     class ManualDrive : LengarioModuleCore
     {
         TimersTimer t;
+        const int spd = 20; // Current speed for robot movement (CANNOT EXCEED MAXSPEED)
+        const int MAXSPEED = 180; // Maximum speed the motors can take (based on regular servo code) DO NOT CHANGE
         
         public ManualDrive()
         {
+            // Initialize properties to default
             SetPropertyValue("ManualDriveEnabled", false);
             SetPropertyValue("Forward", false);
             SetPropertyValue("Backward", false);
@@ -21,41 +24,52 @@ namespace HENRY.Modules
             SetPropertyValue("Left", false);
             SetPropertyValue("RightMSpeed", 0);
             SetPropertyValue("LeftMSpeed", 0);
+
+            // Set processing timer for module
             t = new TimersTimer();
-            t.Interval = 20;
+            t.Interval = 1;
             t.Elapsed += t_Elapsed;
             t.Start();
         }
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            // If no keys are pressed, set both speeds to 0
             int rmspeed = 0;
             int lmspeed = 0;
-            if (GetPropertyValue("Forward").ToBoolean())
-            {
-                rmspeed += 90;
-                lmspeed += 90;
-            }
-            if (GetPropertyValue("Right").ToBoolean())
-            {
-                rmspeed -= 90;
-                lmspeed += 90;
-            }
-            if (GetPropertyValue("Left").ToBoolean())
-            {
-                rmspeed += 90;
-                lmspeed -= 90;
-            }
-            if (rmspeed < 0)
-                rmspeed = 0;
-            if (rmspeed > 180)
-                rmspeed = 180;
-            if (lmspeed < 0)
-                lmspeed = 0;
-            if (lmspeed > 180)
-                lmspeed = 180;
-            
 
+            if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
+            {
+                rmspeed += spd;
+                lmspeed += spd;
+            }
+            if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
+            {
+                rmspeed -= spd;
+                lmspeed -= spd;
+            }
+            if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
+            {
+                rmspeed -= spd / 2;
+                lmspeed += spd / 2;
+            }
+            if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
+            {
+                rmspeed += spd / 2;
+                lmspeed -= spd / 2;
+            }
+
+            // Ensure total speed does not exceed MAXSPEED
+            if (rmspeed < -MAXSPEED)
+                rmspeed = -MAXSPEED;
+            if (rmspeed > MAXSPEED)
+                rmspeed = MAXSPEED;
+            if (lmspeed < -MAXSPEED)
+                lmspeed = -MAXSPEED;
+            if (lmspeed > MAXSPEED)
+                lmspeed = MAXSPEED;
+            
+            //Update current property value
             SetPropertyValue("RightMSpeed", rmspeed);
             SetPropertyValue("LeftMSpeed", lmspeed);
         }

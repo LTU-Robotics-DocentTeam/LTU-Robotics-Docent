@@ -20,8 +20,9 @@ namespace HENRY.Modules
 
         SerialPort serPort;
         
-        string signal = "", msg = "";
+        string signal = "", msg = "", msg2rob = "";
         int prvr = 0, prvl = 0;
+        bool prestop = false;
 
         public SerialCommModule()
         {
@@ -52,6 +53,9 @@ namespace HENRY.Modules
 
         }
 
+        // This function handles the process of connecting to the microcontrollers 
+        // TO-DO:
+        // * Add second microcontroller and manual controller
         void ConnectBot()
         {
             string ComPort = string.Empty;
@@ -91,8 +95,13 @@ namespace HENRY.Modules
                 SetPropertyValue("Connection", false);
         }
 
+        // Function that fires everytime Serial Data is received and parses the incoming data. Reads through incoming
+        // messages and assigns values to their corresponding property based on the Key
+
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
+            // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
             int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
             int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
             int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
@@ -101,6 +110,10 @@ namespace HENRY.Modules
             signal = serPort.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
             int endin = signal.IndexOf('>');
+            if (startin < 0 || endin < 0)
+            {
+                return;
+            }
             int msglngth = endin - startin;
             msg = signal.Substring(startin+1, msglngth-1);
             char key = msg[0];
@@ -110,7 +123,7 @@ namespace HENRY.Modules
 
             switch (key)
             {
-                case 'H': // Hall Effect sensors
+                case 'H': // Hall Effect sensors: Data comes as a binary string
                     for (int i = 0; i < ArrayNum; i++ ) //Load serial data into hall array properties, each sensor is its own object
                     {
                         if (value[i] == '1')
@@ -123,7 +136,7 @@ namespace HENRY.Modules
                         }
                     }
                         break;
-                case 'I': // Infrared Sensors
+                case 'I': // Infrared Sensors: Binary string
                         for (int i = 0; i < IRNum; i++)//Load serial data into infrared objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
@@ -136,7 +149,7 @@ namespace HENRY.Modules
                         }
                     }
                     break;
-                case 'B': // Impact Sensors
+                case 'B': // Impact Sensors: Binary string
                     for (int i = 0; i < ImpactNum; i++)//Load serial data into impact sensor objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
@@ -150,7 +163,7 @@ namespace HENRY.Modules
                     }
                     break;
                 // Ultrasonic Sensors========================
-                //Load serial data into ultrasonic objects,  each sensor is its own object and his its own key
+                //Load serial data into ultrasonic objects,  each sensor is its own object and his its own key. Data is a double
                 case 'J': SetPropertyValue("UltraS1", value); // saves the incoming value to the corresponding sensor object 
                         break;
                 case 'K': SetPropertyValue("UltraS2", value);
@@ -165,13 +178,13 @@ namespace HENRY.Modules
                         break;
                 // ==========================================
                 // Motor Values =================================
-                //Load serial data into motor objects,  each motor is its own object
+                //Load serial data into motor objects,  each motor is its own object. Data is a double
                 case 'L': SetPropertyValue("LeftMSpeed", value);
                         break;
                 case 'R': SetPropertyValue("RightMSpeed", value);
                         break;
                 // ==============================================
-                case 'U': 
+                case 'U': // User View ON?: Determines which View is active at the moment
                     if (value == "1")
                     {
                         SetPropertyValue("DevModeOn", false);
@@ -182,6 +195,17 @@ namespace HENRY.Modules
                         SetPropertyValue("DevModeOn", true);
                         SetPropertyValue("UserModeOn", false);
                     }
+                    break;
+                case 'E': // E-Stop signal - doesn't override the physical E-stop but the board requires an ok from the computer to go. might change that
+                    if (value == "1")
+                    {
+                        SetPropertyValue("EStop", true);
+                    }
+                    else if (value == "0")
+                    {
+                        SetPropertyValue("EStop", false);
+                    }
+                    break;
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " does not exist!"); //Catch statement
                     break;
 
@@ -189,6 +213,9 @@ namespace HENRY.Modules
 
         }
 
+        // Function that handles all data sending on a timer if the robot is connected, else it generates random data
+        // for visualization
+        // 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (robotConn == Connection.Disconnected)
@@ -240,11 +267,23 @@ namespace HENRY.Modules
             {
                 if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
-                    serPort.WriteLine("<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">");
+                    msg2rob = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
                     prvr = GetPropertyValue("RightMSpeed").ToInt32();
                     prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
-                SetPropertyValue("ArduinoData", msg);
+                if (prestop != GetPropertyValue("EStop").ToBoolean())
+                {
+                    msg2rob = "<E" + GetPropertyValue("EStop").ToInt32() + ">";
+                    prestop = GetPropertyValue("EStop").ToBoolean();
+                }
+                
+                if (msg2rob != "")
+                {
+                    serPort.WriteLine(msg2rob);
+                    SetPropertyValue("ArduinoData", msg2rob);
+                    msg2rob = "";
+                }
+                
             }
 
             
