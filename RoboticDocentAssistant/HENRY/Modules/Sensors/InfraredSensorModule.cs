@@ -3,6 +3,12 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
+    /// <summary>
+    /// Infrared sensor secondary processing. 
+    /// </summary>
+    /// TO DO:
+    /// - Delete? Might not even use infrareds
+    /// - Find use for it
     class InfraredSensorModule : LengarioModuleAuxiliary
     {
         //Timer t;

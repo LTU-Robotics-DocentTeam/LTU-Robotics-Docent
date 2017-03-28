@@ -4,12 +4,18 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
+    /// <summary>
+    /// Hall effect secondary processing module. Takes raw boolean inputs from the sensor array and determines
+    /// line angle with respect to the robot
+    /// </summary>
+    /// TO DO:
+    /// - Update line following to work with the clusters of two arrangement
     class HallEffectSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
         
-        const int ArrayNum = 7; // Number of sensors in hall effect array (At 7 for testing purposes)
-        //double prevline = -1;
+        const int ArrayNum = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
+        const int ClusterSize = 2; // Number of sensors per cluster
         
         public HallEffectSensorModule()
         {
@@ -18,7 +24,9 @@ namespace HENRY.Modules.Sensors
 
             SetPropertyValue("ArrayNum", ArrayNum);
 
-            //0 is Hard left, 90 is straight on
+            //0 is Hard left, 90 is straight on (Can be avoided, See comment below)
+            // ^ Load array backwards to make visualization more intuitive (i.e. 0 is hard right,
+            //   90 is straight on, 180 is hard left)
             SetPropertyValue("LineAngle", 0.0);
 
             t = new Timer();
@@ -27,59 +35,56 @@ namespace HENRY.Modules.Sensors
             t.Start();
         }
 
+        /// <summary>
+        /// Process hall effect sensor data. Determine line direction based on state of the Hall effect array.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            //int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-            bool[] arr = new bool[ArrayNum];
-            double anglestep = 180.0 / ArrayNum;
+            bool[] arr = new bool[ArrayNum]; // Boolean array that represents full hall effect array
+                                             // Each unit represents a sensor
+            bool[] clarr = new bool[ArrayNum / ClusterSize]; // Boolean array that represents full cluster array
+                                                             // Each unit represents a cluster, not a single sensor
+            double anglestep = 180.0 / (ArrayNum / ClusterSize); // Set angle step to match number of clusters in array
             double lineloc = -1; // start as negative number, so if no line is found, a negative number is sent to main module
                                  // Negative number means error state in nav module, so no line
-
-            for (int i = 0; i < ArrayNum; i++)
+            
+            // Fill in array of clusters from raw data. Uses clustersize variable, but in reality can only really work
+            // with clusters of two the way its set up. Loads backwards so visual representation matches actual arrangement
+            //-------------------------------------------------------------------------------------------------------------
+            // Patrick, feel free to use what I got so far or use your own method. 
+            for (int i = (ArrayNum / ClusterSize) - 1; i >= 0; i -= ClusterSize)
             {
-                arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
+                // Load data adjacent sensors in clusters of two 
+                arr[i * ClusterSize] = GetPropertyValue("ArraySensor" + (i * ClusterSize + 1).ToString()).ToBoolean();
+                arr[i * ClusterSize - 1] = GetPropertyValue("ArraySensor" + (i * ClusterSize).ToString()).ToBoolean();
+
+                // Then it would determine whether the cluster is active using OR logic (if any sensor in cluster is on,
+                // cluster is on)
             }
 
-            for (int i = 0; i < ArrayNum; i++)
-            {
-                //arr[i] = GetPropertyValue("ArraySensor" + (i+1).ToString()).ToBoolean();
+            // Use cluster data to determine where the line is
 
-                // if any three adjacent sensors are triggered, that means there's a line there.
-                // if on the first sensor or last sensor, check for current sensor and the only adjacent sensor available instead
-                //if ((i != 0) && (i != ArrayNum-1))
-                //    if (arr[i] && arr[i - 1] && arr[i + 1])
-                //        lineloc = anglestep * (i + 1);
-                //    else ;
-                //else if ((i == 0))
-                //    if (arr[i] && arr[i + 1])
-                //        lineloc = anglestep * (i + 1);
-                //    else ;
-                //else if ((i == ArrayNum-1))
-                //    if (arr[i] && arr[i - 1])
-                //        lineloc = anglestep * (i + 1);
-                //    else ;
-                if (arr[i])
-                    lineloc = anglestep * (i + 1);
+            // Add some sort of error catching here maybe? (i.e. two clusters on opposite sides fire, what do?)
+            
+            // Below is old code, feel free to ignore or draw inspiration from it
 
+            //// Load boolean array variable that represents hall effect array. 
+            //// Loads backwards so visual representation matches actual arrangement
+            //for (int i = ArrayNum - 1; i >= 0; i--)
+            //{
+            //    arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
+            //}
 
-                //if ((arr[i] && arr[i - 1] && arr[i + 1] && (i != 0) && (i != ArrayNum)) || (arr[i] && arr[i + 1] && (i == 0)) || (arr[i] && arr[i - 1] && (i == ArrayNum)))
-                //{
-                //    lineloc = anglestep * (i + 1); // give angle where the line is located based on middle sensor triggered location
-                //}
+            //for (int i = 0; i < ArrayNum; i++)
+            //{
+                
+            //    if (arr[i])
+            //        lineloc = anglestep * (i + 1);
 
-                SetPropertyValue("LineAngle", lineloc);
-
-                //if (prevline > -1 && (lineloc < prevline + 10 && lineloc > prevline - 10))
-                //{
-                //    SetPropertyValue("LineAngle", lineloc);
-                //    prevline = lineloc;
-                //}
-                //else
-                //{
-                //    lineloc = -1;
-                //    SetPropertyValue("LineAngle", lineloc);
-                //}
-            }
+            //    SetPropertyValue("LineAngle", lineloc);
+            //}
 
 
         }

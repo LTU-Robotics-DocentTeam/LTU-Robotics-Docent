@@ -9,8 +9,17 @@ using TimersTimer = System.Timers.Timer;
 
 namespace HENRY.Modules
 {
+    /// <summary>
+    /// Handles all serial communications with robot controllers and manual controller.
+    /// </summary>
+    /// TO DO:
+    /// - Add second micro and manual controller
+    /// - Make more responsive (lower/eliminate delay)
+    
     class SerialCommModule : LengarioModuleCore
     {
+        
+        
         public enum Connection { Unknown, Disconnected, Connected };
 
         public Connection robotConn;
@@ -53,9 +62,11 @@ namespace HENRY.Modules
 
         }
 
-        // This function handles the process of connecting to the microcontrollers 
-        // TO-DO:
-        // * Add second microcontroller and manual controller
+        /// <summary>
+        /// Handles the process of connecting to the microcontrollers and manual control
+        /// </summary>
+        /// TO-DO:
+        /// - Add second microcontroller and manual controller
         void ConnectBot()
         {
             string ComPort = string.Empty;
@@ -95,9 +106,14 @@ namespace HENRY.Modules
                 SetPropertyValue("Connection", false);
         }
 
-        // Function that fires everytime Serial Data is received and parses the incoming data. Reads through incoming
-        // messages and assigns values to their corresponding property based on the Key
-
+        // 
+        // 
+        /// <summary>
+        /// Function that fires everytime Serial Data is received and parses the incoming data. Reads through incoming
+        /// messages and assigns values to their corresponding property based on the Key
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
@@ -213,9 +229,14 @@ namespace HENRY.Modules
 
         }
 
-        // Function that handles all data sending on a timer if the robot is connected, else it generates random data
-        // for visualization
         // 
+
+        /// <summary>
+        /// Handles all data sending on a timer if the robot is connected, else it generates random data
+        /// for visualization
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (robotConn == Connection.Disconnected)

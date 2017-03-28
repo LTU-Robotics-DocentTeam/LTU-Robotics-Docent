@@ -8,11 +8,20 @@ using TimersTimer = System.Timers.Timer;
 
 namespace HENRY.Modules
 {
+    /// <summary>
+    /// Handles conversion from Directional input (WASD) into motor speeds.
+    /// </summary>
+    /// TO DO:
+    /// - Changing manual speed during runtime
+    /// - Make it a little more advanced than WASD
     class ManualDrive : LengarioModuleCore
     {
+        
+        
         TimersTimer t;
         const int spd = 20; // Current speed for robot movement (CANNOT EXCEED MAXSPEED)
-        const int MAXSPEED = 180; // Maximum speed the motors can take (based on regular servo code) DO NOT CHANGE
+        const int MAXSPEED = 180; // DO NOT CHANGE -- Maximum speed the motors can take (based on regular servo code)
+                                  // 180 is SANIC fast, so don't set spd to the max
         
         public ManualDrive()
         {
@@ -58,6 +67,7 @@ namespace HENRY.Modules
                 rmspeed += spd / 2;
                 lmspeed -= spd / 2;
             }
+            // Multiple directions allow for more varied movement (i.e. forward + right = gradual right turn)
 
             // Ensure total speed does not exceed MAXSPEED
             if (rmspeed < -MAXSPEED)

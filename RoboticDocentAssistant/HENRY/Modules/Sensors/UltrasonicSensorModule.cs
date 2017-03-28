@@ -3,6 +3,11 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
+    /// <summary>
+    /// Secondary ultrasonic sensor processing.
+    /// </summary>
+    /// TO DO:
+    /// - Find use for it. Whatever isn't processed by the controller, process here.
     class UltrasonicSensorModule : LengarioModuleAuxiliary
     {
         Timer t;

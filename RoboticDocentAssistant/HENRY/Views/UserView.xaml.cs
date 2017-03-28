@@ -14,6 +14,8 @@ namespace HENRY.Views
     /// <summary>
     /// Interaction logic for UserView.xaml
     /// </summary>
+    /// TO DO:
+    /// - Add regular UserView stuff (Display questions, controller layout, etc.)
     public partial class UserView : UserControl
     {
         private DispatcherTimer timerImageChange;

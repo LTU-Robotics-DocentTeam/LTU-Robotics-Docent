@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace HENRY.Modules
 {
+    /// <summary>
+    /// Handles all communications between the Model (data processing modules) and View (User and Developer)
+    /// </summary>
     class ViewModel : LengarioModuleCore, INotifyPropertyChanged
     {
         

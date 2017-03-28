@@ -3,6 +3,13 @@ using System.Timers;
 
 namespace HENRY.Modules.Sensors
 {
+    /// <summary>
+    /// Secondary impact sensor processing. As of now, useless outside of simulation (randomly generated data processing)
+    /// mode. If impact sensor triggers, trigger estop. simple as that
+    /// </summary>
+    /// TO DO:
+    /// - Eliminate? Redundant considering the processing is done by the controller. Might help as safety net, but acts
+    ///   much slower than the controller.
     class ImpactSensorModule : LengarioModuleAuxiliary
     {
         Timer t;

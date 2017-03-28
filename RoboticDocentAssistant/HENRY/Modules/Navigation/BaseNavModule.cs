@@ -8,6 +8,9 @@ using System.Timers;
 
 namespace HENRY.Modules.Navigation
 {
+    /// <summary>
+    /// Process all sensor data and determines overall speed and direction of robot autonomous motion
+    /// </summary>
     class BaseNavModule : LengarioModuleCore
     {
         Timer t;
