@@ -65,6 +65,51 @@ namespace HENRY.Modules.Sensors
             }
 
             // Use cluster data to determine where the line is
+            //Find the spaceing between the clusters that are on
+            int gap1 = 0; //number of clusters off from the right side
+            int gap2 = 0; //size of gap between 2 clusters on or from one on to left side
+            int gap3 = 0; //size of second gap between second two engauged clusters if three are on
+            int gapNum = 1; //Number of gap to increase
+            for (int i = 0; i < (ArrayNum / ClusterSize); i++)
+            {
+                if (!clarr[i])
+                {
+                    switch (gapNum) //Logic to find which gap to increase if the cluster is off
+                    {
+                        case 1:
+                            gap1++; //When we have not encountered an engauged cluster we increase the first gap
+                            break;
+                        case 2:
+                            gap2++; //After the first cluster is found we increase the second gap
+                            break;
+                        case 3:
+                            gap3++; //After second engauged cluster is found we increase the third gap
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    gapNum++; //Each time a new activated cluster is found move to the next gap
+                }
+
+            }
+
+            //use gap spaceing to detirmine where line is
+
+            lineloc = anglestep * gap1; //set tenitive angle size
+            //If two clusters are on, Adjust the angle to half way between them
+            if (gap3 > 0) 
+            {
+                lineloc += (anglestep * (gap2 / 2));
+            }
+            //error catching and extreme cases, ****will be changed through testing
+            if (gap1 == 0 || gap1 == 1)
+            {
+                if (gap2 >= ((ArrayNum / ClusterSize) - 3))
+                    lineloc = -1;
+            }
 
             // Add some sort of error catching here maybe? (i.e. two clusters on opposite sides fire, what do?)
             
