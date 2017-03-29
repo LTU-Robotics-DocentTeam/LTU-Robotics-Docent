@@ -80,19 +80,10 @@ namespace HENRY.Modules
             set { SetPropertyValue("UserModeOn", value); RaisePropertyChanged("UserModeOn"); }
         }
         
-        public string ConnectionText
+        public string Connection
         {
-            get
-            {
-                if (GetPropertyValue("Connection").ToBoolean())
-                {
-                    return "Connected";
-                }
-                else
-                {
-                    return "Disconnected";
-                }
-            }
+            get { return GetPropertyValue("Connection").ToString(); }
+            set { SetPropertyValue("Connection", value); RaisePropertyChanged("Connection"); }
         }
 
         public string ArduinoData
