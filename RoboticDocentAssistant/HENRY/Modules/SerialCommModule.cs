@@ -28,7 +28,7 @@ namespace HENRY.Modules
         SerialPort serPort1; // Motor controller serial communication port
         SerialPort serPort2; // Sensor controller serial communication port (UltraS, Infrared, Hall Effect)
         SerialPort userPort; // User controller serial communication port
-        string[] ComPorts = new string[3];
+        SerialPort[] genserPort = new SerialPort[3];
         
         string signal = "", msg2rob = "", deviceid = "", connectstatus = "";
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
@@ -39,6 +39,18 @@ namespace HENRY.Modules
         public SerialCommModule()
         {
             //robotConn = Connection.Unknown;
+            // These are all generic Serial Port initializations
+            //====================================================================================================
+            for (int i = 0; i < 3; i++)
+            {
+                genserPort[i] = new SerialPort();
+                genserPort[i].BaudRate = 115200;
+                genserPort[i].DataBits = 8;
+                genserPort[i].Parity = Parity.None;
+                genserPort[i].StopBits = StopBits.One;
+                genserPort[i].DataReceived += new SerialDataReceivedEventHandler(serPort_DataReceived);
+            }
+            //====================================================================================================
             // These are all Serial Port 1 initializations
             //====================================================================================================
             serPort1 = new SerialPort();
@@ -90,6 +102,38 @@ namespace HENRY.Modules
             
 
 
+        }
+
+        private void serPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
+            // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
+            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
+            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
+            int IRNum = GetPropertyValue("IRNum").ToInt32();
+            
+            signal = serPort1.ReadLine(); // Receiving Arduino data as one string
+            int startin = signal.IndexOf('<');
+            int endin = signal.IndexOf('>');
+            if (startin < 0 || endin < 0)
+            {
+                return;
+            }
+            int msglngth = endin - startin;
+            string msg = signal.Substring(startin+1, msglngth-1);
+            char key = msg[0];
+            string value = msg.Substring(1);
+
+            //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
+
+            switch (key)
+            {
+                case 'C': deviceid = value;
+                    break;
+                default: //System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort1"); //Catch statement
+                    break;
+            }
         }
 
 
@@ -188,7 +232,7 @@ namespace HENRY.Modules
                             break;
                     }
                 }
-                if (counter >= 1000) //connection timed out. Wanna try again?
+                if (counter >= 10000) //connection timed out. Wanna try again?
                 {
                     if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
                     { // If not, set as disconnected
@@ -407,11 +451,11 @@ namespace HENRY.Modules
         /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (serConn1 == Connection.Unknown || serConn2 == Connection.Unknown || userConn == Connection.Unknown)
-            {
-                counter++;
-                return;
-            }
+            //if (serConn1 == Connection.Unknown || serConn2 == Connection.Unknown || userConn == Connection.Unknown)
+            //{
+            //    counter++;
+            //    return;
+            //}
             UpdateConnectionStatus();
             if (serConn1 == Connection.Disconnected)
             {
