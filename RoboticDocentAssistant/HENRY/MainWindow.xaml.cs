@@ -42,7 +42,6 @@ namespace HENRY
 
         public MainWindow()
         {
-            // 
             hem = new HallEffectSensorModule();
             ism = new ImpactSensorModule();
             irm = new InfraredSensorModule();
@@ -71,16 +70,31 @@ namespace HENRY
 
         }
 
+        /// <summary>
+        /// UserView control load event. Sets data context
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             userViewControl.DataContext = vm;
         }
 
+        /// <summary>
+        /// DevView control load event. Sets data context
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void devViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             devViewControl.DataContext = vm;
         }
 
+        /// <summary>
+        /// Handles pressed keys on the keyboard. Set to allow for WASD control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void keyDownEventHandler(object sender, KeyEventArgs e)
         {
             if (vm.ManualDriveEnabled)
@@ -97,6 +111,11 @@ namespace HENRY
             }
         }
 
+        /// <summary>
+        /// Handles keys released on the keyboard. Set to allow for WASD control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void keyUpEventHandler(object sender, KeyEventArgs e)
         {
             if (vm.ManualDriveEnabled)
@@ -111,6 +130,9 @@ namespace HENRY
                     vm.Left = false;
             }
         }
+
+        // ===================================================================================================
+        // Leftover testing code? Not sure if needed
 
         public class ThingClass : INotifyPropertyChanged
         {
@@ -144,6 +166,7 @@ namespace HENRY
                 }
             }
 
+            // ===================================================================================================
 
             //Basic INotifyPropertyChanged interface implementation
 
