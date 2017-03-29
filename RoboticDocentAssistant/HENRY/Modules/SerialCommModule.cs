@@ -158,37 +158,60 @@ namespace HENRY.Modules
                 if (serPort.IsOpen)
                 {
                     waiting = true;
+                    //System.Threading.Thread.Sleep(10);
                     counter++;
                     serPort.WriteLine("<C0>");
+                    System.Threading.Thread.Sleep(5000);
                     switch (thisport)
                     {
                         case "Motor MicroController": 
                             if (deviceid == "1")
                             {
                                 robotConn = Connection.Connected;
+                                deviceid = "";
                                 signal = "";
                                 return;
+                            }
+                            else if (deviceid == "2" || deviceid == "3")
+                            {
+                                i++;
+                                waiting = false;
+                                continue;
                             }
                             break;
                         case "Sensor MicroController":
                             if (deviceid == "2")
                             {
                                 robotConn = Connection.Connected;
+                                deviceid = "";
                                 signal = "";
                                 return;
+                            }
+                            else if (deviceid == "1" || deviceid == "3")
+                            {
+                                i++;
+                                waiting = false;
+                                continue;
                             }
                             break;
                         case "User Controller":
                             if (deviceid == "3")
                             {
                                 robotConn = Connection.Connected;
+                                deviceid = "";
                                 signal = "";
                                 return;
+                            }
+                            else if (deviceid == "2" || deviceid == "1")
+                            {
+                                i++;
+                                waiting = false;
+                                continue;
                             }
                             break;
                     }
                 }
-                if (counter >= 1000) //connection timed out. Wanna try again?
+                if (counter >= 2) //connection timed out. Wanna try again?
                 {
                     if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
                     { // If not, set as disconnected
@@ -319,7 +342,7 @@ namespace HENRY.Modules
             int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
             int IRNum = GetPropertyValue("IRNum").ToInt32();
 
-            signal = serPort1.ReadLine(); // Receiving Arduino data as one string
+            signal = serPort2.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
             int endin = signal.IndexOf('>');
             if (startin < 0 || endin < 0)
