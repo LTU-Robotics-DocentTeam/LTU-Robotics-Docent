@@ -30,7 +30,8 @@ namespace HENRY.Modules
         SerialPort userPort; // User controller serial communication port
         string[] ComPorts = new string[3];
         
-        string signal = "", msg2rob = "", deviceid = "", connectstatus = "";
+        string signal = "", msg2motor = "", connectstatus = "";
+        int deviceid = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
 
         int prvr = 0, prvl = 0;
@@ -80,16 +81,11 @@ namespace HENRY.Modules
             SetPropertyValue("ArduinoData", "No Data In");
             SetPropertyValue("DevModeOn", true);
             SetPropertyValue("UserModeOn", false);
+            SetPropertyValue("SimulationMode", false);
 
-            //t = new TimersTimer();
-            //t.Interval = 10;
-            //t.Elapsed += t_Elapsed;
             t.Start();
 
             r = new Random();
-            
-
-
         }
 
 
@@ -100,7 +96,7 @@ namespace HENRY.Modules
         /// Handles the process of connecting to the microcontrollers and manual control
         /// </summary>
         /// TO-DO:
-        /// - Add second microcontroller and manual controller
+        /// - Make more modular
         void ConnectBot(SerialPort serPort, string thisport, ref Connection robotConn)
         {
             int i = 0;
@@ -155,63 +151,37 @@ namespace HENRY.Modules
                     }
                 }
                 
-                if (serPort.IsOpen)
+                if (serPort.IsOpen) // If an available port was found, attempt to communicate and identify connected device
                 {
                     waiting = true;
-                    //System.Threading.Thread.Sleep(10);
                     counter++;
-                    serPort.WriteLine("<C0>");
-                    System.Threading.Thread.Sleep(5000);
-                    switch (thisport)
+                    // Send identification command to device
+                    serPort.WriteLine("<C0>"); 
+                    // Notify user of connecting procedure
+                    AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 1000);
+                    // Wait for one second
+                    System.Threading.Thread.Sleep(1000);
+                    // Check deviceid global variable, which the DataReceived functions will update when necessary
+                    if (deviceid == 1) // if its 1, then device is valid.
+                    { 
+                        // Update connection status and reset connection variables to default state
+                        robotConn = Connection.Connected;
+                        deviceid = 0;
+                        signal = "";
+                        return;
+                    }
+                    else if (deviceid == -1) // if its -1, device is invalid
                     {
-                        case "Motor MicroController": 
-                            if (deviceid == "1")
-                            {
-                                robotConn = Connection.Connected;
-                                deviceid = "";
-                                signal = "";
-                                return;
-                            }
-                            else if (deviceid == "2" || deviceid == "3")
-                            {
-                                i++;
-                                waiting = false;
-                                continue;
-                            }
-                            break;
-                        case "Sensor MicroController":
-                            if (deviceid == "2")
-                            {
-                                robotConn = Connection.Connected;
-                                deviceid = "";
-                                signal = "";
-                                return;
-                            }
-                            else if (deviceid == "1" || deviceid == "3")
-                            {
-                                i++;
-                                waiting = false;
-                                continue;
-                            }
-                            break;
-                        case "User Controller":
-                            if (deviceid == "3")
-                            {
-                                robotConn = Connection.Connected;
-                                deviceid = "";
-                                signal = "";
-                                return;
-                            }
-                            else if (deviceid == "2" || deviceid == "1")
-                            {
-                                i++;
-                                waiting = false;
-                                continue;
-                            }
-                            break;
+                        // Reset variables and waiting time, close current port, and try next port
+                        i++;
+                        waiting = false;
+                        deviceid = 0;
+                        signal = "";
+                        serPort.Close();
+                        continue;
                     }
                 }
-                if (counter >= 2) //connection timed out. Wanna try again?
+                if (counter >= 3) //connection timed out. Wanna try again?
                 {
                     if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
                     { // If not, set as disconnected
@@ -220,6 +190,7 @@ namespace HENRY.Modules
                     } // If yes, refresh the list and try again
                     else
                     {
+                        waiting = false;
                         counter = 0;
                         i = 0;
                         continue;
@@ -277,10 +248,12 @@ namespace HENRY.Modules
 
             switch (key)
             {
-                case 'C': deviceid = value;
+                case 'C': // Identification command: Takes device ID. This port only accepts "1", which is the motor microcontroller
+                    if (value == "1") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceid = -1; // if incorrect id, set 
                     break;
                 case 'B': // Impact Sensors: Binary string
-                    for (int i = 0; i < ImpactNum; i++)//Load serial data into impact sensor objects,  each sensor is its own object
+                    for (int i = 0; i < ImpactNum; i++)// Load serial data into impact sensor objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -358,7 +331,9 @@ namespace HENRY.Modules
 
             switch (key)
             {
-                case 'C': deviceid = value;
+                case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
+                    if (value == "2") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceid = -1; // if incorrect id, set 
                     break;
                 case 'H': // Hall Effect sensors: Data comes as a binary string
                     for (int i = 0; i < ArrayNum; i++) //Load serial data into hall array properties, each sensor is its own object
@@ -419,32 +394,54 @@ namespace HENRY.Modules
         }
         private void userPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            throw new NotImplementedException();
-        }
+            // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
+            // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
+            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
+            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
+            int IRNum = GetPropertyValue("IRNum").ToInt32();
 
+            signal = userPort.ReadLine(); // Receiving Arduino data as one string
+            int startin = signal.IndexOf('<');
+            int endin = signal.IndexOf('>');
+            if (startin < 0 || endin < 0)
+            {
+                return;
+            }
+            int msglngth = endin - startin;
+            string msg3 = signal.Substring(startin + 1, msglngth - 1);
+            char key = msg3[0];
+            string value = msg3.Substring(1);
+
+            //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
+
+            switch (key)
+            {
+                case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
+                    if (value == "3") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceid = -1; // if incorrect id, set 
+                    break;
+                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by userPort"); //Catch statement
+                    break;
+            }
+        }
         /// <summary>
         /// Handles all data sending on a timer if the robot is connected, else it generates random data
         /// for visualization
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// TO DO:
+        /// - Figure out how to have simulation mode run with motor communications without slowing down stream. Some sort of counter?
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (serConn1 == Connection.Unknown || serConn2 == Connection.Unknown || userConn == Connection.Unknown)
-            {
-                counter++;
-                return;
-            }
             UpdateConnectionStatus();
-            if (serConn1 == Connection.Disconnected)
+            // If sensor micro is disconnected and simulation mode is on, generate random inputs
+            if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
             {
-                t.Interval = 500;
-                SetPropertyValue("Generic_Sensor1", r.Next(0, 100));
-                SetPropertyValue("Generic_Sensor2", r.Next(0, 100));
-                SetPropertyValue("Generic_Sensor3", r.Next(0, 100));
+                t.Interval = 800;
 
                 int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-                int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
                 int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
                 int IRNum = GetPropertyValue("IRNum").ToInt32();
                 int line = r.Next(0, ArrayNum); // pick a random sensor to place line
@@ -466,8 +463,25 @@ namespace HENRY.Modules
 
                 if (r.Next(0, 100) < 50)
                 {
-                    SetPropertyValue("Impact" + r.Next(0, ImpactNum - 1).ToString(), true);
                     SetPropertyValue("IR" + r.Next(0, IRNum - 1).ToString(), true);
+                }
+                else
+                {
+                    for (int i = 1 ; i <= IRNum; i++)
+                    {
+                        SetPropertyValue("IR" + i.ToString(), false);
+                    }
+                }
+            }
+            // If motor micro is disconnected and simulation mode is on, generate random ass inputs
+            if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
+            {
+                t.Interval = 800;
+
+                int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
+                if (r.Next(0, 100) < 50)
+                {
+                    SetPropertyValue("Impact" + r.Next(0, ImpactNum - 1).ToString(), true);
                 }
                 else
                 {
@@ -475,33 +489,30 @@ namespace HENRY.Modules
                     {
                         SetPropertyValue("Impact" + i.ToString(), false);
                     }
-                    for (int i = 1 ; i <= IRNum; i++)
-                    {
-                        SetPropertyValue("IR" + i.ToString(), false);
-                    }
                 }
             }
-            if (serConn1 == Connection.Connected)
+            // If motor micro is connected and simulation mode is OFF, send data to arduino
+            if (serConn1 == Connection.Connected && !GetPropertyValue("SimulationMode").ToBoolean())
             {
+                t.Interval = 1;
                 if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
-                    msg2rob = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
+                    msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
                     prvr = GetPropertyValue("RightMSpeed").ToInt32();
                     prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
                 if (prestop != GetPropertyValue("EStop").ToBoolean())
                 {
-                    msg2rob = "<F" + GetPropertyValue("EStop").ToInt32() + ">"; // Attempt to reset E-Stop on board. Does not override physical button
+                    msg2motor = "<F" + GetPropertyValue("EStop").ToInt32() + ">"; // Attempt to reset E-Stop on board. Does not override physical button
                     prestop = GetPropertyValue("EStop").ToBoolean();
                 }
                 
-                if (msg2rob != "")
+                if (msg2motor != "")
                 {
-                    serPort1.WriteLine(msg2rob);
-                    SetPropertyValue("ArduinoData", msg2rob);
-                    msg2rob = "";
+                    serPort1.WriteLine(msg2motor);
+                    SetPropertyValue("ArduinoData", msg2motor);
+                    msg2motor = "";
                 }
-                
             }
 
             

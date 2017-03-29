@@ -62,6 +62,7 @@ namespace HENRY.Modules.Sensors
 
                 // Then it would determine whether the cluster is active using OR logic (if any sensor in cluster is on,
                 // cluster is on)
+                clarr[i] = arr[i * ClusterSize] || arr[i * ClusterSize - 1];
             }
 
             // Use cluster data to determine where the line is
@@ -110,6 +111,8 @@ namespace HENRY.Modules.Sensors
                 if (gap2 >= ((ArrayNum / ClusterSize) - 3))
                     lineloc = -1;
             }
+
+            SetPropertyValue("LineAngle", lineloc);
 
             // Add some sort of error catching here maybe? (i.e. two clusters on opposite sides fire, what do?)
             

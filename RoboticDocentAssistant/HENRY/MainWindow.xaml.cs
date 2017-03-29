@@ -42,13 +42,13 @@ namespace HENRY
 
         public MainWindow()
         {
+            scm = new SerialCommModule();
             hem = new HallEffectSensorModule();
             ism = new ImpactSensorModule();
             irm = new InfraredSensorModule();
             usm = new UltrasonicSensorModule();
             vm = new ViewModel();
             mnd = new ManualDrive();
-            scm = new SerialCommModule();
             gsm = new GenericSensorModule();
 
             

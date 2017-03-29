@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Modules\AutoClosingMessageBox.cs" />
     <Compile Include="Modules\GenericSensorModule.cs" />
     <Compile Include="Modules\ManualDrive.cs" />
     <Compile Include="Modules\Navigation\BaseNavModule.cs" />

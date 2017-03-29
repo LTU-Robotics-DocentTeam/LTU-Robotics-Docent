@@ -79,6 +79,12 @@ namespace HENRY.Modules
             get { return GetPropertyValue("UserModeOn").ToBoolean(); }
             set { SetPropertyValue("UserModeOn", value); RaisePropertyChanged("UserModeOn"); }
         }
+
+        public bool SimulationMode
+        {
+            get { return GetPropertyValue("SimulationMode").ToBoolean(); }
+            set { SetPropertyValue("SimulationMode", value); RaisePropertyChanged("SimulationMode"); }
+        }
         
         public string Connection
         {
