@@ -1,4 +1,3 @@
-
 long Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
 {
   pinMode(P, OUTPUT); //sets ping pin
@@ -10,6 +9,7 @@ long Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
 
   pinMode(E, INPUT); //set echo pin
   long  duration = pulseIn(E, HIGH, 11662); // waits for the time duration in microseconds to reach 6 feet out and back or until ping is heard
+  long mm;
   if ( duration > -1) { // if it detects an obstacle closer than 6 feet
     long mm = (duration/2) / 2.91; // converts microseconds into length in millimeters
   }
