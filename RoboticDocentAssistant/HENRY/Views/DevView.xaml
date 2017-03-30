@@ -50,8 +50,16 @@
                         <TextBlock Text="E Stop Triggered:" HorizontalAlignment="Center"/>
                         <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
                         <Separator></Separator>
-                        <TextBlock Text="Enable Manual Drive:" HorizontalAlignment="Center"/>
-                        <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <TextBlock Text="Enable Manual Drive " HorizontalAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <TextBlock Text=" ManualDrive Speed" HorizontalAlignment="Center"/>
+                                <TextBox Text="{Binding ManualSpeed}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
                         <TextBlock Text="Motion:" HorizontalAlignment="Center" />
                         <CheckBox IsChecked="{Binding Forward}" HorizontalAlignment="Center"></CheckBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -59,6 +67,16 @@
                             <CheckBox IsChecked="{Binding Backward}"></CheckBox>
                             <CheckBox IsChecked="{Binding Right}"></CheckBox>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Direction: "/>
+                            <TextBlock Text="{Binding Direction}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Speed: "/>
+                            <TextBlock Text="{Binding Speed}"/>
+                        </StackPanel>
+                        
+                        <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="{Binding LeftMSpeed}" ></TextBlock>
                             <TextBlock Text=" " ></TextBlock>

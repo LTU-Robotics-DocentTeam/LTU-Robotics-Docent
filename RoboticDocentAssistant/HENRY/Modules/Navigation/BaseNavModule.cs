@@ -17,8 +17,8 @@ namespace HENRY.Modules.Navigation
         
         public BaseNavModule()
         {
-            SetPropertyValue("Direction", 0.0); // Angle in degrees
-            SetPropertyValue("Speed", 0.0); // speed in m/s (Yes, metric)
+            SetPropertyValue("Direction", 0); // Angle in degrees
+            SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
 
             t = new Timer();
@@ -33,12 +33,6 @@ namespace HENRY.Modules.Navigation
             int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
             int IRNum = GetPropertyValue("IRNum").ToInt32();
             int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
-
-            for (int i = 1; i <= ImpactNum; i++)
-            {
-                if (GetPropertyValue("Impact" + i.ToString()).ToBoolean())
-                    SetPropertyValue("EStop", true);
-            }
             
             for (int i = 1; i <= ArrayNum; i++)
             {

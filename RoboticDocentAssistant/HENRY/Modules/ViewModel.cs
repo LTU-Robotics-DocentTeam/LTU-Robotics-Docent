@@ -94,15 +94,8 @@ namespace HENRY.Modules
 
         public string ArduinoData
         {
-            get
-            {
-                return GetPropertyValue("ArduinoData").ToString();
-            }
-            set
-            {
-                SetPropertyValue("ArduinoData", value);
-                RaisePropertyChanged("ArduinoData");
-            }
+            get { return GetPropertyValue("ArduinoData").ToString(); }
+            set { SetPropertyValue("ArduinoData", value); RaisePropertyChanged("ArduinoData"); }
         }
 
         public int Generic_Sensor1
@@ -200,6 +193,12 @@ namespace HENRY.Modules
             }
         }
 
+        public int ManualSpeed
+        {
+            get { return GetPropertyValue("ManualSpeed").ToInt32(); }
+            set { SetPropertyValue("ManualSpeed", value); RaisePropertyChanged("ManualSpeed"); }
+        }
+
         public bool Forward
         {
             get { return GetPropertyValue("Forward").ToBoolean(); }
@@ -234,7 +233,16 @@ namespace HENRY.Modules
             get { return GetPropertyValue("LeftMSpeed").ToString(); }
             set { SetPropertyValue("LeftMSpeed", value); RaisePropertyChanged("LeftMSpeed"); }
         }
-
+        public string Direction
+        {
+            get { return GetPropertyValue("Direction").ToString(); }
+            set { SetPropertyValue("Direction", value); RaisePropertyChanged("Direction"); }
+        }
+        public string Speed
+        {
+            get { return GetPropertyValue("Speed").ToString(); }
+            set { SetPropertyValue("Speed", value); RaisePropertyChanged("Speed"); }
+        }
         public bool ArraySensor1
         {
             get { return GetPropertyValue("ArraySensor1").ToBoolean(); }

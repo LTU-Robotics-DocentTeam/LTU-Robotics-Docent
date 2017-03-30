@@ -57,6 +57,7 @@
     <Compile Include="Modules\AutoClosingMessageBox.cs" />
     <Compile Include="Modules\GenericSensorModule.cs" />
     <Compile Include="Modules\ManualDrive.cs" />
+    <Compile Include="Modules\MotorModule.cs" />
     <Compile Include="Modules\Navigation\BaseNavModule.cs" />
     <Compile Include="Modules\Sensors\HallEffectSensorModule.cs" />
     <Compile Include="Modules\Sensors\ImpactSensorModule.cs" />

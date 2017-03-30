@@ -14,14 +14,13 @@ namespace HENRY.Modules
     /// TO DO:
     /// - Changing manual speed during runtime
     /// - Make it a little more advanced than WASD
+    /// - Scale servo speed values to m/s for manualdrive
     class ManualDrive : LengarioModuleCore
     {
         
         
         TimersTimer t;
         const int spd = 20; // Current speed for robot movement (CANNOT EXCEED MAXSPEED)
-        const int MAXSPEED = 180; // DO NOT CHANGE -- Maximum speed the motors can take (based on regular servo code)
-                                  // 180 is SANIC fast, so don't set spd to the max
         
         public ManualDrive()
         {
@@ -31,8 +30,8 @@ namespace HENRY.Modules
             SetPropertyValue("Backward", false);
             SetPropertyValue("Right", false);
             SetPropertyValue("Left", false);
-            SetPropertyValue("RightMSpeed", 0);
-            SetPropertyValue("LeftMSpeed", 0);
+            SetPropertyValue("Direction", 0); // Angle in degrees
+            SetPropertyValue("ManualSpeed", 20);
 
             // Set processing timer for module
             t = new TimersTimer();
@@ -43,45 +42,48 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            // If no keys are pressed, set both speeds to 0
-            int rmspeed = 0;
-            int lmspeed = 0;
+            if (GetPropertyValue("ManualSpeed").ToInt32() > GetPropertyValue("MaximumSpeed").ToInt32()) 
+                SetPropertyValue("ManualSpeed", GetPropertyValue("MaximumSpeed"));
+            if (GetPropertyValue("ManualSpeed").ToInt32() < 0)
+                SetPropertyValue("ManualSpeed", 0);
+            int spd = GetPropertyValue("ManualSpeed").ToInt32();
 
-            if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
-            {
-                rmspeed += spd;
-                lmspeed += spd;
-            }
+
+            int direction = 0;
+            int speed = 0;
+            int btns = 0;
+
             if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
             {
-                rmspeed -= spd;
-                lmspeed -= spd;
+                direction = 90;
+                speed = spd;
             }
-            if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
+            else
             {
-                rmspeed -= spd / 2;
-                lmspeed += spd / 2;
+                if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
+                {
+                    direction = 90;
+                    btns = 1;
+                }
+                if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
+                {
+                    btns++;
+                    direction = (direction + 0) / btns;
+                }
+                if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
+                {
+                    btns++;
+                    direction = (direction + 180) / btns;
+                }
+                if (btns > 0)
+                {
+                    speed = spd;
+                }
             }
-            if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
-            {
-                rmspeed += spd / 2;
-                lmspeed -= spd / 2;
-            }
-            // Multiple directions allow for more varied movement (i.e. forward + right = gradual right turn)
-
-            // Ensure total speed does not exceed MAXSPEED
-            if (rmspeed < -MAXSPEED)
-                rmspeed = -MAXSPEED;
-            if (rmspeed > MAXSPEED)
-                rmspeed = MAXSPEED;
-            if (lmspeed < -MAXSPEED)
-                lmspeed = -MAXSPEED;
-            if (lmspeed > MAXSPEED)
-                lmspeed = MAXSPEED;
             
-            //Update current property value
-            SetPropertyValue("RightMSpeed", rmspeed);
-            SetPropertyValue("LeftMSpeed", lmspeed);
+
+            SetPropertyValue("Direction", direction);
+            SetPropertyValue("Speed", speed);
         }
 
 
