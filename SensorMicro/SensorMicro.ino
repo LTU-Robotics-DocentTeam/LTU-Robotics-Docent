@@ -90,7 +90,7 @@ void loop() {
 
   // Counter for ultrasonic sensor
   i++; // update every iteration
-  if (i < 5) // as soon as it reaches 4 (i < 5), reset counter i
+  if (i > 4) // as soon as it reaches 4 (i > 5), reset counter i
   {
     i = 0;
   }
