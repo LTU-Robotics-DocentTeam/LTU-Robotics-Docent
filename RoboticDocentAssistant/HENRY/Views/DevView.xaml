@@ -69,18 +69,19 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Direction: "/>
-                            <TextBlock Text="{Binding Direction}"/>
+                            <TextBlock Text="{Binding Direction}" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Speed: "/>
-                            <TextBlock Text="{Binding Speed}"/>
+                            <TextBlock Text="{Binding Speed}" FontWeight="Bold"/>
                         </StackPanel>
-                        
+                        <Separator></Separator>
                         <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding LeftMSpeed}" ></TextBlock>
-                            <TextBlock Text=" " ></TextBlock>
-                            <TextBlock Text="{Binding RightMSpeed}" ></TextBlock>
+                            <TextBlock Text="Left: "></TextBlock>
+                            <TextBlock Text="{Binding LeftMSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text=" Right: " ></TextBlock>
+                            <TextBlock Text="{Binding RightMSpeed}" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -134,15 +135,15 @@
                         <TextBlock Text="Ultrasonic:" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text ="U1: " HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Text="{Binding UltraS1}" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding UltraS1}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                             <TextBlock Text =" U2: " HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Text="{Binding UltraS2}" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding UltraS2}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                             <TextBlock Text =" U3: " HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Text="{Binding UltraS3}" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding UltraS3}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                             <TextBlock Text =" U4: " HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Text="{Binding UltraS4}" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding UltraS4}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                             <TextBlock Text =" U5: " HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Text="{Binding UltraS5}" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding UltraS5}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                         <Separator></Separator>
                     </StackPanel>

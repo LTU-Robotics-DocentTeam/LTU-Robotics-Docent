@@ -77,7 +77,7 @@ void loop() {
             Serial.println("<C1>");
           }
           break;
-          case 'R': // right motor input
+        case 'R': // right motor input
           if (value < 0)
           {
             rdir = true;
@@ -152,5 +152,4 @@ void loop() {
       cooldown--; coolingdown = !coolingdown;
     }
   }
-
 }
