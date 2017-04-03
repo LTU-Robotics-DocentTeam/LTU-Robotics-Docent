@@ -16,6 +16,8 @@ namespace HENRY.Modules.Sensors
         
         const int ArrayNum = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
         const int ClusterSize = 2; // Number of sensors per cluster
+
+        int NumOfCluster = ArrayNum / ClusterSize; //Number of clusters in array
         
         public HallEffectSensorModule()
         {
@@ -44,9 +46,9 @@ namespace HENRY.Modules.Sensors
         {
             bool[] arr = new bool[ArrayNum]; // Boolean array that represents full hall effect array
                                              // Each unit represents a sensor
-            bool[] clarr = new bool[ArrayNum / ClusterSize]; // Boolean array that represents full cluster array
+            bool[] clarr = new bool[NumOfCluster]; // Boolean array that represents full cluster array
                                                              // Each unit represents a cluster, not a single sensor
-            double anglestep = 180.0 / (ArrayNum / ClusterSize); // Set angle step to match number of clusters in array
+            double anglestep = 180.0 / (NumOfCluster - 1); // Set angle step to match number of clusters in array
             double lineloc = -1; // start as negative number, so if no line is found, a negative number is sent to main module
                                  // Negative number means error state in nav module, so no line
             
@@ -54,87 +56,87 @@ namespace HENRY.Modules.Sensors
             // with clusters of two the way its set up. Loads backwards so visual representation matches actual arrangement
             //-------------------------------------------------------------------------------------------------------------
             // Patrick, feel free to use what I got so far or use your own method. 
-            for (int i = (ArrayNum / ClusterSize) - 1; i >= 0; i -= ClusterSize)
-            {
-                // Load data adjacent sensors in clusters of two 
-                arr[i * ClusterSize] = GetPropertyValue("ArraySensor" + (i * ClusterSize + 1).ToString()).ToBoolean();
-                arr[i * ClusterSize - 1] = GetPropertyValue("ArraySensor" + (i * ClusterSize).ToString()).ToBoolean();
 
-                // Then it would determine whether the cluster is active using OR logic (if any sensor in cluster is on,
-                // cluster is on)
-                clarr[i] = arr[i * ClusterSize] || arr[i * ClusterSize - 1];
+            //Take serial Hall effect sensor data and load into a boolean array
+            for (int i = 0; i < ArrayNum; i++) 
+            {
+                arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
+            }
+
+            //Use Hall effect boolean array data to load cluster array. ****This loop only works for a cluster size of 2****
+            for(int i = 0; i < NumOfCluster; i++)
+            {
+                if (arr[i * ClusterSize] || arr[(i * ClusterSize) + 1]) //if either hall in a pair is on, set cluster to true
+                {
+                    clarr[i] = true; 
+                }
+                else //if neither hall in the pair is on, cluster is set to false
+                {
+                    clarr[i] = false;
+                }
             }
 
             // Use cluster data to determine where the line is
             //Find the spaceing between the clusters that are on
-            int gap1 = 0; //number of clusters off from the right side
-            int gap2 = 0; //size of gap between 2 clusters on or from one on to left side
-            int gap3 = 0; //size of second gap between second two engauged clusters if three are on
-            int gapNum = 1; //Number of gap to increase
-            for (int i = 0; i < (ArrayNum / ClusterSize); i++)
-            {
-                if (!clarr[i])
-                {
-                    switch (gapNum) //Logic to find which gap to increase if the cluster is off
-                    {
-                        case 1:
-                            gap1++; //When we have not encountered an engauged cluster we increase the first gap
-                            break;
-                        case 2:
-                            gap2++; //After the first cluster is found we increase the second gap
-                            break;
-                        case 3:
-                            gap3++; //After second engauged cluster is found we increase the third gap
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    gapNum++; //Each time a new activated cluster is found move to the next gap
-                }
 
+            int gap = 0; //number of clusters off from the right side
+            bool gapSwitch = false; //detects the beginning of a gap
+            bool gapError = false; //set to true when a gap in clusters is detected: error state var
+            bool numOfClusterError = false; //set to true when too many clusters detected: error state var
+            bool noClusterFoundError = false; //set to true when no clusters are detected: error state var
+            int clusterFound = 0; //incrementing number of clusters detected
+
+            for (int i = 0; i < (NumOfCluster); i++)
+            {
+                if (clusterFound < 1 && !clarr[i]) //increment the gap until a cluster is found on
+                {
+                    gap++;
+                }
+                else if (clusterFound > 0 && !clarr[i]) //after finding any clusters on then one off, turn on gap detection
+                {
+                    gapSwitch = true;
+                }
+                else if (clusterFound > 0 && clarr[i] && gapSwitch) //when gap detection is on and another cluster is found, incite gap error
+                {
+                    gapError = true;
+                    clusterFound++;
+                }
+                else if (clarr[i]) //whenever we find a cluster on, increment the clusterFound number
+                {
+                    clusterFound++;
+                }
             }
 
             //use gap spaceing to detirmine where line is
-
-            lineloc = anglestep * gap1; //set tenitive angle size
-            //If two clusters are on, Adjust the angle to half way between them
-            if (gap3 > 0) 
+            //different angle setting technique for different number of clusters found
+            if (clusterFound == 0)
             {
-                lineloc += (anglestep * (gap2 / 2));
+                noClusterFoundError = true; //Set no cluster found error because no sensors detected
             }
-            //error catching and extreme cases, ****will be changed through testing
-            if (gap1 == 0 || gap1 == 1)
+            else if (clusterFound == 1)
             {
-                if (gap2 >= ((ArrayNum / ClusterSize) - 3))
-                    lineloc = -1;
+                lineloc = (anglestep * gap); //set angle size in direction of the one cluster
             }
-
-            SetPropertyValue("LineAngle", lineloc);
-
-            // Add some sort of error catching here maybe? (i.e. two clusters on opposite sides fire, what do?)
+            else if (clusterFound == 2)
+            {
+                lineloc = ((anglestep * gap) + (anglestep/2)); //set angle size inbetween two sensed clusters
+            }
+            else if (clusterFound == 3)
+            {
+                lineloc = (anglestep * (gap + 1)); //set line angle towords the middle of the three clusters
+            }
+            else
+            {
+                numOfClusterError = true; //set error for too many clusters on
+            }
             
-            // Below is old code, feel free to ignore or draw inspiration from it
-
-            //// Load boolean array variable that represents hall effect array. 
-            //// Loads backwards so visual representation matches actual arrangement
-            //for (int i = ArrayNum - 1; i >= 0; i--)
-            //{
-            //    arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
-            //}
-
-            //for (int i = 0; i < ArrayNum; i++)
-            //{
-                
-            //    if (arr[i])
-            //        lineloc = anglestep * (i + 1);
-
-            //    SetPropertyValue("LineAngle", lineloc);
-            //}
-
-
+            //If any errors, set lineloc to an error state
+            if (noClusterFoundError || gapError || numOfClusterError)
+            {
+                lineloc = -1;
+            }
+            
+            SetPropertyValue("LineAngle", lineloc);
         }
 
         public override string GetModuleName()
