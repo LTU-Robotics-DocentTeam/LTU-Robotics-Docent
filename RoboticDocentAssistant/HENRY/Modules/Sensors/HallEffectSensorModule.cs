@@ -32,7 +32,7 @@ namespace HENRY.Modules.Sensors
             SetPropertyValue("LineAngle", 0.0);
 
             t = new Timer();
-            t.Interval = 330;
+            t.Interval = 10;
             t.Elapsed += t_Elapsed;
             t.Start();
         }

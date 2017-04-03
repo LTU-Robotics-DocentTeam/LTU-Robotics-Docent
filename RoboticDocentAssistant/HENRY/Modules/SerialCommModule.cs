@@ -458,7 +458,7 @@ namespace HENRY.Modules
                 for (int i = 1; i <= UltraSNum; i++)
                 {
                     //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
-                    SetPropertyValue("UltraS" + i.ToString(), r.NextDouble() * 100.0);
+                    SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
                 }
 
                 if (r.Next(0, 100) < 50)

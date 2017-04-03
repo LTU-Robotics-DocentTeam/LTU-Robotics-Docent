@@ -12,7 +12,7 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
         
-        const int UltraSNum = 6;
+        const int UltraSNum = 5;
 
         public UltrasonicSensorModule()
         {

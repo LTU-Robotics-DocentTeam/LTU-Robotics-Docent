@@ -80,10 +80,13 @@ namespace HENRY.Modules
                     speed = spd;
                 }
             }
-            
 
-            SetPropertyValue("Direction", direction);
-            SetPropertyValue("Speed", speed);
+            if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
+            {
+                SetPropertyValue("Direction", direction);
+                SetPropertyValue("Speed", speed);
+            }
+            
         }
 
 
