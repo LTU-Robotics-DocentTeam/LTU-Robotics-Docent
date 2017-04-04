@@ -21,9 +21,7 @@ namespace HENRY.Modules.Sensors
             for (int i = 1; i <= Constants.ARRAY_NUM; i++)
                 SetPropertyValue("ArraySensor" + i.ToString(), false);
 
-            //0 is Hard left, 90 is straight on (Can be avoided, See comment below)
-            // ^ Load array backwards to make visualization more intuitive (i.e. 0 is hard right,
-            //   90 is straight on, 180 is hard left)
+            //0 is hard right, 90 is straight on, 180 is hard left
             SetPropertyValue("LineAngle", 0.0);
 
             t = new Timer();

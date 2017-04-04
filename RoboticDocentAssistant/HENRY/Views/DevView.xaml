@@ -90,7 +90,15 @@
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text=" Sensor Microcontroller data:"></TextBlock>
                         <TextBlock HorizontalAlignment="Center">Hall Effect Sensors</TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+                            <StackPanel.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                    <SkewTransform AngleY="0" AngleX="0"/>
+                                    <RotateTransform Angle="0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </StackPanel.RenderTransform>
                             <CheckBox IsChecked="{Binding ArraySensor1}"></CheckBox>
                             <CheckBox IsChecked="{Binding ArraySensor2}"></CheckBox>
                             <TextBlock Text="  "></TextBlock>
@@ -114,10 +122,6 @@
                             <TextBlock Text="  "></TextBlock>
                             <CheckBox IsChecked="{Binding ArraySensor15}"></CheckBox>
                             <CheckBox IsChecked="{Binding ArraySensor16}"></CheckBox>
-                            <!--<CheckBox IsChecked="{Binding ArraySensor17}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor18}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor19}"></CheckBox>
-                    <CheckBox IsChecked="{Binding ArraySensor20}"></CheckBox>-->
                         </StackPanel>
                         <TextBlock Text="Line Angle Computed:" HorizontalAlignment="Center"/>
                         <TextBlock Text="{Binding LineAngle, Converter={StaticResource DoubleToStringConverter}}" HorizontalAlignment="Center" FontWeight="Bold"/>
@@ -155,7 +159,7 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            
+
         </TabItem>
 
     </TabControl>

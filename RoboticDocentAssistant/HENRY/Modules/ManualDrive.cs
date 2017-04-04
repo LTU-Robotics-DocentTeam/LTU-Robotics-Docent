@@ -12,7 +12,6 @@ namespace HENRY.Modules
     /// Handles conversion from Directional input (WASD) into motor speeds.
     /// </summary>
     /// TO DO:
-    /// - Changing manual speed during runtime
     /// - Make it a little more advanced than WASD
     /// - Scale servo speed values to m/s for manualdrive
     class ManualDrive : LengarioModuleCore
@@ -39,8 +38,8 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (GetPropertyValue("ManualSpeed").ToInt32() > Constants.MAXSPEED) 
-                SetPropertyValue("ManualSpeed", Constants.MAXSPEED);
+            if (GetPropertyValue("ManualSpeed").ToInt32() > Constants.MAX_SPEED) 
+                SetPropertyValue("ManualSpeed", Constants.MAX_SPEED);
             if (GetPropertyValue("ManualSpeed").ToInt32() < 0)
                 SetPropertyValue("ManualSpeed", 0);
             int manualSpeed = GetPropertyValue("ManualSpeed").ToInt32();

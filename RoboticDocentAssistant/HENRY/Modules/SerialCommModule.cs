@@ -427,56 +427,60 @@ namespace HENRY.Modules
             UpdateConnectionStatus();
             if (simTime > 0) simTime--;
             // If sensor micro is disconnected and simulation mode is on, generate random inputs
-            if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean() && simTime <= 0)
+            if (simTime <= 0)
             {
-                simTime = 80;
-
-                int line = r.Next(0, Constants.ARRAY_NUM); // pick a random sensor to place line
-
-
-
-                for (int i = 1; i <= Constants.ARRAY_NUM; i++)
+                if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
                 {
-                    if (i > line - 2 && i < line + 2)
-                        SetPropertyValue("ArraySensor" + i.ToString(), true);
+                    simTime = 80;
+
+                    int line = r.Next(0, Constants.ARRAY_NUM); // pick a random sensor to place line
+
+
+
+                    for (int i = 1; i <= Constants.ARRAY_NUM; i++)
+                    {
+                        if (i > line - 2 && i < line + 2)
+                            SetPropertyValue("ArraySensor" + i.ToString(), true);
+                        else
+                            SetPropertyValue("ArraySensor" + i.ToString(), false);
+                    }
+                    for (int i = 1; i <= Constants.US_NUM; i++)
+                    {
+                        //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
+                        SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
+                    }
+
+                    if (r.Next(0, 100) < 50)
+                    {
+                        SetPropertyValue("IR" + r.Next(0, Constants.IR_NUM - 1).ToString(), true);
+                    }
                     else
-                        SetPropertyValue("ArraySensor" + i.ToString(), false);
-                }
-                for (int i = 1; i <= Constants.US_NUM; i++)
-                {
-                    //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
-                    SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
-                }
-
-                if (r.Next(0, 100) < 50)
-                {
-                    SetPropertyValue("IR" + r.Next(0, Constants.IR_NUM - 1).ToString(), true);
-                }
-                else
-                {
-                    for (int i = 1 ; i <= Constants.IR_NUM; i++)
                     {
-                        SetPropertyValue("IR" + i.ToString(), false);
+                        for (int i = 1; i <= Constants.IR_NUM; i++)
+                        {
+                            SetPropertyValue("IR" + i.ToString(), false);
+                        }
+                    }
+                }
+                // If motor micro is disconnected and simulation mode is on, generate random inputs
+                if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
+                {
+                    simTime = 80;
+
+                    if (r.Next(0, 100) < 50)
+                    {
+                        SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= Constants.IMPACT_NUM; i++)
+                        {
+                            SetPropertyValue("Impact" + i.ToString(), false);
+                        }
                     }
                 }
             }
-            // If motor micro is disconnected and simulation mode is on, generate random ass inputs
-            if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean() && simTime <= 0)
-            {
-                simTime = 80;
-
-                if (r.Next(0, 100) < 50)
-                {
-                    SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
-                }
-                else
-                {
-                    for (int i = 1; i <= Constants.IMPACT_NUM; i++)
-                    {
-                        SetPropertyValue("Impact" + i.ToString(), false);
-                    }
-                }
-            }
+            
             // If motor micro is connected and simulation mode is OFF, send data to arduino
             if (serConn1 == Connection.Connected && !GetPropertyValue("SimulationMode").ToBoolean())
             {

@@ -40,38 +40,32 @@ namespace HENRY.Modules
             int rmSpeed = spd + rmDirSpeed;
             int lmSpeed = spd - lmDirSpeed;
 
-            //if (spd > 0)
-            //{
-            //    if (direction >= 90)
-            //    {
-            //        rDirection = 90;
-            //        lDirection = 90 - (direction - 90);
-            //    }
-            //    else
-            //    {
-            //        rDirection = direction;
-            //        lDirection = 90;
-            //    }
-
-
-            //    rmSpeed = (int)((rDirection / 90.0) * (spd * 2.0)) - spd;
-            //    lmSpeed = (int)((lDirection / 90.0) * (spd * 2.0)) - spd;
-            //}
-            //else
-            //{
-            //    rmSpeed = spd;
-            //    lmSpeed = spd;
-            //}
+            if (rmSpeed > 0)
+            {
+                rmSpeed += Constants.DEAD_ZONE;
+            }
+            else if (rmSpeed < 0)
+            {
+                rmSpeed -= Constants.DEAD_ZONE;
+            }
+            if (lmSpeed > 0)
+            {
+                lmSpeed += Constants.DEAD_ZONE;
+            }
+            else if (lmSpeed < 0)
+            {
+                lmSpeed -= Constants.DEAD_ZONE;
+            }
 
             // Ensure total speed does not exceed MAXSPEED
-            if (rmSpeed < -Constants.MAXSPEED)
-                rmSpeed = -Constants.MAXSPEED;
-            if (rmSpeed > Constants.MAXSPEED)
-                rmSpeed = Constants.MAXSPEED;
-            if (lmSpeed < -Constants.MAXSPEED)
-                lmSpeed = -Constants.MAXSPEED;
-            if (lmSpeed > Constants.MAXSPEED)
-                lmSpeed = Constants.MAXSPEED;
+            if (rmSpeed < -Constants.MAX_MOTOR_SPEED)
+                rmSpeed = -Constants.MAX_MOTOR_SPEED;
+            if (rmSpeed > Constants.MAX_MOTOR_SPEED)
+                rmSpeed = Constants.MAX_MOTOR_SPEED;
+            if (lmSpeed < -Constants.MAX_MOTOR_SPEED)
+                lmSpeed = -Constants.MAX_MOTOR_SPEED;
+            if (lmSpeed > Constants.MAX_MOTOR_SPEED)
+                lmSpeed = Constants.MAX_MOTOR_SPEED;
 
             //Update current property value
             SetPropertyValue("RightMSpeed", rmSpeed);
