@@ -2,154 +2,141 @@
 #include <Wire.h>
 #include "Adafruit_MCP23008.h"
 
+#define P_U1_RX         0
+#define P_U1_TX         1
+#define P_U1_EStop      2
+#define P_U1_LD         3
+#define P_U1_RD         4
+
+#define P_U1_LM     5
+#define P_U1_RM     6
+#define P_U1_LB     7
+#define P_U1_RB     8
+#define P_U1_I1     9
+#define P_U1_I2     10
+#define P_U1_I3     11
+#define P_U1_I4     12
+#define P_U1_I5     13
+
+#define P_U1_PC     A1
+#define P_U1_OUT2   A2
+#define P_U1_SW     A3
+#define P_U1_LED    A4
+#define P_U1_SDA    A5
+#define P_U1_SCL    A6
+
+#define P_U3_L1     0
+#define P_U3_L2     1
+#define P_U3_L3     2
+#define P_U3_L4     3
+#define P_U3_L5     4
+#define P_U3_L6     5
+#define P_U3_L7     6
+#define P_U3_L8     7
+#define P_U3_L9     8
+#define P_U3_L10    9
+
+#define P_U3_DIO1   10
+#define P_U3_DIO2   11
+#define P_U3_DIO3   12
+#define P_U3_DIO4   13
+#define P_U3_DIO5   14
+#define P_U3_DIO6   15
+
+#define RAMP_CONSTANT     1
+#define HEALTH_CONSTANT   10
+
 Adafruit_MCP23008 mcp;
 
-Servo rmotor, lmotor;
+Servo LeftMotor;
+Servo RightMotor;
 
-//pins
-const int rmpin = 6, lmpin = 5;
-const int impact[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-const int rrelpin = 3, lrelpin = 4, testled = A3;
-const int estopbtn = 2;
+bool EStopped;
 
-bool estop = false, rdir = false, ldir = false, prevrdir = false, prevldir = false;
-int rmspeed = 0, lmspeed = 0;
-const int maxcool = 10000;
-int cooldown = maxcool;
-String msg;
-bool switcher = false, coolingdown = false, estopsig = true;
+int impact[8] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, P_U3_L8};
 
-void setup() {
-  Serial.begin(115200);
-  rmotor.attach(rmpin);
-  lmotor.attach(lmpin);
-  mcp.begin();
-  for (int i = 0; i < 10; i++)
-  {
-    mcp.pinMode(impact[i], INPUT);
-  }
+int LeftSpeed = 0;
+int RightSpeed = 0;
+
+bool LeftReverse = 0;
+bool RightReverse = 0;
+
+int LeftMotorValue = 0;
+int RightMotorValue = 0;
+
+bool LeftRelayClosed = false;
+bool RightRelayClosed = false;
+
+int CommandHealth = -1;
+int blinkCounter = 100;
+
+void setup()
+{
+
+  pinMode(P_U1_LD, OUTPUT);
+  pinMode(P_U1_RD, OUTPUT);
+  pinMode(P_U1_LB, INPUT);
+  pinMode(P_U1_RB, INPUT);
+
+  LeftMotor.attach(P_U1_LM);
+  RightMotor.attach(P_U1_RM);
+
+  pinMode(P_U1_I1, OUTPUT);
+  pinMode(P_U1_I2, OUTPUT);
+  pinMode(P_U1_I3, OUTPUT);
+  pinMode(P_U1_I4, OUTPUT);
+  pinMode(P_U1_I5, OUTPUT);
+
+
+  pinMode(P_U1_PC, OUTPUT);
+  pinMode(P_U1_EStop, INPUT);
+  pinMode(P_U1_SW, INPUT);
+  pinMode(P_U1_LED, OUTPUT);
+
+
 }
 
 void loop() {
-  for (int i = 10; i < 10; i++)
+  String ImpactArray = Impact();
+  
+  if (digitalRead(P_U1_EStop) == HIGH)
   {
-    if (mcp.digitalRead(impact[i]))
-    {
-      Estop(1);
-    }
+    EStop();
   }
-  if (digitalRead(estopbtn))
-  {
-    Estop(1);
-  }
-  if (!digitalRead(estopbtn) && estop)
-  {
-    Estop(0);
-  }
+
   if (Serial.available() > 0)
   {
-    msg = Serial.readString();
-    while (true)
-    {
-      int startin = msg.indexOf('<');
-      if (startin < 0)
-      {
-        break;
-      }
-      int endin = msg.indexOf('>');
-      if (endin < 0)
-      {
-        break;
-      }
-      int msglngth = endin - startin;
-      String msg = msg.substring(startin + 1, endin + 1);
-      char key = msg[0];
-      int value = msg.substring(1).toInt();
-      //Serial.println(value);
-      msg = msg.substring(endin + 1);
-      //Serial.println(signal);
+    SerialIn();
+  }
 
-      switch (key)
-      {
-        case 'C':
-          if (value == 0)
-          {
-            Serial.println("<C1>");
-          }
-          break;
-        case 'R': // right motor input
-          if (value < 0)
-          {
-            rdir = true;
-            value = -1 * value;
-          }
-          else
-          {
-            rdir = false;
-          }
-          rmspeed = value;
-          break;
-        case 'L': // left motor input
-          if (value < 0)
-          {
-            ldir = true;
-            value = -1 * value;
-          }
-          else
-          {
-            ldir = false;
-          }
-          lmspeed = value;
-          break;
-        case 'F': estopsig = value;
-          break;
-        default:
-          break;
-      }
-    }
-  }
-  if (!estop)
+  RunMotors();
+
+
+  blinkCounter--;
+
+  if(blinkCounter == 50)
   {
-    if (rdir != prevrdir)
-    {
-      rmotor.write(0);
-      coolingdown = true;
-      if (cooldown <= 0)
-      {
-        if (rdir) digitalWrite(rrelpin, HIGH);
-        else digitalWrite(rrelpin, LOW);
-        Serial.println("switch right");
-        switcher = true;
-        prevrdir = rdir;
-      }
-    }
-    else
-    {
-      rmotor.write(rmspeed);
-    }
-    if (ldir != prevldir)
-    {
-      lmotor.write(0);
-      coolingdown = true;
-      if (cooldown <= 0)
-      {
-        if (ldir) digitalWrite(lrelpin, HIGH);
-        else digitalWrite(lrelpin, LOW);
-        Serial.println("switch left");
-        cooldown = maxcool;
-        switcher = true;
-        prevldir = ldir;
-      }
-    }
-    else
-    {
-      lmotor.write(lmspeed);
-    }
-    if (switcher) {
-      cooldown = maxcool; switcher = !switcher;
-    }
-    if (coolingdown) {
-      cooldown--; coolingdown = !coolingdown;
-    }
+    digitalWrite(P_U1_LED, HIGH);
   }
+
+  if(blinkCounter == 0)
+  {
+    digitalWrite(P_U1_LED, LOW);
+    blinkCounter = 100;
+  }
+
+  delay(10);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

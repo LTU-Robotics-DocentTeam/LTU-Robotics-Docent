@@ -1,11 +1,12 @@
+
 String Impact()
 {
   String arraystate = "";
-  for (int i = 10; i < 10; i++)
+  for (int i = 0; i < 8; i++)
   {
     if (mcp.digitalRead(impact[i]))
     {
-      Estop(1);
+      EStop();
       arraystate += "1";
     }
     else

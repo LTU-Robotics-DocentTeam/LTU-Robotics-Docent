@@ -1,15 +1,22 @@
-void Estop(int onoff)
+
+void EStop()
 {
-  if (onoff)
-  {
-    estop = true;
-    rmotor.write(0);
-    lmotor.write(0);
-    estopsig = true;
-  }
-  else
-  {
-    estop = false;
-    estopsig = true;
-  }
+  EStopped = true;
+
+  LeftSpeed = 0;
+  RightSpeed = 0;
+
+  LeftMotorValue = 0;
+  RightMotorValue = 0;
+
+  LeftReverse = false;
+  RightReverse = false;
+
+  LeftMotor.write(0);
+  RightMotor.write(0);
+}
+
+void ResetEStop()
+{
+  EStopped = false;
 }

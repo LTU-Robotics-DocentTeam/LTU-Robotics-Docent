@@ -1,7 +1,7 @@
 void SerialIn()
 {
   // Read full incoming message from the serial port
-  msg = Serial.readString();
+  String msg = Serial.readString();
 
   while (true) // loop until the code breaks
   {
@@ -38,34 +38,13 @@ void SerialIn()
         // else do nothing
         break;
       case 'R': // right motor input
-        if (value < 0) // if incoming speed is negative
-        {
-          rdir = true; // switch direction relay on
-          value = -1 * value; // take incoming absolute value for the speed
-        }
-        else // if its positive
-        {
-          rdir = false; // switch direction relay off
-          // keep value as it is
-        }
-        rmspeed = value; // store value as motor speed
+        SetMotorRight(value); // store value as motor speed
         break;
       case 'L': // left motor input
-        if (value < 0) // if incoming speed is negative
-        {
-          ldir = true; // switch direction relay on
-          value = -1 * value; // take incoming absolute value for the speed
-        }
-        else // if its positive
-        {
-          ldir = false; // switch direction relay off
-          // keep value as it is
-        }
-        lmspeed = value; // store value as motor speed
+        SetMotorLeft(value); // store value as motor speed
         break;
       case 'F': // attempt E-Stop reset signal
-        estopsig = value; // set computer signal for the estop to whatever the computer sent (1 for true, 0 for false)
-                          // this does not override internal estop signal, but must be reset to false to allow motion again
+        ResetEStop();
         break;
       default:
         break;
