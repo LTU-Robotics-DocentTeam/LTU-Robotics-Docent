@@ -4,6 +4,9 @@ void SetMotorLeft(int LeftVelocity)
   if (EStopped)
     return;
 
+
+  Serial.println("SetMotorLeft");
+
   LeftSpeed = abs(LeftVelocity);
 
   LeftReverse = LeftVelocity < 0;
@@ -17,6 +20,8 @@ void SetMotorRight(int RightVelocity)
 {
   if (EStopped)
     return;
+
+  Serial.println("SetMotorRight");
 
   RightSpeed = abs(RightVelocity);
 
@@ -46,7 +51,7 @@ void RunMotors()
   
   if(CommandHealth == 0)
   {
-    EStop();
+    //EStop();
   }
 
 

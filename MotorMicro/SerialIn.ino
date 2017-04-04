@@ -3,6 +3,8 @@ void SerialIn()
   // Read full incoming message from the serial port
   String msg = Serial.readString();
 
+  Serial.println("ReadString");
+
   while (true) // loop until the code breaks
   {
     // check for valid messages with a start character '<' and end character '>'
@@ -16,13 +18,35 @@ void SerialIn()
     {
       break;
     }
+
+    Serial.println("FoundMessage");
+
+    Serial.println("startin:");
+    Serial.println(startin);
+    Serial.println("endin:");
+    Serial.println(endin);
+    
     // Extract message within '<' and '>'
     int msglngth = endin - startin;
-    String msg = msg.substring(startin + 1, endin + 1);
+
+    Serial.println("msglngth:");
+    Serial.println(msglngth);
+    
+    String msg = msg.substring(startin + 1, endin - 1);
+
+
+    Serial.println("msg:");
+    Serial.println(msg);
 
     // Take out the first character as the Key and the rest as the value
     char key = msg[0];
     int value = msg.substring(1).toInt();
+
+    Serial.println("MessageKey:");
+    Serial.println(key);
+    Serial.println("MessageValue:");
+    Serial.println(value);
+    delay(30000);
 
     // Remove the digits already read from the incoming string
     msg = msg.substring(endin + 1);
@@ -39,6 +63,7 @@ void SerialIn()
         break;
       case 'R': // right motor input
         SetMotorRight(value); // store value as motor speed
+        Serial.println("SendingRightMotorValue");
         break;
       case 'L': // left motor input
         SetMotorLeft(value); // store value as motor speed

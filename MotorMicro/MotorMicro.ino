@@ -1,6 +1,6 @@
 #include <Servo.h>
 #include <Wire.h>
-#include "Adafruit_MCP23008.h"
+#include "Adafruit_MCP23017.h"
 
 #define P_U1_RX         0
 #define P_U1_TX         1
@@ -18,12 +18,12 @@
 #define P_U1_I4     12
 #define P_U1_I5     13
 
-#define P_U1_PC     A1
-#define P_U1_OUT2   A2
-#define P_U1_SW     A3
-#define P_U1_LED    A4
-#define P_U1_SDA    A5
-#define P_U1_SCL    A6
+#define P_U1_PC     A0
+#define P_U1_OUT2   A1
+#define P_U1_SW     A2
+#define P_U1_LED    A3
+#define P_U1_SDA    A4
+#define P_U1_SCL    A5
 
 #define P_U3_L1     0
 #define P_U3_L2     1
@@ -46,12 +46,12 @@
 #define RAMP_CONSTANT     1
 #define HEALTH_CONSTANT   10
 
-Adafruit_MCP23008 mcp;
+Adafruit_MCP23017 mcp;
 
 Servo LeftMotor;
 Servo RightMotor;
 
-bool EStopped;
+bool EStopped = false;
 
 int impact[8] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, P_U3_L8};
 
@@ -73,6 +73,9 @@ int blinkCounter = 100;
 void setup()
 {
 
+  Serial.begin(115200);
+
+  
   pinMode(P_U1_LD, OUTPUT);
   pinMode(P_U1_RD, OUTPUT);
   pinMode(P_U1_LB, INPUT);
@@ -92,6 +95,9 @@ void setup()
   pinMode(P_U1_EStop, INPUT);
   pinMode(P_U1_SW, INPUT);
   pinMode(P_U1_LED, OUTPUT);
+
+
+  digitalWrite(P_U1_LED, HIGH);
 
 
 }

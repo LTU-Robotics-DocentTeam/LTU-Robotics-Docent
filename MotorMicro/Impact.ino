@@ -6,7 +6,7 @@ String Impact()
   {
     if (mcp.digitalRead(impact[i]))
     {
-      EStop();
+      //EStop();
       arraystate += "1";
     }
     else
