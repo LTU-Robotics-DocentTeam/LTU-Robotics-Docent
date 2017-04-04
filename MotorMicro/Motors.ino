@@ -43,6 +43,7 @@ void RunMotors()
 //
 //    return;
 //  }
+Serial.println("Hi");
 
   if(CommandHealth > 0)
   {
@@ -77,7 +78,7 @@ void RunMotors()
 
 
 
-  if (RightReverse != RightRelayClosed)
+  if (RightReverse == RightRelayClosed)
   {
     if (RightSpeed > RightMotorValue)
       RightMotorValue += RAMP_CONSTANT;
@@ -98,6 +99,7 @@ void RunMotors()
 
 
   LeftMotor.write(LeftMotorValue);
+  Serial.println(LeftMotorValue);
 
   RightMotor.write(RightMotorValue);
 

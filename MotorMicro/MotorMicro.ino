@@ -58,8 +58,8 @@ int impact[8] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, 
 int LeftSpeed = 0;
 int RightSpeed = 0;
 
-bool LeftReverse = 0;
-bool RightReverse = 0;
+bool LeftReverse = false;
+bool RightReverse = false;
 
 int LeftMotorValue = 0;
 int RightMotorValue = 0;
@@ -113,6 +113,7 @@ void loop() {
   if (Serial.available() > 0)
   {
     SerialIn();
+    Serial.println("Loop is done");
   }
 
   RunMotors();

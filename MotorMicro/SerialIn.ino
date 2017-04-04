@@ -1,7 +1,7 @@
 void SerialIn()
 {
   // Read full incoming message from the serial port
-  String msg = Serial.readString();
+  String msg = Serial.readStringUntil('\n');
 
   Serial.println("ReadString");
 
@@ -32,7 +32,7 @@ void SerialIn()
     Serial.println("msglngth:");
     Serial.println(msglngth);
     
-    String msg = msg.substring(startin + 1, endin - 1);
+    msg = msg.substring(startin + 1, endin);
 
 
     Serial.println("msg:");
@@ -46,7 +46,7 @@ void SerialIn()
     Serial.println(key);
     Serial.println("MessageValue:");
     Serial.println(value);
-    delay(30000);
+    //delay(30000);
 
     // Remove the digits already read from the incoming string
     msg = msg.substring(endin + 1);
