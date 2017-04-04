@@ -30,6 +30,7 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            // Get values for direction and speed for whichever module was working on them
             int direction = GetPropertyValue("Direction").ToInt32();
             int speed = GetPropertyValue("Speed").ToInt32();
 
@@ -39,25 +40,27 @@ namespace HENRY.Modules
             double rDirection = 0;
             double lDirection = 0;
 
-            if (speed > 0)
+            if (speed > 0) //if speed is non zero
             {
-                if (direction >= 90)
+                // Use robot direction to determine individual motor direction
+                if (direction >= 90) // if turning left...
                 {
-                    rDirection = 90;
-                    lDirection = 90 - (direction - 90);
+                    rDirection = 90; // right remains at full speed
+                    lDirection = 90 - (direction - 90); // left slows down directly proportional to how much to the left robot needs to turn
                 }
-                else
+                else // if turning right...
                 {
-                    rDirection = direction;
-                    lDirection = 90;
+                    rDirection = direction; // right slows down directly proportional to how much to the left robot needs to turn
+                    lDirection = 90; // left remains at full speed
                 }
 
-
+                // using previously calculated multipliers, use this formula to determine differential speeds
                 rmSpeed = (int)((rDirection / 90.0) * (speed * 2.0)) - speed;
                 lmSpeed = (int)((lDirection / 90.0) * (speed * 2.0)) - speed;
             }
-            else
+            else // if speed is zero or negative
             {
+                // ignore direction and just go backwards (or remain stationary for 0 speed)
                 rmSpeed = speed;
                 lmSpeed = speed;
             }
