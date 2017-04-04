@@ -20,7 +20,6 @@ namespace HENRY.Modules
         
         
         TimersTimer t;
-        const int spd = 20; // Current speed for robot movement (CANNOT EXCEED MAXSPEED)
         
         public ManualDrive()
         {
@@ -43,12 +42,12 @@ namespace HENRY.Modules
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (GetPropertyValue("ManualSpeed").ToInt32() > GetPropertyValue("MaximumSpeed").ToInt32()) 
-                SetPropertyValue("ManualSpeed", GetPropertyValue("MaximumSpeed"));
+                SetPropertyValue("ManualSpeed", GetPropertyValue("MaximumSpeed").ToInt32());
             if (GetPropertyValue("ManualSpeed").ToInt32() < 0)
                 SetPropertyValue("ManualSpeed", 0);
-            int spd = GetPropertyValue("ManualSpeed").ToInt32();
+            int manualSpeed = GetPropertyValue("ManualSpeed").ToInt32();
 
-
+            // 
             int direction = 0;
             int speed = 0;
             int btns = 0;
@@ -56,7 +55,7 @@ namespace HENRY.Modules
             if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
             {
                 direction = 90;
-                speed = spd;
+                speed = -manualSpeed;
             }
             else
             {
@@ -77,7 +76,7 @@ namespace HENRY.Modules
                 }
                 if (btns > 0)
                 {
-                    speed = spd;
+                    speed = manualSpeed;
                 }
             }
 

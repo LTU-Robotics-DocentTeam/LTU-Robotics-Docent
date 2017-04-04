@@ -28,10 +28,10 @@ namespace HENRY.Modules
         SerialPort serPort1; // Motor controller serial communication port
         SerialPort serPort2; // Sensor controller serial communication port (UltraS, Infrared, Hall Effect)
         SerialPort userPort; // User controller serial communication port
-        string[] ComPorts = new string[3];
+        string[] comPorts = new string[3];
         
-        string signal = "", msg2motor = "", connectstatus = "";
-        int deviceid = 0;
+        string signal = "", msg2motor = "", connectStatus = "";
+        int deviceId = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
 
         int prvr = 0, prvl = 0;
@@ -162,20 +162,20 @@ namespace HENRY.Modules
                     // Wait for one second
                     System.Threading.Thread.Sleep(1000);
                     // Check deviceid global variable, which the DataReceived functions will update when necessary
-                    if (deviceid == 1) // if its 1, then device is valid.
+                    if (deviceId == 1) // if its 1, then device is valid.
                     { 
                         // Update connection status and reset connection variables to default state
                         robotConn = Connection.Connected;
-                        deviceid = 0;
+                        deviceId = 0;
                         signal = "";
                         return;
                     }
-                    else if (deviceid == -1) // if its -1, device is invalid
+                    else if (deviceId == -1) // if its -1, device is invalid
                     {
                         // Reset variables and waiting time, close current port, and try next port
                         i++;
                         waiting = false;
-                        deviceid = 0;
+                        deviceId = 0;
                         signal = "";
                         serPort.Close();
                         continue;
@@ -205,17 +205,17 @@ namespace HENRY.Modules
         void UpdateConnectionStatus()
         {
             // Build connection status string to be displayed
-            connectstatus = "";
-            connectstatus += "Motor Micro: ";
-            if (serConn1 == Connection.Connected) { connectstatus += serPort1.PortName.ToString(); }
-            else { connectstatus += "Disconnected"; }
-            connectstatus += " Sensor Micro: ";
-            if (serConn2 == Connection.Connected) { connectstatus += serPort2.PortName.ToString(); }
-            else { connectstatus += "Disconnected"; }
-            connectstatus += " User Controller: ";
-            if (userConn == Connection.Connected) { connectstatus += userPort.PortName.ToString(); }
-            else { connectstatus += "Disconnected"; }
-            SetPropertyValue("Connection", connectstatus);
+            connectStatus = "";
+            connectStatus += "Motor Micro: ";
+            if (serConn1 == Connection.Connected) { connectStatus += serPort1.PortName.ToString(); }
+            else { connectStatus += "Disconnected"; }
+            connectStatus += " Sensor Micro: ";
+            if (serConn2 == Connection.Connected) { connectStatus += serPort2.PortName.ToString(); }
+            else { connectStatus += "Disconnected"; }
+            connectStatus += " User Controller: ";
+            if (userConn == Connection.Connected) { connectStatus += userPort.PortName.ToString(); }
+            else { connectStatus += "Disconnected"; }
+            SetPropertyValue("Connection", connectStatus);
         }
         /// <summary>
         /// Function that fires everytime Serial Data is received from serPort1 and parses the incoming data. Reads through incoming
@@ -249,8 +249,8 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "1", which is the motor microcontroller
-                    if (value == "1") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
-                    else deviceid = -1; // if incorrect id, set 
+                    if (value == "1") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'B': // Impact Sensors: Binary string
                     for (int i = 0; i < ImpactNum; i++)// Load serial data into impact sensor objects,  each sensor is its own object
@@ -332,8 +332,8 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
-                    if (value == "2") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
-                    else deviceid = -1; // if incorrect id, set 
+                    if (value == "2") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'H': // Hall Effect sensors: Data comes as a binary string
                     for (int i = 0; i < ArrayNum; i++) //Load serial data into hall array properties, each sensor is its own object
@@ -418,8 +418,8 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
-                    if (value == "3") deviceid = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
-                    else deviceid = -1; // if incorrect id, set 
+                    if (value == "3") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else deviceId = -1; // if incorrect id, set 
                     break;
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by userPort"); //Catch statement
                     break;

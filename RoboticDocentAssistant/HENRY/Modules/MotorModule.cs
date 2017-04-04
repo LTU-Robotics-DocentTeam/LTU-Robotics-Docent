@@ -30,51 +30,51 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            int dir = GetPropertyValue("Direction").ToInt32();
-            int spd = GetPropertyValue("Speed").ToInt32();
+            int direction = GetPropertyValue("Direction").ToInt32();
+            int speed = GetPropertyValue("Speed").ToInt32();
 
-            int rmspeed = 0;
-            int lmspeed = 0;
+            int rmSpeed = 0;
+            int lmSpeed = 0;
 
-            double rdir = 0;
-            double ldir = 0;
+            double rDirection = 0;
+            double lDirection = 0;
 
-            if (spd > 0)
+            if (speed > 0)
             {
-                if (dir >= 90)
+                if (direction >= 90)
                 {
-                    rdir = 90;
-                    ldir = 90 - (dir - 90);
+                    rDirection = 90;
+                    lDirection = 90 - (direction - 90);
                 }
                 else
                 {
-                    rdir = dir;
-                    ldir = 90;
+                    rDirection = direction;
+                    lDirection = 90;
                 }
 
 
-                rmspeed = (int)((rdir / 90.0) * (spd * 2.0)) - spd;
-                lmspeed = (int)((ldir / 90.0) * (spd * 2.0)) - spd;
+                rmSpeed = (int)((rDirection / 90.0) * (speed * 2.0)) - speed;
+                lmSpeed = (int)((lDirection / 90.0) * (speed * 2.0)) - speed;
             }
             else
             {
-                rmspeed = spd;
-                lmspeed = spd;
+                rmSpeed = speed;
+                lmSpeed = speed;
             }
 
             // Ensure total speed does not exceed MAXSPEED
-            if (rmspeed < -MAXSPEED)
-                rmspeed = -MAXSPEED;
-            if (rmspeed > MAXSPEED)
-                rmspeed = MAXSPEED;
-            if (lmspeed < -MAXSPEED)
-                lmspeed = -MAXSPEED;
-            if (lmspeed > MAXSPEED)
-                lmspeed = MAXSPEED;
+            if (rmSpeed < -MAXSPEED)
+                rmSpeed = -MAXSPEED;
+            if (rmSpeed > MAXSPEED)
+                rmSpeed = MAXSPEED;
+            if (lmSpeed < -MAXSPEED)
+                lmSpeed = -MAXSPEED;
+            if (lmSpeed > MAXSPEED)
+                lmSpeed = MAXSPEED;
 
             //Update current property value
-            SetPropertyValue("RightMSpeed", rmspeed);
-            SetPropertyValue("LeftMSpeed", lmspeed);
+            SetPropertyValue("RightMSpeed", rmSpeed);
+            SetPropertyValue("LeftMSpeed", lmSpeed);
         }
 
         public override string GetModuleName()

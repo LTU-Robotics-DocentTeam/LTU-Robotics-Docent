@@ -12,14 +12,14 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
         
-        const int UltraSNum = 5;
+        const int US_NUM = 5;
 
         public UltrasonicSensorModule()
         {
-            for (int i = 0; i <= UltraSNum; i++)
+            for (int i = 0; i <= US_NUM; i++)
                 SetPropertyValue("UltraS" + i.ToString(), 0.0);
 
-            SetPropertyValue("UltraSNum", UltraSNum);
+            SetPropertyValue("UltraSNum", US_NUM);
 
             t = new Timer();
             t.Interval = 330;
