@@ -13,15 +13,12 @@ namespace HENRY.Modules.Sensors
     class ImpactSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
-
-        const int ImpactNum = 10;
         
         public ImpactSensorModule()
         {
-            for (int i = 1; i <= ImpactNum; i++)
+            for (int i = 1; i <= Constants.IMPACT_NUM; i++)
                 SetPropertyValue("Impact" + i.ToString(), false);
 
-            SetPropertyValue("ImpactNum", ImpactNum);
 
             SetPropertyValue("EStop", false);
 
@@ -33,7 +30,7 @@ namespace HENRY.Modules.Sensors
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            for (int i = 1; i <= ImpactNum; i++)
+            for (int i = 1; i <= Constants.IMPACT_NUM; i++)
             {
                 // if any of them trigger, stop immediately
                 if (GetPropertyValue("Impact" + i.ToString()).ToBoolean())

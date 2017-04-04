@@ -13,18 +13,13 @@ namespace HENRY.Modules.Sensors
     class HallEffectSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
-        
-        const int ArrayNum = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
-        const int ClusterSize = 2; // Number of sensors per cluster
 
-        int NumOfCluster = ArrayNum / ClusterSize; //Number of clusters in array
+        const int NumOfCluster = Constants.ARRAY_NUM / Constants.CLUSTER_SIZE; //Number of clusters in array
         
         public HallEffectSensorModule()
         {
-            for (int i = 1; i <= ArrayNum; i++)
+            for (int i = 1; i <= Constants.ARRAY_NUM; i++)
                 SetPropertyValue("ArraySensor" + i.ToString(), false);
-
-            SetPropertyValue("ArrayNum", ArrayNum);
 
             //0 is Hard left, 90 is straight on (Can be avoided, See comment below)
             // ^ Load array backwards to make visualization more intuitive (i.e. 0 is hard right,
@@ -44,7 +39,7 @@ namespace HENRY.Modules.Sensors
         /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            bool[] arr = new bool[ArrayNum]; // Boolean array that represents full hall effect array
+            bool[] arr = new bool[Constants.ARRAY_NUM]; // Boolean array that represents full hall effect array
                                              // Each unit represents a sensor
             bool[] clarr = new bool[NumOfCluster]; // Boolean array that represents full cluster array
                                                              // Each unit represents a cluster, not a single sensor
@@ -58,7 +53,7 @@ namespace HENRY.Modules.Sensors
             // Patrick, feel free to use what I got so far or use your own method. 
 
             //Take serial Hall effect sensor data and load into a boolean array
-            for (int i = 0; i < ArrayNum; i++) 
+            for (int i = 0; i < Constants.ARRAY_NUM; i++) 
             {
                 arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
             }
@@ -66,7 +61,7 @@ namespace HENRY.Modules.Sensors
             //Use Hall effect boolean array data to load cluster array. ****This loop only works for a cluster size of 2****
             for(int i = 0; i < NumOfCluster; i++)
             {
-                if (arr[i * ClusterSize] || arr[(i * ClusterSize) + 1]) //if either hall in a pair is on, set cluster to true
+                if (arr[i * Constants.CLUSTER_SIZE] || arr[(i * Constants.CLUSTER_SIZE) + 1]) //if either hall in a pair is on, set cluster to true
                 {
                     clarr[i] = true; 
                 }

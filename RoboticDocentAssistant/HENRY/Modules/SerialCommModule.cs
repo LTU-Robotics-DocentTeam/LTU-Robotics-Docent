@@ -228,10 +228,6 @@ namespace HENRY.Modules
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
-            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
-            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
-            int IRNum = GetPropertyValue("IRNum").ToInt32();
             
             signal = serPort1.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
@@ -254,7 +250,7 @@ namespace HENRY.Modules
                     else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'B': // Impact Sensors: Binary string
-                    for (int i = 0; i < ImpactNum; i++)// Load serial data into impact sensor objects,  each sensor is its own object
+                    for (int i = 0; i < Constants.IMPACT_NUM; i++)// Load serial data into impact sensor objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -311,10 +307,6 @@ namespace HENRY.Modules
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
-            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
-            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
-            int IRNum = GetPropertyValue("IRNum").ToInt32();
 
             signal = serPort2.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
@@ -337,7 +329,7 @@ namespace HENRY.Modules
                     else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'H': // Hall Effect sensors: Data comes as a binary string
-                    for (int i = 0; i < ArrayNum; i++) //Load serial data into hall array properties, each sensor is its own object
+                    for (int i = 0; i < Constants.ARRAY_NUM; i++) //Load serial data into hall array properties, each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -350,7 +342,7 @@ namespace HENRY.Modules
                     }
                     break;
                 case 'I': // Infrared Sensors: Binary string
-                    for (int i = 0; i < IRNum; i++)//Load serial data into infrared objects,  each sensor is its own object
+                    for (int i = 0; i < Constants.IR_NUM; i++) //Load serial data into infrared objects,  each sensor is its own object
                     {
                         if (value[i] == '1')
                         {
@@ -397,10 +389,6 @@ namespace HENRY.Modules
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
-            int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-            int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
-            int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
-            int IRNum = GetPropertyValue("IRNum").ToInt32();
 
             signal = userPort.ReadLine(); // Receiving Arduino data as one string
             int startin = signal.IndexOf('<');
@@ -443,21 +431,18 @@ namespace HENRY.Modules
             {
                 simTime = 80;
 
-                int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
-                int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
-                int IRNum = GetPropertyValue("IRNum").ToInt32();
-                int line = r.Next(0, ArrayNum); // pick a random sensor to place line
+                int line = r.Next(0, Constants.ARRAY_NUM); // pick a random sensor to place line
 
 
 
-                for (int i = 1; i <= ArrayNum; i++)
+                for (int i = 1; i <= Constants.ARRAY_NUM; i++)
                 {
                     if (i > line - 2 && i < line + 2)
                         SetPropertyValue("ArraySensor" + i.ToString(), true);
                     else
                         SetPropertyValue("ArraySensor" + i.ToString(), false);
                 }
-                for (int i = 1; i <= UltraSNum; i++)
+                for (int i = 1; i <= Constants.US_NUM; i++)
                 {
                     //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
                     SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
@@ -465,11 +450,11 @@ namespace HENRY.Modules
 
                 if (r.Next(0, 100) < 50)
                 {
-                    SetPropertyValue("IR" + r.Next(0, IRNum - 1).ToString(), true);
+                    SetPropertyValue("IR" + r.Next(0, Constants.IR_NUM - 1).ToString(), true);
                 }
                 else
                 {
-                    for (int i = 1 ; i <= IRNum; i++)
+                    for (int i = 1 ; i <= Constants.IR_NUM; i++)
                     {
                         SetPropertyValue("IR" + i.ToString(), false);
                     }
@@ -480,14 +465,13 @@ namespace HENRY.Modules
             {
                 simTime = 80;
 
-                int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
                 if (r.Next(0, 100) < 50)
                 {
-                    SetPropertyValue("Impact" + r.Next(0, ImpactNum - 1).ToString(), true);
+                    SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
                 }
                 else
                 {
-                    for (int i = 1; i <= ImpactNum; i++)
+                    for (int i = 1; i <= Constants.IMPACT_NUM; i++)
                     {
                         SetPropertyValue("Impact" + i.ToString(), false);
                     }

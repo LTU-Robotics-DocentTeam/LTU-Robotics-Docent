@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Modules\AutoClosingMessageBox.cs" />
+    <Compile Include="Modules\Constants.cs" />
     <Compile Include="Modules\GenericSensorModule.cs" />
     <Compile Include="Modules\ManualDrive.cs" />
     <Compile Include="Modules\MotorModule.cs" />
