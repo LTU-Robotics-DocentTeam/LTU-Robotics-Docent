@@ -77,7 +77,7 @@ void RunMotors()
 
 
 
-  if (RightReverse != RightRelayClosed)
+  if (RightReverse == RightRelayClosed)
   {
     if (RightSpeed > RightMotorValue)
       RightMotorValue += RAMP_CONSTANT;

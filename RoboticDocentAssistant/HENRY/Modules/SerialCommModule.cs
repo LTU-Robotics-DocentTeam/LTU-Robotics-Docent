@@ -33,6 +33,7 @@ namespace HENRY.Modules
         string signal = "", msg2motor = "", connectStatus = "";
         int deviceId = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
+        int simTime;
 
         int prvr = 0, prvl = 0;
         bool prestop = false;
@@ -436,10 +437,11 @@ namespace HENRY.Modules
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
             UpdateConnectionStatus();
+            if (simTime > 0) simTime--;
             // If sensor micro is disconnected and simulation mode is on, generate random inputs
-            if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
+            if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean() && simTime <= 0)
             {
-                t.Interval = 800;
+                simTime = 80;
 
                 int ArrayNum = GetPropertyValue("ArrayNum").ToInt32();
                 int UltraSNum = GetPropertyValue("UltraSNum").ToInt32();
@@ -474,9 +476,9 @@ namespace HENRY.Modules
                 }
             }
             // If motor micro is disconnected and simulation mode is on, generate random ass inputs
-            if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
+            if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean() && simTime <= 0)
             {
-                t.Interval = 800;
+                simTime = 80;
 
                 int ImpactNum = GetPropertyValue("ImpactNum").ToInt32();
                 if (r.Next(0, 100) < 50)
@@ -494,7 +496,6 @@ namespace HENRY.Modules
             // If motor micro is connected and simulation mode is OFF, send data to arduino
             if (serConn1 == Connection.Connected && !GetPropertyValue("SimulationMode").ToBoolean())
             {
-                t.Interval = 1;
                 if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
                     msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
