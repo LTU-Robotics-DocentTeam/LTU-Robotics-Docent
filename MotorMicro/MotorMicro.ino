@@ -103,7 +103,7 @@ void setup()
 }
 
 void loop() {
-  String ImpactArray = Impact();
+  //String ImpactArray = Impact();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {

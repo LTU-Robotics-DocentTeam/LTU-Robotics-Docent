@@ -43,7 +43,6 @@ void RunMotors()
 //
 //    return;
 //  }
-Serial.println("Hi");
 
   if(CommandHealth > 0)
   {
@@ -99,7 +98,6 @@ Serial.println("Hi");
 
 
   LeftMotor.write(LeftMotorValue);
-  Serial.println(LeftMotorValue);
 
   RightMotor.write(RightMotorValue);
 

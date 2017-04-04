@@ -1,7 +1,7 @@
 void SerialIn()
 {
   // Read full incoming message from the serial port
-  String msg = Serial.readStringUntil('\n');
+  String msg = Serial.readStringUntil('>');
 
   Serial.println("ReadString");
 
@@ -13,26 +13,26 @@ void SerialIn()
     {
       break;
     }
-    int endin = msg.indexOf('>'); // if not found (indexOf returned -1), break loop
-    if (endin < 0)
-    {
-      break;
-    }
+//    int endin = msg.indexOf('>'); // if not found (indexOf returned -1), break loop
+//    if (endin < 0)
+//    {
+//      break;
+//    }
 
     Serial.println("FoundMessage");
 
     Serial.println("startin:");
     Serial.println(startin);
     Serial.println("endin:");
-    Serial.println(endin);
+    //Serial.println(endin);
     
     // Extract message within '<' and '>'
-    int msglngth = endin - startin;
+    //int msglngth = endin - startin;
 
     Serial.println("msglngth:");
-    Serial.println(msglngth);
+    //Serial.println(msglngth);
     
-    msg = msg.substring(startin + 1, endin);
+    msg = msg.substring(startin + 1);
 
 
     Serial.println("msg:");
@@ -49,7 +49,7 @@ void SerialIn()
     //delay(30000);
 
     // Remove the digits already read from the incoming string
-    msg = msg.substring(endin + 1);
+    //msg = msg.substring(endin);
 
     // Switch statement for determining where to assign the value based on the key
     switch (key)
