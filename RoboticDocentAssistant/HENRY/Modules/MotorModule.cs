@@ -11,8 +11,9 @@ namespace HENRY.Modules
     class MotorModule : LengarioModuleAuxiliary
     {
         TimersTimer t;
-        const int MAXSPEED = 180; // DO NOT CHANGE -- Maximum speed the motors can take (based on regular servo code)
+        const int MAXSPEED = 120; // DO NOT CHANGE -- Maximum speed the motors can take (based on regular servo code)
                                   // 180 is SANIC fast, so don't set spd to the max
+        const int DEAD_ZONE = 55;
         
         public MotorModule()
         {
@@ -70,10 +71,18 @@ namespace HENRY.Modules
                 rmSpeed = -MAXSPEED;
             if (rmSpeed > MAXSPEED)
                 rmSpeed = MAXSPEED;
+            if (rmSpeed < DEAD_ZONE && rmSpeed != 0)
+                rmSpeed = DEAD_ZONE;
+            else if (rmSpeed > -DEAD_ZONE && rmSpeed != 0)
+                rmSpeed = -DEAD_ZONE;
             if (lmSpeed < -MAXSPEED)
                 lmSpeed = -MAXSPEED;
             if (lmSpeed > MAXSPEED)
                 lmSpeed = MAXSPEED;
+            if (lmSpeed < DEAD_ZONE && rmSpeed != 0)
+                lmSpeed = DEAD_ZONE;
+            else if (lmSpeed > DEAD_ZONE && rmSpeed != 0)
+                lmSpeed = -DEAD_ZONE;
 
             //Update current property value
             SetPropertyValue("RightMSpeed", rmSpeed);

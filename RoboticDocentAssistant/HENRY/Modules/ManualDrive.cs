@@ -17,8 +17,6 @@ namespace HENRY.Modules
     /// - Scale servo speed values to m/s for manualdrive
     class ManualDrive : LengarioModuleCore
     {
-        
-        
         TimersTimer t;
         
         public ManualDrive()
