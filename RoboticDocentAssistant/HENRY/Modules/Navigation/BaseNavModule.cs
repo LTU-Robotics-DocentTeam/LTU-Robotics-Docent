@@ -63,7 +63,7 @@ namespace HENRY.Modules.Navigation
             else // if its negative (-1 is error state. invalid line location)
             {
                 // Set direction and speed to 0
-                direction = 0;
+                direction = 90;
                 speed = 0;
             }
 
@@ -73,7 +73,7 @@ namespace HENRY.Modules.Navigation
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
-                SetPropertyValue("Direction", direction);
+                SetPropertyValue("Direction", direction - 90);
                 SetPropertyValue("Speed", speed);
             }
 

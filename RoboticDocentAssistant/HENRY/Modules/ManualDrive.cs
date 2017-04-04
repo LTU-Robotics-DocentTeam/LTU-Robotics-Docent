@@ -50,35 +50,24 @@ namespace HENRY.Modules
             // 
             int direction = 0;
             int speed = 0;
-            int btns = 0;
 
             if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
             {
-                direction = 90;
-                speed = -manualSpeed;
+                speed -= manualSpeed;
             }
-            else
+            if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
             {
-                if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
-                {
-                    direction = 90;
-                    btns = 1;
-                }
-                if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
-                {
-                    btns++;
-                    direction = (direction + 0) / btns;
-                }
-                if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
-                {
-                    btns++;
-                    direction = (direction + 180) / btns;
-                }
-                if (btns > 0)
-                {
-                    speed = manualSpeed;
-                }
+                speed += manualSpeed;
             }
+            if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
+            {
+                direction += 90;
+            }
+            if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
+            {
+                direction -= 90;
+            }
+            
 
             if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {

@@ -31,36 +31,39 @@ namespace HENRY.Modules
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             int direction = GetPropertyValue("Direction").ToInt32();
-            int speed = GetPropertyValue("Speed").ToInt32();
+            int spd = GetPropertyValue("Speed").ToInt32();
 
-            int rmSpeed = 0;
-            int lmSpeed = 0;
+            //double rDirection = 0;
+            //double lDirection = 0;
 
-            double rDirection = 0;
-            double lDirection = 0;
+            int rmDirSpeed = (int)((0.3) * (direction));
+            int lmDirSpeed = (int)((0.3) * (direction));
+            
+            int rmSpeed = spd + rmDirSpeed;
+            int lmSpeed = spd - lmDirSpeed;
 
-            if (speed > 0)
-            {
-                if (direction >= 90)
-                {
-                    rDirection = 90;
-                    lDirection = 90 - (direction - 90);
-                }
-                else
-                {
-                    rDirection = direction;
-                    lDirection = 90;
-                }
+            //if (spd > 0)
+            //{
+            //    if (direction >= 90)
+            //    {
+            //        rDirection = 90;
+            //        lDirection = 90 - (direction - 90);
+            //    }
+            //    else
+            //    {
+            //        rDirection = direction;
+            //        lDirection = 90;
+            //    }
 
 
-                rmSpeed = (int)((rDirection / 90.0) * (speed * 2.0)) - speed;
-                lmSpeed = (int)((lDirection / 90.0) * (speed * 2.0)) - speed;
-            }
-            else
-            {
-                rmSpeed = speed;
-                lmSpeed = speed;
-            }
+            //    rmSpeed = (int)((rDirection / 90.0) * (spd * 2.0)) - spd;
+            //    lmSpeed = (int)((lDirection / 90.0) * (spd * 2.0)) - spd;
+            //}
+            //else
+            //{
+            //    rmSpeed = spd;
+            //    lmSpeed = spd;
+            //}
 
             // Ensure total speed does not exceed MAXSPEED
             if (rmSpeed < -MAXSPEED)
