@@ -39,13 +39,12 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (GetPropertyValue("ManualSpeed").ToInt32() > GetPropertyValue("MaximumSpeed").ToInt32()) 
-                SetPropertyValue("ManualSpeed", GetPropertyValue("MaximumSpeed").ToInt32());
+            if (GetPropertyValue("ManualSpeed").ToInt32() > Constants.MAXSPEED) 
+                SetPropertyValue("ManualSpeed", Constants.MAXSPEED);
             if (GetPropertyValue("ManualSpeed").ToInt32() < 0)
                 SetPropertyValue("ManualSpeed", 0);
             int manualSpeed = GetPropertyValue("ManualSpeed").ToInt32();
 
-            // 
             int direction = 0;
             int speed = 0;
 
