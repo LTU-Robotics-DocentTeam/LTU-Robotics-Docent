@@ -11,20 +11,16 @@ namespace HENRY.Modules.Sensors
     class UltrasonicSensorModule : LengarioModuleAuxiliary
     {
         Timer t;
-        
-        const int US_NUM = 5;
 
         public UltrasonicSensorModule()
         {
-            for (int i = 0; i <= US_NUM; i++)
+            for (int i = 0; i <= Constants.US_NUM; i++)
                 SetPropertyValue("UltraS" + i.ToString(), 0.0);
 
-            SetPropertyValue("UltraSNum", US_NUM);
-
-            t = new Timer();
-            t.Interval = 330;
-            t.Elapsed += t_Elapsed;
-            t.Start();
+            //t = new Timer();
+            //t.Interval = 330;
+            //t.Elapsed += t_Elapsed;
+            //t.Start();
         }
 
         void t_Elapsed(object sender, ElapsedEventArgs e)

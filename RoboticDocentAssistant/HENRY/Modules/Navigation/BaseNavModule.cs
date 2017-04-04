@@ -15,7 +15,7 @@ namespace HENRY.Modules.Navigation
     {
         Timer t;
 
-        const int default_Speed = 50; // default speed for both motors when no obstacles are in front or nearby
+        
         
         public BaseNavModule()
         {
@@ -36,7 +36,6 @@ namespace HENRY.Modules.Navigation
         /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
-            int UltraNum = GetPropertyValue("UltraSNum").ToInt32();
 
             int dist2obstacle = 2000;
             int speed;
@@ -47,7 +46,7 @@ namespace HENRY.Modules.Navigation
             if (direction >= 0) // if direction is valid (non-negative integer)...
             {
                 // Look at Ultrasonic sensors and calculate which one detects the closest object
-                for (int i = 0; i < UltraNum; i++)
+                for (int i = 0; i < Constants.US_NUM; i++)
                 {
                     int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
 
@@ -58,12 +57,12 @@ namespace HENRY.Modules.Navigation
                 }
 
                 // Determine current speed based on distance to closest obstacle
-                speed = (int)((double)default_Speed * (double)((double)dist2obstacle / 2000));
+                speed = (int)((double)Constants.DEFAULT_SPEED * (double)((double)dist2obstacle / 2000));
             }
             else // if its negative (-1 is error state. invalid line location)
             {
                 // Set direction and speed to 0
-                direction = 0;
+                direction = 90;
                 speed = 0;
             }
 
@@ -73,7 +72,7 @@ namespace HENRY.Modules.Navigation
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
-                SetPropertyValue("Direction", direction);
+                SetPropertyValue("Direction", direction - 90);
                 SetPropertyValue("Speed", speed);
             }
 

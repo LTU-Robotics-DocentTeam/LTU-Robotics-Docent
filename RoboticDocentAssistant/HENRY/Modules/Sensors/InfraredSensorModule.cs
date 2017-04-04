@@ -13,14 +13,12 @@ namespace HENRY.Modules.Sensors
     {
         //Timer t;
         
-        const int IRNum = 6;
+        
 
         public InfraredSensorModule()
         {
-            for (int i = 1; i <= IRNum; i++)
+            for (int i = 1; i <= Constants.IR_NUM; i++)
                 SetPropertyValue("IR" + i.ToString(), false);
-            
-            SetPropertyValue("IRNum", IRNum);
 
             //t = new Timer();
             //t.Interval = 330;
