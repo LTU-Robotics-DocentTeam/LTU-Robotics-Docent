@@ -1,92 +1,92 @@
+#include <Adafruit_MCP23017.h>
 #include <Wire.h>
-#include "Adafruit_MCP23008.h"
 
-Adafruit_MCP23008 mcp;
+
+#define P_U2_RX       0
+#define P_U2_TX       1
+
+#define P_U2_US1_P    2
+#define P_U2_US1_E    3
+#define P_U2_US2_P    4
+#define P_U2_US2_E    5
+#define P_U2_US3_P    6
+#define P_U2_US3_E    7
+#define P_U2_US4_P    8
+#define P_U2_US4_E    9
+#define P_U2_US5_P    12
+#define P_U2_US5_E    13
+
+#define P_U2_PWM1     10
+#define P_U2_PWM2     11
+
+#define P_U2_BattVolt A1
+#define P_U2_ADC1     A2
+#define P_U2_ADC2     A3
+#define P_U2_ADC3     A4
+#define P_U2_SDA      A5
+#define P_U2_SCL      A6
+
+#define P_Hall_H1     0
+#define P_Hall_H2     1
+#define P_Hall_H3     2
+#define P_Hall_H4     3
+#define P_Hall_H5     4
+#define P_Hall_H6     5
+#define P_Hall_H7     6
+#define P_Hall_H8     7
+#define P_Hall_H9     8
+#define P_Hall_H10    9
+#define P_Hall_H11    10
+#define P_Hall_H12    11
+#define P_Hall_H13    12
+#define P_Hall_H14    13
+#define P_Hall_H15    14
+#define P_Hall_H16    15
+
+#define U_NUM         5
+#define H_NUM         16
+
+Adafruit_MCP23017 mcp;
 
 //pins
-const int HEpins[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}; // pins on expansion board
-const int USping[5] = {2, 4, 6, 8, 12};
-const int USecho[5] = {3, 5, 7, 9, 13};
+const int HEpins[H_NUM] = {P_Hall_H1, P_Hall_H2, P_Hall_H3, P_Hall_H4, P_Hall_H5, P_Hall_H6, P_Hall_H7, 
+                        P_Hall_H8, P_Hall_H9, P_Hall_H10, P_Hall_H11, P_Hall_H12, P_Hall_H13, P_Hall_H14, 
+                        P_Hall_H15, P_Hall_H16}; // pins on expansion board
+const int USping[U_NUM] = {P_U2_US1_P, P_U2_US2_P, P_U2_US3_P, P_U2_US4_P, P_U2_US5_P};
+const int USecho[U_NUM] = {P_U2_US1_E, P_U2_US2_E, P_U2_US3_E, P_U2_US4_E, P_U2_US5_E};
 
 //variables
 int i = 0;
+int USprev[U_NUM] = {0, 0, 0, 0, 0};
 
 //serial
-String signal, msg2pc = "";
-const char USkey[5] = {'V', 'W', 'X', 'Y', 'Z'};
+String msg2pc = "";
+const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
+String prevHe = "", prevVolt = "";
 
 // function declarations
 
 void setup() {
   Serial.begin(115200);
-  pinMode(2, OUTPUT);
-  pinMode(4, OUTPUT);
-  pinMode(8, OUTPUT);
-  pinMode(12, OUTPUT);
-  pinMode(3, INPUT);
-  pinMode(5, INPUT);
-  pinMode(9, INPUT);
-  pinMode(13, INPUT);
-  // put your setup code here, to run once:
+  for (int i = 0; i < U_NUM; i++)
+  {
+    pinMode(USping[i], OUTPUT);
+    pinMode(USecho[i], INPUT);
+  }
   mcp.begin();
+  for (int i = 0; i < H_NUM; i++)
+  {
+    mcp.pinMode(HEpins[i], INPUT);
+    mcp.pullUp(HEpins[i], HIGH);
+  }
 }
 
 void loop() {
   if (Serial.available() > 0)
   {
-    signal = Serial.readString();
-    while (true)
-    {
-      int startin = signal.indexOf('<');
-      if (startin < 0)
-      {
-        break;
-      }
-      int endin = signal.indexOf('>');
-      if (endin < 0)
-      {
-        break;
-      }
-      int msglngth = endin - startin;
-      String msg = signal.substring(startin + 1, endin + 1);
-      char key = msg[0];
-      int value = msg.substring(1).toInt();
-      //Serial.println(value);
-      signal = signal.substring(endin + 1);
-      //Serial.println(signal);
-
-      switch (key)
-      {
-        case 'C':
-          if (value == 0)
-          {
-            Serial.println("<C2>");
-          }
-          break;
-      }
-    }
-    //msg = prevmsg;
+    SerialIn();
   }
-  String Hall_Array = Hall_Effect_Array();
-  long Ultra_value = Ultra_Sensor(USping[i], USecho[i]);
-  String Ultrasonic = "<" + (String)USkey[i] + (String)Ultra_value + ">";
-  //  Old ultrasonic code
-  //  long Ultrasonic_1 = Ultra_Sensor(2, 3); //Call for First Ultrasonic
-  //  String Ultra_1 = "A";
-  //  Ultra_1 += String(Ultrasonic_1);
-  //  long Ultrasonic_2 = Ultra_Sensor( 4, 5); //Call for Second Ultrasonic
-  //  String Ultra_2 = "B";
-  //  Ultra_2 += String(Ultrasonic_2);
-  //  long Ultrasonic_3 = Ultra_Sensor( 6, 7); //Call for First Ultrasonic
-  //  String Ultra_3 = "C";
-  //  Ultra_3 += String(Ultrasonic_3);
-  //  long Ultrasonic_4 = Ultra_Sensor( 8, 9); //Call for First Ultrasonic
-  //  String Ultra_4 = "D";
-  //  Ultra_4 += String(Ultrasonic_4);
-  //  long Ultrasonic_5 = Ultra_Sensor( 12, 13); //Call for First Ultrasonic
-  //  String Ultra_5 = "E";
-  //  Ultra_5 += String(Ultrasonic_5);
-  Serial.println(Hall_Array + Ultrasonic);
+  SerialOut(i);
 
   // Counter for ultrasonic sensor
   i++; // update every iteration
