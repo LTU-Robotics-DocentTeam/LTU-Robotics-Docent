@@ -207,7 +207,7 @@ namespace HENRY.Modules
         void UpdateConnectionStatus()
         {
             // Check if serial ports are still open
-            if (!serPort1.IsOpen)
+            if (!serPort1.IsOpen && serConn1 != Connection.Disconnected)
             {
                 serConn1 = Connection.Unknown;
                 if (System.Windows.MessageBox.Show("serPort1 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -219,7 +219,7 @@ namespace HENRY.Modules
                     serConn1 = Connection.Disconnected;
                 }
             }
-            if (!serPort2.IsOpen)
+            if (!serPort2.IsOpen && serConn2 != Connection.Disconnected)
             {
                 serConn2 = Connection.Unknown;
                 if (System.Windows.MessageBox.Show("serPort2 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -231,7 +231,7 @@ namespace HENRY.Modules
                     serConn1 = Connection.Disconnected;
                 }
             }
-            if (!userPort.IsOpen)
+            if (!userPort.IsOpen && userConn != Connection.Disconnected)
             {
                 userConn = Connection.Unknown;
                 if (System.Windows.MessageBox.Show("userPort lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
