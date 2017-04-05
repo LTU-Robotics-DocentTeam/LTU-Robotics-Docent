@@ -72,6 +72,9 @@
     <Compile Include="Views\DevView.xaml.cs">
       <DependentUpon>DevView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\KioskView.xaml.cs">
+      <DependentUpon>KioskView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\DevView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KioskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
