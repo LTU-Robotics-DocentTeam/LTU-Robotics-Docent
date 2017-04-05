@@ -33,7 +33,7 @@ namespace HENRY.Modules
         string signal = "", msg2motor = "", connectStatus = "";
         int deviceId = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
-        int simTime;
+        int simTimer = 0;
 
         int prvr = 0, prvl = 0;
         bool prestop = false;
@@ -206,6 +206,44 @@ namespace HENRY.Modules
         /// </summary>
         void UpdateConnectionStatus()
         {
+            // Check if serial ports are still open
+            if (!serPort1.IsOpen)
+            {
+                serConn1 = Connection.Unknown;
+                if (System.Windows.MessageBox.Show("serPort1 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    ConnectBot(serPort1, "Motor MicroController", ref serConn1);
+                }
+                else
+                {
+                    serConn1 = Connection.Disconnected;
+                }
+            }
+            if (!serPort2.IsOpen)
+            {
+                serConn2 = Connection.Unknown;
+                if (System.Windows.MessageBox.Show("serPort2 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
+                }
+                else
+                {
+                    serConn1 = Connection.Disconnected;
+                }
+            }
+            if (!userPort.IsOpen)
+            {
+                userConn = Connection.Unknown;
+                if (System.Windows.MessageBox.Show("userPort lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    ConnectBot(userPort, "User MicroController", ref userConn);
+                }
+                else
+                {
+                    userConn = Connection.Disconnected;
+                }
+            }
+            
             // Build connection status string to be displayed
             connectStatus = "";
             connectStatus += "Motor Micro: ";
@@ -230,17 +268,21 @@ namespace HENRY.Modules
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
             
-            signal = serPort1.ReadLine(); // Receiving Arduino data as one string
+            // Read from seriaport up to next valid character
+            signal = serPort1.ReadTo(">");
+
+            //Look for valid start and end characters
             int startin = signal.IndexOf('<');
-            int endin = signal.IndexOf('>');
-            if (startin < 0 || endin < 0)
+
+            // if start character is not present, return due to invalid message
+            if (startin < 0)
             {
                 return;
             }
-            int msglngth = endin - startin;
-            string msg1 = signal.Substring(startin+1, msglngth-1);
-            char key = msg1[0];
-            string value = msg1.Substring(1);
+            //int msglngth = endin - startin;
+            string msg = signal.Substring(startin+1);
+            char key = msg[0];
+            string value = msg.Substring(1);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
 
@@ -311,17 +353,21 @@ namespace HENRY.Modules
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
 
-            signal = serPort2.ReadLine(); // Receiving Arduino data as one string
+            // Read from seriaport up to next valid character
+            signal = serPort2.ReadTo(">");
+
+            //Look for valid start and end characters
             int startin = signal.IndexOf('<');
-            int endin = signal.IndexOf('>');
-            if (startin < 0 || endin < 0)
+
+            // if start character is not present, return due to invalid message
+            if (startin < 0)
             {
                 return;
             }
-            int msglngth = endin - startin;
-            string msg2 = signal.Substring(startin + 1, msglngth - 1);
-            char key = msg2[0];
-            string value = msg2.Substring(1);
+            //int msglngth = endin - startin;
+            string msg = signal.Substring(startin + 1);
+            char key = msg[0];
+            string value = msg.Substring(1);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
 
@@ -382,7 +428,7 @@ namespace HENRY.Modules
                         SetPropertyValue("UserModeOn", false);
                     }
                     break;
-                case 'S': // User View ON?: Determines which View is active at the moment
+                case 'S': // Battery voltage: Returns analog reading of current battery voltage
                     SetPropertyValue("BatteryVoltage", value);
                     break;
                 default: 
@@ -398,17 +444,21 @@ namespace HENRY.Modules
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
 
-            signal = userPort.ReadLine(); // Receiving Arduino data as one string
+            // Read from seriaport up to next valid character
+            signal = userPort.ReadTo(">");
+
+            //Look for valid start and end characters
             int startin = signal.IndexOf('<');
-            int endin = signal.IndexOf('>');
-            if (startin < 0 || endin < 0)
+
+            // if start character is not present, return due to invalid message
+            if (startin < 0)
             {
                 return;
             }
-            int msglngth = endin - startin;
-            string msg3 = signal.Substring(startin + 1, msglngth - 1);
-            char key = msg3[0];
-            string value = msg3.Substring(1);
+            //int msglngth = endin - startin;
+            string msg = signal.Substring(startin + 1);
+            char key = msg[0];
+            string value = msg.Substring(1);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
 
@@ -432,19 +482,26 @@ namespace HENRY.Modules
         /// - Figure out how to have simulation mode run with motor communications without slowing down stream. Some sort of counter?
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
+            // Calls function to update the connection status on the GUI
             UpdateConnectionStatus();
-            if (simTime > 0) simTime--;
-            // If sensor micro is disconnected and simulation mode is on, generate random inputs
-            if (simTime <= 0)
+
+            // decrease simulation timer counter back to 0
+            if (simTimer > 0) simTimer--;
+            
+            // If simulation mode is on, access random generation cases. These reset the simulation timers and generate random inputs
+            // only access these cases if simTimer is down to 0 again.
+            // This timer allows for slow random generation of inputs while maintaining a faster timer for sending serial messages
+            if (simTimer <= 0)
             {
+                // If sensor micro is disconnected and simulation mode is on, generate random inputs
                 if (serConn2 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
                 {
-                    simTime = 80;
+                    // set timer for when sensor micro is disconnected
+                    simTimer = 80;
 
-                    int line = r.Next(0, Constants.ARRAY_NUM); // pick a random sensor to place line
+                    int line = r.Next(0, Constants.ARRAY_NUM); // pick a random location in hall effect array to place line
 
-
-
+                    // Set hall effect array states to true or false accordingly 
                     for (int i = 1; i <= Constants.ARRAY_NUM; i++)
                     {
                         if (i > line - 2 && i < line + 2)
@@ -452,12 +509,14 @@ namespace HENRY.Modules
                         else
                             SetPropertyValue("ArraySensor" + i.ToString(), false);
                     }
+
+                    // Generate random valid inputs for the ultrasonic simulation
                     for (int i = 1; i <= Constants.US_NUM; i++)
                     {
-                        //SetPropertyValue("IR" + i.ToString(), r.NextDouble() * 100.0);
                         SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
                     }
 
+                    // trigger random infrared sensor in array
                     if (r.Next(0, 100) < 50)
                     {
                         SetPropertyValue("IR" + r.Next(0, Constants.IR_NUM - 1).ToString(), true);
@@ -473,8 +532,10 @@ namespace HENRY.Modules
                 // If motor micro is disconnected and simulation mode is on, generate random inputs
                 if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
                 {
-                    simTime = 80;
+                    // set timer for when motor micro is disconnected
+                    simTimer = 80;
 
+                    // trigger random impact sensor in array
                     if (r.Next(0, 100) < 50)
                     {
                         SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
@@ -492,18 +553,24 @@ namespace HENRY.Modules
             // If motor micro is connected and simulation mode is OFF, send data to arduino
             if (serConn1 == Connection.Connected && !GetPropertyValue("SimulationMode").ToBoolean())
             {
+                // Check for data to send to the arduino
+                msg2motor = "";
+                // Only send motor data if it has changed from last message sent
                 if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
                 {
                     msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
                     prvr = GetPropertyValue("RightMSpeed").ToInt32();
                     prvl = GetPropertyValue("LeftMSpeed").ToInt32();
                 }
-                if (prestop != GetPropertyValue("EStop").ToBoolean())
+                // if estop triggered before, send attempt reset signal when user addresses in the program (i.e. checkbox in DevView, 
+                // alert message from UserView)
+                if (prestop != GetPropertyValue("EStop").ToBoolean() && prestop)
                 {
-                    msg2motor = "<F" + GetPropertyValue("EStop").ToInt32() + ">"; // Attempt to reset E-Stop on board. Does not override physical button
+                    msg2motor = "<F" + GetPropertyValue("EStop").ToInt32() + ">";
                     prestop = GetPropertyValue("EStop").ToBoolean();
                 }
                 
+                // if message is not empty, send message through serial port
                 if (msg2motor != "")
                 {
                     serPort1.WriteLine(msg2motor);
