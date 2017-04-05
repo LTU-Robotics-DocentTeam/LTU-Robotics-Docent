@@ -1,7 +1,6 @@
 #include <Adafruit_MCP23017.h>
 #include <Wire.h>
 
-
 #define P_U2_RX       0
 #define P_U2_TX       1
 
@@ -65,8 +64,6 @@ String msg2pc = "";
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 
-// function declarations
-
 void setup() {
   Serial.begin(115200);
   for (int i = 0; i < U_NUM; i++)
@@ -91,9 +88,10 @@ void loop() {
 
   // Counter for ultrasonic sensor
   i++; // update every iteration
-  if (i > 4) // as soon as it reaches 4 (i > 4), reset counter i
+  if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
   {
     i = 0;
   }
+  delay(10);
 
 }
