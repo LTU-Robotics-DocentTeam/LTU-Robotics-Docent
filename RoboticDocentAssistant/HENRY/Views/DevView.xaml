@@ -152,6 +152,10 @@
                             <TextBlock Text="{Binding UltraS5}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                         <Separator></Separator>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Voltage: " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding BatteryVoltage}" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <!--User Controller Stackpanel-->

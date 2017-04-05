@@ -83,6 +83,7 @@ namespace HENRY.Modules
             SetPropertyValue("DevModeOn", true);
             SetPropertyValue("UserModeOn", false);
             SetPropertyValue("SimulationMode", false);
+            SetPropertyValue("BatteryVoltage", 0.ToString());
 
             t.Start();
 
@@ -291,7 +292,9 @@ namespace HENRY.Modules
                         SetPropertyValue("EStop", false);
                     }
                     break;
-                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort1"); //Catch statement
+                default: 
+                    if (serConn1 != Connection.Unknown) 
+                        System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort1"); //Catch statement
                     break;
 
             }
@@ -379,7 +382,12 @@ namespace HENRY.Modules
                         SetPropertyValue("UserModeOn", false);
                     }
                     break;
-                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort2"); //Catch statement
+                case 'S': // User View ON?: Determines which View is active at the moment
+                    SetPropertyValue("BatteryVoltage", value);
+                    break;
+                default: 
+                    if (serConn2 != Connection.Unknown) 
+                        System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort2"); //Catch statement
                     break;
 
             }

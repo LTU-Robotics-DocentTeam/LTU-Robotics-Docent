@@ -49,9 +49,10 @@
 Adafruit_MCP23017 mcp;
 
 //pins
-const int HEpins[H_NUM] = {P_Hall_H1, P_Hall_H2, P_Hall_H3, P_Hall_H4, P_Hall_H5, P_Hall_H6, P_Hall_H7, 
-                        P_Hall_H8, P_Hall_H9, P_Hall_H10, P_Hall_H11, P_Hall_H12, P_Hall_H13, P_Hall_H14, 
-                        P_Hall_H15, P_Hall_H16}; // pins on expansion board
+const int HEpins[H_NUM] = {P_Hall_H1, P_Hall_H2, P_Hall_H3, P_Hall_H4, P_Hall_H5, P_Hall_H6, P_Hall_H7,
+                           P_Hall_H8, P_Hall_H9, P_Hall_H10, P_Hall_H11, P_Hall_H12, P_Hall_H13, P_Hall_H14,
+                           P_Hall_H15, P_Hall_H16
+                          }; // pins on expansion board
 const int USping[U_NUM] = {P_U2_US1_P, P_U2_US2_P, P_U2_US3_P, P_U2_US4_P, P_U2_US5_P};
 const int USecho[U_NUM] = {P_U2_US1_E, P_U2_US2_E, P_U2_US3_E, P_U2_US4_E, P_U2_US5_E};
 

@@ -243,6 +243,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("Speed").ToString(); }
             set { SetPropertyValue("Speed", value); RaisePropertyChanged("Speed"); }
         }
+        public string BatteryVoltage
+        {
+            get { return GetPropertyValue("BatteryVoltage").ToString(); }
+            set { SetPropertyValue("BatteryVoltage", value); RaisePropertyChanged("BatteryVoltage"); }
+        }
         public bool ArraySensor1
         {
             get { return GetPropertyValue("ArraySensor1").ToBoolean(); }
