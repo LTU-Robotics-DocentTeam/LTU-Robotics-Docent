@@ -4,6 +4,7 @@
         xmlns:views = "clr-namespace:HENRY.Views"
         Title="MainWindow" Height="720" Width="1280" 
         Keyboard.KeyDown="keyDownEventHandler" Keyboard.KeyUp="keyUpEventHandler"
+        Closing="MWindow_Closing"
         WindowStyle="None" ResizeMode="NoResize"  
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
@@ -11,10 +12,13 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="720*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="700*"/>
         </Grid.RowDefinitions>
         <Border x:Name="thingpanel"></Border>
+        <StackPanel Grid.Row="0">
+            <Button Content="Close App" Click="Button_Click"/>
+        </StackPanel>
         <views:DevView x:Name="devViewControl" Loaded="devViewControl_Loaded" Grid.Row="1" Visibility="{Binding DevModeOn, Converter={StaticResource BooltoVisConverter}}"></views:DevView>
         <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="1" Visibility="{Binding UserModeOn, Converter={StaticResource BooltoVisConverter}}"></views:UserView>
     </Grid>

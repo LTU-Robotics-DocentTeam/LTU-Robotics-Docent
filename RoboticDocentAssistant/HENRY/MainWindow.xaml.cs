@@ -13,6 +13,8 @@ namespace HENRY
     /// </summary>
     public partial class MainWindow : Window
     {
+        ErrorLog erlg;
+        
         ViewModel vm;
         SerialCommModule scm;
         GenericSensorModule gsm;
@@ -28,6 +30,7 @@ namespace HENRY
 
         public MainWindow()
         {
+            erlg = new ErrorLog();
             scm = new SerialCommModule();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
@@ -167,6 +170,16 @@ namespace HENRY
                     PropertyChanged(this, new PropertyChangedEventArgs(property));
                 }
             }
+        }
+
+        private void MWindow_Closing(object sender, CancelEventArgs e)
+        {
+            erlg.CloseLog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MWindow.Close();
         }
 
         

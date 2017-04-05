@@ -21,7 +21,7 @@ namespace HENRY.Modules
 
             // Set processing timer for module
             t = new TimersTimer();
-            t.Interval = 1;
+            t.Interval = 10;
             t.Elapsed += t_Elapsed;
             t.Start();
         }

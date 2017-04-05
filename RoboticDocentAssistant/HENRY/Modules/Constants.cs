@@ -19,10 +19,12 @@ namespace HENRY.Modules
 
         public const int IR_NUM = 6;
 
-        public const int IMPACT_NUM = 10;
+        public const int IMPACT_NUM = 8;
 
         public const int ARRAY_NUM = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
 
         public const int CLUSTER_SIZE = 2; // Number of sensors per cluster
+
+        public string FilePath = "log" + DateTime.Now.ToString() + ".txt";
     }
 }

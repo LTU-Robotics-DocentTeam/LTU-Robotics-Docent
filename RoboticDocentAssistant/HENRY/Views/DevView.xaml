@@ -42,6 +42,8 @@
                             <CheckBox IsChecked="{Binding Impact2}"></CheckBox>
                             <CheckBox IsChecked="{Binding Impact3}"></CheckBox>
                             <CheckBox IsChecked="{Binding Impact4}"></CheckBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                             <CheckBox IsChecked="{Binding Impact5}"></CheckBox>
                             <CheckBox IsChecked="{Binding Impact6}"></CheckBox>
                             <CheckBox IsChecked="{Binding Impact7}"></CheckBox>
