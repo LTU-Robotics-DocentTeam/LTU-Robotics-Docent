@@ -61,7 +61,6 @@ void SerialIn()
       break;
     case 'R': // right motor input
       SetMotorRight(value); // store value as motor speed
-      Serial.println("SendingRightMotorValue");
       break;
     case 'L': // left motor input
       SetMotorLeft(value); // store value as motor speed
