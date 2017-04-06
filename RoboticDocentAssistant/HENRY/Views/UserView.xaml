@@ -9,10 +9,17 @@
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="720*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <views:KioskView x:Name="kioskViewControl" Grid.Row="1" IsEnabled="{Binding KioskMode}"></views:KioskView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <!--<views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" IsEnabled="{Binding KioskMode}"></views:KioskView>-->
+        <Grid>
+            
+        </Grid>
     </Grid>
 
 
