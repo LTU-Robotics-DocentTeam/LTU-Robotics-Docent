@@ -59,23 +59,23 @@ void RunMotors()
 
   if (LeftReverse == LeftRelayClosed)
   {
-    if (LeftSpeed > LeftMotorValue)
+    if (LeftSpeed > LeftMotorValue) //on the way up
     {
       LeftMotorValue += RAMP_CONSTANT;
       if (LeftMotorValue == 1)
       {
         LeftMotorValue = 55;
       }
-      if (LeftMotorValue == -40)
+      if (LeftMotorValue == -54)
       {
         LeftMotorValue = 0;
       }
     }
 
-    if (LeftSpeed < LeftMotorValue)
+    if (LeftSpeed < LeftMotorValue) //on the way down
     {
       LeftMotorValue -= RAMP_CONSTANT;
-      if (LeftMotorValue == 40)
+      if (LeftMotorValue == 54)
       {
         LeftMotorValue = 0;
       }
@@ -85,7 +85,7 @@ void RunMotors()
       }
     }
   }
-  else
+  else //to zero
   {
     if (LeftMotorValue > 0)
       LeftMotorValue -= RAMP_CONSTANT;
@@ -97,15 +97,37 @@ void RunMotors()
 
 
 
-  if (RightReverse == RightRelayClosed)
+  if (RightReverse == RightRelayClosed) //on the day up
   {
     if (RightSpeed > RightMotorValue)
+    {
       RightMotorValue += RAMP_CONSTANT;
 
-    if (RightSpeed < RightMotorValue)
+      if (RightMotorValue == 1)
+      {
+        RightMotorValue = 55;
+      }
+      if (RightMotorValue == -54)
+      {
+        RightMotorValue = 0;
+      }
+    }
+
+    if (RightSpeed < RightMotorValue) //on the way down
+    {
       RightMotorValue -= RAMP_CONSTANT;
+
+      if (RightMotorValue == 54)
+      {
+        RightMotorValue = 0;
+      }
+      if (RightMotorValue == -1)
+      {
+        RightMotorValue = -55;
+      }
+    }
   }
-  else
+  else //to zero
   {
     if (RightMotorValue > 0)
       RightMotorValue -= RAMP_CONSTANT;

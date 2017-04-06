@@ -141,7 +141,7 @@ void loop() {
     blinkCounter = 100;
   }
 
-  delay(10);
+  delay(5);
 }
 
 
