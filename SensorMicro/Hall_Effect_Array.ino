@@ -10,7 +10,7 @@ String Hall_Effect_Array()
     else{  //When hall is off, check if the life is still on, if not set 0
       if (hallValuesLife[i] > 0){
         hallValuesLife[i]--;
-        hall_array[i] += "1";
+        hall_array += "1";
       }
       else{
         hall_array += "0";

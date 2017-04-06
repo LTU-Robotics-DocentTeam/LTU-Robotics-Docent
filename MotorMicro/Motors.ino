@@ -135,10 +135,10 @@ void RunMotors()
 
 
   LeftMotor.write(LeftMotorValue);
-  Serial.println("Left:" + String(LeftMotorValue));
+  //Serial.println("Left:" + String(LeftMotorValue));
 
   RightMotor.write(RightMotorValue);
-  Serial.println("Right:"+ String(RightMotorValue));
+  //Serial.println("Right:"+ String(RightMotorValue));
 
 
   if (LeftRelayClosed)

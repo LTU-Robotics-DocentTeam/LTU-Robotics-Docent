@@ -158,7 +158,7 @@ namespace HENRY.Modules
                     waiting = true;
                     counter++;
                     // Send identification command to device
-                    serPort.WriteLine("<C0>"); 
+                    if (counter % 10 == 0) serPort.Write("<C0>"); 
                     // Notify user of connecting procedure
                     //AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 2000);
                     // Wait for one second
@@ -349,7 +349,7 @@ namespace HENRY.Modules
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void serPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        void serPort2_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
@@ -574,7 +574,7 @@ namespace HENRY.Modules
                 // if message is not empty, send message through serial port
                 if (msg2motor != "")
                 {
-                    serPort1.WriteLine(msg2motor);
+                    serPort1.Write(msg2motor);
                     SetPropertyValue("ArduinoData", msg2motor);
                     msg2motor = "";
                 }
