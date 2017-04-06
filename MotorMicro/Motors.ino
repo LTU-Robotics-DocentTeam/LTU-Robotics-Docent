@@ -80,8 +80,8 @@ void RunMotors()
   {
     if (LeftMotorValue > 0) // ramp down for relay
     {
-      if (LeftMotorValue < 55)
-        LeftMotorValue = 0;
+      if (LeftMotorValue < 55 && LeftMotorValue > 15)
+        LeftMotorValue = 15;
       else
         LeftMotorValue -= RAMP_CONSTANT;
     }
@@ -118,8 +118,8 @@ void RunMotors()
   {
     if (RightMotorValue > 0)
     {
-      if (RightMotorValue < 55)
-        RightMotorValue = 0;
+      if (RightMotorValue < 55 && RightMotorValue > 15)
+        RightMotorValue = 15;
       else
         RightMotorValue -= RAMP_CONSTANT;
     }
@@ -135,8 +135,10 @@ void RunMotors()
 
 
   LeftMotor.write(LeftMotorValue);
+  Serial.println("Left:" + String(LeftMotorValue));
 
   RightMotor.write(RightMotorValue);
+  Serial.println("Right:"+ String(RightMotorValue));
 
 
   if (LeftRelayClosed)

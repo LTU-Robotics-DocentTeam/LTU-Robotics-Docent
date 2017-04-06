@@ -68,6 +68,9 @@ void SerialIn()
     case 'F': // attempt E-Stop reset signal
       ResetEStop();
       break;
+      case 'E': // set estop while debugging
+      EStop();
+      break;
     default:
       break;
   }
