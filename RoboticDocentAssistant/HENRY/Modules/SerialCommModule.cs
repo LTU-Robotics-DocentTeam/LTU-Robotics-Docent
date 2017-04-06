@@ -328,10 +328,12 @@ namespace HENRY.Modules
                 case 'E': // E-Stop signal: sent if E-Stop was triggered.
                     if (value == "1")
                     {
+                        prestop = true;
                         SetPropertyValue("EStop", true);
                     }
                     else if (value == "0")
                     {
+                        prestop = false;
                         SetPropertyValue("EStop", false);
                     }
                     break;

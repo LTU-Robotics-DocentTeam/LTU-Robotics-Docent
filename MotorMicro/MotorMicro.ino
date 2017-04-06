@@ -47,6 +47,9 @@
 
 #define RAMP_CONSTANT     1
 #define HEALTH_CONSTANT   10
+#define DEAD_ZONE         55
+#define PRE_JUMP          15
+#define SERIAL_COUNT      10
 
 Adafruit_MCP23017 mcp;
 
@@ -71,6 +74,7 @@ bool RightRelayClosed = false;
 
 int CommandHealth = -1;
 int blinkCounter = 100;
+int serialCommCounter = 0;
 
 void setup()
 {
@@ -128,6 +132,7 @@ void loop() {
   RunMotors();
 
 
+  if (serialCommCounter > 0) serialCommCounter--;
   blinkCounter--;
 
   if(blinkCounter == 50)

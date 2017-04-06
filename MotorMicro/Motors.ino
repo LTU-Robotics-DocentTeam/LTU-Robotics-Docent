@@ -62,7 +62,7 @@ void RunMotors()
     if (LeftSpeed > LeftMotorValue) //on the way up
     {
       if (LeftMotorValue == 0)
-        LeftMotorValue = 55;
+        LeftMotorValue = DEAD_ZONE;
       else
         LeftMotorValue += RAMP_CONSTANT;
 
@@ -70,7 +70,7 @@ void RunMotors()
 
     if (LeftSpeed < LeftMotorValue) //on the way down
     {
-      if (LeftMotorValue < 55)
+      if (LeftMotorValue < DEAD_ZONE)
         LeftMotorValue = 0;
       else
         LeftMotorValue -= RAMP_CONSTANT;
@@ -80,8 +80,8 @@ void RunMotors()
   {
     if (LeftMotorValue > 0) // ramp down for relay
     {
-      if (LeftMotorValue < 55 && LeftMotorValue > 15)
-        LeftMotorValue = 15;
+      if (LeftMotorValue < DEAD_ZONE && LeftMotorValue > PRE_JUMP)
+        LeftMotorValue = PRE_JUMP;
       else
         LeftMotorValue -= RAMP_CONSTANT;
     }
@@ -101,14 +101,14 @@ void RunMotors()
     if (RightSpeed > RightMotorValue)
     {
       if (RightMotorValue == 0)
-        RightMotorValue = 55;
+        RightMotorValue = DEAD_ZONE;
       else
         RightMotorValue += RAMP_CONSTANT;
     }
 
     if (RightSpeed < RightMotorValue) //on the way down
     {
-      if (RightMotorValue < 55)
+      if (RightMotorValue < DEAD_ZONE)
         RightMotorValue = 0;
       else
         RightMotorValue -= RAMP_CONSTANT;
@@ -118,8 +118,8 @@ void RunMotors()
   {
     if (RightMotorValue > 0)
     {
-      if (RightMotorValue < 55 && RightMotorValue > 15)
-        RightMotorValue = 15;
+      if (RightMotorValue < DEAD_ZONE && RightMotorValue > PRE_JUMP)
+        RightMotorValue = PRE_JUMP;
       else
         RightMotorValue -= RAMP_CONSTANT;
     }
