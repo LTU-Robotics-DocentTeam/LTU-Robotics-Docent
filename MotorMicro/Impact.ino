@@ -2,11 +2,11 @@
 String Impact()
 {
   String arraystate = "";
-  for (int i = 0; i < 8; i++)
+  for (int i = 0; i < L_NUM; i++)
   {
-    if (mcp.digitalRead(impact[i]))
+    if (mcp.digitalRead(impact[i]) == LOW)
     {
-      //EStop();
+      EStop();
       arraystate += "1";
     }
     else
@@ -14,6 +14,7 @@ String Impact()
       arraystate += "0";
     }
   }
+  //Serial.println(arraystate);
   return arraystate;
 }
 

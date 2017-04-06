@@ -43,6 +43,8 @@
 #define P_U3_DIO5   14
 #define P_U3_DIO6   15
 
+#define L_NUM       8
+
 #define RAMP_CONSTANT     1
 #define HEALTH_CONSTANT   10
 
@@ -53,7 +55,7 @@ Servo RightMotor;
 
 bool EStopped = false;
 
-int impact[8] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, P_U3_L8};
+const int impact[L_NUM] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, P_U3_L8};
 
 int LeftSpeed = 0;
 int RightSpeed = 0;
@@ -99,11 +101,18 @@ void setup()
 
   digitalWrite(P_U1_LED, HIGH);
 
+  mcp.begin();
+
+  for (int i = 0; i < L_NUM; i++)
+  {
+    mcp.pinMode(i, INPUT);
+  }
+
 
 }
 
 void loop() {
-  //String ImpactArray = Impact();
+  String ImpactArray = Impact();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {
@@ -113,7 +122,7 @@ void loop() {
   if (Serial.available() > 0)
   {
     SerialIn();
-    Serial.println("Loop is done");
+    //Serial.println("Loop is done");
   }
 
   RunMotors();

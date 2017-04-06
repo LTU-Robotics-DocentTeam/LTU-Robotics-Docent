@@ -3,7 +3,7 @@ void SerialIn()
   // Read full incoming message from the serial port
   String msg = Serial.readStringUntil('>');
 
-  Serial.println("ReadString");
+  //Serial.println("ReadString");
 
   while (true) // loop until the code breaks
   {
@@ -19,33 +19,33 @@ void SerialIn()
 //      break;
 //    }
 
-    Serial.println("FoundMessage");
+    //Serial.println("FoundMessage");
 
-    Serial.println("startin:");
-    Serial.println(startin);
-    Serial.println("endin:");
+    //Serial.println("startin:");
+    //Serial.println(startin);
+    //Serial.println("endin:");
     //Serial.println(endin);
     
     // Extract message within '<' and '>'
     //int msglngth = endin - startin;
 
-    Serial.println("msglngth:");
+    //Serial.println("msglngth:");
     //Serial.println(msglngth);
     
     msg = msg.substring(startin + 1);
 
 
-    Serial.println("msg:");
-    Serial.println(msg);
+    //Serial.println("msg:");
+    //Serial.println(msg);
 
     // Take out the first character as the Key and the rest as the value
     char key = msg[0];
     int value = msg.substring(1).toInt();
 
-    Serial.println("MessageKey:");
-    Serial.println(key);
-    Serial.println("MessageValue:");
-    Serial.println(value);
+    //Serial.println("MessageKey:");
+    //Serial.println(key);
+    //Serial.println("MessageValue:");
+    //Serial.println(value);
     //delay(30000);
 
     // Remove the digits already read from the incoming string
