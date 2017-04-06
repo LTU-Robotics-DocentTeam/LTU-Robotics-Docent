@@ -58,6 +58,7 @@ const int USecho[U_NUM] = {P_U2_US1_E, P_U2_US2_E, P_U2_US3_E, P_U2_US4_E, P_U2_
 //variables
 int i = 0;
 int USprev[U_NUM] = {0, 0, 0, 0, 0};
+int hallValuesLife[16];
 
 //serial
 String msg2pc = "";
