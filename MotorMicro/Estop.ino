@@ -14,6 +14,8 @@ void EStop()
   LeftReverse = false;
   RightReverse = false;
 
+  Serial.println("<E1>");
+
   LeftMotor.write(0);
   RightMotor.write(0);
 }
