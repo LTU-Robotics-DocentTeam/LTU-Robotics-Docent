@@ -195,6 +195,7 @@ namespace HENRY.Modules
                         waiting = false;
                         counter = 0;
                         i = 0;
+                        serPort.Close();
                         continue;
                     }
                 }
