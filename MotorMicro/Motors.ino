@@ -60,10 +60,30 @@ void RunMotors()
   if (LeftReverse == LeftRelayClosed)
   {
     if (LeftSpeed > LeftMotorValue)
+    {
       LeftMotorValue += RAMP_CONSTANT;
+      if (LeftMotorValue == 1)
+      {
+        LeftMotorValue = 55;
+      }
+      if (LeftMotorValue == -40)
+      {
+        LeftMotorValue = 0;
+      }
+    }
 
     if (LeftSpeed < LeftMotorValue)
+    {
       LeftMotorValue -= RAMP_CONSTANT;
+      if (LeftMotorValue == 40)
+      {
+        LeftMotorValue = 0;
+      }
+      if (LeftMotorValue == -1)
+      {
+        LeftMotorValue = -55;
+      }
+    }
   }
   else
   {
