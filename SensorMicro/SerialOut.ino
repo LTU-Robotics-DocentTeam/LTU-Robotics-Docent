@@ -3,7 +3,7 @@ void SerialOut(int i)
   String message = ""; // create empty string to fill in with a message to the computer
 
   // Read from sensors through their respective functions and store data as message strings
-  String voltage = "<S" + String(analogRead(P_U2_BattVolt)) + ">";
+  String voltage = "<S" + String(float(analogRead(P_U2_BattVolt))*.1448214286) + ">";
   String hallArray = Hall_Effect_Array();
   long ultraValue = Ultra_Sensor(USping[i], USecho[i]);
   String ultrasonic = "<" + (String)USkey[i] + (String)ultraValue + ">";
@@ -26,7 +26,7 @@ void SerialOut(int i)
   }
 
   // if message is not empty, send through serialport
-  if (message != "")
+  if (message != "" && pcConnect)
   {
     Serial.println(message);
   }

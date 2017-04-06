@@ -81,7 +81,7 @@ namespace HENRY.Modules
 
             SetPropertyValue("ArduinoData", "No Data In");
             SetPropertyValue("DevModeOn", true);
-            SetPropertyValue("UserModeOn", true);
+            SetPropertyValue("UserModeOn", false);
             SetPropertyValue("SimulationMode", false);
             SetPropertyValue("BatteryVoltage", 0.ToString());
 
@@ -194,7 +194,7 @@ namespace HENRY.Modules
                     {
                         waiting = false;
                         counter = 0;
-                        i = 0;
+                        i++;
                         serPort.Close();
                         continue;
                     }

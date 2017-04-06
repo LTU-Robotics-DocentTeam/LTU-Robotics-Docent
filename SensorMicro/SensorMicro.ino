@@ -63,6 +63,7 @@ int USprev[U_NUM] = {0, 0, 0, 0, 0};
 String msg2pc = "";
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
+bool pcConnect = false;
 
 void setup() {
   Serial.begin(115200);

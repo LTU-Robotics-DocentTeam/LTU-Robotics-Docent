@@ -3,7 +3,7 @@ void EStop()
 {
   EStopped = true;
 
-  Serial.println("EStop");
+  //Serial.println("EStop");
 
   LeftSpeed = 0;
   RightSpeed = 0;
