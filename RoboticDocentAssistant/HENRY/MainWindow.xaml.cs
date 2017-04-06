@@ -30,8 +30,8 @@ namespace HENRY
 
         public MainWindow()
         {
-            erlg = new ErrorLog();
             scm = new SerialCommModule();
+            erlg = new ErrorLog();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
             hem = new HallEffectSensorModule();

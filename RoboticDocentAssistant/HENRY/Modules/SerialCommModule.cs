@@ -160,9 +160,9 @@ namespace HENRY.Modules
                     // Send identification command to device
                     serPort.WriteLine("<C0>"); 
                     // Notify user of connecting procedure
-                    AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 1000);
+                    //AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 2000);
                     // Wait for one second
-                    System.Threading.Thread.Sleep(1000);
+                    //System.Threading.Thread.Sleep(2000);
                     // Check deviceid global variable, which the DataReceived functions will update when necessary
                     if (deviceId == 1) // if its 1, then device is valid.
                     { 
@@ -183,7 +183,7 @@ namespace HENRY.Modules
                         continue;
                     }
                 }
-                if (counter >= 3) //connection timed out. Wanna try again?
+                if (counter >= 5000) //connection timed out. Wanna try again?
                 {
                     if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
                     { // If not, set as disconnected
@@ -290,7 +290,7 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "1", which is the motor microcontroller
-                    if (value == "1") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    if (value == "1" && serConn1 != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
                     else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'B': // Impact Sensors: Binary string
@@ -375,7 +375,7 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
-                    if (value == "2") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    if (value == "2" && serConn2 != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
                     else deviceId = -1; // if incorrect id, set 
                     break;
                 case 'H': // Hall Effect sensors: Data comes as a binary string
@@ -466,7 +466,7 @@ namespace HENRY.Modules
             switch (key)
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
-                    if (value == "3") deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    if (value == "3" && userConn != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
                     else deviceId = -1; // if incorrect id, set 
                     break;
                 default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by userPort"); //Catch statement
