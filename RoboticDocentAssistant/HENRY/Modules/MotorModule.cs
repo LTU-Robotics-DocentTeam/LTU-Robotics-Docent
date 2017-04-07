@@ -34,8 +34,8 @@ namespace HENRY.Modules
             //double rDirection = 0;
             //double lDirection = 0;
 
-            int rmDirSpeed = (int)((0.334) * (direction));
-            int lmDirSpeed = (int)((0.334) * (direction));
+            int rmDirSpeed = (int)((Constants.TURN_FACTOR) * (direction));
+            int lmDirSpeed = (int)((Constants.TURN_FACTOR) * (direction));
             
             int rmSpeed = spd + rmDirSpeed;
             int lmSpeed = spd - lmDirSpeed;

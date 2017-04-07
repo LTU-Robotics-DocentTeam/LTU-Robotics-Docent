@@ -2,16 +2,18 @@
 #include <Wire.h>
 #include "Adafruit_MCP23017.h"
 
+// Relay pins flipped 
 #define P_U1_RX         0
 #define P_U1_TX         1
 #define P_U1_EStop      2
-#define P_U1_LD         3
-#define P_U1_RD         4
+#define P_U1_LD         4
+#define P_U1_RD         3
 
-#define P_U1_LM     5
-#define P_U1_RM     6
-#define P_U1_LB     7
-#define P_U1_RB     8
+// Motor and brake pins flipped
+#define P_U1_LM     6
+#define P_U1_RM     5
+#define P_U1_LB     8
+#define P_U1_RB     7
 #define P_U1_I1     9
 #define P_U1_I2     10
 #define P_U1_I3     11
@@ -47,9 +49,9 @@
 
 #define RAMP_CONSTANT     1
 #define HEALTH_CONSTANT   10
-#define DEAD_ZONE         55
+#define DEAD_ZONE         50
 #define PRE_JUMP          15
-#define SERIAL_COUNT      10
+#define SERIAL_COUNT      5
 
 Adafruit_MCP23017 mcp;
 
