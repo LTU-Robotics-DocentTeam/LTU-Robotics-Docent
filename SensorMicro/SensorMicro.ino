@@ -48,6 +48,7 @@
 #define UPDATE_LOOP      100
 #define US_SENSOR_LOOP   10
 #define HE_SENSOR_LOOP   1
+#define HALL_LIFE        10
 
 #define VOLTAGE_FACTOR   .1448214286
 

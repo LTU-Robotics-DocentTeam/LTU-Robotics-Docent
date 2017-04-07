@@ -4,14 +4,17 @@ void SerialOut(int i)
 
   // Read from sensors through their respective functions and store data as message strings
   String voltage = "<S" + String(float(analogRead(P_U2_BattVolt)) * VOLTAGE_FACTOR) + ">";
-  String hallArray = Hall_Effect_Array();
+  //String hallArray = Hall_Effect_Array();
   long ultraValue = Ultra_Sensor(USping[i], USecho[i]);
   String ultrasonic = "<" + (String)USkey[i] + (String)ultraValue + ">";
 
   // Add corresponding sensor data to the message only if it has changed from last iteration
 
+  // send hall effect data every HE_SENSOR_LOOP iterations 
+  // quickest update loop. only sends data when there's a change
   if (serialCount % HE_SENSOR_LOOP == 0)
   {
+    String hallArray = Hall_Effect_Array();
     if (prevHe != hallArray)
     {
       message += hallArray;
@@ -19,8 +22,11 @@ void SerialOut(int i)
     }
   }
 
+  // send ultrasonic data every US_SENSOR_LOOP iterations 
+  // arranged such that every sensor is checked twice per second
   if (serialCount % US_SENSOR_LOOP == 0)
   {
+    USprev[i] = ultraValue;
     if (USprev[i] != ultraValue)
     {
       message += ultrasonic;
@@ -28,6 +34,8 @@ void SerialOut(int i)
     }
   }
 
+  // send voltage data every UPDATE_LOOP iterations 
+  // slowest loop as voltage readings jump around a lot
   if (serialCount % UPDATE_LOOP == 0)
   {
     if (prevVolt != voltage)
@@ -43,6 +51,7 @@ void SerialOut(int i)
     Serial.println(message);
   }
 
+  // update serial counter
   if (serialCount > 0)
   {
     serialCount--;

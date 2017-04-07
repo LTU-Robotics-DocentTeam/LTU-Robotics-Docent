@@ -5,7 +5,7 @@ String Hall_Effect_Array()
   {
     if (mcp.digitalRead(HEpins[i]) == HIGH){
       hall_array += "1"; // if sensor is triggered, add "1" to string
-      hallValuesLife[i] = 10;
+      hallValuesLife[i] = HALL_LIFE;
     }
     else{  //When hall is off, check if the life is still on, if not set 0
       if (hallValuesLife[i] > 0){
