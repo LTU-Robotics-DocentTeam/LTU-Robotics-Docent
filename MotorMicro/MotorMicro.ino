@@ -164,12 +164,12 @@ void loop() {
 
   if (digitalRead(P_U1_SW) == HIGH && !prevSwitch)
   {
-    prevSwitch = false;
+    prevSwitch = true;
     SerialOut("<U1>");
   }
-  else
+  else if (digitalRead(P_U1_SW) == LOW && prevSwitch)
   {
-    prevSwitch = true;
+    prevSwitch = false;
     SerialOut("<U0>");
   }
 

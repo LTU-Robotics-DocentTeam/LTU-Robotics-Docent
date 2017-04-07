@@ -7,6 +7,7 @@ void SerialOut(String msg)
   {
     Serial.println(msg + msgBuffer);
     serialCommCounter = SERIAL_WAIT; // reset counter to specified constant
+    msgBuffer = "";
     msgCounter = 0;
   }
   else
