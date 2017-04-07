@@ -42,8 +42,14 @@
 #define P_Hall_H15    14
 #define P_Hall_H16    15
 
-#define U_NUM         5
-#define H_NUM         16
+#define U_NUM            5
+#define H_NUM            16
+#define SERIAL_COMM_INIT 1000
+#define UPDATE_LOOP      100
+#define US_SENSOR_LOOP   10
+#define HE_SENSOR_LOOP   1
+
+#define VOLTAGE_FACTOR   .1448214286
 
 Adafruit_MCP23017 mcp;
 
@@ -62,6 +68,7 @@ int hallValuesLife[16];
 
 //serial
 String msg2pc = "";
+int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
