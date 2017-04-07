@@ -7,12 +7,12 @@ void SerialOut()
 
   if (serialCount % L_LOOP == 0)
   {
-    
-    if (prevIm != impactArray)
-    {
-      message += impactArray;
-      prevIm = impactArray;
-    }
+    message += impactArray;
+//    if (prevIm != impactArray)
+//    {
+//      message += impactArray;
+//      prevIm = impactArray;
+//    }
   }
 
   if (serialCount % UPDATE_LOOP == 0)
@@ -27,7 +27,7 @@ void SerialOut()
     }
   }
 
-  if (message != "")
+  if (message != "" && pcConnect)
   {
     Serial.println(message);
   }

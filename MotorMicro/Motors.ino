@@ -138,7 +138,8 @@ void RunMotors()
   else LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);
   //Serial.println("Left:" + String(LeftMotorValue));
 
-  RightMotor.write(RightMotorValue);
+  if (RightMotorValue == 0) RightMotor.write(RightMotorValue);
+  else RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
   //Serial.println("Right:"+ String(RightMotorValue));
 
 

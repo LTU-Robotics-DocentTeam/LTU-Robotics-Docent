@@ -15,11 +15,6 @@ String Impact()
     }
   }
   //Serial.println(arraystate);
-  if (impactLoopCounter <= 0)
-  {
-
-    impactLoopCounter = L_LOOP;
-  }
   return "<B" + arraystate + ">";
 }
 

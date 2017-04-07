@@ -54,8 +54,9 @@
 #define PRE_JUMP          15
 #define SERIAL_WAIT       2
 #define MAX_BUFFER        10
-#define L_LOOP            20
-#define LEFT_CORRECTION   1
+#define L_LOOP            2
+#define RIGHT_CORRECTION  1
+#define LEFT_CORRECTION   0
 
 #define SERIAL_COMM_INIT  1000
 #define UPDATE_LOOP       100
@@ -90,6 +91,7 @@ int impactLoopCounter = 0;
 String msgBuffer = "";
 int msgCounter = 0;
 int serialCount = SERIAL_COMM_INIT;
+bool pcConnect = false;
 String prevIm = "", impactArray = "";
 
 void setup()
@@ -180,7 +182,7 @@ void loop() {
     blinkCounter = 100;
   }
 
-  delay(5);
+  delay(10);
 }
 
 

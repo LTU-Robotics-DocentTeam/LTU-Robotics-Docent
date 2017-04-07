@@ -46,7 +46,7 @@ void SerialOut(int i)
   }
 
   // if message is not empty, send through serialport
-  if (message != "")
+  if (message != "" && pcConnect)
   {
     Serial.println(message);
   }
