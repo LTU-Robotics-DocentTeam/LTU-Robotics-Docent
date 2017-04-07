@@ -57,6 +57,9 @@
 #define L_LOOP            20
 #define LEFT_CORRECTION   1
 
+#define SERIAL_COMM_INIT  1000
+#define UPDATE_LOOP       100
+
 Adafruit_MCP23017 mcp;
 
 Servo LeftMotor;
@@ -64,7 +67,7 @@ Servo RightMotor;
 
 bool EStopped = false;
 
-const int impact[L_NUM] = {P_U3_L1, P_U3_L2, P_U3_L3, P_U3_L4, P_U3_L5, P_U3_L6, P_U3_L7, P_U3_L8};
+const int impact[L_NUM] = {P_U3_L1, P_U3_L3, P_U3_L5, P_U3_L7, P_U3_L2, P_U3_L4, P_U3_L6, P_U3_L8};
 
 int LeftSpeed = 0;
 int RightSpeed = 0;
@@ -86,6 +89,8 @@ int serialCommCounter = 0;
 int impactLoopCounter = 0;
 String msgBuffer = "";
 int msgCounter = 0;
+int serialCount = SERIAL_COMM_INIT;
+String prevIm = "", impactArray = "";
 
 void setup()
 {
@@ -135,19 +140,17 @@ void setup()
   if (digitalRead(P_U1_SW) == HIGH)
   {
     prevSwitch = true;
-    SerialOut("<U1>");
   }
   else
   {
     prevSwitch = false;
-    SerialOut("<U0>");
   }
 
 
 }
 
 void loop() {
-  Impact();
+  impactArray = Impact();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {
@@ -160,21 +163,10 @@ void loop() {
     //Serial.println("Loop is done");
   }
 
+  SerialOut();
   RunMotors();
 
-  if (digitalRead(P_U1_SW) == HIGH && !prevSwitch)
-  {
-    prevSwitch = true;
-    SerialOut("<U1>");
-  }
-  else if (digitalRead(P_U1_SW) == LOW && prevSwitch)
-  {
-    prevSwitch = false;
-    SerialOut("<U0>");
-  }
-
   if (serialCommCounter > 0) serialCommCounter--;
-  if (impactLoopCounter > 0) impactLoopCounter--;
   blinkCounter--;
 
   if(blinkCounter == 50)

@@ -14,7 +14,7 @@ void EStop()
   LeftReverse = false;
   RightReverse = false;
 
-  SerialOut("<E1>");
+  SerialBuffer("<E1>");
 
   LeftMotor.write(0);
   RightMotor.write(0);
@@ -23,5 +23,5 @@ void EStop()
 void ResetEStop()
 {
   EStopped = false;
-  SerialOut("<E0>");
+  SerialBuffer("<E0>");
 }

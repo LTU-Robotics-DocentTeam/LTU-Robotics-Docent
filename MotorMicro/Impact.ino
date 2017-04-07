@@ -1,5 +1,5 @@
 
-void Impact()
+String Impact()
 {
   String arraystate = "";
   for (int i = 0; i < L_NUM; i++)
@@ -17,8 +17,9 @@ void Impact()
   //Serial.println(arraystate);
   if (impactLoopCounter <= 0)
   {
-    SerialOut("<B" + arraystate + ">");
+
     impactLoopCounter = L_LOOP;
   }
+  return "<B" + arraystate + ">";
 }
 
