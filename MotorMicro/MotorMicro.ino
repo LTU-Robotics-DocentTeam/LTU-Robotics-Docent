@@ -118,7 +118,7 @@ void setup()
     mcp.pinMode(i, INPUT);
   }
 
-  if (mcp.digitalRead(P_U3_DIO1) == HIGH)
+  if (mcp.digitalRead(P_U3_DIO1) == LOW)
   {
     digitalWrite(P_U1_PC, HIGH);
     delay(250);
