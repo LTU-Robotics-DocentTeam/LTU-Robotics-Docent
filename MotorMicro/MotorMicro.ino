@@ -38,7 +38,8 @@
 #define P_U3_L9     8
 #define P_U3_L10    9
 
-#define P_U3_DIO1   10
+// expansion board pins - precede with mcp.
+#define P_U3_DIO1   10 // pc power in - checks if pc is on
 #define P_U3_DIO2   11
 #define P_U3_DIO3   12
 #define P_U3_DIO4   13
@@ -110,10 +111,19 @@ void setup()
 
   mcp.begin();
 
+  mcp.pinMode(P_U3_DIO1, INPUT);
+
   for (int i = 0; i < L_NUM; i++)
   {
     mcp.pinMode(i, INPUT);
   }
+
+  if (mcp.digitalRead(P_U3_DIO1) == HIGH)
+  {
+    digitalWrite(P_U1_PC, HIGH);
+    delay(250);
+  }
+  digitalWrite(P_U1_PC, LOW);
 
 
 }
