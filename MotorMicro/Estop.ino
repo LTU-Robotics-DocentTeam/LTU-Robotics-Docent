@@ -23,4 +23,5 @@ void EStop()
 void ResetEStop()
 {
   EStopped = false;
+  SerialOut("<E0>");
 }

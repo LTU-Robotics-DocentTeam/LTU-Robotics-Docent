@@ -52,7 +52,9 @@
 #define HEALTH_CONSTANT   10
 #define DEAD_ZONE         50
 #define PRE_JUMP          15
-#define SERIAL_COUNT      5
+#define SERIAL_WAIT       2
+#define MAX_BUFFER        10
+#define L_LOOP            20
 #define LEFT_CORRECTION   1
 
 Adafruit_MCP23017 mcp;
@@ -76,9 +78,14 @@ int RightMotorValue = 0;
 bool LeftRelayClosed = false;
 bool RightRelayClosed = false;
 
+bool prevSwitch;
+
 int CommandHealth = -1;
 int blinkCounter = 100;
 int serialCommCounter = 0;
+int impactLoopCounter = 0;
+String msgBuffer = "";
+int msgCounter = 0;
 
 void setup()
 {
@@ -125,11 +132,22 @@ void setup()
   }
   digitalWrite(P_U1_PC, LOW);
 
+  if (digitalRead(P_U1_SW) == HIGH)
+  {
+    prevSwitch = true;
+    SerialOut("<U1>");
+  }
+  else
+  {
+    prevSwitch = false;
+    SerialOut("<U0>");
+  }
+
 
 }
 
 void loop() {
-  String ImpactArray = Impact();
+  Impact();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {
@@ -144,8 +162,19 @@ void loop() {
 
   RunMotors();
 
+  if (digitalRead(P_U1_SW) == HIGH && !prevSwitch)
+  {
+    prevSwitch = false;
+    SerialOut("<U1>");
+  }
+  else
+  {
+    prevSwitch = true;
+    SerialOut("<U0>");
+  }
 
   if (serialCommCounter > 0) serialCommCounter--;
+  if (impactLoopCounter > 0) impactLoopCounter--;
   blinkCounter--;
 
   if(blinkCounter == 50)
