@@ -16,12 +16,10 @@ namespace HENRY.Modules
 
         public const double TURN_FACTOR = 0.02;
 
+        //Number of sensors we have
         public const int US_NUM = 5;
-
         public const int IR_NUM = 6;
-
         public const int IMPACT_NUM = 8;
-
         public const int ARRAY_NUM = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
 
         public const int CLUSTER_SIZE = 2; // Number of sensors per cluster

@@ -52,6 +52,7 @@
 #define DEAD_ZONE         50
 #define PRE_JUMP          15
 #define SERIAL_COUNT      5
+#define LEFT_CORRECTION   1
 
 Adafruit_MCP23017 mcp;
 
