@@ -16,16 +16,16 @@ namespace HENRY.Modules
     /// - Scale servo speed values to m/s for manualdrive
     class ManualDrive : LengarioModuleCore
     {
-        TimersTimer t;
+        public TimersTimer t;
         
         public ManualDrive()
         {
             // Initialize properties to default
             SetPropertyValue("ManualDriveEnabled", false);
-            SetPropertyValue("Forward", false);
-            SetPropertyValue("Backward", false);
-            SetPropertyValue("Right", false);
-            SetPropertyValue("Left", false);
+            //SetPropertyValue("Forward", false);
+            //SetPropertyValue("Backward", false);
+            //SetPropertyValue("Right", false);
+            //SetPropertyValue("Left", false);
             SetPropertyValue("Direction", 0); // Angle in degrees
             SetPropertyValue("ManualSpeed", 1);
 
@@ -33,7 +33,7 @@ namespace HENRY.Modules
             t = new TimersTimer();
             t.Interval = 1;
             t.Elapsed += t_Elapsed;
-            t.Start();
+            //t.Start();
         }
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -47,19 +47,19 @@ namespace HENRY.Modules
             int direction = 0;
             int speed = 0;
 
-            if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
+            if (GetPropertyValue("Red").ToBoolean()) // Set both motors backwards
             {
                 speed -= manualSpeed;
             }
-            if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
+            if (GetPropertyValue("Green").ToBoolean()) // Set both motors forward
             {
                 speed += manualSpeed;
             }
-            if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
+            if (GetPropertyValue("Yellow").ToBoolean()) // Zero-point turn to the left
             {
                 direction += 90;
             }
-            if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
+            if (GetPropertyValue("Blue").ToBoolean()) // Zero-point turn to the right
             {
                 direction -= 90;
             }
@@ -73,7 +73,13 @@ namespace HENRY.Modules
             
         }
 
+        //public void Toggle(bool state)
+        //{
+        //    SetPropertyValue("ManualDriveEnabled", state);
 
+        //    if (state) t.Start();
+        //    else t.Stop();
+        //}
 
 
         public override string GetModuleName()

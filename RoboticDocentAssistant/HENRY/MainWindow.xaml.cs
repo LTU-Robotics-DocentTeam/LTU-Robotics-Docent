@@ -42,7 +42,10 @@ namespace HENRY
             mnd = new ManualDrive();
             gsm = new GenericSensorModule();
 
-            
+            vm.Green = false;
+            vm.Red = false;
+            vm.Blue = false;
+            vm.Yellow = false;
 
             InitializeComponent();
             
@@ -82,43 +85,56 @@ namespace HENRY
         }
 
         /// <summary>
-        /// Handles pressed keys on the keyboard. Set to allow for WASD control
+        /// Handles pressed keys on the keyboard or controller. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void keyDownEventHandler(object sender, KeyEventArgs e)
         {
-            if (vm.ManualDriveEnabled)
+            if (e.Key == Key.W)
+                vm.Green = true;
+            if (e.Key == Key.S)
+                vm.Red = true;
+            if (e.Key == Key.D)
+                vm.Blue = true;
+            if (e.Key == Key.A)
+                vm.Yellow = true;
+            if (e.Key == Key.Q)
             {
-                if (e.Key == Key.W)
-                    vm.Forward = true;
-                if (e.Key == Key.S)
-                    vm.Backward = true;
-                if (e.Key == Key.D)
-                    vm.Right = true;
-                if (e.Key == Key.A)
-                    vm.Left = true;
+                vm.Black = true;
+                Toggle();
+                
+            }
+        }
 
+        private void Toggle()
+        {
+            if (vm.DevModeOn)
+            {
+                vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
+                if (vm.ManualDriveEnabled) mnd.t.Start();
+                else mnd.t.Stop();
             }
         }
 
         /// <summary>
-        /// Handles keys released on the keyboard. Set to allow for WASD control.
+        /// Handles keys released on the keyboard  or controller.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void keyUpEventHandler(object sender, KeyEventArgs e)
         {
-            if (vm.ManualDriveEnabled)
+            if (e.Key == Key.W)
+                vm.Green = false;
+            if (e.Key == Key.S)
+                vm.Red = false;
+            if (e.Key == Key.D)
+                vm.Blue = false;
+            if (e.Key == Key.A)
+                vm.Yellow = false;
+            if (e.Key == Key.Q)
             {
-                if (e.Key == Key.W)
-                    vm.Forward = false;
-                if (e.Key == Key.S)
-                    vm.Backward = false;
-                if (e.Key == Key.D)
-                    vm.Right = false;
-                if (e.Key == Key.A)
-                    vm.Left = false;
+                vm.Black = false;
             }
         }
 

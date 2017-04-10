@@ -471,5 +471,35 @@ namespace HENRY.Modules
             set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
         }
 
+
+        public bool Yellow 
+        { 
+            get { return GetPropertyValue("Yellow").ToBoolean(); } 
+            set { SetPropertyValue("Yellow", value); RaisePropertyChanged("Yellow"); } 
+        }
+
+        public bool Blue  
+        { 
+            get { return GetPropertyValue("Blue").ToBoolean(); } 
+            set { SetPropertyValue("Blue", value); RaisePropertyChanged("Blue"); } 
+        }
+
+        public bool Red 
+        { 
+            get { return GetPropertyValue("Red").ToBoolean(); } 
+            set { SetPropertyValue("Red", value); RaisePropertyChanged("Red"); } 
+        }
+
+        public bool Green 
+        { 
+            get { return GetPropertyValue("Green").ToBoolean(); } 
+            set { SetPropertyValue("Green", value); RaisePropertyChanged("Green"); } 
+        }
+
+        public bool Black 
+        { 
+            get { return GetPropertyValue("Black").ToBoolean(); } 
+            set { SetPropertyValue("Black", value); RaisePropertyChanged("Black"); } 
+        }
     }
 }
