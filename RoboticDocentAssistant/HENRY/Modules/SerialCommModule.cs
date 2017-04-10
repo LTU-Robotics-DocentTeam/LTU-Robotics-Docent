@@ -183,21 +183,29 @@ namespace HENRY.Modules
                         continue;
                     }
                 }
-                if (counter >= 5000) //connection timed out. Wanna try again?
+                if (counter >= 5000) //connection timed out
                 {
-                    if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    { // If not, set as disconnected
-                        robotConn = Connection.Disconnected;
-                        return;
-                    } // If yes, refresh the list and try again
-                    else
-                    {
-                        waiting = false;
-                        counter = 0;
-                        i++;
-                        serPort.Close();
-                        continue;
-                    }
+                    // refresh the list and try again
+                    waiting = false;
+                    counter = 0;
+                    i++;
+                    serPort.Close();
+                    continue;
+                    
+                    // This code asks the user to refresh when serialPort times out
+                    //if (System.Windows.MessageBox.Show(thisport + " timed out. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    //{ // If not, set as disconnected
+                    //    robotConn = Connection.Disconnected;
+                    //    return;
+                    //} // If yes, refresh the list and try again
+                    //else
+                    //{
+                    //    waiting = false;
+                    //    counter = 0;
+                    //    i++;
+                    //    serPort.Close();
+                    //    continue;
+                    //}
                 }
             }
             
