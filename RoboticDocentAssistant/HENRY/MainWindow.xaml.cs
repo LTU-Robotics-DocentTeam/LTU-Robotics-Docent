@@ -92,29 +92,15 @@ namespace HENRY
         public void keyDownEventHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
-                vm.Green = true;
+                Green(true);
             if (e.Key == Key.S)
-                vm.Red = true;
+                Red(true);
             if (e.Key == Key.D)
-                vm.Blue = true;
+                Blue(true);
             if (e.Key == Key.A)
-                vm.Yellow = true;
+                Yellow(true);
             if (e.Key == Key.Q)
-            {
-                vm.Black = true;
-                Toggle();
-                
-            }
-        }
-
-        private void Toggle()
-        {
-            if (vm.DevModeOn)
-            {
-                vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
-                if (vm.ManualDriveEnabled) mnd.t.Start();
-                else mnd.t.Stop();
-            }
+                Black(true);
         }
 
         /// <summary>
@@ -125,18 +111,61 @@ namespace HENRY
         public void keyUpEventHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
-                vm.Green = false;
+                Green(false);
             if (e.Key == Key.S)
-                vm.Red = false;
+                Red(false);
             if (e.Key == Key.D)
-                vm.Blue = false;
+                Blue(false);
             if (e.Key == Key.A)
-                vm.Yellow = false;
+                Yellow(false);
             if (e.Key == Key.Q)
+                Black(false);
+        }
+
+        private void Black(bool p)
+        {
+            if (vm.DevModeOn)
             {
-                vm.Black = false;
+                if (p) ToggleManualDrive();
+            }
+            if (vm.UserModeOn)
+            {
+                if (p) userViewControl.ToggleKiosk();
             }
         }
+
+        private void Yellow(bool p)
+        {
+            if (vm.DevModeOn) vm.Left = p;
+        }
+
+        private void Blue(bool p)
+        {
+            if (vm.DevModeOn) vm.Right = p;
+        }
+
+        private void Red(bool p)
+        {
+            if (vm.DevModeOn) vm.Backward = p;
+        }
+
+        private void Green(bool p)
+        {
+            if (vm.DevModeOn) vm.Forward = p;
+        }
+
+        private void ToggleManualDrive()
+        {
+            if (vm.DevModeOn)
+            {
+                vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
+                if (vm.ManualDriveEnabled) mnd.t.Start();
+                else mnd.t.Stop();
+            }
+            
+        }
+
+        
 
         // ===================================================================================================
         // Leftover testing code? Not sure if needed

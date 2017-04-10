@@ -23,5 +23,13 @@ namespace HENRY.Views
             InitializeComponent();
         }
 
+
+        internal void ToggleKiosk()
+        {
+            if (kioskViewControl.Visibility == Visibility.Hidden)
+                kioskViewControl.Visibility = Visibility.Visible;
+            else if (kioskViewControl.Visibility == Visibility.Visible)
+                kioskViewControl.Visibility = Visibility.Hidden;
+        }
     }
 }

@@ -63,11 +63,11 @@
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Text="Motion:" HorizontalAlignment="Center" />
-                        <CheckBox IsChecked="{Binding Green}" HorizontalAlignment="Center"></CheckBox>
+                        <CheckBox IsChecked="{Binding Forward}" HorizontalAlignment="Center"></CheckBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <CheckBox IsChecked="{Binding Yellow}"></CheckBox>
-                            <CheckBox IsChecked="{Binding Red}"></CheckBox>
-                            <CheckBox IsChecked="{Binding Blue}"></CheckBox>
+                            <CheckBox IsChecked="{Binding Left}"></CheckBox>
+                            <CheckBox IsChecked="{Binding Backward}"></CheckBox>
+                            <CheckBox IsChecked="{Binding Right}"></CheckBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Direction: "/>
