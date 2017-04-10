@@ -75,7 +75,8 @@ namespace HENRY.Modules
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
             ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
-            ConnectBot(userPort, "User Controller", ref userConn);
+            userConn = Connection.Disconnected; // Don't check for userConn, just set as disconnected
+            //ConnectBot(userPort, "User Controller", ref userConn);
 
             UpdateConnectionStatus();
 
@@ -89,10 +90,6 @@ namespace HENRY.Modules
 
             r = new Random();
         }
-
-
-
-        
 
         /// <summary>
         /// Handles the process of connecting to the microcontrollers and manual control
@@ -261,9 +258,9 @@ namespace HENRY.Modules
             connectStatus += " Sensor Micro: ";
             if (serConn2 == Connection.Connected) { connectStatus += serPort2.PortName.ToString(); }
             else { connectStatus += "Disconnected"; }
-            connectStatus += " User Controller: ";
-            if (userConn == Connection.Connected) { connectStatus += userPort.PortName.ToString(); }
-            else { connectStatus += "Disconnected"; }
+            //connectStatus += " User Controller: ";
+            //if (userConn == Connection.Connected) { connectStatus += userPort.PortName.ToString(); }
+            //else { connectStatus += "Disconnected"; }
             SetPropertyValue("Connection", connectStatus);
         }
         /// <summary>
