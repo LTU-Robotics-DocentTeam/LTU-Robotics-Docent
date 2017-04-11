@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-              d:DesignHeight="720" d:DesignWidth="1280">
+             mc:Ignorable="d" Loaded="Window_Loaded"
+              d:DesignHeight="1080" d:DesignWidth="1920">
     <UserControl.Background>
         <ImageBrush ImageSource="Images/BG.jpg" />
     </UserControl.Background>
@@ -19,15 +19,15 @@
         <!-- End Fade -->
     </UserControl.Resources>
 
-    <Canvas Width="1280" Height="720" d:IsHidden="True">
-        <Image x:Name="myImage" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1280" Height="720">
+    <Canvas Width="1920" Height="1080" d:IsHidden="True">
+        <Image x:Name="myImage" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1920" Height="1080">
             <Image.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform X="0" Y="0" />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="myImage2" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1280" Height="720">
+        <Image x:Name="myImage2" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" Width="1920" Height="1080">
             <Image.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform X="0" Y="0" />
