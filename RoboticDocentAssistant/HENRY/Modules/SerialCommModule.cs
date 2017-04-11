@@ -101,8 +101,23 @@ namespace HENRY.Modules
             int i = 0;
             bool waiting = false;
             counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
+            int attempts = 0;
             while (robotConn == Connection.Unknown)
             {
+                if (attempts >= 4)
+                {
+                    // Wanna try again?
+                    if (System.Windows.MessageBox.Show(thisport + " not found. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    { // If not, set as disconnected
+                        robotConn = Connection.Disconnected;
+                        return;
+                    } // If yes, refresh the list and try again
+                    else
+                    {
+                        i = 0;
+                        continue;
+                    }
+                }
                 if (!waiting)
                 {
                     //counter++;
@@ -114,17 +129,10 @@ namespace HENRY.Modules
                     }
                     catch (System.IndexOutOfRangeException e) // Ran out of ports to test
                     {
+                        attempts++;
+                        i = 0;
+                        continue;
                         // Wanna try again?
-                        if (System.Windows.MessageBox.Show(thisport + " not found. Refresh?", "", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                        { // If not, set as disconnected
-                            robotConn = Connection.Disconnected;
-                            return;
-                        } // If yes, refresh the list and try again
-                        else
-                        {
-                            i = 0;
-                            continue;
-                        }
                     }
                     catch (System.InvalidOperationException e) // Port invalid
                     {
@@ -204,6 +212,7 @@ namespace HENRY.Modules
                     //    continue;
                     //}
                 }
+                
             }
             
         }

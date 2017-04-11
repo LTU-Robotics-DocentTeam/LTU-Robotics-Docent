@@ -18,7 +18,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            
+
         </StackPanel>
         <Grid x:Name="MainMenu" Width="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}">
             <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Main Menu" Grid.Column="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="Main Menu" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -49,10 +49,10 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
-                <TextBlock  Text="TOUR" HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-                <TextBlock  Text="DRIVE" HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-                <TextBlock  Text="MODE" HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-
+                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                    TOUR <LineBreak/> 
+                    DRIVE MODE
+                </TextBlock>
             </StackPanel>
             <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
                 <Ellipse.Fill>
@@ -63,9 +63,10 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <TextBlock FontSize="48"  Foreground="White" FontWeight="Bold" Text="MANUAL" HorizontalAlignment="Center"/>
-                <TextBlock FontSize="48"  Foreground="White" FontWeight="Bold" Text="DRIVE" HorizontalAlignment="Center"/>
-                <TextBlock FontSize="48"  Foreground="White" FontWeight="Bold" Text="MODE" HorizontalAlignment="Center"/>
+                <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                    MANUAL <LineBreak/> 
+                    DRIVE MODE
+                </TextBlock>
             </StackPanel>
             <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
                 <Ellipse.Fill>
@@ -76,8 +77,10 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <TextBlock  Text="KIOSK"  FontSize="48"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock  Text="MODE"  FontSize="48"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                    KIOSK <LineBreak/>
+                    MODE
+                </TextBlock>
             </StackPanel>
             <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
                 <Ellipse.Fill>
@@ -87,8 +90,8 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-            <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
         </Grid>
         <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
         <Grid>
