@@ -12,15 +12,27 @@
     </UserControl.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="MainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
-            <Ellipse Width="240" Height="240">
+        <Grid x:Name="grid" Grid.Row="0" Grid.Column="0" Width="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" Margin="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <Ellipse Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF1B8E30" Offset="0.564"/>
@@ -28,26 +40,29 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <StackPanel Orientation="Horizontal">
-                <Ellipse Width="240" Height="240">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF878E1B" Offset="0.564"/>
-                            <GradientStop Color="#FFD3DE19"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse Width="240" Height="240" Visibility="Hidden"></Ellipse>
-                <Ellipse Width="240" Height="240">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF201B8E" Offset="0.564"/>
-                            <GradientStop Color="#FF1A19DE"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </StackPanel>
-            <Ellipse Width="240" Height="240">
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="TOUR MODE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" IsEnabled="False" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <Ellipse Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF878E1B" Offset="0.564"/>
+                        <GradientStop Color="#FFD3DE19"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock Grid.Row="1" Grid.Column="0" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Grid.RowSpan="3" Grid.ColumnSpan="2" Foreground="White" FontWeight="Bold">
+                MANUAL <LineBreak/>
+                MODE
+            </TextBlock>
+            <Ellipse Grid.Row="1" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF201B8E" Offset="0.564"/>
+                        <GradientStop Color="#FF1A19DE"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="KIOSK MODE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Grid.RowSpan="3" Grid.ColumnSpan="2" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <Ellipse Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
@@ -55,11 +70,9 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <Image>
-
-            </Image>
-        </StackPanel>
-        <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Hidden"></views:KioskView>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="I'm Red" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White"></TextBlock>
+        </Grid>
+        <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
         <Grid>
 
         </Grid>
