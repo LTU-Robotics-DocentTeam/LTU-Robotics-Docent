@@ -18,6 +18,7 @@ namespace HENRY.Modules
             // Initialize properties to default
             SetPropertyValue("RightMSpeed", 0);
             SetPropertyValue("LeftMSpeed", 0);
+            SetPropertyValue("DirectionalSpeed", 0);
 
             // Set processing timer for module
             t = new TimersTimer();
@@ -33,13 +34,19 @@ namespace HENRY.Modules
 
             //double rDirection = 0;
             //double lDirection = 0;
+            int dirSpeed;
 
-            int rmDirSpeed = (int)((Constants.TURN_FACTOR) * (direction));
-            int lmDirSpeed = (int)((Constants.TURN_FACTOR) * (direction));
-            
-            int rmSpeed = spd + rmDirSpeed;
-            int lmSpeed = spd - lmDirSpeed;
+            // Calculate directional speed
+            if (!(spd < 2 && spd >= 0)) dirSpeed = (int)((direction / 90.0 * (spd)) / Constants.TURN_FACTOR);
+            else dirSpeed = (int)((direction / 90.0 * 1));
 
+            SetPropertyValue("DirectionalSpeed", dirSpeed);
+
+            // Calculate total speed
+            int rmSpeed = spd + dirSpeed;
+            int lmSpeed = spd - dirSpeed;
+
+            // Add deadzone gap to the speed
             if (rmSpeed > 0)
             {
                 rmSpeed += Constants.DEAD_ZONE;
