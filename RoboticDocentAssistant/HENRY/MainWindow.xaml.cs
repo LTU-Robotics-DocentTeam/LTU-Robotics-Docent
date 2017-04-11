@@ -104,7 +104,7 @@ namespace HENRY
         }
 
         /// <summary>
-        /// Handles keys released on the keyboard  or controller.
+        /// Handles keys released on the keyboard or controller.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -128,10 +128,6 @@ namespace HENRY
             {
                 if (p) ToggleManualDrive();
             }
-            if (vm.UserModeOn)
-            {
-                if (p) userViewControl.ToggleKiosk();
-            }
         }
 
         private void Yellow(bool p)
@@ -142,6 +138,10 @@ namespace HENRY
         private void Blue(bool p)
         {
             if (vm.DevModeOn) vm.Right = p;
+            if (vm.UserModeOn)
+            {
+                if (p) userViewControl.ToggleKiosk();
+            }
         }
 
         private void Red(bool p)
@@ -165,11 +165,11 @@ namespace HENRY
             
         }
 
-        
+
 
         // ===================================================================================================
+        // ===================================================================================================
         // Leftover testing code? Not sure if needed
-
         public class ThingClass : INotifyPropertyChanged
         {
             private string sometext;
@@ -216,6 +216,8 @@ namespace HENRY
                 }
             }
         }
+        // ===================================================================================================
+        // ===================================================================================================
 
         private void MWindow_Closing(object sender, CancelEventArgs e)
         {
