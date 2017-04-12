@@ -15,7 +15,7 @@ namespace HENRY.Modules.Sensors
         public UltrasonicSensorModule()
         {
             for (int i = 0; i <= Constants.US_NUM; i++)
-                SetPropertyValue("UltraS" + i.ToString(), 0.0);
+                SetPropertyValue("UltraS" + i.ToString(), 0);
 
             //t = new Timer();
             //t.Interval = 330;

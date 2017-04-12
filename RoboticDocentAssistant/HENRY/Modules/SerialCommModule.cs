@@ -422,15 +422,15 @@ namespace HENRY.Modules
                     break;
                 // Ultrasonic Sensors========================
                 //Load serial data into ultrasonic objects,  each sensor is its own object and his its own key. Data is a double
-                case 'V': SetPropertyValue("UltraS1", value); // saves the incoming value to the corresponding sensor object 
+                case 'V': SetPropertyValue("UltraS1", Int32.Parse(value)); // saves the incoming value to the corresponding sensor object 
                     break;
-                case 'W': SetPropertyValue("UltraS2", value);
+                case 'W': SetPropertyValue("UltraS2", Int32.Parse(value));
                     break;
-                case 'X': SetPropertyValue("UltraS3", value);
+                case 'X': SetPropertyValue("UltraS3", Int32.Parse(value));
                     break;
-                case 'Y': SetPropertyValue("UltraS4", value);
+                case 'Y': SetPropertyValue("UltraS4", Int32.Parse(value));
                     break;
-                case 'Z': SetPropertyValue("UltraS5", value);
+                case 'Z': SetPropertyValue("UltraS5", Int32.Parse(value));
                     break;
                 // ==========================================
                 case 'U': // User View ON?: Determines which View is active at the moment
@@ -462,6 +462,7 @@ namespace HENRY.Modules
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
 
             // Read from seriaport up to next valid character
+
             signal = userPort.ReadTo(">");
 
             //Look for valid start and end characters

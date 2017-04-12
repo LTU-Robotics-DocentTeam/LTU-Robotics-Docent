@@ -19,11 +19,11 @@ void SerialOut()
   {
     if (digitalRead(P_U1_SW) == LOW)
     {
-      message += "<U1>";
+      message += "<U0>";
     }
     else
     {
-      message += "<U0>";
+      message += "<U1>";
     }
   }
 

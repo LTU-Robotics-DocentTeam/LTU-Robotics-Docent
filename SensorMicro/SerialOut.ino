@@ -1,4 +1,4 @@
-void SerialOut(int i)
+void SerialOut()
 {
   String message = ""; // create empty string to fill in with a message to the computer
 
@@ -10,7 +10,7 @@ void SerialOut(int i)
 
   // Add corresponding sensor data to the message only if it has changed from last iteration
 
-  // send hall effect data every HE_SENSOR_LOOP iterations 
+  // send hall effect data every HE_SENSOR_LOOP iterations
   // quickest update loop. only sends data when there's a change
   if (serialCount % HE_SENSOR_LOOP == 0)
   {
@@ -22,18 +22,25 @@ void SerialOut(int i)
     }
   }
 
-  // send ultrasonic data every US_SENSOR_LOOP iterations 
+  // send ultrasonic data every US_SENSOR_LOOP iterations
   // arranged such that every sensor is checked twice per second
   if (serialCount % US_SENSOR_LOOP == 0)
   {
-    if (USprev[i] != ultraValue)
+    message += ultrasonic;
+    // Counter for ultrasonic sensor
+    i++; // update every iteration
+    if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
     {
-      message += ultrasonic;
-      USprev[i] = ultraValue;
+      i = 0;
     }
+    //    if (USprev[i] != ultraValue)
+    //    {
+    //      message += ultrasonic;
+    //      USprev[i] = ultraValue;
+    //    }
   }
 
-  // send voltage data every UPDATE_LOOP iterations 
+  // send voltage data every UPDATE_LOOP iterations
   // slowest loop as voltage readings jump around a lot
   if (serialCount % UPDATE_LOOP == 0)
   {

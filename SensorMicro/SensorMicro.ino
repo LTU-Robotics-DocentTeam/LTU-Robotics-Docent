@@ -94,14 +94,9 @@ void loop() {
   {
     SerialIn();
   }
-  SerialOut(i);
+  SerialOut();
 
-  // Counter for ultrasonic sensor
-  i++; // update every iteration
-  if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
-  {
-    i = 0;
-  }
+  
   delay(10);
 
 }
