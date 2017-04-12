@@ -25,6 +25,7 @@ void SerialOut()
     {
       message += "<U1>";
     }
+    message += Brakes;
   }
 
   if (message != "" && pcConnect)

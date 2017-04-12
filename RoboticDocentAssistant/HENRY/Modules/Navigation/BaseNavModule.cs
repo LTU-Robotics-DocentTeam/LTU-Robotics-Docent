@@ -49,8 +49,13 @@ namespace HENRY.Modules.Navigation
                 for (int i = 0; i < Constants.US_NUM; i++)
                 {
                     int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
+                    
+                    if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
+                    {
+                        current_sensor_dist = current_sensor_dist - 40;
+                    }
 
-                    if (current_sensor_dist < dist2obstacle)
+                    if (current_sensor_dist < dist2obstacle) // sets smallest distance
                     {
                         dist2obstacle = current_sensor_dist;
                     }

@@ -79,6 +79,9 @@ bool RightReverse = false;
 int LeftMotorValue = 0;
 int RightMotorValue = 0;
 
+bool RightMotorBrake = false;
+bool LeftMotorBrake = false;
+
 bool LeftRelayClosed = false;
 bool RightRelayClosed = false;
 
@@ -93,6 +96,7 @@ int msgCounter = 0;
 int serialCount = SERIAL_COMM_INIT;
 bool pcConnect = false;
 String prevIm = "", impactArray = "";
+String Brakes;
 
 void setup()
 {
@@ -102,8 +106,8 @@ void setup()
   
   pinMode(P_U1_LD, OUTPUT);
   pinMode(P_U1_RD, OUTPUT);
-  pinMode(P_U1_LB, INPUT);
-  pinMode(P_U1_RB, INPUT);
+  pinMode(P_U1_LB, INPUT_PULLUP);
+  pinMode(P_U1_RB, INPUT_PULLUP);
 
   LeftMotor.attach(P_U1_LM);
   RightMotor.attach(P_U1_RM);
@@ -153,6 +157,7 @@ void setup()
 
 void loop() {
   impactArray = Impact();
+  Brakes = Check_Brakes();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {
