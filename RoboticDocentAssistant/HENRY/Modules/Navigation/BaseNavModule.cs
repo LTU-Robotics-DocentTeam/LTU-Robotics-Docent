@@ -52,7 +52,7 @@ namespace HENRY.Modules.Navigation
                     
                     if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
                     {
-                        current_sensor_dist = current_sensor_dist - 40;
+                        current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
                     }
 
                     if (current_sensor_dist < dist2obstacle) // sets smallest distance

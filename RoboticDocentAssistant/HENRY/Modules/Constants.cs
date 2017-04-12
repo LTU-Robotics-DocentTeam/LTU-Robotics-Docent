@@ -25,5 +25,7 @@ namespace HENRY.Modules
         public const int CLUSTER_SIZE = 2; // Number of sensors per cluster
 
         public string FilePath = "log" + DateTime.Now.ToString() + ".txt";
+
+        public const int MAST_TO_FRONT = 430;
     }
 }
