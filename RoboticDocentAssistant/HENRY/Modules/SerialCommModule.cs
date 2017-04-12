@@ -250,8 +250,7 @@ namespace HENRY.Modules
             SetPropertyValue("Connection", connectStatus);
         }
         /// <summary>
-        /// Function that fires everytime Serial Data is received from serPort1 and parses the incoming data. Reads through incoming
-        /// messages and assigns values to their corresponding property based on the Key. Keys recognized: R, L, B, E, U(?)
+        /// Function that fires everytime Serial Data is received from serPort1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -280,6 +279,11 @@ namespace HENRY.Modules
             
 
         }
+        /// <summary>
+        /// Parses incoming motor data. Reads through incoming
+        /// messages and assigns values to their corresponding property based on the Key. Keys recognized: R, L, B, E, U(?)
+        /// </summary>
+        /// <param name="msg"> full incoming message in <K###> format</param>
         void serPort1_DataProcess(string msg)
         {
             char key = msg[0];
@@ -365,8 +369,7 @@ namespace HENRY.Modules
             }
         }
         /// <summary>
-        /// Function that fires everytime Serial Data is received from serPort2 and parses the incoming data. Reads through incoming
-        /// messages and assigns values to their corresponding property based on the Key. Keys recognized: H, I, J, K, U(?)
+        /// Function that fires everytime Serial Data is received from serPort2 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -391,6 +394,11 @@ namespace HENRY.Modules
             }
             
         }
+        /// <summary>
+        /// Parses incoming sensor data. Reads through incoming
+        /// messages and assigns values to their corresponding property based on the Key. Keys recognized: H, I, J, K, U(?)
+        /// </summary>
+        /// <param name="msg"> full incoming message in <K###> format</param>
         void serPort2_DataProcess(string msg)
         {
             char key = msg[0];
