@@ -19,6 +19,8 @@ namespace HENRY.Modules
             SetPropertyValue("RightMSpeed", 0);
             SetPropertyValue("LeftMSpeed", 0);
             SetPropertyValue("DirectionalSpeed", 0);
+            SetPropertyValue("LeftBrake", false);
+            SetPropertyValue("RightBrake", false);
 
             // Set processing timer for module
             t = new TimersTimer();

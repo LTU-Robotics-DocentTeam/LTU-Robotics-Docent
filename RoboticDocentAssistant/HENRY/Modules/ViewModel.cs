@@ -223,6 +223,17 @@ namespace HENRY.Modules
             set { SetPropertyValue("Left", value); RaisePropertyChanged("Left"); }
         }
 
+        public bool RightBrake
+        {
+            get { return GetPropertyValue("RightBrake").ToBoolean(); }
+            set { SetPropertyValue("RightBrake", value); RaisePropertyChanged("RightBrake"); }
+        }
+
+        public bool LeftBrake
+        {
+            get { return GetPropertyValue("LeftBrake").ToBoolean(); }
+            set { SetPropertyValue("LeftBrake", value); RaisePropertyChanged("LeftBrake"); }
+        }
         public string RightMSpeed
         {
             get { return GetPropertyValue("RightMSpeed").ToString(); }

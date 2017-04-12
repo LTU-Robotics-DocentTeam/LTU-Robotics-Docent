@@ -365,21 +365,21 @@ namespace HENRY.Modules
                 case 'P': // Left Brake signal: sent if the left brake has been triggered
                     if (value =="1")
                     {
-                        SetPropertyValue("Left Brake", true);
+                        SetPropertyValue("LeftBrake", true);
                     }
                     else if (value == "0")
                     {
-                        SetPropertyValue("Left Brake", false);
+                        SetPropertyValue("LeftBrake", false);
                     }
                     break;
                 case 'Q': // Right Brake signal: sent if the right brake has been triggered
                       if (value =="1")
                     {
-                        SetPropertyValue("Right Brake", true);
+                        SetPropertyValue("RightBrake", true);
                     }
                     else if (value == "0")
                     {
-                        SetPropertyValue("Right Brake", false);
+                        SetPropertyValue("RightBrake", false);
                     }
                     break;
                 default: 

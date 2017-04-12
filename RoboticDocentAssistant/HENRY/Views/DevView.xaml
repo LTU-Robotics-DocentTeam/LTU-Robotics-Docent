@@ -52,7 +52,7 @@
                         <TextBlock Text="E Stop Triggered:" HorizontalAlignment="Center"/>
                         <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
                         <Separator></Separator>
-                        
+
                         <Separator></Separator>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Direction: "/>
@@ -73,7 +73,13 @@
                             <TextBlock Text=" Right: " ></TextBlock>
                             <TextBlock Text="{Binding RightMSpeed}" FontWeight="Bold"></TextBlock>
                         </StackPanel>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Left Brake"></TextBlock>
+                            <CheckBox IsChecked="{Binding LeftBrake}"></CheckBox>
+                            <TextBlock Text="Right Brake"></TextBlock>
+                            <CheckBox IsChecked="{Binding LRightBrake}"></CheckBox>
+                        </StackPanel>
+                </StackPanel>
                 </Border>
                 <!--SensorMicrocontroller Stackpanel-->
                 <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="1">
