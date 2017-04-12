@@ -20,23 +20,23 @@ namespace HENRY.Modules
     {
         public enum Connection { Unknown, Disconnected, Connected};
 
-        public Connection serConn1 = Connection.Unknown, serConn2 = Connection.Unknown, userConn = Connection.Unknown;
+        public Connection serConn1 = Connection.Unknown, serConn2 = Connection.Unknown;
         
         TimersTimer t;
         Random r;
 
         SerialPort serPort1; // Motor controller serial communication port
         SerialPort serPort2; // Sensor controller serial communication port (UltraS, Infrared, Hall Effect)
-        SerialPort userPort; // User controller serial communication port
         string[] comPorts = new string[3];
         
-        string signal = "", msg2motor = "", connectStatus = "";
+        string signal = String.Empty, msg2motor = String.Empty, connectStatus = String.Empty;
         int deviceId = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
         int simTimer = 0;
 
         int prvr = 0, prvl = 0;
         bool prestop = false;
+        private string bBuff1 = String.Empty, bBuff2 = String.Empty;
 
         public SerialCommModule()
         {
@@ -61,16 +61,6 @@ namespace HENRY.Modules
             serPort2.ReadTimeout = 50;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
-            // These are all UserController Serial Port initializations
-            //====================================================================================================
-            userPort = new SerialPort();
-            userPort.BaudRate = 115200;
-            userPort.DataBits = 8;
-            userPort.Parity = Parity.None;
-            userPort.StopBits = StopBits.One;
-            userPort.ReadTimeout = 50;
-            userPort.DataReceived += new SerialDataReceivedEventHandler(userPort_DataReceived);
-            //====================================================================================================
 
             t = new TimersTimer();
             t.Interval = 10;
@@ -78,7 +68,6 @@ namespace HENRY.Modules
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
             ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
-            userConn = Connection.Disconnected; // Don't check for userConn, just set as disconnected
             //ConnectBot(userPort, "User Controller", ref userConn);
 
             UpdateConnectionStatus();
@@ -249,18 +238,6 @@ namespace HENRY.Modules
                     serConn1 = Connection.Disconnected;
                 }
             }
-            if (!userPort.IsOpen && userConn != Connection.Disconnected)
-            {
-                userConn = Connection.Unknown;
-                if (System.Windows.MessageBox.Show("userPort lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ConnectBot(userPort, "User MicroController", ref userConn);
-                }
-                else
-                {
-                    userConn = Connection.Disconnected;
-                }
-            }
             
             // Build connection status string to be displayed
             connectStatus = "";
@@ -270,9 +247,6 @@ namespace HENRY.Modules
             connectStatus += " Sensor Micro: ";
             if (serConn2 == Connection.Connected) { connectStatus += serPort2.PortName.ToString(); }
             else { connectStatus += "Disconnected"; }
-            //connectStatus += " User Controller: ";
-            //if (userConn == Connection.Connected) { connectStatus += userPort.PortName.ToString(); }
-            //else { connectStatus += "Disconnected"; }
             SetPropertyValue("Connection", connectStatus);
         }
         /// <summary>
@@ -288,25 +262,26 @@ namespace HENRY.Modules
             
             // Read from seriaport up to next valid character
 
-            try
-            {     
-                signal = serPort1.ReadTo(">");
-            }
-            catch (Exception)
+            string indata = serPort1.ReadExisting();
+
+            foreach (char c in indata)
             {
-                
+                bBuff1 += c;
+
+                if (c == '>')
+                {
+                    Console.WriteLine(bBuff1);
+                    bBuff1 = String.Empty;
+                }
             }
 
-            //Look for valid start and end characters
-            int startin = signal.IndexOf('<');
-
-            // if start character is not present, return due to invalid message
-            if (startin < 0)
-            {
-                return;
-            }
             //int msglngth = endin - startin;
-            string msg = signal.Substring(startin+1);
+            //string msg = signal.Substring(startin+1);
+            
+
+        }
+        void serPort1_DataProcess(string msg)
+        {
             char key = msg[0];
             string value = msg.Substring(1);
 
@@ -334,9 +309,9 @@ namespace HENRY.Modules
                 // Motor Values =================================
                 // Load serial data into motor objects,  each motor is its own object. Data is a double
                 case 'L': SetPropertyValue("LeftMSpeed", value);
-                        break;
+                    break;
                 case 'R': SetPropertyValue("RightMSpeed", value);
-                        break;
+                    break;
                 // ==============================================
                 case 'U': // User View ON?: Determines which View is active at the moment
                     if (value == "1")
@@ -363,7 +338,7 @@ namespace HENRY.Modules
                     }
                     break;
                 case 'P': // Left Brake signal: sent if the left brake has been triggered
-                    if (value =="1")
+                    if (value == "1")
                     {
                         SetPropertyValue("LeftBrake", true);
                     }
@@ -373,7 +348,7 @@ namespace HENRY.Modules
                     }
                     break;
                 case 'Q': // Right Brake signal: sent if the right brake has been triggered
-                      if (value =="1")
+                    if (value == "1")
                     {
                         SetPropertyValue("RightBrake", true);
                     }
@@ -382,13 +357,12 @@ namespace HENRY.Modules
                         SetPropertyValue("RightBrake", false);
                     }
                     break;
-                default: 
-                    if (serConn1 != Connection.Unknown) 
+                default:
+                    if (serConn1 != Connection.Unknown)
                         System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort1"); //Catch statement
                     break;
 
             }
-
         }
         /// <summary>
         /// Function that fires everytime Serial Data is received from serPort2 and parses the incoming data. Reads through incoming
@@ -400,27 +374,25 @@ namespace HENRY.Modules
         {
             // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
-
+            
             // Read from seriaport up to next valid character
-            try
-            {
-                signal = serPort2.ReadTo(">");
-            }
-            catch (Exception)
-            {
-                
-            }
 
-            //Look for valid start and end characters
-            int startin = signal.IndexOf('<');
+            string indata = serPort2.ReadExisting();
 
-            // if start character is not present, return due to invalid message
-            if (startin < 0)
+            foreach (char c in indata)
             {
-                return;
+                bBuff2 += c;
+
+                if (c == '>')
+                {
+                    Console.WriteLine(bBuff1);
+                    bBuff2 = String.Empty;
+                }
             }
-            //int msglngth = endin - startin;
-            string msg = signal.Substring(startin + 1);
+            
+        }
+        void serPort2_DataProcess(string msg)
+        {
             char key = msg[0];
             string value = msg.Substring(1);
 
@@ -493,40 +465,6 @@ namespace HENRY.Modules
 
             }
 
-        }
-        private void userPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            // Incoming messages should follow the format <K000>, where K is the key determining what sensor does
-            // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
-
-            // Read from seriaport up to next valid character
-
-            signal = userPort.ReadTo(">");
-
-            //Look for valid start and end characters
-            int startin = signal.IndexOf('<');
-
-            // if start character is not present, return due to invalid message
-            if (startin < 0)
-            {
-                return;
-            }
-            //int msglngth = endin - startin;
-            string msg = signal.Substring(startin + 1);
-            char key = msg[0];
-            string value = msg.Substring(1);
-
-            //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
-
-            switch (key)
-            {
-                case 'C': // Identification command: Takes device ID. This port only accepts "2", which is the sensor microcontroller
-                    if (value == "3" && userConn != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
-                    else deviceId = -1; // if incorrect id, set 
-                    break;
-                default: System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by userPort"); //Catch statement
-                    break;
-            }
         }
         /// <summary>
         /// Handles all data sending on a timer if the robot is connected, else it generates random data
