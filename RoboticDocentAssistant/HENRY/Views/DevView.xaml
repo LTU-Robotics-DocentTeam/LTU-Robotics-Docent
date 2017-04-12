@@ -77,7 +77,7 @@
                             <TextBlock Text="Left Brake"></TextBlock>
                             <CheckBox IsChecked="{Binding LeftBrake}"></CheckBox>
                             <TextBlock Text="Right Brake"></TextBlock>
-                            <CheckBox IsChecked="{Binding LRightBrake}"></CheckBox>
+                            <CheckBox IsChecked="{Binding RightBrake}"></CheckBox>
                         </StackPanel>
                 </StackPanel>
                 </Border>
