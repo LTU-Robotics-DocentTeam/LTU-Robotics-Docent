@@ -55,7 +55,7 @@ void SerialIn()
     case 'C': // identification key
       if (value == 0) // if incoming id is 0 (the computer)...
       {
-        Serial.println("<C1>"); // send back device id (1 for the motor microntroller)
+        Serial.print("<C1>"); // send back device id (1 for the motor microntroller)
         pcConnect = true;
       }
       // else do nothing

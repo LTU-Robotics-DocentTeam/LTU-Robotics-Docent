@@ -30,7 +30,7 @@ void SerialOut()
 
   if (message != "" && pcConnect)
   {
-    Serial.println(message);
+    Serial.print(message);
   }
 
   // update serial counter
@@ -49,7 +49,7 @@ void SerialBuffer(String msg)
 {
   if (serialCommCounter <= 0 || msgCounter > MAX_BUFFER)// if serial counter is down to 0, send message
   {
-    Serial.println(msg + msgBuffer);
+    Serial.print(msg + msgBuffer);
     serialCommCounter = SERIAL_WAIT; // reset counter to specified constant
     msgBuffer = "";
     msgCounter = 0;
