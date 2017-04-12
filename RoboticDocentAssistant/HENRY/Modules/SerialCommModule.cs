@@ -362,6 +362,26 @@ namespace HENRY.Modules
                         SetPropertyValue("EStop", false);
                     }
                     break;
+                case 'P': // Left Brake signal: sent if the left brake has been triggered
+                    if (value =="1")
+                    {
+                        SetPropertyValue("Left Brake", true);
+                    }
+                    else if (value == "0")
+                    {
+                        SetPropertyValue("Left Brake", false);
+                    }
+                    break;
+                case 'Q': // Right Brake signal: sent if the right brake has been triggered
+                      if (value =="1")
+                    {
+                        SetPropertyValue("Right Brake", true);
+                    }
+                    else if (value == "0")
+                    {
+                        SetPropertyValue("Right Brake", false);
+                    }
+                    break;
                 default: 
                     if (serConn1 != Connection.Unknown) 
                         System.Windows.MessageBox.Show("Key " + key.ToString() + " is not recognized by serPort1"); //Catch statement
