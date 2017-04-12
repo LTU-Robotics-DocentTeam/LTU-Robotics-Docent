@@ -17,7 +17,7 @@ void SerialOut()
 
   if (serialCount % UPDATE_LOOP == 0)
   {
-    if (digitalRead(P_U1_SW) == HIGH)
+    if (digitalRead(P_U1_SW) == LOW)
     {
       message += "<U1>";
     }

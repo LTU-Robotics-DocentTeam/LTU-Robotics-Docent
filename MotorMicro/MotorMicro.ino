@@ -117,7 +117,7 @@ void setup()
 
   pinMode(P_U1_PC, OUTPUT);
   pinMode(P_U1_EStop, INPUT);
-  pinMode(P_U1_SW, INPUT);
+  pinMode(P_U1_SW, INPUT_PULLUP);
   pinMode(P_U1_LED, OUTPUT);
 
 
@@ -139,7 +139,7 @@ void setup()
   }
   digitalWrite(P_U1_PC, LOW);
 
-  if (digitalRead(P_U1_SW) == HIGH)
+  if (digitalRead(P_U1_SW) == LOW)
   {
     prevSwitch = true;
   }
