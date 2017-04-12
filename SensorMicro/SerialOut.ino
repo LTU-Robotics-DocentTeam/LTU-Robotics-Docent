@@ -26,7 +26,6 @@ void SerialOut(int i)
   // arranged such that every sensor is checked twice per second
   if (serialCount % US_SENSOR_LOOP == 0)
   {
-    USprev[i] = ultraValue;
     if (USprev[i] != ultraValue)
     {
       message += ultrasonic;
