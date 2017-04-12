@@ -14,7 +14,7 @@ int Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
     mm = (duration/2) / 2.91; // converts microseconds into length in millimeters
   }
 
-  else i{
+  else {
     mm = 2000; //sees nothing
   }
 
