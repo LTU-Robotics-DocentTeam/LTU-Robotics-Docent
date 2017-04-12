@@ -7,12 +7,12 @@ void SerialOut()
 
   if (serialCount % L_LOOP == 0)
   {
-    message += impactArray;
-//    if (prevIm != impactArray)
-//    {
-//      message += impactArray;
-//      prevIm = impactArray;
-//    }
+    //message += impactArray;
+    if (prevIm != impactArray)
+    {
+      message += impactArray;
+      prevIm = impactArray;
+    }
   }
 
   if (serialCount % UPDATE_LOOP == 0)

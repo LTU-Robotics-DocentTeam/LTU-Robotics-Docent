@@ -48,6 +48,7 @@ namespace HENRY.Modules
             serPort1.DataBits = 8;
             serPort1.Parity = Parity.None;
             serPort1.StopBits = StopBits.One;
+            serPort1.ReadTimeout = 50;
             serPort1.DataReceived += new SerialDataReceivedEventHandler(serPort1_DataReceived);
             //====================================================================================================
             // These are all Serial Port 2 initializations
@@ -57,6 +58,7 @@ namespace HENRY.Modules
             serPort2.DataBits = 8;
             serPort2.Parity = Parity.None;
             serPort2.StopBits = StopBits.One;
+            serPort2.ReadTimeout = 50;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
             // These are all UserController Serial Port initializations
@@ -66,6 +68,7 @@ namespace HENRY.Modules
             userPort.DataBits = 8;
             userPort.Parity = Parity.None;
             userPort.StopBits = StopBits.One;
+            userPort.ReadTimeout = 50;
             userPort.DataReceived += new SerialDataReceivedEventHandler(userPort_DataReceived);
             //====================================================================================================
 
@@ -284,7 +287,15 @@ namespace HENRY.Modules
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
             
             // Read from seriaport up to next valid character
-            signal = serPort1.ReadTo(">");
+
+            try
+            {     
+                signal = serPort1.ReadTo(">");
+            }
+            catch (Exception)
+            {
+                
+            }
 
             //Look for valid start and end characters
             int startin = signal.IndexOf('<');
@@ -371,7 +382,14 @@ namespace HENRY.Modules
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
 
             // Read from seriaport up to next valid character
-            signal = serPort2.ReadTo(">");
+            try
+            {
+                signal = serPort2.ReadTo(">");
+            }
+            catch (Exception)
+            {
+                
+            }
 
             //Look for valid start and end characters
             int startin = signal.IndexOf('<');
@@ -531,7 +549,7 @@ namespace HENRY.Modules
                     // Generate random valid inputs for the ultrasonic simulation
                     for (int i = 1; i <= Constants.US_NUM; i++)
                     {
-                        SetPropertyValue("UltraS" + i.ToString(), 1000.0 + r.NextDouble() * 1000.0);
+                        SetPropertyValue("UltraS" + i.ToString(), 1000 + r.Next() * 1000);
                     }
 
                     // trigger random infrared sensor in array

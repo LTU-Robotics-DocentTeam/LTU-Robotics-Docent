@@ -3,7 +3,7 @@ String Hall_Effect_Array()
   String hall_array = ""; // create empty string
   for (int i = 0; i < H_NUM; i++) // fill in string with individual sensor states in binary with time out cycle
   {
-    if (mcp.digitalRead(HEpins[i]) == HIGH){
+    if (mcp.digitalRead(HEpins[i]) == LOW){
       hall_array += "1"; // if sensor is triggered, add "1" to string
       hallValuesLife[i] = HALL_LIFE;
     }
