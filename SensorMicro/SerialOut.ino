@@ -6,6 +6,12 @@ void SerialOut()
   String voltage = "<S" + String(float(analogRead(P_U2_BattVolt)) * VOLTAGE_FACTOR) + ">";
   //String hallArray = Hall_Effect_Array();
   long ultraValue = Ultra_Sensor(USping[i], USecho[i]);
+  j++;
+  if (j > 1)
+  {
+        j = 0;
+  }
+        
   String ultrasonic = "<" + (String)USkey[i] + (String)ultraValue + ">";
 
   // Add corresponding sensor data to the message only if it has changed from last iteration
@@ -32,12 +38,6 @@ void SerialOut()
     if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
     {
       i = 0;
-      j++;
-      if (j > 1)
-      {
-        j = 0;
-        
-      }
     }
     //    if (USprev[i] != ultraValue)
     //    {
