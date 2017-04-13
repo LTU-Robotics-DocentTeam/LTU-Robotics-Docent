@@ -91,6 +91,23 @@ namespace HENRY.Views
                 }
             }
         }
+
+        internal void ToggleTourMode(bool p)
+        {
+            if (p)
+            {
+              if (TourMode.Visibility == Visibility.Hidden)
+              {
+                  TourMode.Visibility = Visibility.Visible;
+                  currentMode = UserScreen.Tour;
+              }
+              else
+              {
+                  TourMode.Visibility = Visibility.Hidden;
+                  currentMode = UserScreen.MainMenu;
+              }
+            }
+        }
     }
 
 }

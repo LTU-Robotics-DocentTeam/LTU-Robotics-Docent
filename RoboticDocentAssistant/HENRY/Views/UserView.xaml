@@ -92,6 +92,106 @@
             <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
         </Grid>
         <!-- End Main Menu stuff -->
+        <!-- Tour Mode Stuff -->
+        <Grid x:Name="TourMode" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF474646"></SolidColorBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                    TOUR DRIVE MODE
+                    </TextBlock>
+                </StackPanel>
+                <Grid x:Name="tourDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=tourDriveButtonDiagram, Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF1B8E30" Offset="0.564"/>
+                                <GradientStop Color="#FF1FDE19"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
+                        <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                    GO
+                        </TextBlock>
+                    </StackPanel>
+                    <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF878E1B" Offset="0.564"/>
+                                <GradientStop Color="#FFD3DE19"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                        Do another <LineBreak/> 
+                        Thing
+                        </TextBlock>
+                    </StackPanel>
+                    <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF201B8E" Offset="0.564"/>
+                                <GradientStop Color="#FF1A19DE"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                    Do a Thing
+                        </TextBlock>
+                    </StackPanel>
+                    <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
+                                <GradientStop Color="#FFDE1919"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                    TURN <LineBreak/>
+                    AROUND
+                    </TextBlock>
+                </Grid>
+
+            </Grid>
+            <MediaElement Source="" Grid.Row="1" Grid.Column="1"></MediaElement>
+        </Grid>
+        <!-- End Tour Mode Stuff-->
         <!-- Shutdown stuff-->
         <Grid x:Name="Shutdown" Visibility="Hidden">
             <Grid.Background>
@@ -121,7 +221,6 @@
                     AFTER the computer is off!
                 </TextBlock>
             </StackPanel>
-
         </Grid>
         <!-- End Shutdown stuff -->
         <!--Kiosk Mode stuff-->

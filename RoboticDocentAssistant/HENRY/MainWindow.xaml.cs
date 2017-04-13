@@ -183,7 +183,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Forward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: 
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleTourMode(p);
                             break;
                     }
                     break;
@@ -237,7 +237,7 @@ namespace HENRY
                 case Buttons.Black:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour:
+                        case UserView.UserScreen.Tour: userViewControl.ToggleTourMode(p);
                             break;
                         case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode(p);
                             break;
