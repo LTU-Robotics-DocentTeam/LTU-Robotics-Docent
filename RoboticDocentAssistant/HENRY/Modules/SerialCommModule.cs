@@ -48,7 +48,7 @@ namespace HENRY.Modules
             serPort1.DataBits = 8;
             serPort1.Parity = Parity.None;
             serPort1.StopBits = StopBits.One;
-            serPort1.ReadTimeout = 50;
+            serPort1.ReadTimeout = 10;
             serPort1.DataReceived += new SerialDataReceivedEventHandler(serPort1_DataReceived);
             //====================================================================================================
             // These are all Serial Port 2 initializations
@@ -58,7 +58,7 @@ namespace HENRY.Modules
             serPort2.DataBits = 8;
             serPort2.Parity = Parity.None;
             serPort2.StopBits = StopBits.One;
-            serPort2.ReadTimeout = 50;
+            serPort2.ReadTimeout = 10;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
 
@@ -106,6 +106,8 @@ namespace HENRY.Modules
                     } // If yes, refresh the list and try again
                     else
                     {
+                        waiting = false;
+                        attempts = 0;
                         i = 0;
                         continue;
                     }
@@ -155,7 +157,17 @@ namespace HENRY.Modules
                     waiting = true;
                     counter++;
                     // Send identification command to device
-                    if (counter % 10 == 0) serPort.Write("<C0>"); 
+                    if (counter % 100 == 0)
+                    {
+                        try
+                        {
+                            serPort.Write("<C0>");
+                        }
+                        catch (Exception)
+                        {
+                            
+                        } 
+                    }
                     // Notify user of connecting procedure
                     //AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 2000);
                     // Wait for one second
@@ -180,7 +192,7 @@ namespace HENRY.Modules
                         continue;
                     }
                 }
-                if (counter >= 5000) //connection timed out
+                if (counter >= 10000) //connection timed out
                 {
                     // refresh the list and try again
                     waiting = false;
@@ -265,13 +277,12 @@ namespace HENRY.Modules
 
             foreach (char c in indata)
             {
-                bBuff1 += c;
-
                 if (c == '>')
                 {
-                    Console.WriteLine(bBuff1);
+                    serPort1_DataProcess(bBuff1);
                     bBuff1 = String.Empty;
                 }
+                bBuff1 += c;
             }
 
             //int msglngth = endin - startin;
@@ -286,8 +297,9 @@ namespace HENRY.Modules
         /// <param name="msg"> full incoming message in <K###> format</param>
         void serPort1_DataProcess(string msg)
         {
-            char key = msg[0];
-            string value = msg.Substring(1);
+            int firstbyte = msg.IndexOf('<');
+            char key = msg[firstbyte+1];
+            string value = msg.Substring(2);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
 
@@ -295,7 +307,11 @@ namespace HENRY.Modules
             {
                 case 'C': // Identification command: Takes device ID. This port only accepts "1", which is the motor microcontroller
                     if (value == "1" && serConn1 != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
-                    else deviceId = -1; // if incorrect id, set 
+                    else
+                    {
+                        deviceId = -1; // if incorrect id, set
+                        serPort1.DiscardOutBuffer();
+                    }
                     break;
                 case 'B': // Impact Sensors: Binary string
                     for (int i = 0; i < Constants.IMPACT_NUM; i++)// Load serial data into impact sensor objects,  each sensor is its own object
@@ -384,13 +400,14 @@ namespace HENRY.Modules
 
             foreach (char c in indata)
             {
-                bBuff2 += c;
+                
 
                 if (c == '>')
                 {
-                    Console.WriteLine(bBuff1);
+                    serPort2_DataProcess(bBuff2);
                     bBuff2 = String.Empty;
                 }
+                bBuff2 += c;
             }
             
         }

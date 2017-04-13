@@ -54,7 +54,7 @@ void SerialOut()
   // if message is not empty, send through serialport
   if (message != "" && pcConnect)
   {
-    Serial.println(message);
+    Serial.print(message);
   }
 
   // update serial counter
