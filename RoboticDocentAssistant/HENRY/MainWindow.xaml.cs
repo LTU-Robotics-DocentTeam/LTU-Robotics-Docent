@@ -1,6 +1,7 @@
 ﻿using HENRY.Modules;
 using HENRY.Modules.Navigation;
 using HENRY.Modules.Sensors;
+using HENRY.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
@@ -14,6 +15,8 @@ namespace HENRY
     public partial class MainWindow : Window
     {
         ErrorLog erlg;
+
+        public enum Buttons { Green, Red, Yellow, Blue, Black };
         
         ViewModel vm;
         SerialCommModule scm;
@@ -92,15 +95,42 @@ namespace HENRY
         public void keyDownEventHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
-                Green(true);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Green, true);
+                if (vm.UserModeOn) UserModeController(Buttons.Green, true);
+            }
+
             if (e.Key == Key.S)
-                Red(true);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Red, true);
+                if (vm.UserModeOn) UserModeController(Buttons.Red, true);
+            }
             if (e.Key == Key.D)
-                Blue(true);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Blue, true);
+                if (vm.UserModeOn) UserModeController(Buttons.Blue, true);
+            }
             if (e.Key == Key.A)
-                Yellow(true);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Yellow, true);
+                if (vm.UserModeOn) UserModeController(Buttons.Yellow, true);
+            }
             if (e.Key == Key.Q)
-                Black(true);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Black, true);
+                if (vm.UserModeOn) UserModeController(Buttons.Black, true);
+            }
+
+            // Not gonna affect the controller
+            if (e.Key == Key.U)
+            {
+                vm.DevModeOn = !vm.DevModeOn;
+                vm.UserModeOn = !vm.UserModeOn;
+            }
+            if (e.Key == Key.E)
+            {
+                vm.EStop = !vm.EStop;
+            }
         }
 
         /// <summary>
@@ -111,57 +141,104 @@ namespace HENRY
         public void keyUpEventHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
-                Green(false);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Green, false);
+                if (vm.UserModeOn) UserModeController(Buttons.Green, false);
+            }
+                
             if (e.Key == Key.S)
-                Red(false);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Red, false);
+                if (vm.UserModeOn) UserModeController(Buttons.Red, false);
+            }
             if (e.Key == Key.D)
-                Blue(false);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Blue, false);
+                if (vm.UserModeOn) UserModeController(Buttons.Blue, false);
+            }
             if (e.Key == Key.A)
-                Yellow(false);
+            {
+                if (vm.DevModeOn) DevModeController(Buttons.Yellow, false);
+                if (vm.UserModeOn) UserModeController(Buttons.Yellow, false);
+            }
             if (e.Key == Key.Q)
-                Black(false);
-        }
-
-        private void Black(bool p)
-        {
-            if (vm.DevModeOn)
             {
-                if (p) ToggleManualDrive();
+                if (vm.DevModeOn) DevModeController(Buttons.Black, false);
+                if (vm.UserModeOn) UserModeController(Buttons.Black, false);
             }
         }
 
-        private void Yellow(bool p)
+        private void UserModeController(Buttons b, bool p)
         {
-            if (vm.DevModeOn) vm.Left = p;
-        }
-
-        private void Blue(bool p)
-        {
-            if (vm.DevModeOn) vm.Right = p;
-            if (vm.UserModeOn)
+            switch (b)
             {
-                if (p) userViewControl.ToggleKiosk();
+                case Buttons.Green:
+                    if (p)
+                    {
+                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                    }
+                    break;
+                case Buttons.Red:
+                    if (p)
+                    {
+                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                    }
+                    break;
+                case Buttons.Blue:
+                    if (p)
+                    {
+                        if (userViewControl.currentMode == UserView.UserScreen.MainMenu) userViewControl.ToggleKiosk();
+                    }
+                    break;
+                case Buttons.Yellow:
+                    if (p)
+                    {
+                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                    }
+                    break;
+                case Buttons.Black:
+                    if (p)
+                    {
+                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk && userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
+                        {
+                            userViewControl.ShowKioskGetOut();
+                        }
+                        else if (userViewControl.currentMode == UserView.UserScreen.Kiosk && userViewControl.kioskPromptText.Visibility == Visibility.Visible)
+                        {
+                            userViewControl.ToggleKiosk();
+                        }
+                    }
+                    break;
             }
         }
 
-        private void Red(bool p)
+        private void DevModeController(Buttons b, bool p)
         {
-            if (vm.DevModeOn) vm.Backward = p;
-        }
-
-        private void Green(bool p)
-        {
-            if (vm.DevModeOn) vm.Forward = p;
+            switch (b)
+            {
+                case Buttons.Green:
+                    vm.Forward = p;
+                    break;
+                case Buttons.Red:
+                    vm.Backward = p;
+                    break;
+                case Buttons.Blue:
+                    vm.Right = p;
+                    break;
+                case Buttons.Yellow:
+                    vm.Left = p;
+                    break;
+                case Buttons.Black:
+                    if (p) ToggleManualDrive();
+                    break;
+            }
         }
 
         private void ToggleManualDrive()
         {
-            if (vm.DevModeOn)
-            {
-                vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
-                if (vm.ManualDriveEnabled) mnd.t.Start();
-                else mnd.t.Stop();
-            }
+            vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
+            if (vm.ManualDriveEnabled) mnd.t.Start();
+            else mnd.t.Stop();
             
         }
 

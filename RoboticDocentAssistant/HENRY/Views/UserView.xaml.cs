@@ -18,6 +18,12 @@ namespace HENRY.Views
     /// - Add regular UserView stuff (Display questions, controller layout, etc.)
     public partial class UserView : UserControl
     {
+        public enum UserScreen { Tour, Shutdown, Kiosk, Manual, MainMenu };
+
+        public UserScreen currentMode = UserScreen.MainMenu;
+
+        //public bool showPrompt = false; 
+
         public UserView()
         {
             InitializeComponent();
@@ -27,9 +33,22 @@ namespace HENRY.Views
         internal void ToggleKiosk()
         {
             if (kioskViewControl.Visibility == Visibility.Hidden)
+            {
                 kioskViewControl.Visibility = Visibility.Visible;
+                currentMode = UserScreen.Kiosk;
+            }
+
             else if (kioskViewControl.Visibility == Visibility.Visible)
+            {
                 kioskViewControl.Visibility = Visibility.Hidden;
+                currentMode = UserScreen.MainMenu;
+                kioskPromptText.Visibility = Visibility.Hidden;
+            }
+        }
+
+        internal void ShowKioskGetOut()
+        {
+            kioskPromptText.Visibility = Visibility.Visible;
         }
     }
 }

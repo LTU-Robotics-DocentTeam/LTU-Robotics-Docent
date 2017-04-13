@@ -94,6 +94,18 @@
             <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
         </Grid>
         <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
+        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="3" >
+            <TextBlock Text="Press " FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <Ellipse x:Name="ellipse" Width="{Binding ActualHeight, ElementName=ellipse, Mode=OneWay}">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF010101" Offset="0.564"/>
+                        <GradientStop Color="#FF323232"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock Text=" to Leave Kiosk Mode" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+        </StackPanel>
         <Grid>
 
         </Grid>
