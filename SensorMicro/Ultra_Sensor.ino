@@ -19,6 +19,14 @@ int Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
   {
     mm = 2000; //sees nothing
   }
+  if (j == 0)
+  {
+   SmallestDist[i] = mm;
+  }
+  if (mm < SmallestDist[i])
+  {
+    SmallestDist[i] = mm;
+  }
 
-  return mm; // returns distance in millimeters
+  return SmallestDist[i]; // returns distance in millimeters
 }

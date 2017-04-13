@@ -73,6 +73,9 @@ int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
+int SmallestDist[5];
+int j = 0;
+
 
 void setup() {
   Serial.begin(115200);
@@ -95,7 +98,6 @@ void loop() {
     SerialIn();
   }
   SerialOut();
-
   
   delay(10);
 
