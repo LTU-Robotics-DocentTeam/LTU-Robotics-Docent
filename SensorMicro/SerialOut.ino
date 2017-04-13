@@ -33,7 +33,7 @@ void SerialOut()
     {
       i = 0;
       j++;
-      if (j == 2)
+      if (j == 10)
         {
             j = 0;
         } 

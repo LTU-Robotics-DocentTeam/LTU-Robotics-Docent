@@ -23,7 +23,7 @@ int Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
   {
    SmallestDist[i] = mm;
   }
-  if (mm < SmallestDist[i])
+  else if (mm < SmallestDist[i])
   {
     SmallestDist[i] = mm;
   }
