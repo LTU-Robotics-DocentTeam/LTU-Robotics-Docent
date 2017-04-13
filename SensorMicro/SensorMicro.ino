@@ -18,12 +18,12 @@
 #define P_U2_PWM1     10
 #define P_U2_PWM2     11
 
-#define P_U2_BattVolt A1
-#define P_U2_ADC1     A2
-#define P_U2_ADC2     A3
-#define P_U2_ADC3     A4
-#define P_U2_SDA      A5
-#define P_U2_SCL      A6
+#define P_U2_BattVolt A0
+#define P_U2_ADC1     A1
+#define P_U2_ADC2     A2
+#define P_U2_ADC3     A3
+#define P_U2_SDA      A4
+#define P_U2_SCL      A5
 
 #define P_Hall_H1     0
 #define P_Hall_H2     1
@@ -50,7 +50,7 @@
 #define HE_SENSOR_LOOP   1
 #define HALL_LIFE        10
 
-#define VOLTAGE_FACTOR   .1448214286
+#define VOLTAGE_FACTOR   .0291986456
 
 Adafruit_MCP23017 mcp;
 
