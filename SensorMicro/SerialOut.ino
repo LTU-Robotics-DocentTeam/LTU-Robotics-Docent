@@ -26,19 +26,20 @@ void SerialOut()
   // arranged such that every sensor is checked twice per second
   if (serialCount % US_SENSOR_LOOP == 0)
   {
-    message += ultrasonic;
+    //message += ultrasonic;
     // Counter for ultrasonic sensor
     i++; // update every iteration
     if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
     {
       i = 0;
       j++;
-      if (j > 1)
-      {
-        j = 0;
-        
-      }
+      if (j == 2)
+        {
+            j = 0;
+            message += ultrasonic;
+        } 
     }
+        
     //    if (USprev[i] != ultraValue)
     //    {
     //      message += ultrasonic;
