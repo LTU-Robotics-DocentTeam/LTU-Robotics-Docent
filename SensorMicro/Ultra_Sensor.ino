@@ -28,7 +28,7 @@ int Ultra_Sensor(int P, int E)// Call for the Ultrasonic Sensors
     SmallestDist[i] = mm;
   }
   j++;
-  if (j == 10)
+  if (j == US_SENSOR_LOOP)
         {
             j = 0;
         } 
