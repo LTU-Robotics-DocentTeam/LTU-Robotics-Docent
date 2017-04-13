@@ -154,20 +154,11 @@ namespace HENRY.Modules
                 
                 if (serPort.IsOpen) // If an available port was found, attempt to communicate and identify connected device
                 {
+                    if (!waiting) serPort.Write("<C0>"); // Send identification command to device
+                    System.Threading.Thread.Sleep(100);
                     waiting = true;
                     counter++;
-                    // Send identification command to device
-                    if (counter % 100 == 0)
-                    {
-                        try
-                        {
-                            serPort.Write("<C0>");
-                        }
-                        catch (Exception)
-                        {
-                            
-                        } 
-                    }
+                    
                     // Notify user of connecting procedure
                     //AutoClosingMessageBox.Show("Connecting to " + thisport + Environment.NewLine + "Attempt #" + counter.ToString(), "Connecting...", 2000);
                     // Wait for one second
@@ -192,7 +183,7 @@ namespace HENRY.Modules
                         continue;
                     }
                 }
-                if (counter >= 10000) //connection timed out
+                if (counter >= 10) //connection timed out
                 {
                     // refresh the list and try again
                     waiting = false;
@@ -282,7 +273,7 @@ namespace HENRY.Modules
                     serPort1_DataProcess(bBuff1);
                     bBuff1 = String.Empty;
                 }
-                bBuff1 += c;
+                else bBuff1 += c;
             }
 
             //int msglngth = endin - startin;
@@ -407,7 +398,7 @@ namespace HENRY.Modules
                     serPort2_DataProcess(bBuff2);
                     bBuff2 = String.Empty;
                 }
-                bBuff2 += c;
+                else bBuff2 += c;
             }
             
         }
@@ -418,8 +409,9 @@ namespace HENRY.Modules
         /// <param name="msg"> full incoming message in <K###> format</param>
         void serPort2_DataProcess(string msg)
         {
-            char key = msg[0];
-            string value = msg.Substring(1);
+            int firstbyte = msg.IndexOf('<');
+            char key = msg[firstbyte + 1];
+            string value = msg.Substring(2);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
 
