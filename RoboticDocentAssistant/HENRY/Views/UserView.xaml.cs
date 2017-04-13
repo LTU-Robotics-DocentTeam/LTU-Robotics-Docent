@@ -30,40 +30,67 @@ namespace HENRY.Views
         }
 
 
-        internal void ToggleKiosk()
+        internal void ToggleKiosk(bool p)
         {
-            if (kioskViewControl.Visibility == Visibility.Hidden)
+            if (p)
             {
-                kioskViewControl.Visibility = Visibility.Visible;
-                currentMode = UserScreen.Kiosk;
+                if (kioskViewControl.Visibility == Visibility.Hidden)
+                {
+                    kioskViewControl.Visibility = Visibility.Visible;
+                    currentMode = UserScreen.Kiosk;
+                }
+
+                else if (kioskViewControl.Visibility == Visibility.Visible)
+                {
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    currentMode = UserScreen.MainMenu;
+                    kioskPromptText.Visibility = Visibility.Hidden;
+                }
+
             }
 
-            else if (kioskViewControl.Visibility == Visibility.Visible)
-            {
-                kioskViewControl.Visibility = Visibility.Hidden;
-                currentMode = UserScreen.MainMenu;
-                kioskPromptText.Visibility = Visibility.Hidden;
-            }
         }
 
-        internal void ShowKioskGetOut()
+        internal void ShowKioskGetOut(bool p)
         {
-            kioskPromptText.Visibility = Visibility.Visible;
+            
+            if (p) kioskPromptText.Visibility = Visibility.Visible;
         }
 
-        internal void ToggleShutdownMode()
+        internal void ToggleShutdownMode(bool p)
         {
-            if (Shutdown.Visibility == Visibility.Hidden)
+            if (p)
             {
-                Shutdown.Visibility = Visibility.Visible;
-                currentMode = UserScreen.Shutdown;
+                if (Shutdown.Visibility == Visibility.Hidden)
+                {
+                    Shutdown.Visibility = Visibility.Visible;
+                    currentMode = UserScreen.Shutdown;
+                }
+                else
+                {
+                    Shutdown.Visibility = Visibility.Hidden;
+                    currentMode = UserScreen.MainMenu;
+                }
             }
-            else
-            {
-                Shutdown.Visibility = Visibility.Hidden;
-                currentMode = UserScreen.MainMenu;
-            }
+            
         }
 
+        internal void ToggleManualDriveMode(bool p)
+        {
+            if (p)
+            {
+                if (ManualDriveMode.Visibility == Visibility.Hidden)
+                {
+                    ManualDriveMode.Visibility = Visibility.Visible;
+                    currentMode = UserScreen.Manual;
+                }
+                else
+                {
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    currentMode = UserScreen.MainMenu;
+                }
+            }
+        }
     }
+
 }

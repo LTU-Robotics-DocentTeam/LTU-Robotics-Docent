@@ -173,65 +173,89 @@ namespace HENRY
             switch (b)
             {
                 case Buttons.Green:
-                    if (p)
+                    switch (userViewControl.currentMode)
                     {
-                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                        case UserView.UserScreen.Tour:
+                            break;
+                        case UserView.UserScreen.Shutdown: 
+                            break;
+                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut(p);
+                            break;
+                        case UserView.UserScreen.Manual: vm.Forward = p;
+                            break;
+                        case UserView.UserScreen.MainMenu: 
+                            break;
                     }
                     break;
                 case Buttons.Red:
-                    if (p)
+                    switch (userViewControl.currentMode)
                     {
-                        //switch (userViewControl.currentMode)
-                        //{
-                        //    case UserView.UserScreen.Tour:
-                        //        break;
-                        //    case UserView.UserScreen.Shutdown:
-                        //        break;
-                        //    case UserView.UserScreen.Kiosk:
-                        //        break;
-                        //    case UserView.UserScreen.Manual:
-                        //        break;
-                        //    case UserView.UserScreen.MainMenu:
-                        //        break;
-                        //    default:
-                        //        break;
-                        //}
-                        if (userViewControl.currentMode == UserView.UserScreen.MainMenu) userViewControl.ToggleShutdownMode();
-                        else if (userViewControl.currentMode == UserView.UserScreen.Shutdown) MWindow.Close();
-                        else if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                        case UserView.UserScreen.Tour:
+                            break;
+                        case UserView.UserScreen.Shutdown: if (p) MWindow.Close();
+                            break;
+                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut(p);
+                            break;
+                        case UserView.UserScreen.Manual: vm.Backward = p;
+                            break;
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleShutdownMode(p);
+                            break;
                     }
                     break;
                 case Buttons.Blue:
-                    if (p)
+                    switch (userViewControl.currentMode)
                     {
-                        if (userViewControl.currentMode == UserView.UserScreen.MainMenu) userViewControl.ToggleKiosk();
+                        case UserView.UserScreen.Tour:
+                            break;
+                        case UserView.UserScreen.Shutdown:
+                            break;
+                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut(p);
+                            break;
+                        case UserView.UserScreen.Manual: vm.Right = p;
+                            break;
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleKiosk(p);
+                            break;
                     }
+                    
                     break;
                 case Buttons.Yellow:
-                    if (p)
+                    switch (userViewControl.currentMode)
                     {
-                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                        case UserView.UserScreen.Tour:
+                            break;
+                        case UserView.UserScreen.Shutdown:
+                            break;
+                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut(p);
+                            break;
+                        case UserView.UserScreen.Manual: vm.Left = p;
+                            break;
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleManualDriveMode(p);
+                            ToggleManualDrive(p);
+                            break;
                     }
                     break;
                 case Buttons.Black:
-                    if (p)
+                    switch (userViewControl.currentMode)
                     {
-                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk && userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
-                        {
-                            userViewControl.ShowKioskGetOut();
-                        }
-                        else if (userViewControl.currentMode == UserView.UserScreen.Kiosk && userViewControl.kioskPromptText.Visibility == Visibility.Visible)
-                        {
-                            userViewControl.ToggleKiosk();
-                        }
-                        else if (userViewControl.currentMode != UserView.UserScreen.MainMenu)
-                        {
-                            switch (userViewControl.currentMode)
+                        case UserView.UserScreen.Tour:
+                            break;
+                        case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode(p);
+                            break;
+                        case UserView.UserScreen.Kiosk:  
+                            if (userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
                             {
-                                case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode();
-                                    break;
+                                userViewControl.ShowKioskGetOut(p);
                             }
-                        }
+                            else
+                            {
+                                userViewControl.ToggleKiosk(p);
+                            }
+                            break;
+                        case UserView.UserScreen.Manual: userViewControl.ToggleManualDriveMode(p);
+                            ToggleManualDrive(p);
+                            break;
+                        case UserView.UserScreen.MainMenu:
+                            break;
                     }
                     break;
             }
@@ -254,16 +278,21 @@ namespace HENRY
                     vm.Left = p;
                     break;
                 case Buttons.Black:
-                    if (p) ToggleManualDrive();
+                    if (p) ToggleManualDrive(p);
                     break;
             }
         }
 
-        private void ToggleManualDrive()
+        private void ToggleManualDrive(bool p)
         {
-            vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
-            if (vm.ManualDriveEnabled) mnd.t.Start();
-            else mnd.t.Stop();
+            if (p)
+            {
+                vm.ManualDriveEnabled = !vm.ManualDriveEnabled;
+                if (vm.ManualDriveEnabled) mnd.t.Start();
+                else mnd.t.Stop();
+            }
+            
+            
             
         }
 
