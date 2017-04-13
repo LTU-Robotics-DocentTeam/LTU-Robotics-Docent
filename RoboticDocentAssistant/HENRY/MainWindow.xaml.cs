@@ -181,7 +181,24 @@ namespace HENRY
                 case Buttons.Red:
                     if (p)
                     {
-                        if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
+                        //switch (userViewControl.currentMode)
+                        //{
+                        //    case UserView.UserScreen.Tour:
+                        //        break;
+                        //    case UserView.UserScreen.Shutdown:
+                        //        break;
+                        //    case UserView.UserScreen.Kiosk:
+                        //        break;
+                        //    case UserView.UserScreen.Manual:
+                        //        break;
+                        //    case UserView.UserScreen.MainMenu:
+                        //        break;
+                        //    default:
+                        //        break;
+                        //}
+                        if (userViewControl.currentMode == UserView.UserScreen.MainMenu) userViewControl.ToggleShutdownMode();
+                        else if (userViewControl.currentMode == UserView.UserScreen.Shutdown) MWindow.Close();
+                        else if (userViewControl.currentMode == UserView.UserScreen.Kiosk) userViewControl.ShowKioskGetOut();
                     }
                     break;
                 case Buttons.Blue:
@@ -206,6 +223,14 @@ namespace HENRY
                         else if (userViewControl.currentMode == UserView.UserScreen.Kiosk && userViewControl.kioskPromptText.Visibility == Visibility.Visible)
                         {
                             userViewControl.ToggleKiosk();
+                        }
+                        else if (userViewControl.currentMode != UserView.UserScreen.MainMenu)
+                        {
+                            switch (userViewControl.currentMode)
+                            {
+                                case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode();
+                                    break;
+                            }
                         }
                     }
                     break;

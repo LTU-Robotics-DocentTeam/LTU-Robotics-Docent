@@ -50,5 +50,20 @@ namespace HENRY.Views
         {
             kioskPromptText.Visibility = Visibility.Visible;
         }
+
+        internal void ToggleShutdownMode()
+        {
+            if (Shutdown.Visibility == Visibility.Hidden)
+            {
+                Shutdown.Visibility = Visibility.Visible;
+                currentMode = UserScreen.Shutdown;
+            }
+            else
+            {
+                Shutdown.Visibility = Visibility.Hidden;
+                currentMode = UserScreen.MainMenu;
+            }
+        }
+
     }
 }

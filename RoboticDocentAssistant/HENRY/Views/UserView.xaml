@@ -20,6 +20,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
 
         </StackPanel>
+        <!-- Main Menu stuff -->
         <Grid x:Name="MainMenu" Width="{Binding ActualHeight, ElementName=MainMenu, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -93,6 +94,37 @@
             <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
         </Grid>
+        <!-- End Main Menu stuff -->
+        <!-- Shutdown stuff-->
+        <Grid x:Name="Shutdown" Visibility="Hidden">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
+                    <GradientStop Color="#FFDE1919"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                SHUTDOWN MODE
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                    Hold down the Red button for 5 seconds to power off computer<LineBreak/>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                    Don't forget to turn off the main breaker <LineBreak/>
+                    AFTER the computer is off!
+                </TextBlock>
+            </StackPanel>
+            
+        </Grid>
+        <!-- End Shutdown stuff -->
+        <!--Kiosk Mode stuff-->
         <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
         <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="3" >
             <TextBlock Text="Press " FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
@@ -106,6 +138,7 @@
             </Ellipse>
             <TextBlock Text=" to Leave Kiosk Mode" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
         </StackPanel>
+        <!--End Kiosk Mode stuff-->
         <Grid>
 
         </Grid>
