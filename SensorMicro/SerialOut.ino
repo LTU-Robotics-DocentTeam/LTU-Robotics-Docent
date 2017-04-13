@@ -32,13 +32,8 @@ void SerialOut()
     if (i == U_NUM) // as soon as it reaches 5 (i > 4), reset counter i
     {
       i = 0;
-      j++;
-      if (j > 1)
-      {
-        j = 0;
-        
-      }
     }
+        
     //    if (USprev[i] != ultraValue)
     //    {
     //      message += ultrasonic;
