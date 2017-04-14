@@ -64,7 +64,7 @@ namespace HENRY.Modules.Navigation
 
                 if (300 < dist2obstacle)
                 {
-                    speed = 1;
+                    speed = Constants.DEFAULT_SPEED;
                 }
 
                 else if (100 < dist2obstacle && dist2obstacle < 300)
