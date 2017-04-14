@@ -20,7 +20,9 @@ namespace HENRY.Modules
             SetPropertyValue("LeftMSpeed", 0);
             SetPropertyValue("DirectionalSpeed", 0);
             SetPropertyValue("LeftBrake", false);
-            SetPropertyValue("RightBrake", false);
+            SetPropertyValue("RightBrake", false); 
+            SetPropertyValue("EStop", false);
+            
 
             // Set processing timer for module
             t = new TimersTimer();
@@ -33,6 +35,7 @@ namespace HENRY.Modules
         {
             int direction = GetPropertyValue("Direction").ToInt32();
             int spd = GetPropertyValue("Speed").ToInt32();
+            bool estop = GetPropertyValue("EStop").ToBoolean();
 
             //double rDirection = 0;
             //double lDirection = 0;
@@ -77,8 +80,16 @@ namespace HENRY.Modules
                 lmSpeed = Constants.MAX_MOTOR_SPEED;
 
             //Update current property value
-            SetPropertyValue("RightMSpeed", rmSpeed);
-            SetPropertyValue("LeftMSpeed", lmSpeed);
+            if (!(estop) && (GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
+            {
+                SetPropertyValue("RightMSpeed", rmSpeed);
+                SetPropertyValue("LeftMSpeed", lmSpeed);
+            }
+            else
+            {
+                SetPropertyValue("RightMSpeed", 0);
+                SetPropertyValue("LeftMSpeed", 0);
+            }
         }
 
         public override string GetModuleName()

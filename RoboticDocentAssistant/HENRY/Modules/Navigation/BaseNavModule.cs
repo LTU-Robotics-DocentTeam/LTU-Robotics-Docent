@@ -13,7 +13,7 @@ namespace HENRY.Modules.Navigation
     /// </summary>
     class BaseNavModule : LengarioModuleCore
     {
-        Timer t;
+        public Timer t;
 
         
         
@@ -22,11 +22,12 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("Direction", 0); // Angle in degrees
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
+            SetPropertyValue("AutonomousNavigation", false);
 
             t = new Timer();
             t.Interval = 40;
             t.Elapsed += t_Elapsed;
-            t.Start();
+            //t.Start();
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace HENRY.Modules.Navigation
             // Add infrared stuff here
 
             //Set calculated direction and speed properties
-            if (!GetPropertyValue("ManualDriveEnabled").ToBoolean())
+            if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
                 SetPropertyValue("Direction", direction - 90);
                 SetPropertyValue("Speed", speed);

@@ -254,6 +254,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("Speed").ToString(); }
             set { SetPropertyValue("Speed", value); RaisePropertyChanged("Speed"); }
         }
+        public bool AutonomousNavigation
+        {
+            get { return GetPropertyValue("AutonomousNavigation").ToBoolean(); }
+            set { SetPropertyValue("AutonomousNavigation", value); RaisePropertyChanged("AutonomousNavigation"); }
+        }
         public string DirectionalSpeed
         {
             get { return GetPropertyValue("DirectionalSpeed").ToString(); }
@@ -486,8 +491,6 @@ namespace HENRY.Modules
             get { return GetPropertyValue("EStop").ToBoolean(); }
             set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
         }
-
-
         public bool Yellow 
         { 
             get { return GetPropertyValue("Yellow").ToBoolean(); } 

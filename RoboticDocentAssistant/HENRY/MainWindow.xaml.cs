@@ -131,6 +131,22 @@ namespace HENRY
             {
                 vm.EStop = !vm.EStop;
             }
+            if (e.Key == Key.T)
+            {
+                ToggleAutonomousNavigation(true);
+            }
+        }
+
+        private void ToggleAutonomousNavigation(bool p)
+        {
+            if (p)
+            {
+                vm.AutonomousNavigation = !vm.AutonomousNavigation;
+                if (vm.AutonomousNavigation) bnm.t.Start();
+                else bnm.t.Stop();
+            }
+            
+            
         }
 
         /// <summary>

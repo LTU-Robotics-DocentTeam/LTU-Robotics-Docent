@@ -524,7 +524,7 @@ namespace HENRY.Modules
                     // Generate random valid inputs for the ultrasonic simulation
                     for (int i = 1; i <= Constants.US_NUM; i++)
                     {
-                        SetPropertyValue("UltraS" + i.ToString(), 1000 + r.Next() * 1000);
+                        SetPropertyValue("UltraS" + i.ToString(), 1000 + r.Next() % 1000);
                     }
 
                     // trigger random infrared sensor in array
@@ -540,25 +540,25 @@ namespace HENRY.Modules
                         }
                     }
                 }
-                // If motor micro is disconnected and simulation mode is on, generate random inputs
-                if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
-                {
-                    // set timer for when motor micro is disconnected
-                    simTimer = 80;
+                //// If motor micro is disconnected and simulation mode is on, generate random inputs
+                //if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
+                //{
+                //    // set timer for when motor micro is disconnected
+                //    simTimer = 80;
 
-                    // trigger random impact sensor in array
-                    if (r.Next(0, 100) < 50)
-                    {
-                        SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
-                    }
-                    else
-                    {
-                        for (int i = 1; i <= Constants.IMPACT_NUM; i++)
-                        {
-                            SetPropertyValue("Impact" + i.ToString(), false);
-                        }
-                    }
-                }
+                //    // trigger random impact sensor in array
+                //    if (r.Next(0, 100) < 50)
+                //    {
+                //        SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
+                //    }
+                //    else
+                //    {
+                //        for (int i = 1; i <= Constants.IMPACT_NUM; i++)
+                //        {
+                //            SetPropertyValue("Impact" + i.ToString(), false);
+                //        }
+                //    }
+                //}
             }
             
             // If motor micro is connected and simulation mode is OFF, send data to arduino

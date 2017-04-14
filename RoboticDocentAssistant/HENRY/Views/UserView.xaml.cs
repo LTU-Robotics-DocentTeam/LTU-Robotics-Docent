@@ -61,14 +61,14 @@ namespace HENRY.Views
         {
             if (p)
             {
-                if (Shutdown.Visibility == Visibility.Hidden)
+                if (ShutdownMode.Visibility == Visibility.Hidden)
                 {
-                    Shutdown.Visibility = Visibility.Visible;
+                    ShutdownMode.Visibility = Visibility.Visible;
                     currentMode = UserScreen.Shutdown;
                 }
                 else
                 {
-                    Shutdown.Visibility = Visibility.Hidden;
+                    ShutdownMode.Visibility = Visibility.Hidden;
                     currentMode = UserScreen.MainMenu;
                 }
             }

@@ -193,7 +193,7 @@
         </Grid>
         <!-- End Tour Mode Stuff-->
         <!-- Shutdown stuff-->
-        <Grid x:Name="Shutdown" Visibility="Hidden">
+        <Grid x:Name="ShutdownMode" Visibility="Hidden">
             <Grid.Background>
                 <SolidColorBrush Color="#FF282727"></SolidColorBrush>
             </Grid.Background>

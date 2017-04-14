@@ -29,8 +29,17 @@
                     <TextBlock Text="Connection Status:" TextAlignment="Left"></TextBlock>
                     <TextBlock Text="{Binding Connection}" TextAlignment="Left"></TextBlock>
                     <TextBlock Text="{Binding ArduinoData}" TextAlignment="Left"></TextBlock>
-                    <TextBlock Text="Simulation Mode: " TextAlignment="Left"></TextBlock>
-                    <CheckBox IsChecked="{Binding SimulationMode}"></CheckBox>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Simulation Mode:    " TextAlignment="Left"></TextBlock>
+                            <CheckBox IsChecked="{Binding SimulationMode}"></CheckBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Autonomous Navigation Mode:    " TextAlignment="Left"></TextBlock>
+                            <CheckBox IsChecked="{Binding AutonomousNavigation}"></CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                    
                 </StackPanel>
                 <!--MotorMicrocontroller Stackpanel-->
                 <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="1">

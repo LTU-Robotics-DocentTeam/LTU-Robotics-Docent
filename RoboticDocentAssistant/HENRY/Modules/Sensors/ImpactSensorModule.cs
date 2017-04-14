@@ -20,12 +20,12 @@ namespace HENRY.Modules.Sensors
                 SetPropertyValue("Impact" + i.ToString(), false);
 
 
-            SetPropertyValue("EStop", false);
+            
 
-            t = new Timer();
-            t.Interval = 330;
-            t.Elapsed += t_Elapsed;
-            t.Start();
+            //t = new Timer();
+            //t.Interval = 330;
+            //t.Elapsed += t_Elapsed;
+            //t.Start();
         }
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
