@@ -80,7 +80,7 @@ namespace HENRY.Modules
                 lmSpeed = Constants.MAX_MOTOR_SPEED;
 
             //Update current property value
-            if (!(estop) && (GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
+            if ((GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
             {
                 SetPropertyValue("RightMSpeed", rmSpeed);
                 SetPropertyValue("LeftMSpeed", lmSpeed);

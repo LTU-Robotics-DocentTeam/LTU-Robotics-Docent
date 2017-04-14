@@ -47,23 +47,24 @@ namespace HENRY.Modules.Navigation
             if (direction >= 0) // if direction is valid (non-negative integer)...
             {
                 // Look at Ultrasonic sensors and calculate which one detects the closest object
-                for (int i = 0; i < Constants.US_NUM; i++)
-                {
-                    int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
+                //for (int i = 0; i < Constants.US_NUM; i++)
+                //{
+                //    int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
                     
-                    if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
-                    {
-                        current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
-                    }
+                //    if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
+                //    {
+                //        current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
+                //    }
 
-                    if (current_sensor_dist < dist2obstacle) // sets smallest distance
-                    {
-                        dist2obstacle = current_sensor_dist;
-                    }
-                }
+                //    if (current_sensor_dist < dist2obstacle) // sets smallest distance
+                //    {
+                //        dist2obstacle = current_sensor_dist;
+                //    }
+                //}
 
                 // Determine current speed based on distance to closest obstacle
-                speed = (int)((double)Constants.DEFAULT_SPEED * (double)((double)dist2obstacle / 2000));
+                //speed = (int)((double)Constants.DEFAULT_SPEED * (double)((double)dist2obstacle / 2000));
+                speed = 3;
             }
             else // if its negative (-1 is error state. invalid line location)
             {
