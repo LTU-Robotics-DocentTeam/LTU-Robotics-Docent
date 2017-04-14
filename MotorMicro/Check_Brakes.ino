@@ -6,6 +6,7 @@ String Check_Brakes()
   if (Left_Brake == LOW)
   {
     EStop();
+    Serial.println("BRAKES");
     LeftMotorBrake = true;
     Left_Brake_Engaged = "1";
   }
@@ -18,6 +19,7 @@ String Check_Brakes()
   if (Right_Brake == LOW)
   {
     EStop();
+    Serial.println("BRAKES");
     RightMotorBrake = true;
     Right_Brake_Engaged = "1";
   }

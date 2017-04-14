@@ -50,7 +50,7 @@
 
 #define RAMP_CONSTANT     1
 #define HEALTH_CONSTANT   10
-#define DEAD_ZONE         50
+#define DEAD_ZONE         49
 #define PRE_JUMP          15
 #define SERIAL_WAIT       2
 #define MAX_BUFFER        10
@@ -157,7 +157,7 @@ void setup()
 
 void loop() {
   impactArray = Impact();
-  Brakes = Check_Brakes();
+  //Brakes = Check_Brakes();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {

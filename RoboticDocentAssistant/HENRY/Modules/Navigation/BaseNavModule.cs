@@ -39,7 +39,7 @@ namespace HENRY.Modules.Navigation
         {
 
             int dist2obstacle = 2000;
-            int speed;
+            int speed = 0;
 
             // Get line location calculated by hall effects
             int direction = GetPropertyValue("LineAngle").ToInt32();
