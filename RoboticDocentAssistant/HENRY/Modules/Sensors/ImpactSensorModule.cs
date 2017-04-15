@@ -30,6 +30,11 @@ namespace HENRY.Modules.Sensors
 
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
+            
+        }
+
+        public void Calculate()
+        {
             for (int i = 1; i <= Constants.IMPACT_NUM; i++)
             {
                 // if any of them trigger, stop immediately

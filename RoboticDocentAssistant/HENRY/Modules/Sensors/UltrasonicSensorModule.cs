@@ -12,10 +12,15 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
 
+        int dist2obstacle = Constants.MAX_DIST;
+        private int reccomendedSpeed = 0;
+
         public UltrasonicSensorModule()
         {
             for (int i = 0; i <= Constants.US_NUM; i++)
                 SetPropertyValue("UltraS" + i.ToString(), 0);
+            SetPropertyValue("ClosestObstacle", Constants.MAX_DIST);
+            SetPropertyValue("ReccomendedUltrasonicSpeed", 0);
 
             //t = new Timer();
             //t.Interval = 330;
@@ -23,13 +28,48 @@ namespace HENRY.Modules.Sensors
             //t.Start();
         }
 
-        void t_Elapsed(object sender, ElapsedEventArgs e)
+        public int Calculate()
         {
-            // I think we have the same problem as in infrared
-            // with multiple obstacles 
-            // (See comment in InfraredSensorModule)
+            // what do?
+            dist2obstacle = Constants.MAX_DIST;
+
+
+            for (int i = 0; i < Constants.US_NUM; i++)
+            {
+                int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
+
+                if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
+                {
+                    current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
+                }
+
+                if (current_sensor_dist < dist2obstacle) // sets smallest distance
+                {
+                    dist2obstacle = current_sensor_dist;
+                }
+            }
+
+            SetPropertyValue("ClosestObstacle", dist2obstacle);
+
+            if (300 < dist2obstacle)
+            {
+                reccomendedSpeed = 1;
+            }
+
+            else if (100 < dist2obstacle && dist2obstacle < 300)
+            {
+                reccomendedSpeed = 0;
+            }
+
+            else if (dist2obstacle < 100)
+            {
+                return -1;
+            }
+            SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
+
+            return 0;
         }
-        
+
         public override string GetModuleName()
         {
             return "UltrasonicSensorModule";

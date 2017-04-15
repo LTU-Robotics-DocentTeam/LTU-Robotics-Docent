@@ -526,19 +526,7 @@ namespace HENRY.Modules
                     {
                         SetPropertyValue("UltraS" + i.ToString(), 1000 + r.Next() % 1000);
                     }
-
-                    // trigger random infrared sensor in array
-                    if (r.Next(0, 100) < 50)
-                    {
-                        SetPropertyValue("IR" + r.Next(0, Constants.IR_NUM - 1).ToString(), true);
-                    }
-                    else
-                    {
-                        for (int i = 1; i <= Constants.IR_NUM; i++)
-                        {
-                            SetPropertyValue("IR" + i.ToString(), false);
-                        }
-                    }
+                    
                 }
                 //// If motor micro is disconnected and simulation mode is on, generate random inputs
                 //if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())

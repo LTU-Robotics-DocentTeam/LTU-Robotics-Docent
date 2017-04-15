@@ -22,10 +22,7 @@ namespace HENRY
         SerialCommModule scm;
         GenericSensorModule gsm;
 
-        HallEffectSensorModule hem;
-        ImpactSensorModule ism;
-        InfraredSensorModule irm;
-        UltrasonicSensorModule usm;
+        
         BaseNavModule bnm;
 
         MotorModule mmd;
@@ -37,10 +34,6 @@ namespace HENRY
             erlg = new ErrorLog();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
-            hem = new HallEffectSensorModule();
-            ism = new ImpactSensorModule();
-            irm = new InfraredSensorModule();
-            usm = new UltrasonicSensorModule();
             vm = new ViewModel();
             mnd = new ManualDrive();
             gsm = new GenericSensorModule();

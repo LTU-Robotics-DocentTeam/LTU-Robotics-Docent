@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HENRY.ModuleSystem;
+using HENRY.Modules.Sensors;
 using System.Timers;
 
 namespace HENRY.Modules.Navigation
@@ -14,18 +15,28 @@ namespace HENRY.Modules.Navigation
     class BaseNavModule : LengarioModuleCore
     {
         public Timer t;
+        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0;
+        double prevLoc = 0, dirLoc = 0, currLoc = 0;
 
-        
+        HallEffectSensorModule hem;
+        ImpactSensorModule ism;
+        UltrasonicSensorModule usm;
+        private bool errorState = false;
+
         
         public BaseNavModule()
         {
-            SetPropertyValue("Direction", 0); // Angle in degrees
+            hem = new HallEffectSensorModule();
+            ism = new ImpactSensorModule();
+            usm = new UltrasonicSensorModule();
+            
+            SetPropertyValue("Direction", 0.0); // Angle in degrees
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
 
             t = new Timer();
-            t.Interval = 40;
+            t.Interval = 10;
             t.Elapsed += t_Elapsed;
             //t.Start();
         }
@@ -37,65 +48,62 @@ namespace HENRY.Modules.Navigation
         /// <param name="e"></param>
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
+            // run sensor calculations
+            hallEffectError = hem.Calculate();
+            //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
+            ultrasonicError = usm.Calculate();
 
-            int dist2obstacle = 2000;
+            errorState = false;
             int speed = 0;
 
-            // Get line location calculated by hall effects
-            int direction = GetPropertyValue("LineAngle").ToInt32();
-            
-            if (direction >= 0) // if direction is valid (non-negative integer)...
+            if (hallEffectError < 0)
             {
-                // Look at Ultrasonic sensors and calculate which one detects the closest object
-                for (int i = 0; i < Constants.US_NUM; i++)
+                // line has been lost for too long
+                if (lineHoldCounter >= Constants.LINE_HOLD_BUFFER)
                 {
-                    int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
-                    
-                    if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
-                    {
-                        current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
-                    }
-
-                    if (current_sensor_dist < dist2obstacle) // sets smallest distance
-                    {
-                        dist2obstacle = current_sensor_dist;
-                    }
+                    // what do if its lost for too long?
+                    // do nothing for now. stay put
+                    errorState = true;
                 }
-
-                if (300 < dist2obstacle)
+                else
                 {
-                    speed = Constants.DEFAULT_SPEED;
+                    dirLoc = prevLoc;
+                    lineHoldCounter++;
                 }
-
-                else if (100 < dist2obstacle && dist2obstacle < 300)
-                {
-                    speed = 0;
-                }
-
-                else if (dist2obstacle < 100 )
-                {
-                    speed = 0;
-                    direction = 0;
-                }
-                // Determine current speed based on distance to closest obstacle
-                //speed = (int)((double)Constants.DEFAULT_SPEED * (double)((double)dist2obstacle / 2000));
-                // speed = 3;
             }
-            else // if its negative (-1 is error state. invalid line location)
+            else
             {
-                // Set direction and speed to 0
-                direction = 90;
-                speed = 0;
+                currLoc = GetPropertyValue("LineAngle").ToDouble();
+                lineHoldCounter = 0;
+                prevLoc = currLoc;
+                dirLoc = currLoc;
             }
 
-
-            // Add infrared stuff here
+            if (ultrasonicError < 0)
+            {
+                errorState = true;
+            }
+            else
+            {
+                // multiply speed to whatever the ultrasonic reccomends (1 if all clear, 0 if only turns - not moving forward)
+                // that 0 might cause troubles. test for effectiveness before commiting to it
+                speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
+            }
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
-                SetPropertyValue("Direction", direction - 90);
-                SetPropertyValue("Speed", speed);
+                if (!errorState)
+                {
+                    SetPropertyValue("Direction", dirLoc);
+                    SetPropertyValue("Speed", speed);
+                }
+                else
+                {
+                    SetPropertyValue("Direction", 0.0);
+                    SetPropertyValue("Speed", 0);
+                }
+                
             }
 
            

@@ -61,8 +61,6 @@
                         <TextBlock Text="E Stop Triggered:" HorizontalAlignment="Center"/>
                         <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
                         <Separator></Separator>
-
-                        <Separator></Separator>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Direction: "/>
                             <TextBlock Text="{Binding Direction}" FontWeight="Bold"/>
@@ -131,20 +129,13 @@
                         <TextBlock Text="Line Angle Computed:" HorizontalAlignment="Center"/>
                         <TextBlock Text="{Binding LineAngle, Converter={StaticResource DoubleToStringConverter}}" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <Separator></Separator>
-                        <TextBlock Text="Infrared Sensors: " HorizontalAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <CheckBox IsChecked="{Binding IR1}" HorizontalAlignment="Center"></CheckBox>
-                            <CheckBox IsChecked="{Binding IR2}" HorizontalAlignment="Center"></CheckBox>
-                            <CheckBox IsChecked="{Binding IR3}" HorizontalAlignment="Center"></CheckBox>
-                            <CheckBox IsChecked="{Binding IR4}" HorizontalAlignment="Center"></CheckBox>
-                            <CheckBox IsChecked="{Binding IR5}" HorizontalAlignment="Center"></CheckBox>
-                            <CheckBox IsChecked="{Binding IR6}" HorizontalAlignment="Center"></CheckBox>
-                        </StackPanel>
-                        <Separator></Separator>
                         <TextBlock Text="Ultrasonic:" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text ="U1: " HorizontalAlignment="Center"></TextBlock>
                             <TextBlock Text="{Binding UltraS1}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
                             <TextBlock Text =" U2: " HorizontalAlignment="Center"></TextBlock>
                             <TextBlock Text="{Binding UltraS2}" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
                             <TextBlock Text =" U3: " HorizontalAlignment="Center"></TextBlock>

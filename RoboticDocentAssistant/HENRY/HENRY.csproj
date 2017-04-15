@@ -63,7 +63,6 @@
     <Compile Include="Modules\Navigation\BaseNavModule.cs" />
     <Compile Include="Modules\Sensors\HallEffectSensorModule.cs" />
     <Compile Include="Modules\Sensors\ImpactSensorModule.cs" />
-    <Compile Include="Modules\Sensors\InfraredSensorModule.cs" />
     <Compile Include="Modules\Sensors\UltrasonicSensorModule.cs" />
     <Compile Include="Modules\SerialCommModule.cs" />
     <Compile Include="Modules\ViewModel.cs" />

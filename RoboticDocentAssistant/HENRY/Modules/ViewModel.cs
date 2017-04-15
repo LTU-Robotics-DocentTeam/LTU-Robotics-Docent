@@ -369,9 +369,9 @@ namespace HENRY.Modules
             get { return GetPropertyValue("ArraySensor20").ToBoolean(); }
             set { SetPropertyValue("ArraySensor20", value); RaisePropertyChanged("ArraySensor20"); }
         }
-        public double LineAngle
+        public string LineAngle
         {
-            get { return System.Math.Round(GetPropertyValue("LineAngle").ToDouble(), 1); }
+            get { return GetPropertyValue("LineAngle").ToString(); }
             set { SetPropertyValue("LineAngle", value); RaisePropertyChanged("LineAngle"); }
         }
 
@@ -404,37 +404,6 @@ namespace HENRY.Modules
         {
             get { return System.Math.Round(GetPropertyValue("UltraS6").ToDouble(), 1); }
             set { SetPropertyValue("UltraS6", value); RaisePropertyChanged("UltraS6"); }
-        }
-
-        public bool IR1
-        {
-            get { return GetPropertyValue("IR1").ToBoolean(); }
-            set { SetPropertyValue("IR1", value); RaisePropertyChanged("IR1"); }
-        }
-        public bool IR2
-        {
-            get { return GetPropertyValue("IR2").ToBoolean(); }
-            set { SetPropertyValue("IR2", value); RaisePropertyChanged("IR2"); }
-        }
-        public bool IR3
-        {
-            get { return GetPropertyValue("IR3").ToBoolean(); }
-            set { SetPropertyValue("IR3", value); RaisePropertyChanged("IR3"); }
-        }
-        public bool IR4
-        {
-            get { return GetPropertyValue("IR4").ToBoolean(); }
-            set { SetPropertyValue("IR4", value); RaisePropertyChanged("IR4"); }
-        }
-        public bool IR5
-        {
-            get { return GetPropertyValue("IR5").ToBoolean(); }
-            set { SetPropertyValue("IR5", value); RaisePropertyChanged("IR5"); }
-        }
-        public bool IR6
-        {
-            get { return GetPropertyValue("IR6").ToBoolean(); }
-            set { SetPropertyValue("IR6", value); RaisePropertyChanged("IR6"); }
         }
         public bool Impact1
         {
