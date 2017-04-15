@@ -14,7 +14,7 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
 
-        const int NumOfCluster = Constants.ARRAY_NUM / Constants.CLUSTER_SIZE; //Number of clusters in array
+        
         
         public HallEffectSensorModule()
         {
@@ -39,7 +39,7 @@ namespace HENRY.Modules.Sensors
         {
             bool[] arr = new bool[Constants.ARRAY_NUM]; // Boolean array that represents full hall effect array
             // Each unit represents a sensor
-            bool[] clarr = new bool[NumOfCluster]; // Boolean array that represents full cluster array
+            bool[] clarr = new bool[Constants.CLUSTER_NUM]; // Boolean array that represents full cluster array
             // Each unit represents a cluster, not a single sensor
             //double anglestep = 180.0 / (NumOfCluster - 1); // Set angle step to match number of clusters in array
             double lineloc = 0; // start as negative number, so if no line is found, a negative number is sent to main module
@@ -57,7 +57,7 @@ namespace HENRY.Modules.Sensors
             }
 
             //Use Hall effect boolean array data to load cluster array. ****This loop only works for a cluster size of 2****
-            for (int i = 0; i < NumOfCluster; i++)
+            for (int i = 0; i < Constants.CLUSTER_NUM; i++)
             {
                 if (arr[i * Constants.CLUSTER_SIZE] || arr[(i * Constants.CLUSTER_SIZE) + 1]) //if either hall in a pair is on, set cluster to true
                 {
@@ -79,7 +79,7 @@ namespace HENRY.Modules.Sensors
             bool noClusterFoundError = false; //set to true when no clusters are detected: error state var
             int clusterFound = 0; //incrementing number of clusters detected
 
-            for (int i = 0; i < (NumOfCluster); i++)
+            for (int i = 0; i < (Constants.CLUSTER_NUM); i++)
             {
                 if (clusterFound < 1 && !clarr[i]) //increment the gap until a cluster is found on
                 {
@@ -131,7 +131,7 @@ namespace HENRY.Modules.Sensors
             }
             else
             {
-                lineloc -= (NumOfCluster - 1.0) / 2.0;
+                lineloc -= Constants.MAX_DIR;
                 SetPropertyValue("LineAngle", lineloc);
             }
 

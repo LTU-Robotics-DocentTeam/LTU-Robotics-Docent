@@ -8,7 +8,7 @@ namespace HENRY.Modules
 {
     class Constants
     {
-        public const int DEFAULT_SPEED = 2; // default speed for both motors when no obstacles are in front or nearby
+        public const int DEFAULT_SPEED = 3; // default speed for both motors when no obstacles are in front or nearby
 
         public const int MAX_MOTOR_SPEED = 90;                      // Maximum speed the motors can handle - DO NOT SURPASS 180!!
         public const int DEAD_ZONE = 48;                            // Deadzone to lowest signal the motor can take to move - DO NOT GO BELOW 48!
@@ -28,6 +28,8 @@ namespace HENRY.Modules
         public const int ARRAY_NUM = 16; // Number of sensors in hall effect array (At 7 for testing purposes, total of 16)
 
         public const int CLUSTER_SIZE = 2; // Number of sensors per cluster
+        public const int CLUSTER_NUM = ARRAY_NUM / CLUSTER_SIZE; //Number of clusters in array
+        public const double MAX_DIR = (Constants.CLUSTER_NUM - 1.0) / 2.0;
 
         public string FilePath = "log" + DateTime.Now.ToString() + ".txt";
 
