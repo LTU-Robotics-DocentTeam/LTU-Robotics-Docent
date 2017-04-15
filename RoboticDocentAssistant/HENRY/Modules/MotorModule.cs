@@ -44,7 +44,7 @@ namespace HENRY.Modules
             int rmSpeed = 0;
             int lmSpeed = 0;
 
-            if (GetPropertyValue("AutonomousNavigation").ToBoolean())
+            if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
                 // Calculate directional speed
                 if (!(spd < 2 && spd >= 0)) dirSpeed = (int)((direction / 90.0 * (spd)) / Constants.TURN_FACTOR);
@@ -76,43 +76,46 @@ namespace HENRY.Modules
             }
             else if (GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
-                if (Math.Abs(direction) < Constants.TURN_ZONE)
+                if (spd > 0)
                 {
-                    if (direction > 0)
+                    if (Math.Abs(direction) < Constants.TURN_ZONE)
                     {
-                        rmSpeed = Constants.DEAD_ZONE + spd;
-                        lmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
+                        if (direction > 0)
+                        {
+                            rmSpeed = Constants.DEAD_ZONE + spd;
+                            lmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
+                        }
+                        else
+                        {
+                            rmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
+                            lmSpeed = Constants.DEAD_ZONE + spd;
+                        }
+                    }
+                    else if (Math.Abs(direction) < Constants.ZERO_POINT_ZONE)
+                    {
+                        if (direction > 0)
+                        {
+                            rmSpeed = Constants.DEAD_ZONE + spd;
+                            lmSpeed = 0;
+                        }
+                        else
+                        {
+                            rmSpeed = 0;
+                            lmSpeed = Constants.DEAD_ZONE + spd;
+                        }
                     }
                     else
                     {
-                        rmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
-                        lmSpeed = Constants.DEAD_ZONE + spd;
-                    }
-                }
-                else if (Math.Abs(direction) < Constants.ZERO_POINT_ZONE)
-                {
-                    if (direction > 0)
-                    {
-                        rmSpeed = Constants.DEAD_ZONE + spd;
-                        lmSpeed = 0;
-                    }
-                    else
-                    {
-                        rmSpeed = 0;
-                        lmSpeed = Constants.DEAD_ZONE + spd;
-                    }
-                }
-                else
-                {
-                    if (direction > 0)
-                    {
-                        rmSpeed = Constants.DEAD_ZONE + spd;
-                        lmSpeed = -(Constants.DEAD_ZONE + spd);
-                    }
-                    else
-                    {
-                        rmSpeed = -(Constants.DEAD_ZONE + spd); ;
-                        lmSpeed = Constants.DEAD_ZONE + spd;
+                        if (direction > 0)
+                        {
+                            rmSpeed = Constants.DEAD_ZONE + spd;
+                            lmSpeed = -(Constants.DEAD_ZONE + spd);
+                        }
+                        else
+                        {
+                            rmSpeed = -(Constants.DEAD_ZONE + spd); ;
+                            lmSpeed = Constants.DEAD_ZONE + spd;
+                        }
                     }
                 }
             }

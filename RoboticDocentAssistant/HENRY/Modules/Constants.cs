@@ -15,7 +15,7 @@ namespace HENRY.Modules
         public const int MAX_SPEED = MAX_MOTOR_SPEED - DEAD_ZONE;   // Determine maximum speed the code can set past the dead zone
 
         public const double TURN_FACTOR = 1;
-        public const int TURN_ZONE = 40;
+        public const int TURN_ZONE = 39;
         public const int ZERO_POINT_ZONE = 75;
 
         //Number of sensors we have
