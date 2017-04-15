@@ -44,7 +44,7 @@ namespace HENRY.Modules
                 SetPropertyValue("ManualSpeed", 0);
             int manualSpeed = GetPropertyValue("ManualSpeed").ToInt32();
 
-            int direction = 0;
+            double direction = 0;
             int speed = 0;
 
             if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
@@ -57,11 +57,11 @@ namespace HENRY.Modules
             }
             if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
             {
-                direction += 90;
+                direction += Constants.MAX_DIR;
             }
             if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
             {
-                direction -= 90;
+                direction -= Constants.MAX_DIR;
             }
             
 
@@ -72,14 +72,6 @@ namespace HENRY.Modules
             }
             
         }
-
-        //public void Toggle(bool state)
-        //{
-        //    SetPropertyValue("ManualDriveEnabled", state);
-
-        //    if (state) t.Start();
-        //    else t.Stop();
-        //}
 
 
         public override string GetModuleName()
