@@ -59,8 +59,8 @@ namespace HENRY.Modules
             }
             else
             {
-                rmSpeed = -spd;
-                lmSpeed = -spd;
+                rmSpeed = spd;
+                lmSpeed = spd;
             }
 
             // Add deadzone gap to the speed
