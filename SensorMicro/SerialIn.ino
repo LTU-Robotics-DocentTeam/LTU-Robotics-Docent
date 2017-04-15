@@ -53,6 +53,16 @@ void SerialIn()
         }
         // else do nothing
         break;
+      case 'T':
+        if (value == 1)
+        {
+          Servo_Lift(true);
+        }
+        else if (value == 0)
+        {
+          Servo_Lift(false);
+        }
+        break;
     }
   }
 }

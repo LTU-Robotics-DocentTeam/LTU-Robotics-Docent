@@ -1,5 +1,6 @@
 #include <Adafruit_MCP23017.h>
 #include <Wire.h>
+#include <Servo.h>
 
 #define P_U2_RX       0
 #define P_U2_TX       1
@@ -75,6 +76,9 @@ String prevHe = "", prevVolt = "";
 bool pcConnect = false;
 int SmallestDist[5];
 int j = 0;
+Servo Lift_Servo;
+bool Servo_On = false;
+String Servo_Engaged= "";
 
 
 void setup() {
@@ -90,6 +94,9 @@ void setup() {
     mcp.pinMode(HEpins[i], INPUT);
     mcp.pullUp(HEpins[i], HIGH);
   }
+  
+  Lift_Servo.attach(P_U2_PWM1);
+  Lift_Servo.write(0);
 }
 
 void loop() {
