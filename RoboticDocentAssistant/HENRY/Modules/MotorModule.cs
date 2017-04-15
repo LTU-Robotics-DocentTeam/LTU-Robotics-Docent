@@ -59,7 +59,7 @@ namespace HENRY.Modules
             }
             else
             {
-                rmSpeed = spd;
+                rmSpeed = -spd;
                 lmSpeed = -spd;
             }
 
