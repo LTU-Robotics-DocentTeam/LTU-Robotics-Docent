@@ -78,7 +78,16 @@ namespace HENRY.Modules
             {
                 if (Math.Abs(direction) < Constants.TURN_ZONE)
                 {
-
+                    if (direction > 0)
+                    {
+                        rmSpeed = Constants.DEAD_ZONE + spd;
+                        lmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
+                    }
+                    else
+                    {
+                        rmSpeed = Constants.DEAD_ZONE + spd - (int)(spd * direction / (double)Constants.TURN_ZONE);
+                        lmSpeed = Constants.DEAD_ZONE + spd;
+                    }
                 }
                 else if (Math.Abs(direction) < Constants.ZERO_POINT_ZONE)
                 {
