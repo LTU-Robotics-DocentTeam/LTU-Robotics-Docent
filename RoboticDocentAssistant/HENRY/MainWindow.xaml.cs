@@ -184,7 +184,7 @@ namespace HENRY
                 case Buttons.Green:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour:
+                        case UserView.UserScreen.Tour: ToggleAutonomousNavigation(p);
                             break;
                         case UserView.UserScreen.Shutdown: 
                             break;
