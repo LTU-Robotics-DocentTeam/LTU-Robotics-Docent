@@ -93,15 +93,7 @@
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text=" Sensor Microcontroller data:"></TextBlock>
                         <TextBlock HorizontalAlignment="Center">Hall Effect Sensors</TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
-                            <StackPanel.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
-                                    <SkewTransform AngleY="0" AngleX="0"/>
-                                    <RotateTransform Angle="0"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </StackPanel.RenderTransform>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                             <CheckBox IsChecked="{Binding ArraySensor1}"></CheckBox>
                             <CheckBox IsChecked="{Binding ArraySensor2}"></CheckBox>
                             <TextBlock Text="  "></TextBlock>

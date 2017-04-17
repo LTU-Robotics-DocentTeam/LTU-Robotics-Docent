@@ -132,7 +132,7 @@ namespace HENRY.Modules.Sensors
             else
             {
                 lineloc -= Constants.MAX_DIR;
-                SetPropertyValue("LineAngle", lineloc);
+                SetPropertyValue("LineAngle", -lineloc);
             }
 
             
