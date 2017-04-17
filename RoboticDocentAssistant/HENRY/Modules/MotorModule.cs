@@ -41,7 +41,7 @@ namespace HENRY.Modules
 
             if (spd > 0)
             {
-                int dSpd = (int)((spd) * (direction / Constants.MAX_DIR));
+                int dSpd = (int)((spd) * .85 *(direction / Constants.MAX_DIR));
                 rmSpeed = spd + dSpd;
                 lmSpeed = spd - dSpd;
 

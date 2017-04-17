@@ -63,7 +63,7 @@ namespace HENRY.Modules
             //====================================================================================================
 
             t = new TimersTimer();
-            t.Interval = 10;
+            t.Interval = 50;
             t.Elapsed += t_Elapsed;
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
