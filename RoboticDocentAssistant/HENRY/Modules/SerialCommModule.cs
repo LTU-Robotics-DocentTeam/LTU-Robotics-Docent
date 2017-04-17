@@ -578,7 +578,16 @@ namespace HENRY.Modules
                 }
             }
 
-            
+            {
+                if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
+                {
+                    serPort2.Write("<T0>");
+                }
+                else
+                {
+                    serPort2.Write("<T1>");
+                }
+            }
         }
 
 
