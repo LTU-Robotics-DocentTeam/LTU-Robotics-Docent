@@ -12,6 +12,7 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
 
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\pfeliksa\Documents\GitHub\LTU-Robotics-Docent\HENRY_Horn.wav");
         int dist2obstacle = Constants.MAX_DIST;
         private int reccomendedSpeed = 0;
 
@@ -63,6 +64,7 @@ namespace HENRY.Modules.Sensors
 
             else if (dist2obstacle < 100)
             {
+                player.Play();
                 return -1;
             }
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
