@@ -41,16 +41,20 @@ namespace HENRY.Modules
 
             if (spd > 0)
             {
-                if (direction > 0)
-                {
-                    rmSpeed = spd;
-                    lmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                }
-                else
-                {
-                    rmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                    lmSpeed = spd;
-                }
+                int dSpd = (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
+                rmSpeed = spd + dSpd;
+                lmSpeed = spd - dSpd;
+
+                //if (direction > 0)
+                //{
+                //    rmSpeed = spd;
+                //    lmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
+                //}
+                //else
+                //{
+                //    rmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
+                //    lmSpeed = spd;
+                //}
             }
             else if (spd == 0)
             {
