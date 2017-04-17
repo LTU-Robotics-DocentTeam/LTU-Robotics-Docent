@@ -554,13 +554,14 @@ namespace HENRY.Modules
             {
                 // Check for data to send to the arduino
                 msg2motor = "";
+                msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
                 // Only send motor data if it has changed from last message sent
-                if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
-                {
-                    msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
-                    prvr = GetPropertyValue("RightMSpeed").ToInt32();
-                    prvl = GetPropertyValue("LeftMSpeed").ToInt32();
-                }
+                //if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
+                //{
+                //    msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
+                //    prvr = GetPropertyValue("RightMSpeed").ToInt32();
+                //    prvl = GetPropertyValue("LeftMSpeed").ToInt32();
+                //}
                 // if estop triggered before, send attempt reset signal when user addresses in the program (i.e. checkbox in DevView, 
                 // alert message from UserView)
                 if (prestop != GetPropertyValue("EStop").ToBoolean() && prestop)
