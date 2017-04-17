@@ -578,6 +578,7 @@ namespace HENRY.Modules
                 }
             }
 
+            if (serConn2 == Connection.Connected)
             {
                 if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
                 {
