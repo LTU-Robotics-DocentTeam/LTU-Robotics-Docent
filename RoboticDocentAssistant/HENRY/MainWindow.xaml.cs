@@ -130,18 +130,6 @@ namespace HENRY
             }
         }
 
-        private void ToggleAutonomousNavigation(bool p)
-        {
-            if (p)
-            {
-                vm.AutonomousNavigation = !vm.AutonomousNavigation;
-                if (vm.AutonomousNavigation) bnm.t.Start();
-                else bnm.t.Stop();
-            }
-            
-            
-        }
-
         /// <summary>
         /// Handles keys released on the keyboard or controller.
         /// </summary>
@@ -300,12 +288,19 @@ namespace HENRY
                 if (vm.ManualDriveEnabled) mnd.t.Start();
                 else mnd.t.Stop();
             }
-            
-            
-            
         }
 
+        private void ToggleAutonomousNavigation(bool p)
+        {
+            if (p)
+            {
+                vm.AutonomousNavigation = !vm.AutonomousNavigation;
+                if (vm.AutonomousNavigation) bnm.t.Start();
+                else bnm.t.Stop();
+            }
 
+
+        }
 
         // ===================================================================================================
         // ===================================================================================================
