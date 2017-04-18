@@ -1,40 +1,42 @@
 void SerialIn()
 {
   // Read full incoming message from the serial port
-  String msg = Serial.readStringUntil('>');
+  //String msg = Serial.readStringUntil('>');
+
+  
+
+  String inputBuffer;
+  
+  while (Serial.available() > 0)
+  {
+    inputBuffer += (char)Serial.read();
+  }
+
+  for(int i = 0; i < inputBuffer.length(); i++)
+  {
+    bBuff += inputBuffer[i];
+    
+    if(inputBuffer[i] == '>')
+    {
+      ProcessSerial(bBuff);
+      bBuff = "";
+    }
+  }
+
+}
+
+void ProcessSerial(String msg)
+{
+  
 
   //Serial.println("ReadString");
 
   // check for valid messages with a start character '<' and end character '>'
   int startin = msg.indexOf('<');
-  //    if (startin < 0) // if not found (indexOf returned -1), break loop
-  //    {
-  //      break;
-  //    }
-  //    int endin = msg.indexOf('>'); // if not found (indexOf returned -1), break loop
-  //    if (endin < 0)
-  //    {
-  //      break;
-  //    }
 
-  //Serial.println("FoundMessage");
-
-  //Serial.println("startin:");
-  //Serial.println(startin);
-  //Serial.println("endin:");
-  //Serial.println(endin);
-
-  // Extract message within '<' and '>'
-  //int msglngth = endin - startin;
-
-  //Serial.println("msglngth:");
-  //Serial.println(msglngth);
 
   msg = msg.substring(startin + 1);
 
-
-  //Serial.println("msg:");
-  //Serial.println(msg);
 
   // Take out the first character as the Key and the rest as the value
   char key = msg[0];

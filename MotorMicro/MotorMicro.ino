@@ -98,6 +98,8 @@ bool pcConnect = false;
 String prevIm = "", impactArray = "";
 String Brakes;
 
+String bBuff;
+
 void setup()
 {
 
@@ -151,6 +153,8 @@ void setup()
   {
     prevSwitch = false;
   }
+
+  bBuff = "";
 
 
 }

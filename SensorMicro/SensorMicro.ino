@@ -69,7 +69,7 @@ int USprev[U_NUM] = {0, 0, 0, 0, 0};
 int hallValuesLife[16];
 
 //serial
-String msg2pc = "";
+String msg2pc = "", bBuff = "";
 int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
