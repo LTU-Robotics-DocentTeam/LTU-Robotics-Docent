@@ -1,9 +1,9 @@
 ﻿using HENRY.Modules;
 using HENRY.Modules.Navigation;
-using HENRY.Modules.Sensors;
 using HENRY.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,17 +19,16 @@ namespace HENRY
         ViewModel vm;
         SerialCommModule scm;
         GenericSensorModule gsm;
-
         
         BaseNavModule bnm;
-
         MotorModule mmd;
         ManualDrive mnd;
+
+        Timer holdDownTimer;
 
         public MainWindow()
         {
             scm = new SerialCommModule();
-            //erlg = new ErrorLog();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
             vm = new ViewModel();

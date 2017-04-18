@@ -40,8 +40,9 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Main Menu" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
-                
+            <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                MAIN <LineBreak/>
+                MENU
             </TextBlock>
             <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
                 <Ellipse.Fill>
@@ -100,7 +101,7 @@
         <!-- Tour Mode Stuff -->
         <Grid x:Name="TourMode" Visibility="Hidden">
             <Grid.Background>
-                <SolidColorBrush Color="#FF474646"></SolidColorBrush>
+                <SolidColorBrush Color="#FF282727"></SolidColorBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -185,6 +186,25 @@
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                     TOUR DRIVE MODE
                 </TextBlock>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                    Hold&#160;
+                    </TextBlock>
+                    <Ellipse x:Name="tourPromptButton" Width="{Binding ActualHeight, ElementName=tourPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                        &#160;for 5 seconds to return to the Main Menu
+                    </TextBlock>
+                </StackPanel>
             </StackPanel>
             <MediaElement Source="" Grid.Row="2" Grid.Column="1"></MediaElement>
         </Grid>
@@ -206,11 +226,21 @@
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Hold down the
+                    Hold down&#160;
                     </TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="DarkRed" Text=" Red " FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center"></TextBlock>
+                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
+                                <GradientStop Color="#FFDE1919"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                     button for 5 seconds to power off computer
+                     &#160;for 5 seconds to power off computer
                     </TextBlock>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
@@ -249,7 +279,7 @@
         <!-- Manual Mode stuff -->
         <Grid x:Name="ManualDriveMode" Visibility="Hidden">
             <Grid.Background>
-                <SolidColorBrush Color="#FF474646"></SolidColorBrush>
+                <SolidColorBrush Color="#FF282727"></SolidColorBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -266,11 +296,21 @@
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Hold down the
+                    Hold&#160;
                     </TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="Black" Text=" Black " FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center"></TextBlock>
+                    <Ellipse x:Name="manualPromptButton" Width="{Binding ActualHeight, ElementName=manualPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                     button for 5 seconds to return to the Main Menu
+                        &#160;for 5 seconds to return to the Main Menu
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
