@@ -15,9 +15,11 @@ namespace HENRY.Views
     /// Interaction logic for UserView.xaml
     /// </summary>
     /// TO DO:
-    /// - Add regular UserView stuff (Display questions, controller layout, etc.)
     public partial class UserView : UserControl
     {
+        /// <summary>
+        /// Used to easily refer to the different modes the UI has
+        /// </summary>
         public enum UserScreen { Tour, Shutdown, Kiosk, Manual, MainMenu, Estop };
 
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
@@ -29,6 +31,11 @@ namespace HENRY.Views
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method that can be called to toggle modes from an overarching window (such as MainWindow)
+        /// </summary>
+        /// <param name="mode"> What mode are you switching to</param>
+        /// <param name="p"> Boolean to designate button pressed. true for pressed, false for released</param>
         internal void ToggleMode (UserScreen mode, bool p)
         {
             if (p)
@@ -71,6 +78,11 @@ namespace HENRY.Views
             }
         }
 
+        /// <summary>
+        /// Automatically switch to E-Stop mode upon E-stop trigger. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EStopPrompt_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue == false)
@@ -84,6 +96,10 @@ namespace HENRY.Views
             }
         }
 
+        /// <summary>
+        /// Shows the estop exit prompt
+        /// </summary>
+        /// <param name="p"> Boolean to designate button pressed. true for pressed, false for released</param>
         internal void ShowKioskGetOut(bool p)
         {
 
