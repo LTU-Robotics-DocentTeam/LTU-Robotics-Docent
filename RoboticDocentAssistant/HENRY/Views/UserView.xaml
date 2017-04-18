@@ -40,10 +40,6 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
-                MAIN <LineBreak/>
-                MENU
-            </TextBlock>
             <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -356,7 +352,8 @@
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
-                    LEFT TURN
+                        LEFT <LineBreak/> 
+                        TURN
                     </TextBlock>
                 </StackPanel>
                 <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
@@ -369,7 +366,8 @@
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
-                    RIGHT TURN
+                        RIGHT <LineBreak/>
+                        TURN
                     </TextBlock>
                 </StackPanel>
                 <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
@@ -409,8 +407,9 @@
                 E-Stop Triggered! <LineBreak/>
                 </TextBlock>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
-                    This will somehow magically know the reason <LineBreak/>
-                    for the e-stop and tell the user! <LineBreak/>
+                    This will somehow magically <LineBreak/>
+                    know the reason for the e-stop<LineBreak/>
+                    and tell the user! <LineBreak/>
                 </TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="Hold " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>

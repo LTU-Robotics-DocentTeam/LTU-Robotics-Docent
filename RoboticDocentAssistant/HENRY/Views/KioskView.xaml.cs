@@ -24,6 +24,9 @@ namespace HENRY.Views
         private string TransitionType, strImagePath = "";
         private int CurrentSourceIndex, CurrentCtrlIndex, EffectIndex = 0, IntervalTimer = 1;
 
+        /// <summary>
+        /// Constructor for kiosk mode slideshow
+        /// </summary>
         public KioskView()
         {
             InitializeComponent();
@@ -40,10 +43,16 @@ namespace HENRY.Views
             timerImageChange.Tick += new EventHandler(timerImageChange_Tick);
         }
 
+        /// <summary>
+        /// Event that fires when the kiosk first loads. Puts first slideshow image and then stops slideshow until kiosk mode is visible.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             PlaySlideShow();
             timerImageChange.IsEnabled = true;
+            timerImageChange.Stop();
         }
 
         private void LoadImageFolder(string folder)
@@ -58,10 +67,11 @@ namespace HENRY.Views
                 ErrorText.Visibility = Visibility.Visible;
                 return;
             }
-            Random r = new Random();
+            //Random r = new Random();
+            int j = 0;
             var sources = from file in new System.IO.DirectoryInfo(folder).GetFiles().AsParallel()
                           where ValidImageExtensions.Contains(file.Extension, StringComparer.InvariantCultureIgnoreCase)
-                          orderby r.Next()
+                          orderby j++
                           select CreateImageSource(file.FullName, true);
             Images.Clear();
             Images.AddRange(sources);
@@ -117,6 +127,18 @@ namespace HENRY.Views
                 StboardFadeIn.Begin(imgFadeIn);
             }
             catch (Exception ex) { }
+        }
+
+        private void userControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == false)
+            {
+                timerImageChange.Stop();
+            }
+            else
+            {
+                timerImageChange.Start();
+            }
         }
     }
 }
