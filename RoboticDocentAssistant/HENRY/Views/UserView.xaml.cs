@@ -18,9 +18,9 @@ namespace HENRY.Views
     /// - Add regular UserView stuff (Display questions, controller layout, etc.)
     public partial class UserView : UserControl
     {
-        public enum UserScreen { Tour, Shutdown, Kiosk, Manual, MainMenu };
+        public enum UserScreen { Tour, Shutdown, Kiosk, Manual, MainMenu, Estop };
 
-        public UserScreen currentMode = UserScreen.MainMenu;
+        public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
         //public bool showPrompt = false; 
 
@@ -67,9 +67,20 @@ namespace HENRY.Views
                         kioskViewControl.Visibility = Visibility.Hidden;
                         kioskPromptText.Visibility = Visibility.Hidden;
                         break;
-                    default:
-                        break;
                 }
+            }
+        }
+
+        private void EStopPrompt_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == false)
+            {
+                currentMode = previousMode;
+            }
+            else
+            {
+                previousMode = currentMode;
+                currentMode = UserScreen.Estop;
             }
         }
 
