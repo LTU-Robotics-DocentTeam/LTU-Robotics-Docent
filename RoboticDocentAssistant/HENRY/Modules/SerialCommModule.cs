@@ -21,6 +21,8 @@ namespace HENRY.Modules
         public enum Connection { Unknown, Disconnected, Connected};
 
         public Connection serConn1 = Connection.Unknown, serConn2 = Connection.Unknown;
+
+        private const int SERPORT1_TIMEOUT = 10, SERPORT2_TIMEOUT = 10; 
         
         TimersTimer t;
         Random r;
@@ -33,10 +35,13 @@ namespace HENRY.Modules
         int deviceId = 0;
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
         int simTimer = 0;
+        int watchdog1 = 0, watchdog2 = 0;
+        bool serPort1_dataIn = false, serPort2_dataIn = false;
 
         int prvr = 0, prvl = 0;
         bool prestop = false;
         private string bBuff1 = String.Empty, bBuff2 = String.Empty;
+        private string msg2sensor = String.Empty;
 
         public SerialCommModule()
         {
@@ -263,7 +268,7 @@ namespace HENRY.Modules
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
             
             // Read from seriaport up to next valid character
-
+            serPort1_dataIn = true;
             string indata = serPort1.ReadExisting();
 
             foreach (char c in indata)
@@ -386,7 +391,7 @@ namespace HENRY.Modules
             // the data belongs to and 000 is the value for that sensor. The type of the value depends on the sensor
             
             // Read from seriaport up to next valid character
-
+            serPort2_dataIn = true;
             string indata = serPort2.ReadExisting();
 
             foreach (char c in indata)
@@ -528,45 +533,37 @@ namespace HENRY.Modules
                     }
                     
                 }
-                //// If motor micro is disconnected and simulation mode is on, generate random inputs
-                //if (serConn1 == Connection.Disconnected && GetPropertyValue("SimulationMode").ToBoolean())
-                //{
-                //    // set timer for when motor micro is disconnected
-                //    simTimer = 80;
-
-                //    // trigger random impact sensor in array
-                //    if (r.Next(0, 100) < 50)
-                //    {
-                //        SetPropertyValue("Impact" + r.Next(0, Constants.IMPACT_NUM - 1).ToString(), true);
-                //    }
-                //    else
-                //    {
-                //        for (int i = 1; i <= Constants.IMPACT_NUM; i++)
-                //        {
-                //            SetPropertyValue("Impact" + i.ToString(), false);
-                //        }
-                //    }
-                //}
+               
             }
             
-            // If motor micro is connected and simulation mode is OFF, send data to arduino
+            // If motor micro is connected and simulation mode is OFF, send data to micro
             if (serConn1 == Connection.Connected && !GetPropertyValue("SimulationMode").ToBoolean())
             {
-                // Check for data to send to the arduino
                 msg2motor = "";
-                msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
-                // Only send motor data if it has changed from last message sent
-                //if (prvr != GetPropertyValue("RightMSpeed").ToInt32() || prvl != GetPropertyValue("LeftMSpeed").ToInt32())
-                //{
-                //    msg2motor = "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
-                //    prvr = GetPropertyValue("RightMSpeed").ToInt32();
-                //    prvl = GetPropertyValue("LeftMSpeed").ToInt32();
-                //}
+                
+                if (!serPort1_dataIn)
+                {
+                    msg2motor += "<C0>";
+                    watchdog1++;
+                    if (watchdog1 >= SERPORT1_TIMEOUT)
+                    {
+                        serConn1 = Connection.Unknown;
+                        watchdog1 = 0;
+                    }
+                }
+                else
+                {
+                    watchdog1 = 0;
+                    serPort1_dataIn = false;
+                }
+                
+                msg2motor += "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
+                
                 // if estop triggered before, send attempt reset signal when user addresses in the program (i.e. checkbox in DevView, 
                 // alert message from UserView)
                 if (prestop != GetPropertyValue("EStop").ToBoolean() && prestop)
                 {
-                    msg2motor = "<F" + GetPropertyValue("EStop").ToInt32() + ">";
+                    msg2motor += "<F" + GetPropertyValue("EStop").ToInt32() + ">";
                     prestop = GetPropertyValue("EStop").ToBoolean();
                 }
                 
@@ -581,14 +578,36 @@ namespace HENRY.Modules
 
             if (serConn2 == Connection.Connected)
             {
-                if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
+                msg2sensor = "";
+                if (!serPort2_dataIn)
                 {
-                    serPort2.Write("<T0>");
+                    msg2sensor += "<C0>";
+                    watchdog2++;
+                    if (watchdog2 >= SERPORT2_TIMEOUT)
+                    {
+                        serConn2 = Connection.Unknown;
+                        watchdog2 = 0;
+                    }
                 }
                 else
                 {
-                    serPort2.Write("<T1>");
+                    watchdog2 = 0;
+                    serPort2_dataIn = false;
                 }
+                if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
+                {
+                    msg2sensor += "<T0>";
+                }
+                else
+                {
+                    msg2sensor += "<T1>";
+                }
+                if (msg2sensor != "")
+                {
+                    serPort2.Write(msg2sensor);
+                    msg2sensor = "";
+                }
+
             }
         }
 

@@ -36,7 +36,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Autonomous Navigation Mode:    " TextAlignment="Left"></TextBlock>
-                            <CheckBox IsChecked="{Binding AutonomousNavigation}"></CheckBox>
+                            <CheckBox IsChecked="{Binding AutonomousNavigation}" IsEnabled="False"></CheckBox>
                         </StackPanel>
                     </StackPanel>
                     
@@ -151,7 +151,7 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                 <TextBlock Text="Enable Manual Drive " HorizontalAlignment="Center"/>
-                                <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" />
+                                <CheckBox IsChecked="{Binding ManualDriveEnabled}" HorizontalAlignment="Center" IsEnabled="False"/>
 
                             </StackPanel>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">

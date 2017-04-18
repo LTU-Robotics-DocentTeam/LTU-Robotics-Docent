@@ -1,9 +1,9 @@
 ﻿using HENRY.Modules;
 using HENRY.Modules.Navigation;
-using HENRY.Modules.Sensors;
 using HENRY.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,24 +14,21 @@ namespace HENRY
     /// </summary>
     public partial class MainWindow : Window
     {
-        ErrorLog erlg;
-
         public enum Buttons { Green, Red, Yellow, Blue, Black };
         
         ViewModel vm;
         SerialCommModule scm;
         GenericSensorModule gsm;
-
         
         BaseNavModule bnm;
-
         MotorModule mmd;
         ManualDrive mnd;
+
+        Timer holdDownTimer;
 
         public MainWindow()
         {
             scm = new SerialCommModule();
-            erlg = new ErrorLog();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
             vm = new ViewModel();
@@ -46,18 +43,6 @@ namespace HENRY
             InitializeComponent();
             
             MWindow.DataContext = vm;
-
-            //if (vm.DevModeOn)
-            //{
-            //    devViewControl.Visibility = System.Windows.Visibility.Visible;
-            //    userViewControl.Visibility = System.Windows.Visibility.Hidden;
-            //}
-            //else
-            //{
-            //    devViewControl.Visibility = System.Windows.Visibility.Hidden;
-            //    userViewControl.Visibility = System.Windows.Visibility.Visible;
-            //}
-
         }
 
         /// <summary>
@@ -165,6 +150,11 @@ namespace HENRY
             }
         }
 
+        /// <summary>
+        /// This function handles all button prompts for user mode. Its basically a giant switch statement with a case for each button, with sub switch cases for each sub mode
+        /// </summary>
+        /// <param name="b"> Which button was pressed</param>
+        /// <param name="p"> True if button pressed, false if button released</param>
         private void UserModeController(Buttons b, bool p)
         {
             switch (b)
@@ -172,7 +162,7 @@ namespace HENRY
                 case Buttons.Green:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour: ToggleAutonomousNavigation(p);
+                        case UserView.UserScreen.Tour: if (!vm.AutonomousNavigation) ToggleAutonomousNavigation(p);
                             break;
                         case UserView.UserScreen.Shutdown: 
                             break;
@@ -180,14 +170,14 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Forward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleTourMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Tour, p);
                             break;
                     }
                     break;
                 case Buttons.Red:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour:
+                        case UserView.UserScreen.Tour: if (vm.AutonomousNavigation) ToggleAutonomousNavigation(p);
                             break;
                         case UserView.UserScreen.Shutdown: if (p) MWindow.Close();
                             break;
@@ -195,7 +185,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Backward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleShutdownMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Shutdown, p);
                             break;
                     }
                     break;
@@ -210,7 +200,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Right = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleKiosk(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Kiosk, p);
                             break;
                     }
                     
@@ -226,7 +216,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Left = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleManualDriveMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Manual, p);
                             ToggleManualDrive(p);
                             break;
                     }
@@ -234,10 +224,6 @@ namespace HENRY
                 case Buttons.Black:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour: userViewControl.ToggleTourMode(p);
-                            break;
-                        case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode(p);
-                            break;
                         case UserView.UserScreen.Kiosk:  
                             if (userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
                             {
@@ -245,19 +231,28 @@ namespace HENRY
                             }
                             else
                             {
-                                userViewControl.ToggleKiosk(p);
+                                userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p);
                             }
                             break;
-                        case UserView.UserScreen.Manual: userViewControl.ToggleManualDriveMode(p);
+                        case UserView.UserScreen.Manual:
+                            userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p); ;
                             ToggleManualDrive(p);
                             break;
                         case UserView.UserScreen.MainMenu:
+                            break;
+                        case UserView.UserScreen.Estop: vm.EStop = false;
+                            break;
+                        default: userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p);
                             break;
                     }
                     break;
             }
         }
-
+        /// <summary>
+        /// This function handles all button prompts for dev mode. Allows for manual control only
+        /// </summary>
+        /// <param name="b"> Which button was pressed</param>
+        /// <param name="p"> True if button pressed, false if button released</param>
         private void DevModeController(Buttons b, bool p)
         {
             switch (b)
@@ -298,8 +293,6 @@ namespace HENRY
                 if (vm.AutonomousNavigation) bnm.t.Start();
                 else bnm.t.Stop();
             }
-
-
         }
 
         // ===================================================================================================
@@ -356,7 +349,7 @@ namespace HENRY
 
         private void MWindow_Closing(object sender, CancelEventArgs e)
         {
-            erlg.CloseLog();
+            bnm.error_log.CloseLog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -364,7 +357,13 @@ namespace HENRY
             MWindow.Close();
         }
 
-        
-        
+        private void ViewControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            vm.ManualDriveEnabled = false;
+            mnd.t.Stop();
+            vm.AutonomousNavigation = false;
+            bnm.t.Stop();
+            userViewControl.ToggleMode(UserView.UserScreen.MainMenu, true);
+        }
     }
 }
