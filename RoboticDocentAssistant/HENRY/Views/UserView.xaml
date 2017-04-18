@@ -97,7 +97,7 @@
         <!-- Tour Mode Stuff -->
         <Grid x:Name="TourMode" Visibility="Hidden">
             <Grid.Background>
-                <SolidColorBrush Color="#FF282727"></SolidColorBrush>
+                <SolidColorBrush Color="#FF5F5F5F"></SolidColorBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -181,10 +181,16 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                     TOUR DRIVE MODE
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Hold&#160;
+                        Hold&#160;
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                     <Ellipse x:Name="tourPromptButton" Width="{Binding ActualHeight, ElementName=tourPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
@@ -199,6 +205,9 @@
                     </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                         &#160;for 5 seconds to return to the Main Menu
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
@@ -275,7 +284,7 @@
         <!-- Manual Mode stuff -->
         <Grid x:Name="ManualDriveMode" Visibility="Hidden">
             <Grid.Background>
-                <SolidColorBrush Color="#FF282727"></SolidColorBrush>
+                <SolidColorBrush Color="#FF5F5F5F"></SolidColorBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -288,11 +297,17 @@
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                MANUAL DRIVE MODE
+                    MANUAL DRIVE MODE
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Hold&#160;
+                        Hold&#160;
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                     <Ellipse x:Name="manualPromptButton" Width="{Binding ActualHeight, ElementName=manualPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
@@ -307,6 +322,9 @@
                     </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                         &#160;for 5 seconds to return to the Main Menu
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
