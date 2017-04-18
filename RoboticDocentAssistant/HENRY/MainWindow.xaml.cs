@@ -172,7 +172,7 @@ namespace HENRY
                 case Buttons.Green:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour: ToggleAutonomousNavigation(p);
+                        case UserView.UserScreen.Tour: if (!vm.AutonomousNavigation) ToggleAutonomousNavigation(p);
                             break;
                         case UserView.UserScreen.Shutdown: 
                             break;
@@ -187,7 +187,7 @@ namespace HENRY
                 case Buttons.Red:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour:
+                        case UserView.UserScreen.Tour: if (vm.AutonomousNavigation) ToggleAutonomousNavigation(p);
                             break;
                         case UserView.UserScreen.Shutdown: if (p) MWindow.Close();
                             break;
@@ -298,8 +298,6 @@ namespace HENRY
                 if (vm.AutonomousNavigation) bnm.t.Start();
                 else bnm.t.Stop();
             }
-
-
         }
 
         // ===================================================================================================
