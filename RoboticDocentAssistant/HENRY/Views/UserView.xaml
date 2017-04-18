@@ -22,14 +22,15 @@
         </Grid.ColumnDefinitions>
         <!-- Main Menu stuff -->
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
-            <TextBlock HorizontalAlignment="Right" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
                 H.E.N.R.Y
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
                 Main Menu
             </TextBlock>
         </StackPanel>
-        <Image x:Name="museumLogo" Source="Images\Museum Photo.png" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Fill" Width="350" Height="{Binding ActualWidth, ElementName=museumLogo, Mode=OneWay}" />
+        <TextBlock Text="Press any button on the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="28" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" Margin="0,0,20,20" Visibility="Hidden"></TextBlock>
+        <Image x:Name="museumLogo" Source="Images\Museum Photo.png" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Fill" Opacity="0.25" Width="{Binding ActualHeight, ElementName=museumLogo, Mode=OneWay}" />
         <Grid x:Name="mainMenuControl" Width="{Binding ActualHeight, ElementName=mainMenuControl, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -100,7 +101,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-            <TextBlock Text="Press a button in the controller to begin" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            
         </Grid>
         <!-- End Main Menu stuff -->
         <!-- Tour Mode Stuff -->
@@ -117,76 +118,6 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="tourDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=tourDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF1B8E30" Offset="0.564"/>
-                            <GradientStop Color="#FF1FDE19"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
-                    GO
-                    </TextBlock>
-                </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF878E1B" Offset="0.564"/>
-                            <GradientStop Color="#FFD3DE19"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                    <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
-
-                    </TextBlock>
-                </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF201B8E" Offset="0.564"/>
-                            <GradientStop Color="#FF1A19DE"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                    <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
-
-                    </TextBlock>
-                </StackPanel>
-                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
-                    <Ellipse.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
-                            <GradientStop Color="#FFDE1919"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <TextBlock Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
-                    STOP
-                </TextBlock>
-            </Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                     TOUR DRIVE MODE
@@ -220,13 +151,97 @@
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
+            <Grid x:Name="tourDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=tourDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FF1B8E30" Offset="0.564"/>
+                            <GradientStop Color="#FF1FDE19"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                    GO
+                    </TextBlock>
+                </StackPanel>
+                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FF878E1B" Offset="0.564"/>
+                            <GradientStop Color="#FFD3DE19"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                        START <LineBreak/>
+                        STREAM
+                    </TextBlock>
+                </StackPanel>
+                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FF201B8E" Offset="0.564"/>
+                            <GradientStop Color="#FF1A19DE"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                        STOP <LineBreak/>
+                        STREAM
+                    </TextBlock>
+                </StackPanel>
+                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
+                            <GradientStop Color="#FFDE1919"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <TextBlock Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                    STOP
+                </TextBlock>
+            </Grid>
             <MediaElement Source="" Grid.Row="2" Grid.Column="1"></MediaElement>
         </Grid>
         <!-- End Tour Mode Stuff-->
         <!-- Shutdown stuff-->
         <Grid x:Name="ShutdownMode" Visibility="Hidden">
             <Grid.Background>
-                <SolidColorBrush Color="#FF282727"></SolidColorBrush>
+                <SolidColorBrush Color="#FF5F5F5F"></SolidColorBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -236,11 +251,17 @@
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                SHUTDOWN MODE
+                    SHUTDOWN MODE
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
                 </TextBlock>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24,0,0" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Hold down&#160;
+                        Hold&#160;
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                     <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
@@ -254,12 +275,44 @@
                         </Ellipse.Effect>
                     </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                     &#160;for 5 seconds to power off computer
+                        &#160;for 5 seconds to power off computer
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                        Hold&#160;
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
+                        &#160;for 5 seconds to return to the Main Menu
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </TextBlock.Effect>
                     </TextBlock>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    Don't forget to turn off the main breaker <LineBreak/>
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
+                    Don't forget to turn off the main power breaker<LineBreak/>
                     AFTER the computer is off!
+                    
                 </TextBlock>
             </StackPanel>
         </Grid>
@@ -363,6 +416,9 @@
                             <GradientStop Color="#FF1FDE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
                 </Ellipse>
                 <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
@@ -376,6 +432,9 @@
                             <GradientStop Color="#FFD3DE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -390,6 +449,9 @@
                             <GradientStop Color="#FF1A19DE"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -404,6 +466,9 @@
                             <GradientStop Color="#FFDE1919"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </Ellipse.Effect>
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Text="REVERSE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             </Grid>
