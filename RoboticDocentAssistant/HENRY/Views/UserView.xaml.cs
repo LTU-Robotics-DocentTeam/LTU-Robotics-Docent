@@ -24,6 +24,8 @@ namespace HENRY.Views
 
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
+        DispatcherTimer kioskPromptTimer;
+
         //public bool showPrompt = false; 
 
         public UserView()
@@ -35,7 +37,21 @@ namespace HENRY.Views
             img.EndInit();
             museumLogo.Stretch = Stretch.Fill;
             museumLogo.Source = img;
+
+
+            kioskPromptTimer = new DispatcherTimer();
+            kioskPromptTimer.Interval = new TimeSpan(0, 0, 10);
+            kioskPromptTimer.Tick += new EventHandler(kioskPromptTimer_Tick);
+
+            kioskPromptTimer.IsEnabled = true;
+
             InitializeComponent();
+        }
+
+        void kioskPromptTimer_Tick(object sender, EventArgs e)
+        {
+            kioskPromptText.Visibility = Visibility.Hidden;
+            kioskPromptTimer.Stop();
         }
 
         /// <summary>
@@ -113,6 +129,7 @@ namespace HENRY.Views
             if (p)
             {
                 kioskPromptText.Visibility = Visibility.Visible;
+                kioskPromptTimer.Start();
             }
         }
 
