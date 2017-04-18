@@ -21,11 +21,11 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <!-- Main Menu stuff -->
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
-            <TextBlock HorizontalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
+        <StackPanel HorizontalAlignment="Right" Opacity="0.55" VerticalAlignment="Top" Margin="0,20,20,0">
+            <TextBlock HorizontalAlignment="Center" FontSize="108" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
                 H.E.N.R.Y
             </TextBlock>
-            <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" FontSize="56" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Top">
                 Main Menu
             </TextBlock>
         </StackPanel>
@@ -319,7 +319,7 @@
         <!-- End Shutdown stuff -->
         <!--Kiosk Mode stuff-->
         <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden" Panel.ZIndex="3"></views:KioskView>
-        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="4" Margin="0,0,25,25" >
+        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="4" Margin="25" >
             <TextBlock Text="Press " FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
