@@ -12,7 +12,7 @@ namespace HENRY.Modules.Sensors
     {
         Timer t;
 
-        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\pfeliksa\Documents\GitHub\LTU-Robotics-Docent\HENRY_Horn.wav");
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..\..\Sounds\HENRY_Horn.wav");
         int dist2obstacle = Constants.MAX_DIST;
         private int reccomendedSpeed = 0;
 
