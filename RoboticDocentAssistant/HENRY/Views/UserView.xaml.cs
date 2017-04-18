@@ -28,6 +28,13 @@ namespace HENRY.Views
 
         public UserView()
         {
+            museumLogo = new Image();
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri("Images/Museum Photo.png", UriKind.Relative);
+            img.EndInit();
+            museumLogo.Stretch = Stretch.Fill;
+            museumLogo.Source = img;
             InitializeComponent();
         }
 
