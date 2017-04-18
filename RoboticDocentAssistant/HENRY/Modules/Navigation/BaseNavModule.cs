@@ -21,6 +21,7 @@ namespace HENRY.Modules.Navigation
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
         UltrasonicSensorModule usm;
+        ErrorLog error_log;
         private bool errorState = false;
 
         
@@ -29,6 +30,8 @@ namespace HENRY.Modules.Navigation
             hem = new HallEffectSensorModule();
             ism = new ImpactSensorModule();
             usm = new UltrasonicSensorModule();
+            error_log = new ErrorLog(this);
+
             
             SetPropertyValue("Direction", 0.0); // Angle in degrees
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
@@ -52,6 +55,8 @@ namespace HENRY.Modules.Navigation
             hallEffectError = hem.Calculate();
             //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
             ultrasonicError = usm.Calculate();
+
+            error_log.CloseLog();
 
             errorState = false;
             int speed = 0;

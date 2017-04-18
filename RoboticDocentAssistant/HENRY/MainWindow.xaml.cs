@@ -14,8 +14,6 @@ namespace HENRY
     /// </summary>
     public partial class MainWindow : Window
     {
-        ErrorLog erlg;
-
         public enum Buttons { Green, Red, Yellow, Blue, Black };
         
         ViewModel vm;
@@ -31,7 +29,7 @@ namespace HENRY
         public MainWindow()
         {
             scm = new SerialCommModule();
-            erlg = new ErrorLog();
+            //erlg = new ErrorLog();
             bnm = new BaseNavModule();
             mmd = new MotorModule();
             vm = new ViewModel();
@@ -153,6 +151,11 @@ namespace HENRY
             }
         }
 
+        /// <summary>
+        /// This function handles all button prompts for user mode. Its basically a giant switch statement with a case for each button, with sub switch cases for each sub mode
+        /// </summary>
+        /// <param name="b"> Which button was pressed</param>
+        /// <param name="p"> True if button pressed, false if button released</param>
         private void UserModeController(Buttons b, bool p)
         {
             switch (b)
@@ -246,7 +249,11 @@ namespace HENRY
                     break;
             }
         }
-
+        /// <summary>
+        /// This function handles all button prompts for dev mode. Allows for manual control only
+        /// </summary>
+        /// <param name="b"> Which button was pressed</param>
+        /// <param name="p"> True if button pressed, false if button released</param>
         private void DevModeController(Buttons b, bool p)
         {
             switch (b)
@@ -343,7 +350,6 @@ namespace HENRY
 
         private void MWindow_Closing(object sender, CancelEventArgs e)
         {
-            erlg.CloseLog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

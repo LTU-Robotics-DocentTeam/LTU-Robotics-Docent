@@ -16,11 +16,11 @@ namespace HENRY.Modules
         StreamWriter file;
         string lines;
 
-        public ErrorLog()
+        public ErrorLog(LengarioModuleCore m)
         {
-            SetPropertyValue("ErrorLines", "Log for " + DateTime.Now);
+            SetPropertyValue("ErrorLines", "Log for " + m.GetModuleName() + DateTime.Now);
 
-            file = new StreamWriter("test.txt");
+            file = new StreamWriter("..\\..\\ErrorLogs\\" + m.GetModuleName() + "test.txt");
 
             t = new Timer();
             t.Interval = 100;
