@@ -228,7 +228,7 @@
                     <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
                 </TextBlock.Effect>
                 </TextBlock>
-            <Ellipse x:Name="ellipse" Width="{Binding ActualHeight, ElementName=ellipse, Mode=OneWay}">
+            <Ellipse x:Name="kioskPromptButton" Width="{Binding ActualHeight, ElementName=kioskPromptButton, Mode=OneWay}">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF010101" Offset="0.564"/>
@@ -372,12 +372,22 @@
                     This will somehow magically know the reason <LineBreak/>
                     for the e-stop and tell the user! <LineBreak/>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
-                    Once that reason has been cleared up, <LineBreak/>
-                    hold some button to reset E-Stop
-                </TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Hold " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
+                    <Ellipse x:Name="estopPromptButton" Width="{Binding ActualHeight, ElementName=estopPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <TextBlock Text=" to reset E-Stop" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
+                </StackPanel>
             </StackPanel>
-            
         </Grid>
     </Grid>
 

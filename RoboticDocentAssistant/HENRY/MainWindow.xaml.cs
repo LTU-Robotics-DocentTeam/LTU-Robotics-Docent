@@ -238,7 +238,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.MainMenu:
                             break;
-                        case UserView.UserScreen.Estop:
+                        case UserView.UserScreen.Estop: vm.EStop = false;
                             break;
                         default: userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p);
                             break;
