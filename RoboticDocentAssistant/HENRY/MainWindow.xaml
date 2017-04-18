@@ -19,7 +19,7 @@
         <StackPanel Grid.Row="0">
             <Button Content="Close App" Click="Button_Click"/>
         </StackPanel>
-        <views:DevView x:Name="devViewControl" Loaded="devViewControl_Loaded" Grid.Row="1" Visibility="{Binding DevModeOn, Converter={StaticResource BooltoVisConverter}}"></views:DevView>
-        <views:UserView x:Name="userViewControl" Loaded="userViewControl_Loaded" Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding UserModeOn, Converter={StaticResource BooltoVisConverter}}"></views:UserView>
+        <views:DevView x:Name="devViewControl" IsVisibleChanged="ViewControl_IsVisibleChanged" Loaded="devViewControl_Loaded" Grid.Row="1" Visibility="{Binding DevModeOn, Converter={StaticResource BooltoVisConverter}}" ></views:DevView>
+        <views:UserView x:Name="userViewControl" IsVisibleChanged="ViewControl_IsVisibleChanged" Loaded="userViewControl_Loaded" Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding UserModeOn, Converter={StaticResource BooltoVisConverter}}"></views:UserView>
     </Grid>
 </Window>

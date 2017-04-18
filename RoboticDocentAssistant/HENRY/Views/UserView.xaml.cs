@@ -29,26 +29,48 @@ namespace HENRY.Views
             InitializeComponent();
         }
 
-
-        internal void ToggleKiosk(bool p)
+        internal void ToggleMode (UserScreen mode, bool p)
         {
             if (p)
             {
-                if (kioskViewControl.Visibility == Visibility.Hidden)
+                currentMode = mode;
+                switch (mode)
                 {
-                    kioskViewControl.Visibility = Visibility.Visible;
-                    currentMode = UserScreen.Kiosk;
+                    case UserScreen.Tour:
+                        TourMode.Visibility = Visibility.Visible;
+                        ShutdownMode.Visibility = Visibility.Hidden;
+                        kioskViewControl.Visibility = Visibility.Hidden;
+                        ManualDriveMode.Visibility = Visibility.Hidden;
+                        break;
+                    case UserScreen.Shutdown:
+                        ShutdownMode.Visibility = Visibility.Visible;
+                        kioskViewControl.Visibility = Visibility.Hidden;
+                        ManualDriveMode.Visibility = Visibility.Hidden;
+                        TourMode.Visibility = Visibility.Hidden;
+                        break;
+                    case UserScreen.Kiosk:
+                        kioskViewControl.Visibility = Visibility.Visible;
+                        ShutdownMode.Visibility = Visibility.Hidden;
+                        ManualDriveMode.Visibility = Visibility.Hidden;
+                        TourMode.Visibility = Visibility.Hidden;
+                        break;
+                    case UserScreen.Manual:
+                        ManualDriveMode.Visibility = Visibility.Visible;
+                        ShutdownMode.Visibility = Visibility.Hidden;
+                        TourMode.Visibility = Visibility.Hidden;
+                        kioskViewControl.Visibility = Visibility.Hidden;
+                        break;
+                    case UserScreen.MainMenu:
+                        ManualDriveMode.Visibility = Visibility.Hidden;
+                        ShutdownMode.Visibility = Visibility.Hidden;
+                        TourMode.Visibility = Visibility.Hidden;
+                        kioskViewControl.Visibility = Visibility.Hidden;
+                        kioskPromptText.Visibility = Visibility.Hidden;
+                        break;
+                    default:
+                        break;
                 }
-
-                else if (kioskViewControl.Visibility == Visibility.Visible)
-                {
-                    kioskViewControl.Visibility = Visibility.Hidden;
-                    currentMode = UserScreen.MainMenu;
-                    kioskPromptText.Visibility = Visibility.Hidden;
-                }
-
             }
-
         }
 
         internal void ShowKioskGetOut(bool p)
@@ -57,57 +79,7 @@ namespace HENRY.Views
             if (p) kioskPromptText.Visibility = Visibility.Visible;
         }
 
-        internal void ToggleShutdownMode(bool p)
-        {
-            if (p)
-            {
-                if (ShutdownMode.Visibility == Visibility.Hidden)
-                {
-                    ShutdownMode.Visibility = Visibility.Visible;
-                    currentMode = UserScreen.Shutdown;
-                }
-                else
-                {
-                    ShutdownMode.Visibility = Visibility.Hidden;
-                    currentMode = UserScreen.MainMenu;
-                }
-            }
-            
-        }
-
-        internal void ToggleManualDriveMode(bool p)
-        {
-            if (p)
-            {
-                if (ManualDriveMode.Visibility == Visibility.Hidden)
-                {
-                    ManualDriveMode.Visibility = Visibility.Visible;
-                    currentMode = UserScreen.Manual;
-                }
-                else
-                {
-                    ManualDriveMode.Visibility = Visibility.Hidden;
-                    currentMode = UserScreen.MainMenu;
-                }
-            }
-        }
-
-        internal void ToggleTourMode(bool p)
-        {
-            if (p)
-            {
-              if (TourMode.Visibility == Visibility.Hidden)
-              {
-                  TourMode.Visibility = Visibility.Visible;
-                  currentMode = UserScreen.Tour;
-              }
-              else
-              {
-                  TourMode.Visibility = Visibility.Hidden;
-                  currentMode = UserScreen.MainMenu;
-              }
-            }
-        }
+        
     }
 
 }

@@ -180,7 +180,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Forward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleTourMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Tour, p);
                             break;
                     }
                     break;
@@ -195,7 +195,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Backward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleShutdownMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Shutdown, p);
                             break;
                     }
                     break;
@@ -210,7 +210,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Right = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleKiosk(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Kiosk, p);
                             break;
                     }
                     
@@ -226,7 +226,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Left = p;
                             break;
-                        case UserView.UserScreen.MainMenu: userViewControl.ToggleManualDriveMode(p);
+                        case UserView.UserScreen.MainMenu: userViewControl.ToggleMode(UserView.UserScreen.Manual, p);
                             ToggleManualDrive(p);
                             break;
                     }
@@ -234,10 +234,6 @@ namespace HENRY
                 case Buttons.Black:
                     switch (userViewControl.currentMode)
                     {
-                        case UserView.UserScreen.Tour: userViewControl.ToggleTourMode(p);
-                            break;
-                        case UserView.UserScreen.Shutdown: userViewControl.ToggleShutdownMode(p);
-                            break;
                         case UserView.UserScreen.Kiosk:  
                             if (userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
                             {
@@ -245,13 +241,16 @@ namespace HENRY
                             }
                             else
                             {
-                                userViewControl.ToggleKiosk(p);
+                                userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p);
                             }
                             break;
-                        case UserView.UserScreen.Manual: userViewControl.ToggleManualDriveMode(p);
+                        case UserView.UserScreen.Manual:
+                            userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p); ;
                             ToggleManualDrive(p);
                             break;
                         case UserView.UserScreen.MainMenu:
+                            break;
+                        default: userViewControl.ToggleMode(UserView.UserScreen.MainMenu, p);
                             break;
                     }
                     break;
@@ -362,7 +361,13 @@ namespace HENRY
             MWindow.Close();
         }
 
-        
-        
+        private void ViewControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            vm.ManualDriveEnabled = false;
+            mnd.t.Stop();
+            vm.AutonomousNavigation = false;
+            bnm.t.Stop();
+            userViewControl.ToggleMode(UserView.UserScreen.MainMenu, true);
+        }
     }
 }
