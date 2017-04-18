@@ -251,8 +251,8 @@
         </Grid>
         <!-- End Shutdown stuff -->
         <!--Kiosk Mode stuff-->
-        <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
-        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="3" Margin="0,0,25,25" >
+        <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden" Panel.ZIndex="3"></views:KioskView>
+        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="4" Margin="0,0,25,25" >
             <TextBlock Text="Press " FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
@@ -385,7 +385,7 @@
             <MediaElement Grid.Column="1" Grid.Row="2" />
         </Grid>
         <!-- End Manual Mode stuff -->
-        <Grid x:Name="EStopPrompt" Visibility="{Binding EStop, Converter={StaticResource BooltoVisConverter}}" IsVisibleChanged="EStopPrompt_IsVisibleChanged">
+        <Grid x:Name="EStopPrompt" Visibility="{Binding EStop, Converter={StaticResource BooltoVisConverter}}" IsVisibleChanged="EStopPrompt_IsVisibleChanged" Panel.ZIndex="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
@@ -425,7 +425,7 @@
                             <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
                         </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock Text=" to reset E-Stop" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
+                    <TextBlock Text=" to attempt E-Stop reset" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>

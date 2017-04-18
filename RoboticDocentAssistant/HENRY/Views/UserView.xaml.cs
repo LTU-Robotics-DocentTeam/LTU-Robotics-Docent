@@ -86,8 +86,11 @@ namespace HENRY.Views
 
         internal void ShowKioskGetOut(bool p)
         {
-            
-            if (p) kioskPromptText.Visibility = Visibility.Visible;
+
+            if (p)
+            {
+                kioskPromptText.Visibility = Visibility.Visible;
+            }
         }
 
         
