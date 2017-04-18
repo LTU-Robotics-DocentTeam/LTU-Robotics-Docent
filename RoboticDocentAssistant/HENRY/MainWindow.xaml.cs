@@ -350,6 +350,7 @@ namespace HENRY
 
         private void MWindow_Closing(object sender, CancelEventArgs e)
         {
+            bnm.error_log.CloseLog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

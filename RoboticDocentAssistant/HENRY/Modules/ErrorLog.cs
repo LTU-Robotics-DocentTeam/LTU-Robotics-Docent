@@ -11,29 +11,13 @@ namespace HENRY.Modules
 {
     class ErrorLog : LengarioModuleCore
     {
-        Timer t;
-
         StreamWriter file;
-        string lines;
 
         public ErrorLog(LengarioModuleCore m)
         {
-            SetPropertyValue("ErrorLines", "Log for " + m.GetModuleName() + DateTime.Now);
-
-            file = new StreamWriter("..\\..\\ErrorLogs\\" + m.GetModuleName() + "test.txt");
-
-            t = new Timer();
-            t.Interval = 100;
-            t.Elapsed += t_Elapsed;
-            t.Start();
-        }
-
-        private void t_Elapsed(object sender, ElapsedEventArgs e)
-        {
-
-            WriteToLog(GetPropertyValue("ErrorLines").ToString());
-            
-            SetPropertyValue("ErrorLines", "");
+            string filename = m.GetModuleName() + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".txt";
+            file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
+            file.WriteLine("Error log for " + m.GetModuleName() + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
         }
 
         public void WriteToLog (string line)
@@ -43,7 +27,6 @@ namespace HENRY.Modules
 
         public void CloseLog()
         {
-            t.Stop();
             file.Close();
         }
 

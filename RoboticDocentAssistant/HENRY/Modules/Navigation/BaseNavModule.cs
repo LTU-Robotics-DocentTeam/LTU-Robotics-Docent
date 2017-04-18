@@ -21,7 +21,7 @@ namespace HENRY.Modules.Navigation
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
         UltrasonicSensorModule usm;
-        ErrorLog error_log;
+        public ErrorLog error_log;
         private bool errorState = false;
 
         
@@ -55,8 +55,6 @@ namespace HENRY.Modules.Navigation
             hallEffectError = hem.Calculate();
             //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
             ultrasonicError = usm.Calculate();
-
-            error_log.CloseLog();
 
             errorState = false;
             int speed = 0;
