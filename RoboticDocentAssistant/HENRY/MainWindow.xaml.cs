@@ -46,18 +46,6 @@ namespace HENRY
             InitializeComponent();
             
             MWindow.DataContext = vm;
-
-            //if (vm.DevModeOn)
-            //{
-            //    devViewControl.Visibility = System.Windows.Visibility.Visible;
-            //    userViewControl.Visibility = System.Windows.Visibility.Hidden;
-            //}
-            //else
-            //{
-            //    devViewControl.Visibility = System.Windows.Visibility.Hidden;
-            //    userViewControl.Visibility = System.Windows.Visibility.Visible;
-            //}
-
         }
 
         /// <summary>

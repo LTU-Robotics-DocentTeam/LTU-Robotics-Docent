@@ -37,7 +37,9 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Main Menu" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="Main Menu" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
+                
+            </TextBlock>
             <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -217,8 +219,12 @@
         <!-- End Shutdown stuff -->
         <!--Kiosk Mode stuff-->
         <views:KioskView x:Name="kioskViewControl" Grid.Row="0" Grid.Column="0" Visibility="Hidden"></views:KioskView>
-        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="3" >
-            <TextBlock Text="Press " FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+        <StackPanel x:Name="kioskPromptText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Hidden" Panel.ZIndex="3" Margin="0,0,25,25" >
+            <TextBlock Text="Press " FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </TextBlock.Effect>
+                </TextBlock>
             <Ellipse x:Name="ellipse" Width="{Binding ActualHeight, ElementName=ellipse, Mode=OneWay}">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -226,8 +232,15 @@
                         <GradientStop Color="#FF323232"/>
                     </LinearGradientBrush>
                 </Ellipse.Fill>
+                <Ellipse.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </Ellipse.Effect>
             </Ellipse>
-            <TextBlock Text=" to Leave Kiosk Mode" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
+            <TextBlock Text=" to Leave Kiosk Mode" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </TextBlock.Effect>
+            </TextBlock>
         </StackPanel>
         <!--End Kiosk Mode stuff-->
         <!-- Manual Mode stuff -->
@@ -329,6 +342,7 @@
             <MediaElement Grid.Column="1" Grid.Row="2" />
         </Grid>
         <!-- End Manual Mode stuff -->
+        
     </Grid>
 
 
