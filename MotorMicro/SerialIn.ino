@@ -9,10 +9,10 @@ void SerialIn()
   
   while (Serial.available() > 0)
   {
-    inputBuffer += Serial.read();
+    inputBuffer += (char)Serial.read();
   }
 
-  for(i = 0; i < inputBuffer.length(); i++)
+  for(int i = 0; i < inputBuffer.length(); i++)
   {
     bBuff += inputBuffer[i];
     
