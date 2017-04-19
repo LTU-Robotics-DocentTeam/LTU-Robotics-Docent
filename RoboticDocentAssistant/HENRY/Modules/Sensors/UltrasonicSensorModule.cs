@@ -31,7 +31,7 @@ namespace HENRY.Modules.Sensors
 
         public int Calculate()
         {
-            // what do?
+            // calculates the smallest distance out of values sent from each of the sensors
             dist2obstacle = Constants.MAX_DIST;
 
 
