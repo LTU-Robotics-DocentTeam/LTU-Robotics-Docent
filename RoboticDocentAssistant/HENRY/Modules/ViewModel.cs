@@ -460,33 +460,34 @@ namespace HENRY.Modules
             get { return GetPropertyValue("EStop").ToBoolean(); }
             set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
         }
-        public bool Yellow 
+
+        public int Yellow 
         { 
-            get { return GetPropertyValue("Yellow").ToBoolean(); } 
+            get { return GetPropertyValue("Yellow").ToInt32(); } 
             set { SetPropertyValue("Yellow", value); RaisePropertyChanged("Yellow"); } 
         }
 
-        public bool Blue  
-        { 
-            get { return GetPropertyValue("Blue").ToBoolean(); } 
+        public int Blue  
+        {
+            get { return GetPropertyValue("Blue").ToInt32(); } 
             set { SetPropertyValue("Blue", value); RaisePropertyChanged("Blue"); } 
         }
 
-        public bool Red 
-        { 
-            get { return GetPropertyValue("Red").ToBoolean(); } 
+        public int Red 
+        {
+            get { return GetPropertyValue("Red").ToInt32(); } 
             set { SetPropertyValue("Red", value); RaisePropertyChanged("Red"); } 
         }
 
-        public bool Green 
-        { 
-            get { return GetPropertyValue("Green").ToBoolean(); } 
+        public int Green 
+        {
+            get { return GetPropertyValue("Green").ToInt32(); } 
             set { SetPropertyValue("Green", value); RaisePropertyChanged("Green"); } 
         }
 
-        public bool Black 
-        { 
-            get { return GetPropertyValue("Black").ToBoolean(); } 
+        public int Black 
+        {
+            get { return GetPropertyValue("Black").ToInt32(); } 
             set { SetPropertyValue("Black", value); RaisePropertyChanged("Black"); } 
         }
     }
