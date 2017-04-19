@@ -20,9 +20,27 @@ namespace HENRY.Views
     /// </summary>
     public partial class DevView : UserControl
     {
+        public enum DevScreen { Manual, Testing };
+
+        public DevScreen currentmode = DevScreen.Testing;
+        
         public DevView()
         {
             InitializeComponent();
+        }
+
+        public void SwitchMode(DevScreen newmode)
+        {
+            currentmode = newmode;
+            switch (newmode)
+            {
+                case DevScreen.Manual: modeName.Text = "Manual Drive mode";
+                    break;
+                case DevScreen.Testing: modeName.Text = "Testing Mode";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

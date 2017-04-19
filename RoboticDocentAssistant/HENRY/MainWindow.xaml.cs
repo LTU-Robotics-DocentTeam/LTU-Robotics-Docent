@@ -263,19 +263,72 @@ namespace HENRY
             switch (b)
             {
                 case Buttons.Green:
-                    vm.Forward = p;
+                    switch (devViewControl.currentmode)
+	                {
+                        case DevView.DevScreen.Manual: 
+                            vm.Forward = p;
+                            break;
+                        case DevView.DevScreen.Testing:
+                            ToggleAutonomousNavigation(p);
+                            break;
+                        default:
+                            break;
+	                }
                     break;
                 case Buttons.Red:
-                    vm.Backward = p;
+                    switch (devViewControl.currentmode)
+                    {
+                        case DevView.DevScreen.Manual: vm.Backward = p;
+                            break;
+                        case DevView.DevScreen.Testing: if (p) vm.EStop = !vm.EStop;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case Buttons.Blue:
-                    vm.Right = p;
+                    switch (devViewControl.currentmode)
+                    {
+                        case DevView.DevScreen.Manual: vm.Right = p;
+                            break;
+                        case DevView.DevScreen.Testing:
+                            if (p)
+                            {
+                                //vm.DevModeOn = !vm.DevModeOn;
+                                //vm.UserModeOn = !vm.UserModeOn;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    
                     break;
                 case Buttons.Yellow:
-                    vm.Left = p;
+                    switch (devViewControl.currentmode)
+                    {
+                        case DevView.DevScreen.Manual: vm.Left = p;
+                            break;
+                        case DevView.DevScreen.Testing:
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case Buttons.Black:
-                    if (p) ToggleManualDrive(p);
+                    if (p)
+                    {
+                        switch (devViewControl.currentmode)
+                        {
+                            case DevView.DevScreen.Manual: 
+                                devViewControl.SwitchMode(DevView.DevScreen.Testing);
+                                ToggleManualDrive(p);
+                                break;
+                            case DevView.DevScreen.Testing: devViewControl.SwitchMode(DevView.DevScreen.Manual);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     break;
             }
         }
@@ -297,6 +350,8 @@ namespace HENRY
                 vm.AutonomousNavigation = !vm.AutonomousNavigation;
                 if (vm.AutonomousNavigation) bnm.StartModule();
                 else bnm.StopModule();
+                if (mmd.recording) mmd.StopRecording();
+                else mmd.StartRecording();
             }
         }
 

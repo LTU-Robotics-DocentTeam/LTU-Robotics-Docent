@@ -38,6 +38,7 @@
                             <TextBlock Text="Autonomous Navigation Mode:    " TextAlignment="Left"></TextBlock>
                             <CheckBox IsChecked="{Binding AutonomousNavigation}" IsEnabled="False"></CheckBox>
                         </StackPanel>
+                        <TextBlock x:Name="modeName" Text="Testing Mode"></TextBlock>
                     </StackPanel>
                     
                 </StackPanel>
