@@ -12,17 +12,24 @@ namespace HENRY.Modules
     class ErrorLog : LengarioModuleCore
     {
         StreamWriter file;
+        string moduleName;
 
         public ErrorLog(LengarioModuleCore m)
         {
-            string filename = m.GetModuleName() + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".txt";
-            file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
-            file.WriteLine("Error log for " + m.GetModuleName() + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            moduleName = m.GetModuleName();
         }
 
         public void WriteToLog (string line)
         {
             file.WriteLineAsync(line);
+        }
+
+        public void OpenLog()
+        {
+            string filename = moduleName + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".csv";
+            file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
+            file.WriteLine("Time," + moduleName);
+            //file.WriteLine("Error log for " + moduleName + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
         }
 
         public void CloseLog()

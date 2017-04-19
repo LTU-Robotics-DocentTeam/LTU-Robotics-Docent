@@ -290,8 +290,8 @@ namespace HENRY
             if (p)
             {
                 vm.AutonomousNavigation = !vm.AutonomousNavigation;
-                if (vm.AutonomousNavigation) bnm.t.Start();
-                else bnm.t.Stop();
+                if (vm.AutonomousNavigation) bnm.StartModule();
+                else bnm.StopModule();
             }
         }
 

@@ -15,7 +15,7 @@ namespace HENRY.Modules.Navigation
     class BaseNavModule : LengarioModuleCore
     {
         public Timer t;
-        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0;
+        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0, time = 0;
         double prevLoc = 0, dirLoc = 0, currLoc = 0;
 
         HallEffectSensorModule hem;
@@ -92,6 +92,7 @@ namespace HENRY.Modules.Navigation
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
             }
+            error_log.WriteToLog(time++ + "," + dirLoc.ToString());
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
@@ -109,7 +110,18 @@ namespace HENRY.Modules.Navigation
                 
             }
 
-           
+        }
+        
+        public void StopModule()
+        {
+            t.Stop();
+            error_log.CloseLog();
+            time = 0;
+        }
+        public void StartModule()
+        {
+            error_log.OpenLog();
+            t.Start();
         }
         
         public override string GetModuleName()
