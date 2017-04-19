@@ -596,11 +596,11 @@ namespace HENRY.Modules
                 }
                 if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
                 {
-                    msg2sensor += "<T0>";
+                    msg2sensor += "<T1>";
                 }
                 else
                 {
-                    msg2sensor += "<T1>";
+                    msg2sensor += "<T0>";
                 }
                 if (msg2sensor != "")
                 {

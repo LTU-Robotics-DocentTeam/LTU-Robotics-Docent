@@ -64,7 +64,7 @@ namespace HENRY.Modules.Sensors
 
             else if (dist2obstacle < 100)
             {
-                player.Play();
+                //player.Play();
                 return -1;
             }
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);

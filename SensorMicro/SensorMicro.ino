@@ -95,7 +95,7 @@ void setup() {
     mcp.pullUp(HEpins[i], HIGH);
   }
   
-  Lift_Servo.attach(P_U2_PWM1);
+  Lift_Servo.attach(P_U2_PWM2);
   Lift_Servo.write(0);
 }
 
