@@ -20,7 +20,7 @@ namespace HENRY.Modules
             moduleName = m.GetModuleName();
         }
 
-        public ErrorLog(MotorModule m)
+        public ErrorLog(LengarioModuleAuxiliary m)
         {
             moduleName = m.GetModuleName();
         }

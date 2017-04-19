@@ -99,7 +99,7 @@ namespace HENRY.Modules.Navigation
             dspd = (smoothLoc - prevsmoothLoc);
             smoothdspd += (dspd - smoothdspd) * 0.1; 
 
-           error_log.WriteToLog(time++ + "," + dirLoc.ToString() + "," + smoothLoc.ToString() + "," + dspd.ToString() + "," + smoothdspd.ToString());
+            error_log.WriteToLog(time++ + "," + dirLoc.ToString() + "," + smoothLoc.ToString() + "," + dspd.ToString() + "," + smoothdspd.ToString());
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
@@ -125,11 +125,13 @@ namespace HENRY.Modules.Navigation
         {
             t.Stop();
             error_log.CloseLog();
+            usm.StopRecording();
             time = 0;
         }
         public void StartModule()
         {
             error_log.OpenLog();
+            usm.StartRecording();
             error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
             t.Start();
         }
