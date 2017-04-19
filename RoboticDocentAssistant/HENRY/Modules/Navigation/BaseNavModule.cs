@@ -16,7 +16,7 @@ namespace HENRY.Modules.Navigation
     {
         public Timer t;
         int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0, time = 0;
-        double prevLoc = 0, dirLoc = 0, currLoc = 0;
+        double prevLoc = 0, dirLoc = 0, currLoc = 0, smoothLoc = 0, dspd = 0, smoothdspd = 0;
 
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
@@ -93,7 +93,11 @@ namespace HENRY.Modules.Navigation
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
             }
-            error_log.WriteToLog(time++ + "," + dirLoc.ToString());
+            smoothLoc += (dirLoc - smoothLoc) * 0.1;
+            dspd = (dirLoc - prevLoc);
+            smoothdspd += (dspd - smoothdspd) * 0.1; 
+
+           error_log.WriteToLog(time++ + "," + dirLoc.ToString() + "," + smoothLoc.ToString() + "," + dspd.ToString() + "," + smoothdspd.ToString());
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
