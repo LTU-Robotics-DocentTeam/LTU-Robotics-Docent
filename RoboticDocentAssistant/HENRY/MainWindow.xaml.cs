@@ -44,6 +44,25 @@ namespace HENRY
             InitializeComponent();
 
             MWindow.DataContext = vm;
+
+            holdDownTimer = new Timer();
+            holdDownTimer.Interval = 10;
+            holdDownTimer.Elapsed += holdDownTimer_Elapsed;
+            holdDownTimer.Start();
+        }
+
+        void holdDownTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if(vm.Green > 0)
+                vm.Green++;
+            if (vm.Red > 0)
+                vm.Red++;
+            if (vm.Yellow > 0)
+                vm.Yellow++;
+            if (vm.Blue > 0)
+                vm.Blue++;
+            if (vm.Black > 0)
+                vm.Black++;
         }
 
         /// <summary>
@@ -75,35 +94,37 @@ namespace HENRY
         {
             if (e.Key == Key.W)
             {
-                vm.Green++;
+                if (vm.Green == 0)
+                    vm.Green++;
                 if (vm.DevModeOn) DevModeController(Buttons.Green, true);
                 if (vm.UserModeOn) UserModeController(Buttons.Green, true);
             }
             
             if (e.Key == Key.S)
             {
-                vm.Red++;
+                if (vm.Red == 0)
+                    vm.Red++;
                 if (vm.DevModeOn) DevModeController(Buttons.Red, true);
                 if (vm.UserModeOn) UserModeController(Buttons.Red, true);
             }
             if (e.Key == Key.D)
             {
-                if (vm.Blue < 100)
-                {
+                if (vm.Blue == 0)
                     vm.Blue++;
-                }
                 if (vm.DevModeOn) DevModeController(Buttons.Blue, true);
                 if (vm.UserModeOn) UserModeController(Buttons.Blue, true);
             }
             if (e.Key == Key.A)
             {
-                vm.Yellow++;
+                if (vm.Yellow == 0)
+                    vm.Yellow++;
                 if (vm.DevModeOn) DevModeController(Buttons.Yellow, true);
                 if (vm.UserModeOn) UserModeController(Buttons.Yellow, true);
             }
             if (e.Key == Key.Q)
             {
-                vm.Black++;
+                if (vm.Black == 0)
+                    vm.Black++;
                 if (vm.DevModeOn) DevModeController(Buttons.Black, true);
                 if (vm.UserModeOn) UserModeController(Buttons.Black, true);
             }
@@ -184,7 +205,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Forward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: if (vm.Green == 36) userViewControl.ToggleMode(UserView.UserScreen.Tour, p);
+                        case UserView.UserScreen.MainMenu: if (vm.Green > 20) userViewControl.ToggleMode(UserView.UserScreen.Tour, p);
                             break;
                     }
                     break;
@@ -193,13 +214,13 @@ namespace HENRY
                     {
                         case UserView.UserScreen.Tour: if (vm.AutonomousNavigation) ToggleAutonomousNavigation(p);
                             break;
-                        case UserView.UserScreen.Shutdown: if (vm.Red == 100) MWindow.Close();
+                        case UserView.UserScreen.Shutdown: if (vm.Red > 100) MWindow.Close();
                             break;
                         case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut(p);
                             break;
                         case UserView.UserScreen.Manual: vm.Backward = p;
                             break;
-                        case UserView.UserScreen.MainMenu: if (vm.Red == 36) userViewControl.ToggleMode(UserView.UserScreen.Shutdown, p);
+                        case UserView.UserScreen.MainMenu: if (vm.Red > 20) userViewControl.ToggleMode(UserView.UserScreen.Shutdown, p);
                             break;
                     }
                     break;
@@ -214,7 +235,7 @@ namespace HENRY
                             break;
                         case UserView.UserScreen.Manual: vm.Right = p;
                             break;
-                        case UserView.UserScreen.MainMenu: if (vm.Blue == 36) userViewControl.ToggleMode(UserView.UserScreen.Kiosk, p);
+                        case UserView.UserScreen.MainMenu: if (vm.Blue > 20) userViewControl.ToggleMode(UserView.UserScreen.Kiosk, p);
                             break;
                     }
                     
@@ -231,7 +252,7 @@ namespace HENRY
                         case UserView.UserScreen.Manual: vm.Left = p;
                             break;
                         case UserView.UserScreen.MainMenu:
-                            if (vm.Yellow == 36)
+                            if (vm.Yellow > 20)
                             {
                                 userViewControl.ToggleMode(UserView.UserScreen.Manual, p);
                                 ToggleManualDrive(p);
