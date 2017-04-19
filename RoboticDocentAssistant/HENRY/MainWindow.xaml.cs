@@ -324,6 +324,7 @@ namespace HENRY
                                 ToggleManualDrive(p);
                                 break;
                             case DevView.DevScreen.Testing: devViewControl.SwitchMode(DevView.DevScreen.Manual);
+                                ToggleManualDrive(p);
                                 break;
                             default:
                                 break;
