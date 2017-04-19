@@ -11,7 +11,7 @@ namespace HENRY.Modules
     class MotorModule : LengarioModuleAuxiliary
     {
         TimersTimer t;
-        
+        double alpha = 0.85, beta = 20;
         
         public MotorModule()
         {
@@ -34,6 +34,7 @@ namespace HENRY.Modules
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             double direction = GetPropertyValue("Direction").ToDouble();
+            double delta_direction = GetPropertyValue("DeltaDirection").ToDouble();
             int spd = GetPropertyValue("Speed").ToInt32();
             bool estop = GetPropertyValue("EStop").ToBoolean();
 
@@ -41,7 +42,7 @@ namespace HENRY.Modules
 
             if (spd > 0)
             {
-                int dSpd = (int)((spd) * .85 *(direction / Constants.MAX_DIR));
+                int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
                 rmSpeed = spd + dSpd;
                 lmSpeed = spd - dSpd;
 

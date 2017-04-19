@@ -33,7 +33,8 @@ namespace HENRY.Modules.Navigation
             error_log = new ErrorLog(this);
 
             
-            SetPropertyValue("Direction", 0.0); // Angle in degrees
+            SetPropertyValue("Direction", 0.0);
+            SetPropertyValue("DeltaDirection", 0.0);
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
@@ -105,12 +106,14 @@ namespace HENRY.Modules.Navigation
             {
                 if (!errorState)
                 {
-                    SetPropertyValue("Direction", dirLoc);
+                    SetPropertyValue("Direction", smoothLoc);
+                    SetPropertyValue("DeltaDirection", smoothdspd);
                     SetPropertyValue("Speed", speed);
                 }
                 else
                 {
                     SetPropertyValue("Direction", 0.0);
+                    SetPropertyValue("DeltaDirection", 0.0);
                     SetPropertyValue("Speed", 0);
                 }
                 
