@@ -21,7 +21,15 @@ namespace HENRY.Modules
 
         public void WriteToLog (string line)
         {
-            file.WriteLineAsync(line);
+            try
+            {
+                file.WriteLineAsync(line);
+            }
+            catch(Exception)
+            {
+
+            }
+            
         }
 
         public void OpenLog()
