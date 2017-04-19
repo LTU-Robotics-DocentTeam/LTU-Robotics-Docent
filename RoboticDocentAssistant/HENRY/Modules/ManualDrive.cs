@@ -27,7 +27,7 @@ namespace HENRY.Modules
             SetPropertyValue("Right", false);
             SetPropertyValue("Left", false);
             SetPropertyValue("Direction", 0.0); // Angle in degrees
-            SetPropertyValue("ManualSpeed", 3);
+            SetPropertyValue("ManualSpeed", Constants.DEFAULT_SPEED);
 
             // Set processing timer for module
             t = new TimersTimer();

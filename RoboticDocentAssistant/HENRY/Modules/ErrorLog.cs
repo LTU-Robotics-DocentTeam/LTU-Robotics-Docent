@@ -28,13 +28,20 @@ namespace HENRY.Modules
         {
             string filename = moduleName + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".csv";
             file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
-            file.WriteLine("Time," + moduleName);
             //file.WriteLine("Error log for " + moduleName + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
         }
 
         public void CloseLog()
         {
-            file.Close();
+            try
+            {
+                file.Close();
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         public override string GetModuleName()

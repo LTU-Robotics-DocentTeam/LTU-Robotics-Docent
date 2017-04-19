@@ -55,6 +55,7 @@ namespace HENRY.Modules.Navigation
             hallEffectError = hem.Calculate();
             //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
             ultrasonicError = usm.Calculate();
+            //ultrasonicError = 0;
 
             errorState = false;
             int speed = 0;
@@ -121,6 +122,7 @@ namespace HENRY.Modules.Navigation
         public void StartModule()
         {
             error_log.OpenLog();
+            error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
             t.Start();
         }
         

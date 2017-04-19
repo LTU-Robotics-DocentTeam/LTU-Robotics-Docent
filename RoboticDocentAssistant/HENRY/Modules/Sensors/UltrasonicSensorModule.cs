@@ -52,21 +52,22 @@ namespace HENRY.Modules.Sensors
 
             SetPropertyValue("ClosestObstacle", dist2obstacle);
 
-            if (300 < dist2obstacle)
-            {
-                reccomendedSpeed = 1;
-            }
+            //if (300 < dist2obstacle)
+            //{
+            //    reccomendedSpeed = 1;
+            //}
 
-            else if (100 < dist2obstacle && dist2obstacle < 300)
-            {
-                reccomendedSpeed = 0;
-            }
+            //else if (100 < dist2obstacle && dist2obstacle < 300)
+            //{
+            //    reccomendedSpeed = 0;
+            //}
 
-            else if (dist2obstacle < 100)
-            {
-                //player.Play();
-                return -1;
-            }
+            //else if (dist2obstacle < 100)
+            //{
+            //    //player.Play();
+            //    return -1;
+            //}
+            reccomendedSpeed = 1;
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
 
             return 0;
