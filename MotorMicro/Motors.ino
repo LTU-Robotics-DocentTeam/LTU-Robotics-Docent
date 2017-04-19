@@ -51,7 +51,7 @@ void RunMotors()
 
   if (CommandHealth == 0)
   {
-    //EStop();
+    EStop();
   }
 
 
