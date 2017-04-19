@@ -79,7 +79,7 @@ const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
 bool Servo_On = false;
-String Servo_Engaged= "";
+String Servo_Engaged= "0";
 
 
 void setup() {
