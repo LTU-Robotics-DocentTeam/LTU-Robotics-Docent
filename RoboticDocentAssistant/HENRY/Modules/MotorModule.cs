@@ -11,10 +11,15 @@ namespace HENRY.Modules
     class MotorModule : LengarioModuleAuxiliary
     {
         TimersTimer t;
+        ErrorLog plots;
         double alpha = 0.85, beta = 20;
+        int time = 0;
+        public bool recording = false;
         
         public MotorModule()
         {
+            plots = new ErrorLog(this);
+            
             // Initialize properties to default
             SetPropertyValue("RightMSpeed", 0);
             SetPropertyValue("LeftMSpeed", 0);
@@ -45,6 +50,7 @@ namespace HENRY.Modules
                 int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
                 rmSpeed = spd + dSpd;
                 lmSpeed = spd - dSpd;
+                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
 
                 //if (direction > 0)
                 //{
@@ -87,6 +93,7 @@ namespace HENRY.Modules
             }
 
 
+
             // Ensure total speed does not exceed MAXSPEED
             if (rmSpeed < -Constants.MAX_MOTOR_SPEED)
                 rmSpeed = -Constants.MAX_MOTOR_SPEED;
@@ -108,6 +115,19 @@ namespace HENRY.Modules
                 SetPropertyValue("RightMSpeed", 0);
                 SetPropertyValue("LeftMSpeed", 0);
             }
+        }
+
+        public void StopRecording()
+        {
+            plots.CloseLog();
+            recording = false;
+        }
+        public void StartRecording()
+        {
+            plots.OpenLog();
+            time = 0;
+            plots.WriteToLog("Time,position,speed,result");
+            recording = true;
         }
 
         public override string GetModuleName()

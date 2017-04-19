@@ -148,6 +148,11 @@ namespace HENRY
                 if (vm.DevModeOn) DevModeController(Buttons.Black, false);
                 if (vm.UserModeOn) UserModeController(Buttons.Black, false);
             }
+            if (e.Key == Key.M)
+            {
+                if (mmd.recording) mmd.StopRecording();
+                else mmd.StartRecording();
+            }
         }
 
         /// <summary>
