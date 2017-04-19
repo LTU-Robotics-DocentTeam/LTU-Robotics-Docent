@@ -7,6 +7,7 @@ void SerialOut()
   //String hallArray = Hall_Effect_Array();
   long ultraValue = Ultra_Sensor(USping[i], USecho[i]);
   String ultrasonic = "<" + (String)USkey[i] + (String)ultraValue + ">";
+  String Lift = "<T" + Servo_Engaged + ">"; // added in case we want to send this value to the computer
 
   // Add corresponding sensor data to the message only if it has changed from last iteration
 
