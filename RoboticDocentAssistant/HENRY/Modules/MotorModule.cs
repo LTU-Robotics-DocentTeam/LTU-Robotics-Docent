@@ -12,7 +12,7 @@ namespace HENRY.Modules
     {
         TimersTimer t;
         ErrorLog plots;
-        double alpha = 0.85, beta = 20;
+        double alpha = 0.4, beta = 16;
         int time = 0;
         public bool recording = false;
         

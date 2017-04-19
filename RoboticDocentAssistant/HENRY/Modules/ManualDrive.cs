@@ -68,6 +68,7 @@ namespace HENRY.Modules
             if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
                 SetPropertyValue("Direction", direction);
+                SetPropertyValue("DeltaDirection", 0.0);
                 SetPropertyValue("Speed", speed);
             }
             

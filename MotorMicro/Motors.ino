@@ -51,7 +51,8 @@ void RunMotors()
 
   if (CommandHealth == 0)
   {
-    EStop();
+    SetMotorRight(0);
+    SetMotorLeft(0);
   }
 
 
