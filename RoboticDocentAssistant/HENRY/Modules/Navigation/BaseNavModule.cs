@@ -126,7 +126,7 @@ namespace HENRY.Modules.Navigation
             t.Stop();
             error_log.CloseLog();
             usm.StopRecording();
-            time = 0;
+            
         }
         public void StartModule()
         {
@@ -134,6 +134,12 @@ namespace HENRY.Modules.Navigation
             usm.StartRecording();
             error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
             t.Start();
+            time = 0;
+            prevLoc = 0;
+            dirLoc = 0;
+            currLoc = 0; smoothLoc = 0; dspd = 0;
+            smoothdspd = 0;
+            prevsmoothLoc = 0;
         }
         
         public override string GetModuleName()
