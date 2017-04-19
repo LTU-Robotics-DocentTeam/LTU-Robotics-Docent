@@ -12,7 +12,7 @@ namespace HENRY.Modules
     {
         TimersTimer t;
         ErrorLog plots;
-        double alpha = 0.4, beta = 16;
+        double alpha = 0.4, beta = 12;
         int time = 0;
         public bool recording = false;
         
@@ -126,7 +126,7 @@ namespace HENRY.Modules
         {
             plots.OpenLog();
             time = 0;
-            plots.WriteToLog("Time,position,speed,result");
+            plots.WriteToLog("Time,position,speed,result,alpha," + alpha.ToString() + ",beta," + beta.ToString());
             recording = true;
         }
 
