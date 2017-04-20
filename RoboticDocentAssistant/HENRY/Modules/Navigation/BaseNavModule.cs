@@ -126,7 +126,9 @@ namespace HENRY.Modules.Navigation
             t.Stop();
             error_log.CloseLog();
             usm.StopRecording();
-            
+            SetPropertyValue("Direction", 0.0);
+            SetPropertyValue("DeltaDirection", 0.0);
+            SetPropertyValue("Speed", 0);
         }
         public void StartModule()
         {

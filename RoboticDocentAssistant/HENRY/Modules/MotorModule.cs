@@ -27,6 +27,8 @@ namespace HENRY.Modules
             SetPropertyValue("LeftBrake", false);
             SetPropertyValue("RightBrake", false); 
             SetPropertyValue("EStop", false);
+            SetPropertyValue("Alpha", 0.5);
+            SetPropertyValue("Beta", 14);
             
 
             // Set processing timer for module
