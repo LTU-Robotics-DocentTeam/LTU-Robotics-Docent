@@ -189,36 +189,25 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >
+                <StackPanel.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </StackPanel.Effect>
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                     TOUR DRIVE MODE
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
                 </TextBlock>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        Hold&#160;
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                    <Ellipse x:Name="tourPromptButton" Width="{Binding ActualHeight, ElementName=tourPromptButton, Mode=OneWay}">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
+                    <Ellipse x:Name="tourblackPromptButton" Width="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}" Margin="5,0">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
                                 <GradientStop Color="#FF323232"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        &#160;for 5 seconds to return to the Main Menu
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource Three}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
             <Grid x:Name="tourDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=tourDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
@@ -240,32 +229,51 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
+
+                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF1B8E30" Offset="0.564"/>
                             <GradientStop Color="#FF1FDE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Green, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
-                    GO
+                        GO
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF878E1B" Offset="0.564"/>
                             <GradientStop Color="#FFD3DE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Yellow, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -273,16 +281,25 @@
                         STREAM
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF201B8E" Offset="0.564"/>
                             <GradientStop Color="#FF1A19DE"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Blue, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -290,16 +307,25 @@
                         STREAM
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
                             <GradientStop Color="#FFDE1919"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Red, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
                     STOP
@@ -402,36 +428,25 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >
+                <StackPanel.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </StackPanel.Effect>
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
                     MANUAL DRIVE MODE
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
                 </TextBlock>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        Hold&#160;
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                    <Ellipse x:Name="manualPromptButton" Width="{Binding ActualHeight, ElementName=manualPromptButton, Mode=OneWay}">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
+                    <Ellipse x:Name="manualblackPromptButton" Width="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}" Margin="5,0">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
                                 <GradientStop Color="#FF323232"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        &#160;for 5 seconds to return to the Main Menu
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource Three}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
             <Grid x:Name="manualDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=manualDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
@@ -453,32 +468,50 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF1B8E30" Offset="0.564"/>
                             <GradientStop Color="#FF1FDE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Green, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
-                    FORWARD
+                        FORWARD
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF878E1B" Offset="0.564"/>
                             <GradientStop Color="#FFD3DE19"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Yellow, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -486,16 +519,25 @@
                         TURN
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF201B8E" Offset="0.564"/>
                             <GradientStop Color="#FF1A19DE"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Blue, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
                     <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
@@ -503,16 +545,25 @@
                         TURN
                     </TextBlock>
                 </StackPanel>
-                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                             <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
                             <GradientStop Color="#FFDE1919"/>
                         </LinearGradientBrush>
                     </Ellipse.Fill>
-                    <Ellipse.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </Ellipse.Effect>
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Red, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Text="REVERSE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             </Grid>
@@ -565,6 +616,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-
-
 </UserControl>

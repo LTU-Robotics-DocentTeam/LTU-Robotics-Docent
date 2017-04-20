@@ -136,7 +136,11 @@ namespace HENRY
                     if (vm.YellowPressed)
                         vm.Yellow += 0.05;
                     if (vm.BluePressed)
-                        vm.Blue += 0.05;                   
+                        vm.Blue += 0.05;
+                    break;
+                case UserView.UserScreen.Estop:
+                    if (vm.BlackPressed)
+                        vm.Black += 0.01666;
                     break;
             }
             
@@ -352,6 +356,7 @@ namespace HENRY
 
             else if (vm.UserModeOn)
             {
+                
                 if (e.Key == Key.W)
                 {
                     ResetButton(Buttons.Green);
@@ -382,18 +387,26 @@ namespace HENRY
                 case Buttons.Green:
                     vm.GreenPressed = false;
                     vm.Green = 0;
+                    if (userViewControl.currentMode == UserView.UserScreen.Manual)
+                        vm.Forward = false;
                     break;
                 case Buttons.Red:
                     vm.RedPressed = false;
                     vm.Red = 0;
+                    if (userViewControl.currentMode == UserView.UserScreen.Manual)
+                        vm.Backward = false;
                     break;
                 case Buttons.Yellow:
                     vm.YellowPressed = false;
                     vm.Yellow = 0;
+                    if (userViewControl.currentMode == UserView.UserScreen.Manual)
+                        vm.Left = false;
                     break;
                 case Buttons.Blue:
                     vm.BluePressed = false;
                     vm.Blue = 0;
+                    if (userViewControl.currentMode == UserView.UserScreen.Manual)
+                        vm.Right = false;
                     break;
                 case Buttons.Black:
                     vm.BlackPressed = false;
@@ -605,6 +618,7 @@ namespace HENRY
         private void MWindow_Closing(object sender, CancelEventArgs e)
         {
             bnm.error_log.CloseLog();
+            holdDownTimer.Stop();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
