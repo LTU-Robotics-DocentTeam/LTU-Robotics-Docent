@@ -409,6 +409,7 @@ namespace HENRY.Modules
         {
             get { return GetPropertyValue("Impact1").ToBoolean(); }
             set { SetPropertyValue("Impact1", value); RaisePropertyChanged("Impact1"); }
+         
         }
         public bool Impact2
         {
@@ -448,7 +449,8 @@ namespace HENRY.Modules
         public bool Impact9
         {
             get { return GetPropertyValue("Impact9").ToBoolean(); }
-            set { SetPropertyValue("Impact9", value); RaisePropertyChanged("Impact9"); }
+            set { SetPropertyValue("Impact9", value) ; RaisePropertyChanged("Impact9"); }
+            
         }
         public bool Impact10
         {
