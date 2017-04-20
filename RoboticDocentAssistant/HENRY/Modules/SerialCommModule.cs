@@ -82,6 +82,7 @@ namespace HENRY.Modules
             SetPropertyValue("UserModeOn", false);
             SetPropertyValue("SimulationMode", false);
             SetPropertyValue("BatteryVoltage", 0.ToString());
+            SetPropertyValue("EstopText", "");
 
             t.Start();
 
@@ -516,6 +517,7 @@ namespace HENRY.Modules
         {
             // Calls function to update the connection status on the GUI
             UpdateConnectionStatus();
+            BuildEstopText();
 
             // decrease simulation timer counter back to 0
             if (simTimer > 0) simTimer--;
@@ -633,6 +635,18 @@ namespace HENRY.Modules
                 }
 
             }
+        }
+
+        private void BuildEstopText()
+        {
+            string text = "";
+
+            if  (GetPropertyValue("EStop").ToBoolean() == true)
+            {
+                text = "Check ESTOP";
+            }
+
+            SetPropertyValue("EstopText", text);
         }
 
 

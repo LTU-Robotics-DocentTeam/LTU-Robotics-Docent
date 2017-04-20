@@ -581,7 +581,7 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95">
+            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Margin="0,10,0,206" Grid.RowSpan="2">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF810F0F" Offset="0"/>
@@ -591,27 +591,23 @@
             </Rectangle>
             <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
-                E-Stop Triggered! <LineBreak/>
+                Emergency Stop Triggered! <LineBreak/>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
-                    This will somehow magically <LineBreak/>
-                    know the reason for the e-stop<LineBreak/>
-                    and tell the user! <LineBreak/>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding EstopText}" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
                 </TextBlock>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="Hold " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
-                    <Ellipse x:Name="estopPromptButton" Width="{Binding ActualHeight, ElementName=estopPromptButton, Mode=OneWay}">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
+                    <Ellipse x:Name="estopblackPromptButton" Width="{Binding ActualHeight, ElementName=estopblackPromptButton, Mode=OneWay}" Margin="5,0">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
                                 <GradientStop Color="#FF323232"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock Text=" to attempt E-Stop reset" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource Three}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to Attempt Reset"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

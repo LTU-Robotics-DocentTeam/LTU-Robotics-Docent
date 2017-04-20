@@ -460,6 +460,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("EStop").ToBoolean(); }
             set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
         }
+        public string EstopText
+        {
+            get { return GetPropertyValue("EstopText").ToString(); }
+            set { SetPropertyValue("EstopText", value); RaisePropertyChanged("EstopText"); }
+        }
 
         public double Yellow 
         {
