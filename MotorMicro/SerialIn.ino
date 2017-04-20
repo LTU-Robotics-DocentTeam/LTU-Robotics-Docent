@@ -63,10 +63,10 @@ void ProcessSerial(String msg)
       // else do nothing
       break;
     case 'R': // right motor input
-      SetMotorRight(value); // store value as motor speed
+      SetMotor('R',value); // store value as motor speed
       break;
     case 'L': // left motor input
-      SetMotorLeft(value); // store value as motor speed
+      SetMotor('L',value); // store value as motor speed
       break;
     case 'F': // attempt E-Stop reset signal
       ResetEStop();

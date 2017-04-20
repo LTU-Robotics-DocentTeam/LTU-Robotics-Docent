@@ -70,6 +70,20 @@ bool EStopped = false;
 
 const int impact[L_NUM] = {P_U3_L1, P_U3_L3, P_U3_L5, P_U3_L7, P_U3_L2, P_U3_L4, P_U3_L6, P_U3_L8};
 
+
+int LeftVelocity = 0;
+int RightVelocity = 0;
+
+
+
+int LeftSeat = 0;
+int RightSeat = 0;
+
+int LeftCache = 0;
+int RightCache = 0;
+
+
+
 int LeftSpeed = 0;
 int RightSpeed = 0;
 

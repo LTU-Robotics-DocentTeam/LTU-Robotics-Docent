@@ -640,15 +640,31 @@ namespace HENRY.Modules
         private void BuildEstopText()
         {
             string text = "";
+            Boolean bumper = false; 
+            Boolean Stop = false;
 
+            for (int i = 0; i < 8; i++ )
+            {
+                if ( GetPropertyValue("Impact" + (i+1).ToString()).ToBoolean() == true)
+                {
+                    bumper = true;
+                }
+            }
             if  (GetPropertyValue("EStop").ToBoolean() == true)
             {
-                text = "Check Emergency Stop Button";
+                Stop = true; 
             }
-            if ((GetPropertyValue("EStop").ToBoolean() == true )&& (GetPropertyValue("Impact").ToBoolean() == true))
+            if (bumper == true)
             {
                 text = "Move Robot Away from Obstacle";
+                bumper = false;
             }
+            else if (Stop == true)
+            {
+                text = "Check Emergency Stop Button";
+                Stop = false;
+            }
+          
 
             SetPropertyValue("EstopText", text);
         }

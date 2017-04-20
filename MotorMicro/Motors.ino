@@ -1,35 +1,55 @@
 
-void SetMotorLeft(int LeftVelocity)
+void SetMotor(char motor, int newVelocity)
 {
   if (EStopped)
     return;
 
 
-  //Serial.println("SetMotorLeft");
 
-  LeftSpeed = abs(LeftVelocity);
+  if(motor == 'R')
+    RightSeat = newVelocity;
+    
 
-  LeftReverse = LeftVelocity < 0;
+  if(motor == 'L')
+    LeftSeat = newVelocity;
 
+
+
+  if(RightSeat == LeftSeat && RightCache != LeftCache)
+  {
+    LeftMotorValue = RightCache;
+    RightMotorValue = LeftCache;
+  }
+
+
+  RightCache = RightSeat;
+
+  LeftCache = LeftSeat;
+
+
+  if(motor == 'R')
+  {
+    RightSpeed = abs(RightSeat);
+
+    RightReverse = RightSeat < 0;
+  }
+ 
+    
+
+  if(motor == 'L')
+  {
+    LeftSpeed = abs(LeftSeat);
+
+    LeftReverse = LeftSeat < 0;
+  }
+  
   CommandHealth = HEALTH_CONSTANT;
+  
 
 }
 
 
-void SetMotorRight(int RightVelocity)
-{
-  if (EStopped)
-    return;
 
-  //Serial.println("SetMotorRight");
-
-  RightSpeed = abs(RightVelocity);
-
-  RightReverse = RightVelocity < 0;
-
-  CommandHealth = HEALTH_CONSTANT;
-
-}
 
 
 void RunMotors()
@@ -51,8 +71,8 @@ void RunMotors()
 
   if (CommandHealth == 0)
   {
-    SetMotorRight(0);
-    SetMotorLeft(0);
+    SetMotor('R',0);
+    SetMotor('L',0);
   }
 
 
