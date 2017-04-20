@@ -25,6 +25,14 @@ void SerialOut()
     {
       message += "<U1>";
     }
+    if (EStopped)
+    {
+      message += "<E1>";
+    }
+    else
+    {
+      message += "<E0>";
+    }
     message += Brakes;
   }
 

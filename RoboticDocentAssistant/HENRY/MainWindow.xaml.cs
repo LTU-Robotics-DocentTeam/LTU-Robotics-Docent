@@ -400,6 +400,11 @@ namespace HENRY
                     vm.Black = 0;
                     break;
             }
+            if (e.Key == Key.M)
+            {
+                if (mmd.recording) mmd.StopRecording();
+                else mmd.StartRecording();
+            }
         }
 
         /// <summary>
@@ -513,6 +518,7 @@ namespace HENRY
         {
             switch (b.Key)
             {
+
                 case Key.W: //green
                     vm.Forward = p;
                     break;
@@ -527,6 +533,7 @@ namespace HENRY
                     break;
                 case Key.Q://black
                     if (p) ToggleManualDrive();
+
                     break;
             }
         }
@@ -540,9 +547,12 @@ namespace HENRY
 
         private void ToggleAutonomousNavigation()
         {
-            vm.AutonomousNavigation = !vm.AutonomousNavigation;
-            if (vm.AutonomousNavigation) bnm.t.Start();
-            else bnm.t.Stop();
+                        vm.AutonomousNavigation = !vm.AutonomousNavigation;
+                if (vm.AutonomousNavigation) bnm.StartModule();
+                else bnm.StopModule();
+                if (mmd.recording) mmd.StopRecording();
+                else mmd.StartRecording();
+
         }
 
         // ===================================================================================================

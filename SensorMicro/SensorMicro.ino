@@ -55,6 +55,8 @@
 
 Adafruit_MCP23017 mcp;
 
+Servo Lift_Servo;
+
 //pins
 const int HEpins[H_NUM] = {P_Hall_H1, P_Hall_H2, P_Hall_H3, P_Hall_H4, P_Hall_H5, P_Hall_H6, P_Hall_H7,
                            P_Hall_H8, P_Hall_H9, P_Hall_H10, P_Hall_H11, P_Hall_H12, P_Hall_H13, P_Hall_H14,
@@ -67,6 +69,8 @@ const int USecho[U_NUM] = {P_U2_US1_E, P_U2_US2_E, P_U2_US3_E, P_U2_US4_E, P_U2_
 int i = 0;
 int USprev[U_NUM] = {0, 0, 0, 0, 0};
 int hallValuesLife[16];
+int j = 0;
+int SmallestDist[5];
 
 //serial
 String msg2pc = "", bBuff = "";
@@ -74,11 +78,8 @@ int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
-int SmallestDist[5];
-int j = 0;
-Servo Lift_Servo;
 bool Servo_On = false;
-String Servo_Engaged= "";
+String Servo_Engaged= "0";
 
 
 void setup() {

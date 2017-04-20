@@ -68,7 +68,7 @@ namespace HENRY.Modules
             //====================================================================================================
 
             t = new TimersTimer();
-            t.Interval = 50;
+            t.Interval = 20;
             t.Elapsed += t_Elapsed;
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
@@ -294,7 +294,15 @@ namespace HENRY.Modules
         void serPort1_DataProcess(string msg)
         {
             int firstbyte = msg.IndexOf('<');
-            char key = msg[firstbyte+1];
+            char key;
+            try
+            {
+                key = msg[firstbyte + 1];
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                return;
+            }
             string value = msg.Substring(2);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
@@ -415,7 +423,15 @@ namespace HENRY.Modules
         void serPort2_DataProcess(string msg)
         {
             int firstbyte = msg.IndexOf('<');
-            char key = msg[firstbyte + 1];
+            char key;
+            try
+            {
+                key = msg[firstbyte + 1];
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                return;
+            }
             string value = msg.Substring(2);
 
             //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
@@ -570,7 +586,15 @@ namespace HENRY.Modules
                 // if message is not empty, send message through serial port
                 if (msg2motor != "")
                 {
-                    serPort1.Write(msg2motor);
+                    try
+                    {
+                        serPort1.Write(msg2motor);
+                    }
+                    catch (IOException ex)
+                    {
+
+                        
+                    } 
                     SetPropertyValue("ArduinoData", msg2motor);
                     msg2motor = "";
                 }

@@ -12,22 +12,50 @@ namespace HENRY.Modules
     class ErrorLog : LengarioModuleCore
     {
         StreamWriter file;
+        string moduleName;
+        private MotorModule motorModule;
 
         public ErrorLog(LengarioModuleCore m)
         {
-            string filename = m.GetModuleName() + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".txt";
-            file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
-            file.WriteLine("Error log for " + m.GetModuleName() + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            moduleName = m.GetModuleName();
+        }
+
+        public ErrorLog(LengarioModuleAuxiliary m)
+        {
+            moduleName = m.GetModuleName();
         }
 
         public void WriteToLog (string line)
         {
-            file.WriteLineAsync(line);
+            try
+            {
+                file.WriteLineAsync(line);
+            }
+            catch(Exception)
+            {
+
+            }
+            
+        }
+
+        public void OpenLog()
+        {
+            string filename = moduleName + "test" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + ".csv";
+            file = new StreamWriter("..\\..\\ErrorLogs\\" + filename);
+            //file.WriteLine("Error log for " + moduleName + " on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
         }
 
         public void CloseLog()
         {
-            file.Close();
+            try
+            {
+                file.Close();
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         public override string GetModuleName()

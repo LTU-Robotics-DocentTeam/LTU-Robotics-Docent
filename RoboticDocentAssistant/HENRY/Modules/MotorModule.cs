@@ -11,10 +11,15 @@ namespace HENRY.Modules
     class MotorModule : LengarioModuleAuxiliary
     {
         TimersTimer t;
-        
+        ErrorLog plots;
+        double alpha = 0.5, beta = 11;
+        int time = 0;
+        public bool recording = false;
         
         public MotorModule()
         {
+            plots = new ErrorLog(this);
+            
             // Initialize properties to default
             SetPropertyValue("RightMSpeed", 0);
             SetPropertyValue("LeftMSpeed", 0);
@@ -26,7 +31,7 @@ namespace HENRY.Modules
 
             // Set processing timer for module
             t = new TimersTimer();
-            t.Interval = 10;
+            t.Interval = 20;
             t.Elapsed += t_Elapsed;
             t.Start();
         }
@@ -34,6 +39,7 @@ namespace HENRY.Modules
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             double direction = GetPropertyValue("Direction").ToDouble();
+            double delta_direction = GetPropertyValue("DeltaDirection").ToDouble();
             int spd = GetPropertyValue("Speed").ToInt32();
             bool estop = GetPropertyValue("EStop").ToBoolean();
 
@@ -41,9 +47,10 @@ namespace HENRY.Modules
 
             if (spd > 0)
             {
-                int dSpd = (int)((spd) * .85 *(direction / Constants.MAX_DIR));
+                int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
                 rmSpeed = spd + dSpd;
                 lmSpeed = spd - dSpd;
+                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
 
                 //if (direction > 0)
                 //{
@@ -86,6 +93,7 @@ namespace HENRY.Modules
             }
 
 
+
             // Ensure total speed does not exceed MAXSPEED
             if (rmSpeed < -Constants.MAX_MOTOR_SPEED)
                 rmSpeed = -Constants.MAX_MOTOR_SPEED;
@@ -107,6 +115,19 @@ namespace HENRY.Modules
                 SetPropertyValue("RightMSpeed", 0);
                 SetPropertyValue("LeftMSpeed", 0);
             }
+        }
+
+        public void StopRecording()
+        {
+            plots.CloseLog();
+            recording = false;
+        }
+        public void StartRecording()
+        {
+            plots.OpenLog();
+            time = 0;
+            plots.WriteToLog("Time,position,speed,result,alpha," + alpha.ToString() + ",beta," + beta.ToString());
+            recording = true;
         }
 
         public override string GetModuleName()

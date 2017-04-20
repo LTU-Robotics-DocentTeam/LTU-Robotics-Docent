@@ -15,8 +15,8 @@ namespace HENRY.Modules.Navigation
     class BaseNavModule : LengarioModuleCore
     {
         public Timer t;
-        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0;
-        double prevLoc = 0, dirLoc = 0, currLoc = 0;
+        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0, time = 0;
+        double prevLoc = 0, dirLoc = 0, currLoc = 0, smoothLoc = 0, dspd = 0, smoothdspd = 0, prevsmoothLoc = 0;
 
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
@@ -33,13 +33,14 @@ namespace HENRY.Modules.Navigation
             error_log = new ErrorLog(this);
 
             
-            SetPropertyValue("Direction", 0.0); // Angle in degrees
+            SetPropertyValue("Direction", 0.0);
+            SetPropertyValue("DeltaDirection", 0.0);
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
 
             t = new Timer();
-            t.Interval = 10;
+            t.Interval = 20;
             t.Elapsed += t_Elapsed;
             //t.Start();
         }
@@ -55,6 +56,7 @@ namespace HENRY.Modules.Navigation
             hallEffectError = hem.Calculate();
             //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
             ultrasonicError = usm.Calculate();
+            //ultrasonicError = 0;
 
             errorState = false;
             int speed = 0;
@@ -92,24 +94,52 @@ namespace HENRY.Modules.Navigation
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
             }
+            prevsmoothLoc = smoothLoc;
+            smoothLoc += (dirLoc - smoothLoc) * 0.1;
+            dspd = (smoothLoc - prevsmoothLoc);
+            smoothdspd += (dspd - smoothdspd) * 0.1; 
+
+            error_log.WriteToLog(time++ + "," + dirLoc.ToString() + "," + smoothLoc.ToString() + "," + dspd.ToString() + "," + smoothdspd.ToString());
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
                 if (!errorState)
                 {
-                    SetPropertyValue("Direction", dirLoc);
+                    SetPropertyValue("Direction", smoothLoc);
+                    SetPropertyValue("DeltaDirection", smoothdspd);
                     SetPropertyValue("Speed", speed);
                 }
                 else
                 {
                     SetPropertyValue("Direction", 0.0);
+                    SetPropertyValue("DeltaDirection", 0.0);
                     SetPropertyValue("Speed", 0);
                 }
                 
             }
 
-           
+        }
+        
+        public void StopModule()
+        {
+            t.Stop();
+            error_log.CloseLog();
+            usm.StopRecording();
+            
+        }
+        public void StartModule()
+        {
+            error_log.OpenLog();
+            usm.StartRecording();
+            error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
+            t.Start();
+            time = 0;
+            prevLoc = 0;
+            dirLoc = 0;
+            currLoc = 0; smoothLoc = 0; dspd = 0;
+            smoothdspd = 0;
+            prevsmoothLoc = 0;
         }
         
         public override string GetModuleName()
