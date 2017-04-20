@@ -40,7 +40,7 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("AutonomousNavigation", false);
 
             t = new Timer();
-            t.Interval = 10;
+            t.Interval = 20;
             t.Elapsed += t_Elapsed;
             //t.Start();
         }

@@ -68,7 +68,7 @@ namespace HENRY.Modules
             //====================================================================================================
 
             t = new TimersTimer();
-            t.Interval = 50;
+            t.Interval = 20;
             t.Elapsed += t_Elapsed;
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
@@ -586,7 +586,15 @@ namespace HENRY.Modules
                 // if message is not empty, send message through serial port
                 if (msg2motor != "")
                 {
-                    serPort1.Write(msg2motor);
+                    try
+                    {
+                        serPort1.Write(msg2motor);
+                    }
+                    catch (IOException ex)
+                    {
+
+                        
+                    } 
                     SetPropertyValue("ArduinoData", msg2motor);
                     msg2motor = "";
                 }
