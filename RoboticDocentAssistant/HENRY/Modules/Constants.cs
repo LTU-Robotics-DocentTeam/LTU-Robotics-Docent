@@ -34,6 +34,6 @@ namespace HENRY.Modules
         public string FilePath = "log" + DateTime.Now.ToString() + ".txt";
 
         public const int MAST_TO_FRONT = 430;
-        public const int STOP_DIST = 300;
+        public const int STOP_DIST = 450;
     }
 }
