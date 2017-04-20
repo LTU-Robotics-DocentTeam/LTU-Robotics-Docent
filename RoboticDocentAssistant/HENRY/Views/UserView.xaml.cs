@@ -8,6 +8,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Configuration;
+using System.Drawing;
+using AForge.Video;
+using AForge.Wpf.IpCamera;
+using System.Threading;
 
 namespace HENRY.Views
 {
@@ -24,13 +28,14 @@ namespace HENRY.Views
 
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
-        DispatcherTimer kioskPromptTimer;
+        DispatcherTimer kioskPromptTimer; 
+        MJPEGStream stream;
 
         //public bool showPrompt = false; 
 
         public UserView()
         {
-            museumLogo = new Image();
+            museumLogo = new System.Windows.Controls.Image();
             BitmapImage img = new BitmapImage();
             img.BeginInit();
             img.UriSource = new Uri("Images/Museum Photo.png", UriKind.Relative);
@@ -46,12 +51,36 @@ namespace HENRY.Views
             kioskPromptTimer.IsEnabled = true;
 
             InitializeComponent();
+            stream = new MJPEGStream("http://172.24.196.100:8081/video.mjpg");
+            stream.NewFrame += stream_NewFrame;
+
+            stream.Start();
         }
 
         void kioskPromptTimer_Tick(object sender, EventArgs e)
         {
             kioskPromptText.Visibility = Visibility.Hidden;
             kioskPromptTimer.Stop();
+        }
+
+        void stream_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            try
+            {
+                BitmapImage bi;
+                using (var bitmap = (Bitmap)eventArgs.Frame.Clone())
+                {
+                    bi = bitmap.ToBitmapImage();
+                }
+                bi.Freeze(); // avoid cross thread operations and prevents leaks
+                Dispatcher.BeginInvoke(new ThreadStart(delegate { manualStream = bi; }));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error on _videoSource_NewFrame:\n" + exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                stream.Stop();
+            }
+
         }
 
         /// <summary>
