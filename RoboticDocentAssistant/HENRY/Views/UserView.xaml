@@ -55,7 +55,7 @@
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for "/>
-                <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource MedWait}, Converter={StaticResource CountdownConverter}}"/>
+                <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}"/>
                 <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds"/>
             </StackPanel>            
             <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to initiate shutdown"/>
@@ -79,7 +79,6 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
             <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
                 <Ellipse.RenderTransform>
                     <TransformGroup>
@@ -214,8 +213,8 @@
                     TOUR DRIVE MODE
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
-                    <Ellipse x:Name="tourblackPromptButton" Width="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}" Margin="5,0">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
+                    <Ellipse x:Name="tourblackPromptButton" Width="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
@@ -223,9 +222,9 @@
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource MedWait}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" for "/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
             <Grid x:Name="tourDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=tourDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
@@ -369,8 +368,8 @@
                 </StackPanel.Effect>
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="SHUTDOWN"/>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24,0,0" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
-                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" Margin="5,0" >
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
+                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" >
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
@@ -378,13 +377,13 @@
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Red, ConverterParameter={StaticResource LongWait}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to power off computer"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" for "/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Red, ConverterParameter={StaticResource LongWait}, Converter={StaticResource CountdownConverter}}" />
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds to power off computer"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
-                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}" Margin="5,0">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
+                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
@@ -392,9 +391,9 @@
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" for "/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds to return to the Main Menu"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" FontSize="36" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Foreground="Yellow">
                     
@@ -453,8 +452,8 @@
                     MANUAL DRIVE MODE
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
-                    <Ellipse x:Name="manualblackPromptButton" Width="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}" Margin="5,0">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
+                    <Ellipse x:Name="manualblackPromptButton" Width="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
@@ -462,9 +461,9 @@
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" for "/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource ShortWait}, Converter={StaticResource CountdownConverter}}"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
             <Grid x:Name="manualDriveButtonDiagram" Grid.Row="1" Width="{Binding ActualHeight, ElementName=manualDriveButtonDiagram, Mode=OneWay}" Grid.RowSpan="2">
@@ -614,8 +613,8 @@
                 <TextBlock HorizontalAlignment="Center" Text="{Binding EstopText}" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="0,0,0,20">
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Press"/>
-                    <Ellipse x:Name="estopblackPromptButton" Width="{Binding ActualHeight, ElementName=estopblackPromptButton, Mode=OneWay}" Margin="5,0">
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Press "/>
+                    <Ellipse x:Name="estopblackPromptButton" Width="{Binding ActualHeight, ElementName=estopblackPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
@@ -623,7 +622,7 @@
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="to Attempt E-Stop reset"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to Attempt E-Stop reset"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
