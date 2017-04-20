@@ -78,8 +78,8 @@ int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
-bool Servo_On = false;
-String Servo_Engaged= "0";
+bool Servo_On = true;
+String Servo_Engaged= "";
 
 
 void setup() {
@@ -97,7 +97,7 @@ void setup() {
   }
   
   Lift_Servo.attach(P_U2_PWM2);
-  Lift_Servo.write(0);
+  Servo_Lift(Servo_On);
 }
 
 void loop() {
