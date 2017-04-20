@@ -593,7 +593,7 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
                 Emergency Stop Triggered! <LineBreak/>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" Text="{Binding EstopText}" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3">
+                <TextBlock HorizontalAlignment="Center" Text="{Binding EstopText}" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="0,20">
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>

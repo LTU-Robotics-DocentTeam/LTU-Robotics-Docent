@@ -13,7 +13,6 @@ namespace HENRY.Modules
     {
         StreamWriter file;
         string moduleName;
-        private MotorModule motorModule;
 
         public ErrorLog(LengarioModuleCore m)
         {

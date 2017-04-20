@@ -43,11 +43,14 @@ namespace HENRY.Modules.Sensors
             for (int i = 0; i < Constants.US_NUM; i++)
             {
                 int current_sensor_dist = GetPropertyValue("UltraS" + (i + 1).ToString()).ToInt32();
-                logline += current_sensor_dist.ToString() + ",";
+                
                 if (i == 0) // Takes the mast sensor and subtracts 40mm from the sensed distance to even it out with the rest
                 {
                     current_sensor_dist = current_sensor_dist - Constants.MAST_TO_FRONT;
+                    logline += current_sensor_dist.ToString() + ",";
                 }
+                else
+                    logline += current_sensor_dist.ToString() + ",";
 
                 if (current_sensor_dist < dist2obstacle) // sets smallest distance
                 {
@@ -57,22 +60,16 @@ namespace HENRY.Modules.Sensors
             logline += dist2obstacle.ToString();
             SetPropertyValue("ClosestObstacle", dist2obstacle);
             ultra_log.WriteToLog(logline);
-            //if (300 < dist2obstacle)
-            //{
-            //    reccomendedSpeed = 1;
-            //}
 
-            //else if (100 < dist2obstacle && dist2obstacle < 300)
-            //{
-            //    reccomendedSpeed = 0;
-            //}
-
-            //else if (dist2obstacle < 100)
-            //{
-            //    //player.Play();
-            //    return -1;
-            //}
-            reccomendedSpeed = 1;
+            if (Constants.STOP_DIST < dist2obstacle)
+            {
+                reccomendedSpeed = 1;
+            }
+            else if (dist2obstacle < Constants.STOP_DIST)
+            {
+                //player.Play();
+                return -1;
+            }
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
 
             return 0;
