@@ -521,5 +521,21 @@ namespace HENRY.Modules
             get { return GetPropertyValue("BlackPressed").ToBoolean(); }
             set { SetPropertyValue("BlackPressed", value); RaisePropertyChanged("BlackPressed"); }
         }
+
+
+
+        public double Alpha
+        {
+            get { return GetPropertyValue("Alpha").ToDouble(); }
+            set { SetPropertyValue("Alpha", value); RaisePropertyChanged("Alpha"); }
+        }
+
+        public double Beta
+        {
+            get { return GetPropertyValue("Beta").ToDouble(); }
+            set { SetPropertyValue("Beta", value); RaisePropertyChanged("Beta"); }
+        }
+
+
     }
 }

@@ -51,7 +51,7 @@ namespace HENRY.Views
             kioskPromptTimer.IsEnabled = true;
 
             InitializeComponent();
-            stream = new MJPEGStream("http://172.24.130.121:8081/video.mjpg");
+            stream = new MJPEGStream("http://192.168.9.250:8081/video.mjpg");
             stream.NewFrame += stream_NewFrame;
 
             stream.Start();

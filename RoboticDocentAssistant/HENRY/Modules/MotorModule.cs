@@ -12,7 +12,7 @@ namespace HENRY.Modules
     {
         TimersTimer t;
         ErrorLog plots;
-        double alpha = 0.5, beta = 11;
+        double alpha = 5.0, beta = 0; //Beta = D, Alpha = P
         int time = 0;
         public bool recording = false;
         
@@ -38,6 +38,9 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            alpha = GetPropertyValue("Alpha").ToDouble();
+            beta = GetPropertyValue("Beta").ToDouble();
+
             double direction = GetPropertyValue("Direction").ToDouble();
             double delta_direction = GetPropertyValue("DeltaDirection").ToDouble();
             int spd = GetPropertyValue("Speed").ToInt32();

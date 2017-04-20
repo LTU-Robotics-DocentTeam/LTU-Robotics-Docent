@@ -22,7 +22,7 @@ namespace HENRY.ValueConverters
 
             Double result = (1 - input) * max;
             
-            Int32 roundedResult = System.Convert.ToInt32(Math.Floor(result));
+            Int32 roundedResult = System.Convert.ToInt32(Math.Ceiling(result));
 
             return roundedResult.ToString();
         }

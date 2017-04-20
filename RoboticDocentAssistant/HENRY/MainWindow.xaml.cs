@@ -269,6 +269,12 @@ namespace HENRY
                         vm.EStop = false;
                         ResetButton(Buttons.Black);
                         break;
+                    case UserView.UserScreen.Tour:
+                        if (vm.AutonomousNavigation)
+                            ToggleAutonomousNavigation();
+                        UserViewDelegateToggleMode(UserView.UserScreen.MainMenu);
+                        ResetButton(Buttons.Black);
+                        break;
                     default:
                         UserViewDelegateToggleMode(UserView.UserScreen.MainMenu);
                         ResetButton(Buttons.Black);

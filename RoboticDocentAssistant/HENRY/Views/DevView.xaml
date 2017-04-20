@@ -39,6 +39,13 @@
                             <CheckBox IsChecked="{Binding AutonomousNavigation}" IsEnabled="False"></CheckBox>
                         </StackPanel>
                         <TextBlock x:Name="modeName" Text="Testing Mode"></TextBlock>
+                        <TextBlock Text="Alpha:" Margin="50,0,0,0"></TextBlock>
+                        <TextBox Text="{Binding Alpha}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
+
+
+                        <TextBlock Text="Beta:" Margin="50,0,0,0"></TextBlock>
+                        <TextBox Text="{Binding Beta}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
+
                     </StackPanel>
                     
                 </StackPanel>
