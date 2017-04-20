@@ -400,11 +400,6 @@ namespace HENRY
                     vm.Black = 0;
                     break;
             }
-            if (e.Key == Key.M)
-            {
-                if (mmd.recording) mmd.StopRecording();
-                else mmd.StartRecording();
-            }
         }
 
         /// <summary>

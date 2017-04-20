@@ -21,7 +21,6 @@
         <converters:CountdownConverter x:Key="CountdownConverter" />
         <sys:Double x:Key="Mult">0.1</sys:Double>
         <sys:Double x:Key="Trans">0.5</sys:Double>
-
         <sys:Double x:Key="Five">5</sys:Double>
         <sys:Double x:Key="Three">3</sys:Double>
     </UserControl.Resources>
@@ -306,7 +305,7 @@
                     STOP
                 </TextBlock>
             </Grid>
-            <MediaElement Source="" Grid.Row="2" Grid.Column="1"></MediaElement>
+            <Image x:Name="tourStream" Grid.Row="2" Grid.Column="1"></Image>
         </Grid>
         <!-- End Tour Mode Stuff-->
         <!-- Shutdown stuff-->
@@ -517,7 +516,7 @@
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Text="REVERSE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             </Grid>
-            <MediaElement Grid.Column="1" Grid.Row="2" />
+            <Image x:Name="manualStream" Grid.Column="1" Grid.Row="2" />
         </Grid>
         <!-- End Manual Mode stuff -->
         <Grid x:Name="EStopPrompt" Visibility="{Binding EStop, Converter={StaticResource BooltoVisConverter}}" IsVisibleChanged="EStopPrompt_IsVisibleChanged" Panel.ZIndex="5">
