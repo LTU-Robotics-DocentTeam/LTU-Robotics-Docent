@@ -96,13 +96,13 @@ namespace HENRY
                     if (vm.RedPressed)
                         vm.Red += 0.5;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;
+                        vm.Black += 0.025;
                     break;
                 case UserView.UserScreen.Shutdown:
                     if (vm.RedPressed)
                         vm.Red += 0.01;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;
+                        vm.Black += 0.025;
                     break;
                 case UserView.UserScreen.Kiosk:
                     if (vm.GreenPressed)
@@ -126,17 +126,19 @@ namespace HENRY
                     if (vm.BluePressed)
                         vm.Blue = 1;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;                    
+                        vm.Black += 0.025;                    
                     break;
                 case UserView.UserScreen.MainMenu:
                     if (vm.GreenPressed)
-                        vm.Green += 0.05;
+                        vm.Green += 0.25;
                     if (vm.RedPressed)
-                        vm.Red += 0.05;
+                        vm.Red += 0.25;
                     if (vm.YellowPressed)
-                        vm.Yellow += 0.05;
+                        vm.Yellow += 0.25;
                     if (vm.BluePressed)
-                        vm.Blue += 0.05;
+                        vm.Blue += 0.25;
+                    if (vm.BlackPressed)
+                        vm.Black += 0.01666;
                     break;
                 case UserView.UserScreen.Estop:
                     if (vm.BlackPressed)
@@ -196,8 +198,8 @@ namespace HENRY
                         vm.Backward = true;
                         break;
                     case UserView.UserScreen.MainMenu:
-                        UserViewDelegateToggleMode(UserView.UserScreen.Shutdown);
-                        ResetButton(Buttons.Red);
+                        UserViewDelegateToggleMode(UserView.UserScreen.Kiosk);
+                        ResetButton(Buttons.Blue);
                         break;
                 }
             }
@@ -264,6 +266,8 @@ namespace HENRY
                         ResetButton(Buttons.Black);
                         break;
                     case UserView.UserScreen.MainMenu:
+                        UserViewDelegateToggleMode(UserView.UserScreen.Shutdown);
+                        ResetButton(Buttons.Black);
                         break;
                     case UserView.UserScreen.Estop:
                         vm.EStop = false;
@@ -561,11 +565,11 @@ namespace HENRY
 
         private void ToggleAutonomousNavigation()
         {
-                        vm.AutonomousNavigation = !vm.AutonomousNavigation;
-                if (vm.AutonomousNavigation) bnm.StartModule();
-                else bnm.StopModule();
-                if (mmd.recording) mmd.StopRecording();
-                else mmd.StartRecording();
+            vm.AutonomousNavigation = !vm.AutonomousNavigation;
+            if (vm.AutonomousNavigation) bnm.StartModule();
+            else bnm.StopModule();
+            if (mmd.recording) mmd.StopRecording();
+            else mmd.StartRecording();
 
         }
 
