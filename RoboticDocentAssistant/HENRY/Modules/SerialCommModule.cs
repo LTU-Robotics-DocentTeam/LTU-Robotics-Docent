@@ -643,7 +643,11 @@ namespace HENRY.Modules
 
             if  (GetPropertyValue("EStop").ToBoolean() == true)
             {
-                text = "Check ESTOP";
+                text = "Check Emergency Stop Button";
+            }
+            if ((GetPropertyValue("EStop").ToBoolean() == true )&& (GetPropertyValue("Impact").ToBoolean() == true))
+            {
+                text = "Move Robot Away from Obstacle";
             }
 
             SetPropertyValue("EstopText", text);
