@@ -59,45 +59,43 @@ namespace HENRY.Views
         /// </summary>
         /// <param name="mode"> What mode are you switching to</param>
         /// <param name="p"> Boolean to designate button pressed. true for pressed, false for released</param>
-        internal void ToggleMode (UserScreen mode, bool p)
+        internal void ToggleMode (UserScreen mode)
         {
-            if (p)
+            currentMode = mode;
+            switch (mode)
             {
-                currentMode = mode;
-                switch (mode)
-                {
-                    case UserScreen.Tour:
-                        TourMode.Visibility = Visibility.Visible;
-                        ShutdownMode.Visibility = Visibility.Hidden;
-                        kioskViewControl.Visibility = Visibility.Hidden;
-                        ManualDriveMode.Visibility = Visibility.Hidden;
-                        break;
-                    case UserScreen.Shutdown:
-                        ShutdownMode.Visibility = Visibility.Visible;
-                        kioskViewControl.Visibility = Visibility.Hidden;
-                        ManualDriveMode.Visibility = Visibility.Hidden;
-                        TourMode.Visibility = Visibility.Hidden;
-                        break;
-                    case UserScreen.Kiosk:
-                        kioskViewControl.Visibility = Visibility.Visible;
-                        ShutdownMode.Visibility = Visibility.Hidden;
-                        ManualDriveMode.Visibility = Visibility.Hidden;
-                        TourMode.Visibility = Visibility.Hidden;
-                        break;
-                    case UserScreen.Manual:
-                        ManualDriveMode.Visibility = Visibility.Visible;
-                        ShutdownMode.Visibility = Visibility.Hidden;
-                        TourMode.Visibility = Visibility.Hidden;
-                        kioskViewControl.Visibility = Visibility.Hidden;
-                        break;
-                    case UserScreen.MainMenu:
-                        ManualDriveMode.Visibility = Visibility.Hidden;
-                        ShutdownMode.Visibility = Visibility.Hidden;
-                        TourMode.Visibility = Visibility.Hidden;
-                        kioskViewControl.Visibility = Visibility.Hidden;
-                        kioskPromptText.Visibility = Visibility.Hidden;
-                        break;
-                }
+                case UserScreen.Tour:
+                    TourMode.Visibility = Visibility.Visible;
+                    ShutdownMode.Visibility = Visibility.Hidden;
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    break;
+                case UserScreen.Shutdown:
+                    ShutdownMode.Visibility = Visibility.Visible;
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    TourMode.Visibility = Visibility.Hidden;
+                    break;
+                case UserScreen.Kiosk:
+                    kioskViewControl.Visibility = Visibility.Visible;
+                    ShutdownMode.Visibility = Visibility.Hidden;
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    TourMode.Visibility = Visibility.Hidden;
+                    break;
+                case UserScreen.Manual:
+                    ManualDriveMode.Visibility = Visibility.Visible;
+                    ShutdownMode.Visibility = Visibility.Hidden;
+                    TourMode.Visibility = Visibility.Hidden;
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    break;
+                case UserScreen.MainMenu:
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    ShutdownMode.Visibility = Visibility.Hidden;
+                    TourMode.Visibility = Visibility.Hidden;
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    kioskPromptText.Visibility = Visibility.Hidden;
+                    break;
+                
             }
         }
 
@@ -123,14 +121,10 @@ namespace HENRY.Views
         /// Shows the estop exit prompt
         /// </summary>
         /// <param name="p"> Boolean to designate button pressed. true for pressed, false for released</param>
-        internal void ShowKioskGetOut(bool p)
+        internal void ShowKioskGetOut()
         {
-
-            if (p)
-            {
-                kioskPromptText.Visibility = Visibility.Visible;
-                kioskPromptTimer.Start();
-            }
+            kioskPromptText.Visibility = Visibility.Visible;
+            kioskPromptTimer.Start();
         }
 
         

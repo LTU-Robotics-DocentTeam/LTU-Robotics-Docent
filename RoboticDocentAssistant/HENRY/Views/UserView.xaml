@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:HENRY.ValueConverters"
              xmlns:views = "clr-namespace:HENRY.Views"
              mc:Ignorable="d" 
@@ -11,7 +13,17 @@
         <SolidColorBrush Color="#FF282727"></SolidColorBrush>
     </UserControl.Background>
     <UserControl.Resources>
+        <converters:ShiftedScaleConverter x:Key="ShiftedScaleConverter"/>
+        <converters:ScaleConverter x:Key="ScaleConverter"/>
+        <converters:IntNonLinearConverter x:Key="IntNonLinearConverter"/>
         <BooleanToVisibilityConverter x:Key="BooltoVisConverter" />
+        <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+        <converters:CountdownConverter x:Key="CountdownConverter" />
+        <sys:Double x:Key="Mult">0.1</sys:Double>
+        <sys:Double x:Key="Trans">0.5</sys:Double>
+
+        <sys:Double x:Key="Five">5</sys:Double>
+        <sys:Double x:Key="Three">3</sys:Double>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -50,7 +62,13 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2">
+
+            <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF1B8E30" Offset="0.564"/>
@@ -58,13 +76,28 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
+            <Ellipse Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Green, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Green, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
             <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
-                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" RenderTransformOrigin="0.5,0.5">
                     TOUR <LineBreak/> 
                     DRIVE MODE
                 </TextBlock>
             </StackPanel>
-            <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2">
+
+
+
+            <Ellipse Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF878E1B" Offset="0.564"/>
@@ -72,13 +105,29 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
+            <Ellipse Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Yellow, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Yellow, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
             <StackPanel Grid.Row="2" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" RenderTransformOrigin="0.5,0.5">
                     MANUAL <LineBreak/> 
                     DRIVE MODE
                 </TextBlock>
             </StackPanel>
-            <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+
+
+
+
+            <Ellipse Grid.Row="2" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF201B8E" Offset="0.564"/>
@@ -86,22 +135,44 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
+            <Ellipse Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="White" Opacity="{Binding Blue, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Blue, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
             <StackPanel Grid.Row="2" Grid.Column="4" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
+                <TextBlock  FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                   
                     KIOSK <LineBreak/>
                     MODE
                 </TextBlock>
             </StackPanel>
-            <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3">
+
+
+            <Ellipse Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
                 <Ellipse.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
                         <GradientStop Color="#FFDE1919"/>
                     </LinearGradientBrush>
                 </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
             </Ellipse>
-            <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
-            
+            <Ellipse Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Opacity="{Binding Red, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="SHUTDOWN" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" RenderTransformOrigin="0.5,0.5"></TextBlock>
+
         </Grid>
         <!-- End Main Menu stuff -->
         <!-- Tour Mode Stuff -->
@@ -250,69 +321,43 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    SHUTDOWN MODE
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
-                </TextBlock>
+                <StackPanel.Effect>
+                    <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                </StackPanel.Effect>
+                <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="SHUTDOWN"/>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24,0,0" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        Hold&#160;
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
+                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" Margin="5,0" >
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
                                 <GradientStop Color="#FFDE1919"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        &#160;for 5 seconds to power off computer
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Red, ConverterParameter={StaticResource Five}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to power off computer"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        Hold&#160;
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}">
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold"/>
+                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}" Margin="5,0">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
                                 <GradientStop Color="#FF323232"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </Ellipse.Effect>
                     </Ellipse>
-                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                        &#160;for 5 seconds to return to the Main Menu
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="for"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Black, ConverterParameter={StaticResource Three}, Converter={StaticResource CountdownConverter}}" Margin="10,0"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="seconds to return to the Main Menu"/>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
+                <TextBlock HorizontalAlignment="Center" FontSize="36" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Foreground="Yellow">
+                    
                     Don't forget to turn off the main power breaker<LineBreak/>
                     AFTER the computer is off!
-                    
+
                 </TextBlock>
             </StackPanel>
         </Grid>
@@ -486,7 +531,7 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.75">
+            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF810F0F" Offset="0"/>
