@@ -7,7 +7,7 @@
              IsVisibleChanged="userControl_IsVisibleChanged"
               d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Background>
-        <ImageBrush ImageSource="Images/BG.jpg" />
+        <SolidColorBrush Color="DarkGray"></SolidColorBrush>
     </UserControl.Background>
     <UserControl.Resources>
         <!-- Start Fade -->
