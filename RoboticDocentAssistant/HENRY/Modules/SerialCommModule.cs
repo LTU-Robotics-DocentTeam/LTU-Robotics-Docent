@@ -641,6 +641,7 @@ namespace HENRY.Modules
         {
             string text = "";
             Boolean bumper = false; 
+            Boolean Stop = false;
 
             for (int i = 0; i < 8; i++ )
             {
@@ -648,19 +649,22 @@ namespace HENRY.Modules
                 {
                     bumper = true;
                 }
-              
             }
-         
-
             if  (GetPropertyValue("EStop").ToBoolean() == true)
             {
-                text = "Check Emergency Stop Button";
+                Stop = true; 
             }
-            if (bumper  == true)
+            if (bumper == true)
             {
-                text += "Move Robot Away from Obstacle";
+                text = "Move Robot Away from Obstacle";
                 bumper = false;
             }
+            else if (Stop == true)
+            {
+                text = "Check Emergency Stop Button";
+                Stop = false;
+            }
+          
 
             SetPropertyValue("EstopText", text);
         }
