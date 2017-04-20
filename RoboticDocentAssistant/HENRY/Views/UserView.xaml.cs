@@ -51,7 +51,7 @@ namespace HENRY.Views
             kioskPromptTimer.IsEnabled = true;
 
             InitializeComponent();
-            stream = new MJPEGStream("http://172.24.196.100:8081/video.mjpg");
+            stream = new MJPEGStream("http://172.24.130.121:8081/video.mjpg");
             stream.NewFrame += stream_NewFrame;
 
             stream.Start();
@@ -73,7 +73,9 @@ namespace HENRY.Views
                     bi = bitmap.ToBitmapImage();
                 }
                 bi.Freeze(); // avoid cross thread operations and prevents leaks
-                Dispatcher.BeginInvoke(new ThreadStart(delegate { manualStream = bi; }));
+                Dispatcher.BeginInvoke(new ThreadStart(delegate {
+                    tourStream.Source = bi; manualStream.Source = bi;
+                }));
             }
             catch (Exception exc)
             {
