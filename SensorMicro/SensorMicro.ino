@@ -78,7 +78,7 @@ int serialCount = SERIAL_COMM_INIT;
 const char USkey[U_NUM] = {'V', 'W', 'X', 'Y', 'Z'};
 String prevHe = "", prevVolt = "";
 bool pcConnect = false;
-bool Servo_On = true;
+bool Servo_On = false;
 String Servo_Engaged= "";
 
 

@@ -1,7 +1,7 @@
 // Controls the servo used to lift the hall effect sensor array
 void Servo_Lift(bool On)
 {
- // Raises the hall effect sensor array
+ // Lowers the hall effect sensor array
   if (On == true)
   {
     Lift_Servo.write(180);
@@ -9,7 +9,7 @@ void Servo_Lift(bool On)
     return;
   }
 
-  // Lowers the hall effect sensor array
+  // Raises the hall effect sensor array
   if (On == false)
   {
     Lift_Servo.write(0);
