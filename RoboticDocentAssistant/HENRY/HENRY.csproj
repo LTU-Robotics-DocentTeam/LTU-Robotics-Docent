@@ -69,7 +69,10 @@
     <Compile Include="Modules\SerialCommModule.cs" />
     <Compile Include="Modules\ViewModel.cs" />
     <Compile Include="ValueConverters\DoubleToStringConverter.cs" />
-    <Compile Include="ValueConverters\IntProportionConverter.cs" />
+    <Compile Include="ValueConverters\CountdownConverter.cs" />
+    <Compile Include="ValueConverters\ShiftedScaleConverter.cs" />
+    <Compile Include="ValueConverters\IntNonLinearConverter.cs" />
+    <Compile Include="ValueConverters\ScaleConverter.cs" />
     <Compile Include="ValueConverters\IntToStringConverter.cs" />
     <Compile Include="Views\DevView.xaml.cs">
       <DependentUpon>DevView.xaml</DependentUpon>

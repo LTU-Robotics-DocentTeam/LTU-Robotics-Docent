@@ -13,18 +13,18 @@ namespace HENRY.ValueConverters
     //I created this simple converter for converting between string and integer
     //These converters are used in WPF Data Binding
 
-    public class IntProportionConverter : IValueConverter
+    public class ShiftedScaleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter);
+            return System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter) + 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
-                return System.Convert.ToDouble(value) / System.Convert.ToDouble(parameter);
+                return 0;
             }
             catch
             {

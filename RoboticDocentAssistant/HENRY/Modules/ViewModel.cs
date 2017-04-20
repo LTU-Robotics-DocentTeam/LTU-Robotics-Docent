@@ -461,34 +461,65 @@ namespace HENRY.Modules
             set { SetPropertyValue("EStop", value); RaisePropertyChanged("EStop"); }
         }
 
-        public int Yellow 
-        { 
-            get { return GetPropertyValue("Yellow").ToInt32(); } 
+        public double Yellow 
+        {
+            get { return GetPropertyValue("Yellow").ToDouble(); } 
             set { SetPropertyValue("Yellow", value); RaisePropertyChanged("Yellow"); } 
         }
 
-        public int Blue  
+        public double Blue  
         {
-            get { return GetPropertyValue("Blue").ToInt32(); } 
+            get { return GetPropertyValue("Blue").ToDouble(); } 
             set { SetPropertyValue("Blue", value); RaisePropertyChanged("Blue"); } 
         }
 
-        public int Red 
+        public double Red 
         {
-            get { return GetPropertyValue("Red").ToInt32(); } 
+            get { return GetPropertyValue("Red").ToDouble(); } 
             set { SetPropertyValue("Red", value); RaisePropertyChanged("Red"); } 
         }
 
-        public int Green 
+        public double Green 
         {
-            get { return GetPropertyValue("Green").ToInt32(); } 
+            get { return GetPropertyValue("Green").ToDouble(); } 
             set { SetPropertyValue("Green", value); RaisePropertyChanged("Green"); } 
         }
 
-        public int Black 
+        public double Black 
         {
-            get { return GetPropertyValue("Black").ToInt32(); } 
+            get { return GetPropertyValue("Black").ToDouble(); } 
             set { SetPropertyValue("Black", value); RaisePropertyChanged("Black"); } 
+        }
+
+
+        public bool YellowPressed
+        {
+            get { return GetPropertyValue("YellowPressed").ToBoolean(); }
+            set { SetPropertyValue("YellowPressed", value); RaisePropertyChanged("YellowPressed"); }
+        }
+
+        public bool BluePressed
+        {
+            get { return GetPropertyValue("BluePressed").ToBoolean(); }
+            set { SetPropertyValue("BluePressed", value); RaisePropertyChanged("BluePressed"); }
+        }
+
+        public bool RedPressed
+        {
+            get { return GetPropertyValue("RedPressed").ToBoolean(); }
+            set { SetPropertyValue("RedPressed", value); RaisePropertyChanged("RedPressed"); }
+        }
+
+        public bool GreenPressed
+        {
+            get { return GetPropertyValue("GreenPressed").ToBoolean(); }
+            set { SetPropertyValue("GreenPressed", value); RaisePropertyChanged("GreenPressed"); }
+        }
+
+        public bool BlackPressed
+        {
+            get { return GetPropertyValue("BlackPressed").ToBoolean(); }
+            set { SetPropertyValue("BlackPressed", value); RaisePropertyChanged("BlackPressed"); }
         }
     }
 }
