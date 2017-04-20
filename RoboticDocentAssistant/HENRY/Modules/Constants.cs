@@ -35,5 +35,6 @@ namespace HENRY.Modules
 
         public const int MAST_TO_FRONT = 430;
         public const int STOP_DIST = 100;
+        public static int ULTRA_WAIT_TIME = 80;
     }
 }

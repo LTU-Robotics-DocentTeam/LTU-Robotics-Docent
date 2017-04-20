@@ -17,6 +17,8 @@ namespace HENRY.Modules.Sensors
         int dist2obstacle = Constants.MAX_DIST;
         private int reccomendedSpeed = 0;
         private string logline;
+        private bool error_flag = false;
+        private int counter = 0;
 
         public UltrasonicSensorModule()
         {
@@ -35,6 +37,12 @@ namespace HENRY.Modules.Sensors
 
         public int Calculate()
         {
+            if (error_flag && counter < Constants.ULTRA_WAIT_TIME)
+            {
+                counter++;
+                return -1;
+            }
+            
             // calculates the smallest distance out of values sent from each of the sensors
             dist2obstacle = Constants.MAX_DIST;
             logline = "";
@@ -68,6 +76,7 @@ namespace HENRY.Modules.Sensors
             else if (dist2obstacle < Constants.STOP_DIST)
             {
                 //player.Play();
+                error_flag = true;
                 return -1;
             }
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
