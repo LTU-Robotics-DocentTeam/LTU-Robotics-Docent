@@ -48,7 +48,7 @@ namespace HENRY.ModuleSystem
             }
             else
             {
-                MessageBox.Show("New value " + newValue + "does not match type " + type + " in property owned by " + owner);
+                MessageBox.Show("New value " + newValue + " does not match type " + type + " in property owned by " + owner);
             }
         }
 

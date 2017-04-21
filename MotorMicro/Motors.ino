@@ -15,36 +15,43 @@ void SetMotor(char motor, int newVelocity)
 
 
 
-  if(RightSeat == LeftSeat && RightCache != LeftCache)
+  
+
+  if(RightSeat != -1 && LeftSeat != -1)
   {
-    LeftMotorValue = RightCache;
-    RightMotorValue = LeftCache;
-  }
+    
+      
+    if(RightSeat == LeftSeat && RightCache != LeftCache)
+    {
+      LeftMotorValue = RightCache;
+      RightMotorValue = LeftCache;
+    }
 
 
-  RightCache = RightSeat;
+    RightCache = RightSeat;
+  
+    LeftCache = LeftSeat;
+  
 
-  LeftCache = LeftSeat;
-
-
-  if(motor == 'R')
-  {
+  
     RightSpeed = abs(RightSeat);
 
     RightReverse = RightSeat < 0;
-  }
- 
-    
+  
 
-  if(motor == 'L')
-  {
+ 
     LeftSpeed = abs(LeftSeat);
 
     LeftReverse = LeftSeat < 0;
-  }
   
-  CommandHealth = HEALTH_CONSTANT;
-  
+    
+    CommandHealth = HEALTH_CONSTANT;
+
+
+    RightSeat = -1;
+    LeftSeat = -1;
+    
+  } 
 
 }
 
