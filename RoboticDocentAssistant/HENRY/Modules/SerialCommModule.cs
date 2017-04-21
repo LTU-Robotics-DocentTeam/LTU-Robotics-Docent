@@ -83,6 +83,11 @@ namespace HENRY.Modules
             SetPropertyValue("SimulationMode", false);
             SetPropertyValue("BatteryVoltage", 0.ToString());
             SetPropertyValue("EstopText", "");
+            SetPropertyValue("BrakesEngaged", false);
+            SetPropertyValue("LeftBrake", false);
+            SetPropertyValue("RightBrake", false);
+            SetPropertyValue("LowVoltage", false);
+            SetPropertyValue("Warning", false);
 
             t.Start();
 
@@ -518,6 +523,7 @@ namespace HENRY.Modules
             // Calls function to update the connection status on the GUI
             UpdateConnectionStatus();
             BuildEstopText();
+            CheckWarnings();
 
             // decrease simulation timer counter back to 0
             if (simTimer > 0) simTimer--;
@@ -605,6 +611,7 @@ namespace HENRY.Modules
             if (serConn2 == Connection.Connected)
             {
                 msg2sensor = "";
+
                 if (!serPort2_dataIn)
                 {
                     msg2sensor += "<C0>";
@@ -635,6 +642,32 @@ namespace HENRY.Modules
                 }
 
             }
+        }
+
+        private void CheckWarnings()
+        {
+            bool warning = false;
+            if (GetPropertyValue("RightBrake").ToBoolean() || GetPropertyValue("LeftBrake").ToBoolean())
+            {
+                SetPropertyValue("BrakesEngaged", true);
+                warning = true;
+            }
+            else
+            {
+                SetPropertyValue("BrakesEngaged", false);
+            }
+            if (GetPropertyValue("BatteryVoltage").ToDouble() < Constants.LOW_BATT_THRESHOLD)
+            {
+                SetPropertyValue("LowVoltage", true);
+                warning = true;
+            }
+            else
+            {
+                SetPropertyValue("LowVoltage", false);
+            }
+
+            SetPropertyValue("Warning", warning);
+
         }
 
         private void BuildEstopText()

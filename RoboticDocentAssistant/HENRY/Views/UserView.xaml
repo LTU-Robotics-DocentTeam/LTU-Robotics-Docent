@@ -736,7 +736,6 @@
                             </Ellipse.RenderTransform>
                         </Ellipse>
                     </Grid>
-                    
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
@@ -899,6 +898,50 @@
                     <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to attempt E-Stop reset"/>
                 </StackPanel>
             </StackPanel>
+        </Grid>
+        <Grid x:Name="WarningsPopUp" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF658300" Offset="1"/>
+                        <GradientStop Color="#FFE6E604"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" HorizontalAlignment="Center">
+                    <StackPanel Visibility="{Binding LeftBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36" Grid.Row="1" Grid.Column="1" Margin="10">
+                        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Left Brake on!"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding RightBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36" Grid.Row="1" Grid.Column="1" Margin="10">
+                        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Right Brake on!"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
+                    <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Disengage Brakes before moving"/>
+                </StackPanel>
+                <StackPanel Visibility="{Binding LowVoltage, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
+                    <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                        <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Battery Low! Charge unit"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            
         </Grid>
     </Grid>
 </UserControl>

@@ -234,6 +234,13 @@ namespace HENRY.Modules
             get { return GetPropertyValue("LeftBrake").ToBoolean(); }
             set { SetPropertyValue("LeftBrake", value); RaisePropertyChanged("LeftBrake"); }
         }
+
+        public bool BrakesEngaged
+        {
+            get { return GetPropertyValue("BrakesEngaged").ToBoolean(); }
+            set { SetPropertyValue("BrakesEngaged", value); RaisePropertyChanged("BrakesEngaged"); }
+        }
+
         public string RightMSpeed
         {
             get { return GetPropertyValue("RightMSpeed").ToString(); }
@@ -268,6 +275,16 @@ namespace HENRY.Modules
         {
             get { return GetPropertyValue("BatteryVoltage").ToString(); }
             set { SetPropertyValue("BatteryVoltage", value); RaisePropertyChanged("BatteryVoltage"); }
+        }
+        public bool LowVoltage
+        {
+            get { return GetPropertyValue("LowVoltage").ToBoolean(); }
+            set { SetPropertyValue("LowVoltage", value); RaisePropertyChanged("LowVoltage"); }
+        }
+        public bool Warning
+        {
+            get { return GetPropertyValue("Warning").ToBoolean(); }
+            set { SetPropertyValue("Warning", value); RaisePropertyChanged("Warning"); }
         }
         public bool ArraySensor1
         {
