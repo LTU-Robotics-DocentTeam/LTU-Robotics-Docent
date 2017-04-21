@@ -82,7 +82,8 @@ int RightSeat = 0;
 int LeftCache = 0;
 int RightCache = 0;
 
-
+int RightPauseTimer;
+int LeftPauseTimer;
 
 int LeftSpeed = 0;
 int RightSpeed = 0;
