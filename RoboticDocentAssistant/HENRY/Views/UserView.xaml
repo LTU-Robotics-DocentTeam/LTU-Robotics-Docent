@@ -24,6 +24,7 @@
         <sys:Double x:Key="LongWait">5</sys:Double>
         <sys:Double x:Key="ShortWait">2</sys:Double>
         <sys:Double x:Key="MedWait">3</sys:Double>
+        <sys:Double x:Key="ShutdownTimer">60</sys:Double>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -810,6 +811,38 @@
                     </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to attempt E-Stop reset"/>
                 </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="CriticalBattery" Visibility="{Binding CriticalBattery, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="6" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.RowSpan="2">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF810F0F" Offset="0"/>
+                        <GradientStop Color="#FFD31010" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20">
+                    Battery Voltage Critical! <LineBreak/>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20">
+                    Take unit to<LineBreak/>
+                    charging station <LineBreak/>
+                    immediately!
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
             </StackPanel>
         </Grid>
         <Grid x:Name="WarningsPopUp" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="1">

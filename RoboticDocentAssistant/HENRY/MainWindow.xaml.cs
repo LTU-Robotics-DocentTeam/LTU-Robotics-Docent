@@ -51,6 +51,8 @@ namespace HENRY
             vm.YellowPressed = false;
             vm.BlackPressed = false;
 
+            vm.FinalCountdown = 0;
+
             InitializeComponent();
 
             MWindow.DataContext = vm;
@@ -67,6 +69,21 @@ namespace HENRY
         {
             ControllerCount();
             ControllerAct();
+            ShutdownCounter();
+        }
+
+        private void ShutdownCounter()
+        {
+            if (vm.CriticalVoltage && vm.UserModeOn)
+            {
+                vm.FinalCountdown += 0.00083333;
+                if (vm.FinalCountdown >= 1)
+                {
+                    CloseWindow();
+                }
+            }
+            else
+                vm.FinalCountdown = 0;
         }
 
 

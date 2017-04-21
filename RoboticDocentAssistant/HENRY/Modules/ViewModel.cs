@@ -286,6 +286,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("CriticalVoltage").ToBoolean(); }
             set { SetPropertyValue("CriticalVoltage", value); RaisePropertyChanged("CriticalVoltage"); }
         }
+        public double FinalCountdown
+        {
+            get { return GetPropertyValue("FinalCountdown").ToDouble(); }
+            set { SetPropertyValue("FinalCountdown", value); RaisePropertyChanged("FinalCountdown"); }
+        }
         public bool Warning
         {
             get { return GetPropertyValue("Warning").ToBoolean(); }

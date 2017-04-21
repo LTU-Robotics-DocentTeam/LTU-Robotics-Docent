@@ -28,6 +28,8 @@ namespace HENRY.Views
 
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
+        double FinalCountdown = 60;
+
         DispatcherTimer kioskPromptTimer; 
         public MJPEGStream stream;
 
