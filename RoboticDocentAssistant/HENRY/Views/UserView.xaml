@@ -85,9 +85,6 @@
                                     <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
                                 </TransformGroup>
                             </Ellipse.RenderTransform>
-                            <Ellipse.Effect>
-                                <BlurEffect></BlurEffect>
-                            </Ellipse.Effect>
                         </Ellipse>
                     </Grid>
                     <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to initiate shutdown"/>
