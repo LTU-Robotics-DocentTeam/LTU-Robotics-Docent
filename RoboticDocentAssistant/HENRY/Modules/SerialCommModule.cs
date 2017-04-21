@@ -87,6 +87,7 @@ namespace HENRY.Modules
             SetPropertyValue("LeftBrake", false);
             SetPropertyValue("RightBrake", false);
             SetPropertyValue("LowVoltage", false);
+            SetPropertyValue("CriticalVoltage", false);
             SetPropertyValue("Warning", false);
 
             t.Start();
@@ -656,13 +657,21 @@ namespace HENRY.Modules
             {
                 SetPropertyValue("BrakesEngaged", false);
             }
-            if (GetPropertyValue("BatteryVoltage").ToDouble() < Constants.LOW_BATT_THRESHOLD)
+            if (GetPropertyValue("BatteryVoltage").ToDouble() < Constants.CRITICAL_BATT_THRESHOLD)
             {
+                SetPropertyValue("CriticalVoltage", true);
+                SetPropertyValue("LowVoltage", false);
+                warning = true;
+            }
+            else if (GetPropertyValue("BatteryVoltage").ToDouble() < Constants.LOW_BATT_THRESHOLD)
+            {
+                SetPropertyValue("CriticalVoltage", false);
                 SetPropertyValue("LowVoltage", true);
                 warning = true;
             }
             else
             {
+                SetPropertyValue("CriticalVoltage", false);
                 SetPropertyValue("LowVoltage", false);
             }
 

@@ -38,6 +38,7 @@ namespace HENRY.Modules
         public static int ULTRA_WAIT_TIME = 80;
 
         public const int STOP_DIST = 450;
-        public const double LOW_BATT_THRESHOLD = 20.0; // check
+        public const double LOW_BATT_THRESHOLD = 24.0; // check
+        public const double CRITICAL_BATT_THRESHOLD = 22.0;
     }
 }
