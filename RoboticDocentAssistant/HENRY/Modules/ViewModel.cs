@@ -544,14 +544,12 @@ namespace HENRY.Modules
             get { return GetPropertyValue("GreenPressed").ToBoolean(); }
             set { SetPropertyValue("GreenPressed", value); RaisePropertyChanged("GreenPressed"); }
         }
-
+       
         public bool BlackPressed
         {
             get { return GetPropertyValue("BlackPressed").ToBoolean(); }
             set { SetPropertyValue("BlackPressed", value); RaisePropertyChanged("BlackPressed"); }
         }
-
-
 
         public double Alpha
         {

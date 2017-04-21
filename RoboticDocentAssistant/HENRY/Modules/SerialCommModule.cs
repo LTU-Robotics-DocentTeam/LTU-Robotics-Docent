@@ -630,9 +630,16 @@ namespace HENRY.Modules
                 }
 
                 //Raise or lower Hall array for dev mode
-
+                if (GetPropertyValue("DevModeOn").ToBoolean() && GetPropertyValue("ArrayDown").ToBoolean())
+                {
+                    msg2sensor += "<T1>";  //Hall effect array down
+                }
+                else if (GetPropertyValue("DevModeOn").ToBoolean() && !GetPropertyValue("ArrayDown").ToBoolean())
+                {
+                    msg2sensor += "<T0>";  //Hall effect array up
+                }
                 //Raise or lower Hall array based on use case
-                if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
+                else if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
                 {
                     msg2sensor += "<T1>";  //Hall effect array down
                     SetPropertyValue("ArrayDown", true);

@@ -46,6 +46,8 @@
                         <TextBlock Text="Beta:" Margin="50,0,0,0"></TextBlock>
                         <TextBox Text="{Binding Beta}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
 
+                        <TextBlock Text="Hall Array Down:" Margin="50,0,0,0"></TextBlock>
+                        <CheckBox IsChecked="{Binding ArrayDown}" HorizontalAlignment="Center"></CheckBox>
                     </StackPanel>
                     
                 </StackPanel>
