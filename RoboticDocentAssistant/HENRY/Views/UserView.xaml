@@ -65,28 +65,14 @@
             <StackPanel x:Name="shutdownMainMenuText" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36" Grid.Row="1" Grid.Column="1" Margin="10">
                 <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
                     <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="menublackPromptButton" Width="{Binding ActualHeight, ElementName=menublackPromptButton, Mode=OneWay}" Margin="5,0">
-                            <Ellipse.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF010101" Offset="0.564"/>
-                                    <GradientStop Color="#FF323232"/>
-                                </LinearGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="Gray" Opacity="{Binding Black, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=menublackPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=menublackPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
+                    <Ellipse x:Name="menublackPromptButton" Width="{Binding ActualHeight, ElementName=menublackPromptButton, Mode=OneWay}" Margin="5,0">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to initiate shutdown"/>
                 </StackPanel>
             </StackPanel>
@@ -248,29 +234,14 @@
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="tourblackPromptButton" Width="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}">
+                    <Ellipse x:Name="tourblackPromptButton" Width="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                 <GradientStop Color="#FF010101" Offset="0.564"/>
                                 <GradientStop Color="#FF323232"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
-                        <Ellipse.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                            </TransformGroup>
-                        </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="Gray" Opacity="{Binding Black, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=tourblackPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=tourblackPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
-                    
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
@@ -428,57 +399,28 @@
                 <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="SHUTDOWN"/>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24,0,0" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" >
-                            <Ellipse.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
-                                    <GradientStop Color="#FFDE1919"/>
-                                </LinearGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="White" Opacity="{Binding Red, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=shutdownPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Red, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
+                    <Ellipse x:Name="shutdownPromptButton" Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8E1B1B" Offset="0.564"/>
+                                <GradientStop Color="#FFDE1919"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" for "/>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding Red, ConverterParameter={StaticResource LongWait}, Converter={StaticResource CountdownConverter}}" />
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" seconds to power off computer"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}">
-                            <Ellipse.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF010101" Offset="0.564"/>
-                                    <GradientStop Color="#FF323232"/>
-                                </LinearGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="Gray" Opacity="{Binding Black, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=shutdownblackPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
-                    
+                    <Ellipse x:Name="shutdownblackPromptButton" Width="{Binding ActualHeight, ElementName=shutdownblackPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to return to the Main Menu"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" FontSize="36" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Foreground="Yellow">
@@ -514,29 +456,14 @@
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="autoblackPromptButton" Width="{Binding ActualHeight, ElementName=autoblackPromptButton, Mode=OneWay}">
-                            <Ellipse.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF010101" Offset="0.564"/>
-                                    <GradientStop Color="#FF323232"/>
-                                </LinearGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="Gray" Opacity="{Binding Black, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=autoblackPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=autoblackPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
-                    
+                    <Ellipse x:Name="autoblackPromptButton" Width="{Binding ActualHeight, ElementName=autoblackPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
@@ -714,28 +641,14 @@
                 </TextBlock>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,24" HorizontalAlignment="Center" >
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Hold "/>
-                    <Grid>
-                        <Ellipse x:Name="manualblackPromptButton" Width="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}">
-                            <Ellipse.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF010101" Offset="0.564"/>
-                                    <GradientStop Color="#FF323232"/>
-                                </LinearGradientBrush>
-                            </Ellipse.Fill>
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource ShiftedScaleConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult},Converter={StaticResource ShiftedScaleConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Fill="Gray" Opacity="{Binding Black, ConverterParameter={StaticResource Trans}, Converter={StaticResource ScaleConverter}}" RenderTransformOrigin="0.5,0.5" Height="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=manualblackPromptButton, Mode=OneWay}">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}" ScaleY="{Binding Black, ConverterParameter={StaticResource Mult}, Converter={StaticResource IntNonLinearConverter}}"/>
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Grid>
+                    <Ellipse x:Name="manualblackPromptButton" Width="{Binding ActualHeight, ElementName=manualblackPromptButton, Mode=OneWay}">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF010101" Offset="0.564"/>
+                                <GradientStop Color="#FF323232"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <TextBlock HorizontalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to return to the Main Menu"/>
                 </StackPanel>
             </StackPanel>
