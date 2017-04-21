@@ -81,7 +81,7 @@ namespace HENRY.Modules
             SetPropertyValue("DevModeOn", true);
             SetPropertyValue("UserModeOn", false);
             SetPropertyValue("SimulationMode", false);
-            SetPropertyValue("BatteryVoltage", 0.ToString());
+            SetPropertyValue("BatteryVoltage", 24.ToString());
             SetPropertyValue("EstopText", "");
             SetPropertyValue("BrakesEngaged", false);
             SetPropertyValue("LeftBrake", false);
