@@ -210,7 +210,7 @@
         </Grid>
         <!-- End Main Menu stuff -->
         <!-- Tour Mode Stuff -->
-        <Grid x:Name="TourMode" Visibility="Hidden">
+        <Grid x:Name="TourMode" Visibility="Hidden" >
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF282727" Offset="0.613"/>
@@ -367,7 +367,7 @@
                     STREAM
                 </TextBlock>
             </Grid>
-            <Image x:Name="tourStream" Grid.Row="2" Grid.Column="1"></Image>
+            <Image x:Name="tourStream" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,20,0" ></Image>
         </Grid>
         <!-- End Tour Mode Stuff-->
         <!-- Shutdown stuff-->
@@ -587,7 +587,45 @@
                     STOP
                 </TextBlock>
             </Grid>
-            <Image x:Name="autoStream" Grid.Row="2" Grid.Column="1"></Image>
+            <Image x:Name="autoStream" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,20,0"></Image>
+            <Grid x:Name="BrakesPopUp" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF658300" Offset="1"/>
+                            <GradientStop Color="#FFE6E604"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" TextBlock.FontSize="28">
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" HorizontalAlignment="Center">
+                        <StackPanel Visibility="{Binding LeftBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
+                            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Left Brake on!"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding RightBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
+                            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Right Brake on!"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                        <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Disengage Brakes before moving"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Grid>
         <!-- End Auto Mode stuff -->
         <!--Kiosk Mode stuff-->
@@ -771,7 +809,45 @@
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Text="REVERSE" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Grid.RowSpan="2" Grid.ColumnSpan="3" Foreground="White" FontFamily="Tahoma" FontWeight="Bold"></TextBlock>
             </Grid>
-            <Image x:Name="manualStream" Grid.Column="1" Grid.Row="2" />
+            <Image x:Name="manualStream" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,20,0"/>
+            <Grid x:Name="manualBrakesPopUp" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF658300" Offset="1"/>
+                            <GradientStop Color="#FFE6E604"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" TextBlock.FontSize="28">
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" HorizontalAlignment="Center">
+                        <StackPanel Visibility="{Binding LeftBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
+                            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Left Brake on!"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding RightBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
+                            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Right Brake on!"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                        <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Disengage Brakes before moving"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Grid>
         <!-- End Manual Mode stuff -->
         <Grid x:Name="EStopPrompt" Visibility="{Binding EStop, Converter={StaticResource BooltoVisConverter}}" IsVisibleChanged="EStopPrompt_IsVisibleChanged" Panel.ZIndex="5">
@@ -813,82 +889,69 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid x:Name="CriticalBattery" Visibility="{Binding CriticalBattery, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="6" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="20"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.RowSpan="2">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF810F0F" Offset="0"/>
-                        <GradientStop Color="#FFD31010" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="10,20,10,10">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="6">
+            <Grid x:Name="CriticalBattery" Visibility="{Binding CriticalVoltage, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="6" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.RowSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF810F0F" Offset="0"/>
+                            <GradientStop Color="#FFD31010" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="10,20,10,10">
                     Battery Voltage Critical!
-                </TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20,10,10,10">
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20,10,10,10">
                     Take unit to charging<LineBreak/>
                     station immediately!
-                    </TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Margin="20" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-        <Grid x:Name="WarningsPopUp" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="20"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF658300" Offset="1"/>
-                        <GradientStop Color="#FFE6E604"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                <StackPanel Orientation="Horizontal" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" HorizontalAlignment="Center">
-                    <StackPanel Visibility="{Binding LeftBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36" Grid.Row="1" Grid.Column="1" Margin="10">
-                        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
-                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Left Brake on!"/>
-                        </StackPanel>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Margin="20" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
                     </StackPanel>
-                    <StackPanel Visibility="{Binding RightBrake, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36" Grid.Row="1" Grid.Column="1" Margin="10">
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="LowBatteryPopUp" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF658300" Offset="1"/>
+                            <GradientStop Color="#FFE6E604"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                    <StackPanel Visibility="{Binding LowVoltage, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
                         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
-                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Right Brake on!"/>
+                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Battery Low! Charge unit"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Visibility="{Binding BrakesEngaged, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
-                    <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Disengage Brakes before moving"/>
-                </StackPanel>
-                <StackPanel Visibility="{Binding LowVoltage, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
-                    <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
-                        <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Battery Low! Charge unit"/>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-            
-        </Grid>
+            </Grid>
+
+        </StackPanel>
     </Grid>
 </UserControl>

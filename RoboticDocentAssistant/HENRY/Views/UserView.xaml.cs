@@ -74,7 +74,7 @@ namespace HENRY.Views
                 }
                 bi.Freeze(); // avoid cross thread operations and prevents leaks
                 Dispatcher.BeginInvoke(new ThreadStart(delegate {
-                    tourStream.Source = bi; manualStream.Source = bi;
+                    tourStream.Source = bi; manualStream.Source = bi; autoStream.Source = bi;
                 }));
             }
             catch (Exception exc)
@@ -173,7 +173,6 @@ namespace HENRY.Views
             kioskPromptText.Visibility = Visibility.Visible;
             kioskPromptTimer.Start();
         }
-
         
     }
 
