@@ -23,14 +23,20 @@ void SetMotor(char motor, int newVelocity)
       
     if(RightSeat == LeftSeat && RightCache != LeftCache)
     {
-      if(RightCache > LeftCache)
+      if(RightCache != 0 && LeftCache != 0)
       {
-        RightPauseTimer = 20;
+        int difference = abs(abs(RightCache) - abs(LeftCache));
+          
+         if(RightCache > LeftCache)
+        { 
+          RightPauseTimer = difference * 5;
+        }
+        else if(LeftCache > RightCache)
+        {
+          LeftPauseTimer = difference * 5;
+        }
       }
-      else if(LeftCache > RightCache)
-      {
-        LeftPauseTimer = 20;
-      }
+     
     }
 
 
