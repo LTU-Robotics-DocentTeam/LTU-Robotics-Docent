@@ -281,6 +281,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("LowVoltage").ToBoolean(); }
             set { SetPropertyValue("LowVoltage", value); RaisePropertyChanged("LowVoltage"); }
         }
+        public bool CriticalVoltage
+        {
+            get { return GetPropertyValue("CriticalVoltage").ToBoolean(); }
+            set { SetPropertyValue("CriticalVoltage", value); RaisePropertyChanged("CriticalVoltage"); }
+        }
         public bool Warning
         {
             get { return GetPropertyValue("Warning").ToBoolean(); }
