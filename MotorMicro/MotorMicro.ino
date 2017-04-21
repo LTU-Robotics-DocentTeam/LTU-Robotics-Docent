@@ -175,7 +175,7 @@ void setup()
 
 void loop() {
   impactArray = Impact();
-  //Brakes = Check_Brakes();
+  Brakes = Check_Brakes();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {
