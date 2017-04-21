@@ -24,7 +24,7 @@ namespace HENRY.Views
         /// <summary>
         /// Used to easily refer to the different modes the UI has
         /// </summary>
-        public enum UserScreen { Tour, Shutdown, Kiosk, Manual, MainMenu, Estop };
+        public enum UserScreen { Tour, Shutdown, Kiosk, Manual, Auto, MainMenu, Estop };
 
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
@@ -99,25 +99,29 @@ namespace HENRY.Views
                     TourMode.Visibility = Visibility.Visible;
                     ShutdownMode.Visibility = Visibility.Hidden;
                     kioskViewControl.Visibility = Visibility.Hidden;
-                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    ManualDriveMode.Visibility = Visibility.Hidden;   
+                    AutoMode.Visibility = Visibility.Hidden;
                     break;
                 case UserScreen.Shutdown:
                     ShutdownMode.Visibility = Visibility.Visible;
                     kioskViewControl.Visibility = Visibility.Hidden;
                     ManualDriveMode.Visibility = Visibility.Hidden;
                     TourMode.Visibility = Visibility.Hidden;
+                    AutoMode.Visibility = Visibility.Hidden;
                     break;
                 case UserScreen.Kiosk:
                     kioskViewControl.Visibility = Visibility.Visible;
                     ShutdownMode.Visibility = Visibility.Hidden;
                     ManualDriveMode.Visibility = Visibility.Hidden;
                     TourMode.Visibility = Visibility.Hidden;
+                    AutoMode.Visibility = Visibility.Hidden;
                     break;
                 case UserScreen.Manual:
                     ManualDriveMode.Visibility = Visibility.Visible;
                     ShutdownMode.Visibility = Visibility.Hidden;
                     TourMode.Visibility = Visibility.Hidden;
                     kioskViewControl.Visibility = Visibility.Hidden;
+                    AutoMode.Visibility = Visibility.Hidden;
                     break;
                 case UserScreen.MainMenu:
                     ManualDriveMode.Visibility = Visibility.Hidden;
@@ -125,7 +129,16 @@ namespace HENRY.Views
                     TourMode.Visibility = Visibility.Hidden;
                     kioskViewControl.Visibility = Visibility.Hidden;
                     kioskPromptText.Visibility = Visibility.Hidden;
+                    AutoMode.Visibility = Visibility.Hidden;
                     break;
+                case UserScreen.Auto:
+                    AutoMode.Visibility = Visibility.Visible;
+                    ManualDriveMode.Visibility = Visibility.Hidden;
+                    ShutdownMode.Visibility = Visibility.Hidden;
+                    TourMode.Visibility = Visibility.Hidden;
+                    kioskViewControl.Visibility = Visibility.Hidden;
+                    break;
+
                 
             }
         }
