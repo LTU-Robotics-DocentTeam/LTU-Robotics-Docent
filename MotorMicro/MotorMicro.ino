@@ -76,14 +76,14 @@ int RightVelocity = 0;
 
 
 
-int LeftSeat = 0;
-int RightSeat = 0;
+int LeftSeat = -1;
+int RightSeat = -1;
 
 int LeftCache = 0;
 int RightCache = 0;
 
-int RightPauseTimer;
-int LeftPauseTimer;
+int RightPauseTimer = 0;
+int LeftPauseTimer = 0;
 
 int LeftSpeed = 0;
 int RightSpeed = 0;
@@ -176,7 +176,7 @@ void setup()
 
 void loop() {
   impactArray = Impact();
-  //Brakes = Check_Brakes();
+  Brakes = Check_Brakes();
   
   if (digitalRead(P_U1_EStop) == HIGH)
   {

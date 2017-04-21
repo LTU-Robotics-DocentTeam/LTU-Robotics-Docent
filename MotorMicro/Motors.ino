@@ -25,11 +25,11 @@ void SetMotor(char motor, int newVelocity)
     {
       if(RightCache > LeftCache)
       {
-        RightPauseTimer = 50;
+        RightPauseTimer = 20;
       }
       else if(LeftCache > RightCache)
       {
-        LeftPauseTimer = 50;
+        LeftPauseTimer = 20;
       }
     }
 
@@ -168,20 +168,32 @@ void RunMotors()
 
 
 
-  if (LeftMotorValue == 0 || LeftPauseTimer > 0)
+  if (LeftMotorValue == 0)
+  {
+    LeftMotor.write(0);
+  }
+  
+  else if ( LeftPauseTimer > 0)
   {
     LeftMotor.write(0);
     LeftPauseTimer--;
   }
+  
   else
     LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);
   //Serial.println("Left:" + String(LeftMotorValue));
 
-  if (RightMotorValue == 0 || RightPauseTimer > 0)
+  if (RightMotorValue == 0)
+  {
+    RightMotor.write(0);
+  }
+
+  else if ( RightPauseTimer > 0)
   {
     RightMotor.write(0);
     RightPauseTimer--;
   }
+  
   else
     RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
   //Serial.println("Right:"+ String(RightMotorValue));
