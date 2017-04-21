@@ -7,6 +7,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System;
+using System.Diagnostics;
 
 namespace HENRY
 {
@@ -16,6 +17,7 @@ namespace HENRY
     public partial class MainWindow : Window
     {
         public enum Buttons { Green, Red, Yellow, Blue, Black };
+        bool GreenHold = false, RedHold = false, YellowHold = false, BlueHold = false, BlackHold = false; 
         
         ViewModel vm;
         SerialCommModule scm;
@@ -94,15 +96,15 @@ namespace HENRY
                     if (vm.GreenPressed)
                         vm.Green += 0.1;
                     if (vm.RedPressed)
-                        vm.Red += 0.5;
+                        vm.Red += 0.1;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;
+                        vm.Black += 0.25;
                     break;
                 case UserView.UserScreen.Shutdown:
                     if (vm.RedPressed)
                         vm.Red += 0.01;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;
+                        vm.Black += 0.25;
                     break;
                 case UserView.UserScreen.Kiosk:
                     if (vm.GreenPressed)
@@ -126,21 +128,31 @@ namespace HENRY
                     if (vm.BluePressed)
                         vm.Blue = 1;
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;                    
+                        vm.Black += 0.25;                    
                     break;
                 case UserView.UserScreen.MainMenu:
                     if (vm.GreenPressed)
-                        vm.Green += 0.05;
+                        vm.Green += 0.25;
                     if (vm.RedPressed)
-                        vm.Red += 0.05;
+                        vm.Red += 0.25;
                     if (vm.YellowPressed)
-                        vm.Yellow += 0.05;
+                        vm.Yellow += 0.25;
                     if (vm.BluePressed)
-                        vm.Blue += 0.05;
+                        vm.Blue += 0.25;
+                    if (vm.BlackPressed)
+                        vm.Black += 0.25;
                     break;
                 case UserView.UserScreen.Estop:
                     if (vm.BlackPressed)
-                        vm.Black += 0.01666;
+                        vm.Black += 0.5;
+                    break;
+                case UserView.UserScreen.Auto:
+                    if (vm.GreenPressed)
+                        vm.Green += 0.1;
+                    if (vm.RedPressed)
+                        vm.Red += 0.5;
+                    if (vm.BlackPressed)
+                        vm.Black += 0.25;
                     break;
             }
             
@@ -155,8 +167,7 @@ namespace HENRY
                 switch (userViewControl.currentMode)
                 {
                     case UserView.UserScreen.Tour:
-                        if (!vm.AutonomousNavigation)
-                            ToggleAutonomousNavigation();
+                        // Start stream here!
                         ResetButton(Buttons.Green);
                         break;
                     case UserView.UserScreen.Shutdown:
@@ -172,6 +183,12 @@ namespace HENRY
                         UserViewDelegateToggleMode(UserView.UserScreen.Tour);
                         ResetButton(Buttons.Green);
                         break;
+                    case UserView.UserScreen.Auto:
+                        if (!vm.AutonomousNavigation)
+                            ToggleAutonomousNavigation();
+                        ResetButton(Buttons.Green);
+                        break;
+
                 }
             }
 
@@ -180,8 +197,7 @@ namespace HENRY
                 switch (userViewControl.currentMode)
                 {
                     case UserView.UserScreen.Tour:
-                        if (vm.AutonomousNavigation)
-                            ToggleAutonomousNavigation();
+                        // End stream here
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:
@@ -196,7 +212,12 @@ namespace HENRY
                         vm.Backward = true;
                         break;
                     case UserView.UserScreen.MainMenu:
-                        UserViewDelegateToggleMode(UserView.UserScreen.Shutdown);
+                        UserViewDelegateToggleMode(UserView.UserScreen.Kiosk);
+                        ResetButton(Buttons.Blue);
+                        break;
+                    case UserView.UserScreen.Auto:
+                        if (vm.AutonomousNavigation)
+                            ToggleAutonomousNavigation();
                         ResetButton(Buttons.Red);
                         break;
                 }
@@ -218,7 +239,7 @@ namespace HENRY
                         vm.Right = true;
                         break;
                     case UserView.UserScreen.MainMenu:
-                        UserViewDelegateToggleMode(UserView.UserScreen.Kiosk);
+                        UserViewDelegateToggleMode(UserView.UserScreen.Auto);
                         ResetButton(Buttons.Blue);
                         break;
                 }
@@ -264,6 +285,8 @@ namespace HENRY
                         ResetButton(Buttons.Black);
                         break;
                     case UserView.UserScreen.MainMenu:
+                        UserViewDelegateToggleMode(UserView.UserScreen.Shutdown);
+                        ResetButton(Buttons.Black);
                         break;
                     case UserView.UserScreen.Estop:
                         vm.EStop = false;
@@ -317,20 +340,35 @@ namespace HENRY
 
             if (vm.UserModeOn)
             {
-                if (e.Key == Key.W)
+                if (e.Key == Key.W && !GreenHold)
+                {
                     vm.GreenPressed = true;
+                    GreenHold = true;
+                }
 
-                if (e.Key == Key.S)
+                if (e.Key == Key.S && !RedHold)
+                {
                     vm.RedPressed = true;
+                    RedHold = true;
+                }
 
-                if (e.Key == Key.D)
+                if (e.Key == Key.D && !BlueHold)
+                {
                     vm.BluePressed = true;
+                    BlueHold = true;
+                }
 
-                if (e.Key == Key.A)
+                if (e.Key == Key.A && !YellowHold)
+                {
                     vm.YellowPressed = true;
+                    YellowHold = true;
+                }
 
-                if (e.Key == Key.Q)
+                if (e.Key == Key.Q && !BlackHold)
+                {
                     vm.BlackPressed = true;
+                    BlackHold = true;
+                }
             }
             
 
@@ -366,22 +404,27 @@ namespace HENRY
                 if (e.Key == Key.W)
                 {
                     ResetButton(Buttons.Green);
+                    GreenHold = false;
                 }
                 if (e.Key == Key.S)
                 {
                     ResetButton(Buttons.Red);
+                    RedHold = false;
                 }
                 if (e.Key == Key.D)
                 {
                     ResetButton(Buttons.Blue);
+                    BlueHold = false;
                 }
                 if (e.Key == Key.A)
                 {
                     ResetButton(Buttons.Yellow);
+                    YellowHold = false;
                 }
                 if (e.Key == Key.Q)
                 {
                     ResetButton(Buttons.Black);
+                    BlackHold = false;
                 }
             }
         }
@@ -421,108 +464,7 @@ namespace HENRY
             }
         }
 
-        /// <summary>
-        /// This function handles all button prompts for user mode. Its basically a giant switch statement with a case for each button, with sub switch cases for each sub mode
-        /// </summary>
-        /// <param name="b"> Which button was pressed</param>
-        /// <param name="p"> True if button pressed, false if button released</param>
-        /*private void UserModeController(Buttons b, bool p)
-        {
-            switch (b)
-            {
-                case Buttons.Green:
-                    switch (userViewControl.currentMode)
-                    {
-                        case UserView.UserScreen.Tour: if (!vm.AutonomousNavigation) ToggleAutonomousNavigation();
-                            break;
-                        case UserView.UserScreen.Shutdown: 
-                            break;
-                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut();
-                            break;
-                        case UserView.UserScreen.Manual: vm.Forward = p;
-                            break;
-                        case UserView.UserScreen.MainMenu: if (vm.Green > 1) userViewControl.ToggleMode(UserView.UserScreen.Tour);
-                            break;
-                    }
-                    break;
-                case Buttons.Red:
-                    switch (userViewControl.currentMode)
-                    {
-                        case UserView.UserScreen.Tour: if (vm.AutonomousNavigation) ToggleAutonomousNavigation();
-                            break;
-                        case UserView.UserScreen.Shutdown: if (vm.Red > 4) MWindow.Close();
-                            break;
-                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut();
-                            break;
-                        case UserView.UserScreen.Manual: vm.Backward = p;
-                            break;
-                        case UserView.UserScreen.MainMenu: if (vm.Red > 1) userViewControl.ToggleMode(UserView.UserScreen.Shutdown);
-                            break;
-                    }
-                    break;
-                case Buttons.Blue:
-                    switch (userViewControl.currentMode)
-                    {
-                        case UserView.UserScreen.Tour:
-                            break;
-                        case UserView.UserScreen.Shutdown:
-                            break;
-                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut();
-                            break;
-                        case UserView.UserScreen.Manual: vm.Right = p;
-                            break;
-                        case UserView.UserScreen.MainMenu: if (vm.Blue > 1) userViewControl.ToggleMode(UserView.UserScreen.Kiosk);
-                            break;
-                    }
-                    
-                    break;
-                case Buttons.Yellow:
-                    switch (userViewControl.currentMode)
-                    {
-                        case UserView.UserScreen.Tour:
-                            break;
-                        case UserView.UserScreen.Shutdown:
-                            break;
-                        case UserView.UserScreen.Kiosk: userViewControl.ShowKioskGetOut();
-                            break;
-                        case UserView.UserScreen.Manual: vm.Left = p;
-                            break;
-                        case UserView.UserScreen.MainMenu:
-                            if (vm.Yellow > 1)
-                            {
-                                userViewControl.ToggleMode(UserView.UserScreen.Manual);
-                                ToggleManualDrive();
-                            }
-                            break;
-                    }
-                    break;
-                case Buttons.Black:
-                    switch (userViewControl.currentMode)
-                    {
-                        case UserView.UserScreen.Kiosk:  
-                            if (userViewControl.kioskPromptText.Visibility == Visibility.Hidden)
-                            {
-                                userViewControl.ShowKioskGetOut();
-                            }
-                            else
-                            {
-                                userViewControl.ToggleMode(UserView.UserScreen.MainMenu);
-                            }
-                            break;
-                        case UserView.UserScreen.Manual:
-                            userViewControl.ToggleMode(UserView.UserScreen.MainMenu); ;
-                            ToggleManualDrive();
-                            break;
-                        case UserView.UserScreen.MainMenu:
-                            break;
-                        case UserView.UserScreen.Estop: vm.EStop = false;
-                            break;
-                        default: userViewControl.ToggleMode(UserView.UserScreen.MainMenu);
-                            break;
-                    }
-                    break;
-            }
-        }*/
+
         /// <summary>
         /// This function handles all button prompts for dev mode. Allows for manual control only
         /// </summary>
@@ -561,11 +503,11 @@ namespace HENRY
 
         private void ToggleAutonomousNavigation()
         {
-                        vm.AutonomousNavigation = !vm.AutonomousNavigation;
-                if (vm.AutonomousNavigation) bnm.StartModule();
-                else bnm.StopModule();
-                if (mmd.recording) mmd.StopRecording();
-                else mmd.StartRecording();
+            vm.AutonomousNavigation = !vm.AutonomousNavigation;
+            if (vm.AutonomousNavigation) bnm.StartModule();
+            else bnm.StopModule();
+            if (mmd.recording) mmd.StopRecording();
+            else mmd.StartRecording();
 
         }
 
@@ -625,6 +567,9 @@ namespace HENRY
         {
             bnm.error_log.CloseLog();
             holdDownTimer.Stop();
+            userViewControl.stream.Stop();
+            if (vm.UserModeOn) Process.Start("shutdown", "/s /t 0");
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
