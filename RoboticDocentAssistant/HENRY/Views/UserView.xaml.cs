@@ -53,8 +53,6 @@ namespace HENRY.Views
             InitializeComponent();
             stream = new MJPEGStream("http://192.168.9.250:8081/video.mjpg");
             stream.NewFrame += stream_NewFrame;
-
-            stream.Start();
         }
 
         void kioskPromptTimer_Tick(object sender, EventArgs e)
@@ -101,6 +99,7 @@ namespace HENRY.Views
                     kioskViewControl.Visibility = Visibility.Hidden;
                     ManualDriveMode.Visibility = Visibility.Hidden;   
                     AutoMode.Visibility = Visibility.Hidden;
+                    if (!stream.IsRunning) stream.Start();
                     break;
                 case UserScreen.Shutdown:
                     ShutdownMode.Visibility = Visibility.Visible;
@@ -122,6 +121,7 @@ namespace HENRY.Views
                     TourMode.Visibility = Visibility.Hidden;
                     kioskViewControl.Visibility = Visibility.Hidden;
                     AutoMode.Visibility = Visibility.Hidden;
+                    if (!stream.IsRunning) stream.Start();
                     break;
                 case UserScreen.MainMenu:
                     ManualDriveMode.Visibility = Visibility.Hidden;
@@ -137,6 +137,7 @@ namespace HENRY.Views
                     ShutdownMode.Visibility = Visibility.Hidden;
                     TourMode.Visibility = Visibility.Hidden;
                     kioskViewControl.Visibility = Visibility.Hidden;
+                    if (!stream.IsRunning) stream.Start();
                     break;
 
                 

@@ -567,9 +567,24 @@ namespace HENRY
         {
             bnm.error_log.CloseLog();
             holdDownTimer.Stop();
-            userViewControl.stream.Stop();
-            if (vm.UserModeOn) Process.Start("shutdown", "/s /t 0");
-            
+
+            if (vm.DevModeOn)
+            {
+                if (userViewControl.stream.IsRunning)
+                {
+                    //MessageBox.Show("Stream closing...");
+                    userViewControl.stream.SignalToStop();
+                    userViewControl.stream.WaitForStop();
+                    //MessageBox.Show("Stream closed succesfully!");
+                }
+            }
+            else if (vm.UserModeOn)
+            {
+                userViewControl.stream.SignalToStop();
+                userViewControl.stream.WaitForStop();
+                Process.Start("shutdown", "/s /t 0");
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -584,6 +599,13 @@ namespace HENRY
             vm.AutonomousNavigation = false;
             bnm.t.Stop();
             userViewControl.ToggleMode(UserView.UserScreen.MainMenu);
+            UserView usv = sender as UserView;
+            if (usv != null)
+            {
+                if (!(bool)e.NewValue)
+                    if (userViewControl.stream.IsRunning) userViewControl.stream.SignalToStop();
+            }
+
         }
     }
 }
