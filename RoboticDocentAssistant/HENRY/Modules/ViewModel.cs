@@ -564,7 +564,11 @@ namespace HENRY.Modules
             get { return GetPropertyValue("Beta").ToDouble(); }
             set { SetPropertyValue("Beta", value); RaisePropertyChanged("Beta"); }
         }
-
-
+        //Value to check if Hall array is down
+        public bool ArrayDown
+        {
+            get { return GetPropertyValue("ArrayDown").ToBoolean(); }
+            set { SetPropertyValue("ArrayDown", value); RaisePropertyChanged("ArrayDown"); }
+        }
     }
 }
