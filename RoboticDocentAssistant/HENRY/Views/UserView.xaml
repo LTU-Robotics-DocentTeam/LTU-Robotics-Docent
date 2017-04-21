@@ -834,15 +834,16 @@
                 </Rectangle.Fill>
             </Rectangle>
             <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20">
-                    Battery Voltage Critical! <LineBreak/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="10,20,10,10">
+                    Battery Voltage Critical!
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20">
-                    Take unit to<LineBreak/>
-                    charging station <LineBreak/>
-                    immediately!
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20,10,10,10">
+                    Take unit to charging<LineBreak/>
+                    station immediately!
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Margin="20" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
         <Grid x:Name="WarningsPopUp" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding Warning, Converter={StaticResource BooltoVisConverter}}" Panel.ZIndex="1">
