@@ -76,7 +76,6 @@
                     <TextBlock HorizontalAlignment="Center" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text=" to initiate shutdown"/>
                 </StackPanel>
             </StackPanel>
-
         </Grid>
         <Grid x:Name="mainMenuControl" Width="{Binding ActualHeight, ElementName=mainMenuControl, Mode=OneWay}">
             <Grid.RowDefinitions>

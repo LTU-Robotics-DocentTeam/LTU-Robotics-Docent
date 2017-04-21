@@ -7,6 +7,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System;
+using System.Diagnostics;
 
 namespace HENRY
 {
@@ -566,6 +567,9 @@ namespace HENRY
         {
             bnm.error_log.CloseLog();
             holdDownTimer.Stop();
+            userViewControl.stream.Stop();
+            if (vm.UserModeOn) Process.Start("shutdown", "/s /t 0");
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

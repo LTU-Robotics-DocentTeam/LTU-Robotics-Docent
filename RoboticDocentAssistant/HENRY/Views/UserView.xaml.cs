@@ -29,7 +29,7 @@ namespace HENRY.Views
         public UserScreen currentMode = UserScreen.MainMenu, previousMode = UserScreen.MainMenu;
 
         DispatcherTimer kioskPromptTimer; 
-        MJPEGStream stream;
+        public MJPEGStream stream;
 
         //public bool showPrompt = false; 
 
