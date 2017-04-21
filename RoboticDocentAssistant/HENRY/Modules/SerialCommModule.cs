@@ -628,14 +628,23 @@ namespace HENRY.Modules
                     watchdog2 = 0;
                     serPort2_dataIn = false;
                 }
+
+                //Raise or lower Hall array for dev mode
+
+                //Raise or lower Hall array based on use case
                 if (GetPropertyValue("AutonomousNavigation").ToBoolean() && !GetPropertyValue("ManualDriveEnabled").ToBoolean())
                 {
-                    msg2sensor += "<T1>";
+                    msg2sensor += "<T1>";  //Hall effect array down
+                    SetPropertyValue("ArrayDown", true);
                 }
                 else
                 {
-                    msg2sensor += "<T0>";
+                    msg2sensor += "<T0>";  //Hall effect array up
+                    SetPropertyValue("ArrayDown", false);
                 }
+
+                
+
                 if (msg2sensor != "")
                 {
                     serPort2.Write(msg2sensor);
