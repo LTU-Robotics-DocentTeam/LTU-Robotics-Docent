@@ -215,14 +215,6 @@ namespace HENRY
                 {
                     case UserView.UserScreen.Tour:
                         // End stream here
-                        foreach (Process p in Process.GetProcesses())
-                        {
-
-                            if (p.ProcessName == "obs64")
-                            {
-                                p.Kill();
-                            }
-                        }
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:
@@ -607,6 +599,14 @@ namespace HENRY
             {
                 userViewControl.stream.SignalToStop();
                 userViewControl.stream.WaitForStop();
+                foreach (Process p in Process.GetProcesses())
+                {
+
+                    if (p.ProcessName == "obs64")
+                    {
+                        p.Kill();
+                    }
+                }
                 Process.Start("shutdown", "/s /t 0");
             }
 
