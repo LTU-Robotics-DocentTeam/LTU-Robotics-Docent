@@ -217,7 +217,6 @@ namespace HENRY
                     case UserView.UserScreen.Tour:
                         // End stream here
                         scm.SendStopStream();
-
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:
