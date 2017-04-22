@@ -20,7 +20,7 @@ namespace HENRY.Modules
     {
         public enum Connection { Unknown, Disconnected, Connected};
 
-        public Connection serConn1 = Connection.Unknown, serConn2 = Connection.Unknown;
+        public Connection serConn1 = Connection.Unknown, serConn2 = Connection.Unknown, userConn = Connection.Unknown;
 
         private const int SERPORT1_TIMEOUT = 10, SERPORT2_TIMEOUT = 10; 
         
@@ -29,6 +29,7 @@ namespace HENRY.Modules
 
         SerialPort serPort1; // Motor controller serial communication port
         SerialPort serPort2; // Sensor controller serial communication port (UltraS, Infrared, Hall Effect)
+        SerialPort userPort;
         string[] comPorts = new string[3];
         
         string signal = String.Empty, msg2motor = String.Empty, connectStatus = String.Empty;
@@ -36,11 +37,11 @@ namespace HENRY.Modules
         int counter = 0; // Keeps track of loop. If it goes for too long without a response, show message to retry connection
         int simTimer = 0;
         int watchdog1 = 0, watchdog2 = 0;
-        bool serPort1_dataIn = false, serPort2_dataIn = false;
+        bool serPort1_dataIn = false, serPort2_dataIn = false, userPort_dataIn = false;
 
         int prvr = 0, prvl = 0;
         bool prestop = false;
-        private string bBuff1 = String.Empty, bBuff2 = String.Empty;
+        private string bBuff1 = String.Empty, bBuff2 = String.Empty, bBuff3 = String.Empty;
         private string msg2sensor = String.Empty;
 
         public SerialCommModule()
@@ -66,6 +67,13 @@ namespace HENRY.Modules
             serPort2.ReadTimeout = 10;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
+            userPort = new SerialPort();
+            userPort.BaudRate = 115200;
+            userPort.DataBits = 8;
+            userPort.Parity = Parity.None;
+            userPort.StopBits = StopBits.One;
+            userPort.ReadTimeout = 10;
+            userPort.DataReceived += new SerialDataReceivedEventHandler(userPort_DataReceived);
 
             t = new TimersTimer();
             t.Interval = 20;
@@ -73,7 +81,7 @@ namespace HENRY.Modules
 
             ConnectBot(serPort1, "Motor MicroController", ref serConn1); // Function that handles robot connection initialization
             ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
-            //ConnectBot(userPort, "User Controller", ref userConn);
+            ConnectBot(userPort, "User Controller", ref userConn);
 
             UpdateConnectionStatus();
 
@@ -94,6 +102,8 @@ namespace HENRY.Modules
 
             r = new Random();
         }
+
+
 
         /// <summary>
         /// Handles the process of connecting to the microcontrollers and manual control
@@ -511,6 +521,50 @@ namespace HENRY.Modules
             }
 
         }
+        private void userPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            userPort_dataIn = true;
+            string indata = userPort.ReadExisting();
+
+            foreach (char c in indata)
+            {
+                if (c == '>')
+                {
+                    userPort_DataProcess(bBuff3);
+                    bBuff3 = String.Empty;
+                }
+                else bBuff3 += c;
+            }
+        }
+
+        private void userPort_DataProcess(string msg)
+        {
+            int firstbyte = msg.IndexOf('<');
+            char key;
+            try
+            {
+                key = msg[firstbyte + 1];
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                return;
+            }
+            string value = msg.Substring(2);
+
+            //Each different sensor type has its own key. This code takes in the key and sends the data to the proper module
+
+            switch (key)
+            {
+                case 'C': // Identification command: Takes device ID. This port only accepts "1", which is the motor microcontroller
+                    if (value == "3" && userConn != Connection.Connected) deviceId = 1; // if correct id, set deviceid to 1 (meaning correct device is connected)
+                    else
+                    {
+                        deviceId = -1; // if incorrect id, set
+                        userPort.DiscardOutBuffer();
+                    }
+                    break;
+            }
+        }
         /// <summary>
         /// Handles all data sending on a timer if the robot is connected, else it generates random data
         /// for visualization
@@ -659,6 +713,15 @@ namespace HENRY.Modules
                 }
 
             }
+        }
+
+        public void SendStartStream()
+        {
+            if (userConn == Connection.Connected) userPort.Write("<J>");
+        }
+        public void SendStopStream()
+        {
+            if (userConn == Connection.Connected) userPort.Write("<K>");
         }
 
         private void CheckWarnings()

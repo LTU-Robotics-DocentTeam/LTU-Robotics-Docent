@@ -185,6 +185,7 @@ namespace HENRY
                 {
                     case UserView.UserScreen.Tour:
                         // Start stream here!
+                        scm.SendStartStream();
                         ResetButton(Buttons.Green);
                         break;
                     case UserView.UserScreen.Shutdown:
@@ -215,14 +216,7 @@ namespace HENRY
                 {
                     case UserView.UserScreen.Tour:
                         // End stream here
-                        foreach (Process p in Process.GetProcesses())
-                        {
-
-                            if (p.ProcessName == "obs64")
-                            {
-                                p.Kill();
-                            }
-                        }
+                        scm.SendStopStream();
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:
