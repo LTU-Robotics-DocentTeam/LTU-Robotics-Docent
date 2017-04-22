@@ -44,32 +44,34 @@ namespace HENRY.Modules
                 SetPropertyValue("ManualSpeed", 0);
             int manualSpeed = GetPropertyValue("ManualSpeed").ToInt32();
 
-            double direction = 0;
-            int speed = 0;
+            int rspeed = 0, lspeed = 0;
 
             if (GetPropertyValue("Backward").ToBoolean()) // Set both motors backwards
             {
-                speed -= manualSpeed;
+                rspeed -= manualSpeed;
+                lspeed -= manualSpeed;
             }
             if (GetPropertyValue("Forward").ToBoolean()) // Set both motors forward
             {
-                speed += manualSpeed;
+                rspeed += manualSpeed;
+                lspeed += manualSpeed;
             }
             if (GetPropertyValue("Left").ToBoolean()) // Zero-point turn to the left
             {
-                direction += Constants.MAX_DIR;
+                rspeed += manualSpeed;
+                lspeed -= manualSpeed;
             }
             if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
             {
-                direction -= Constants.MAX_DIR;
+                rspeed += manualSpeed;
+                lspeed -= manualSpeed;
             }
             
 
             if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
-                SetPropertyValue("Direction", direction);
-                SetPropertyValue("DeltaDirection", 0.0);
-                SetPropertyValue("Speed", speed);
+                SetPropertyValue("RightSpeed", rspeed);
+                SetPropertyValue("LeftSpeed", lspeed);
             }
             
         }

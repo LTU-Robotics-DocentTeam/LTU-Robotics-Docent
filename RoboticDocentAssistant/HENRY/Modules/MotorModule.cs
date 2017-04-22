@@ -29,8 +29,6 @@ namespace HENRY.Modules
             SetPropertyValue("LeftBrake", false);
             SetPropertyValue("RightBrake", false); 
             SetPropertyValue("EStop", false);
-            SetPropertyValue("Alpha", 0.5);
-            SetPropertyValue("Beta", 14.0);
             
 
             // Set processing timer for module
@@ -52,28 +50,8 @@ namespace HENRY.Modules
 
             int rmSpeed = 0, lmSpeed = 0;
 
-            if (spd > 0)
-            {
-                int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
-                rmSpeed = spd + dSpd;
-                lmSpeed = spd - dSpd;
-                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
-
-              
-            }
-            else if (spd == 0)
-            {
-                rmSpeed = (int)direction;
-                lmSpeed = -(int)direction;
-            }
-            else
-            {
-                rmSpeed = spd;
-                lmSpeed = spd;
-            }
-
-
-
+            rmSpeed = (int)Math.Round(GetPropertyValue("RightSpeed").ToDouble());
+            lmSpeed = (int)Math.Round(GetPropertyValue("LeftSpeed").ToDouble());
 
             // Add deadzone gap to the speed
             if (rmSpeed > 0)
