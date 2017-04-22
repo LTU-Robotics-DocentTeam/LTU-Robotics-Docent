@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include "Adafruit_MCP23017.h"
 
-// Relay pins flipped 
+// Relay pins flipped
 #define P_U1_RX         0
 #define P_U1_TX         1
 #define P_U1_EStop      2
@@ -15,7 +15,7 @@
 #define P_U1_LB     8
 #define P_U1_RB     7
 #define P_U1_I1     9
-#define P_U1_I2     10
+#define P_U1_I2     10 // buzzer
 #define P_U1_I3     11
 #define P_U1_I4     12
 #define P_U1_I5     13
@@ -70,6 +70,8 @@ bool EStopped = false;
 
 const int impact[L_NUM] = {P_U3_L1, P_U3_L3, P_U3_L5, P_U3_L7, P_U3_L2, P_U3_L4, P_U3_L6, P_U3_L8};
 
+bool tune = false;
+int counter = 0;
 
 int LeftVelocity = 0;
 int RightVelocity = 0;
@@ -120,7 +122,7 @@ void setup()
 
   Serial.begin(115200);
 
-  
+
   pinMode(P_U1_LD, OUTPUT);
   pinMode(P_U1_RD, OUTPUT);
   pinMode(P_U1_LB, INPUT_PULLUP);
@@ -177,7 +179,7 @@ void setup()
 void loop() {
   impactArray = Impact();
   Brakes = Check_Brakes();
-  
+
   if (digitalRead(P_U1_EStop) == HIGH)
   {
     EStop();
@@ -195,15 +197,25 @@ void loop() {
   if (serialCommCounter > 0) serialCommCounter--;
   blinkCounter--;
 
-  if(blinkCounter == 50)
+  if (blinkCounter == 50)
   {
     digitalWrite(P_U1_LED, HIGH);
   }
 
-  if(blinkCounter == 0)
+  if (blinkCounter == 0)
   {
     digitalWrite(P_U1_LED, LOW);
     blinkCounter = 100;
+  }
+
+  if (mcp.digitalRead(P_U3_DIO1) == LOW)
+  {
+    if (counter % 50 == 0) tune = !tune;
+
+    if (tune) tone(P_U1_I2, 440);
+    else tone(P_U1_I2, 523);
+
+    counter++;
   }
 
   delay(10);
