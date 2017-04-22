@@ -159,8 +159,8 @@ namespace HENRY.Modules.Navigation
             Kd = GetPropertyValue("Kd").ToDouble();
 
 
-            int rmSpeed = 0;
-            int lmSpeed = 0;
+            double rmSpeed = 0;
+            double lmSpeed = 0;
             int differential = 0;
 
             if (speed > 0)
@@ -173,8 +173,8 @@ namespace HENRY.Modules.Navigation
 
             error_log.WriteToLog(time++ + "," + thetaSmooth.ToString() + "," + thetaDotSmooth.ToString() + "," + differential.ToString());
 
-            SetPropertyValue("LeftSpeed", speed);
-            SetPropertyValue("RightSpeed", speed);
+            SetPropertyValue("LeftSpeed", lmSpeed);
+            SetPropertyValue("RightSpeed", rmSpeed);
 
         }
 
