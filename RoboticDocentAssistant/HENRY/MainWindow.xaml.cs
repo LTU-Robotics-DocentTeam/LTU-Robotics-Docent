@@ -111,17 +111,17 @@ namespace HENRY
             {
                 case UserView.UserScreen.Tour:
                     if (vm.GreenPressed)
-                        vm.Green += 0.1;
+                        vm.Green += 0.09;
                     if (vm.RedPressed)
-                        vm.Red += 0.1;
+                        vm.Red += 0.09;
                     if (vm.BlackPressed)
-                        vm.Black += 0.25;
+                        vm.Black += 0.20;
                     break;
                 case UserView.UserScreen.Shutdown:
                     if (vm.RedPressed)
                         vm.Red += 0.01;
                     if (vm.BlackPressed)
-                        vm.Black += 0.25;
+                        vm.Black += 0.20;
                     break;
                 case UserView.UserScreen.Kiosk:
                     if (vm.GreenPressed)
@@ -133,7 +133,7 @@ namespace HENRY
                     if (vm.BluePressed)
                         vm.Blue = 1;
                     if (vm.BlackPressed)
-                        vm.Black = 1;
+                        vm.Black += .20;
                     break;
                 case UserView.UserScreen.Manual:
                     if (vm.GreenPressed)
@@ -145,19 +145,19 @@ namespace HENRY
                     if (vm.BluePressed)
                         vm.Blue = 1;
                     if (vm.BlackPressed)
-                        vm.Black += 0.25;                    
+                        vm.Black += 0.20;                    
                     break;
                 case UserView.UserScreen.MainMenu:
                     if (vm.GreenPressed)
-                        vm.Green += 0.25;
+                        vm.Green += 0.20;
                     if (vm.RedPressed)
-                        vm.Red += 0.25;
+                        vm.Red += 0.20;
                     if (vm.YellowPressed)
-                        vm.Yellow += 0.25;
+                        vm.Yellow += 0.20;
                     if (vm.BluePressed)
-                        vm.Blue += 0.25;
+                        vm.Blue += 0.20;
                     if (vm.BlackPressed)
-                        vm.Black += 0.25;
+                        vm.Black += 0.20;
                     break;
                 case UserView.UserScreen.Estop:
                     if (vm.BlackPressed)
@@ -165,11 +165,11 @@ namespace HENRY
                     break;
                 case UserView.UserScreen.Auto:
                     if (vm.GreenPressed)
-                        vm.Green += 0.1;
+                        vm.Green += 0.20;
                     if (vm.RedPressed)
                         vm.Red += 0.5;
                     if (vm.BlackPressed)
-                        vm.Black += 0.25;
+                        vm.Black += 0.20;
                     break;
             }
             

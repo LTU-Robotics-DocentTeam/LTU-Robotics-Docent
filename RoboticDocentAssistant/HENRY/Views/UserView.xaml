@@ -916,8 +916,8 @@
                     </TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" Margin="20,10,10,10">
-                    Take unit to charging<LineBreak/>
-                    station immediately!
+                    Plug in unit to<LineBreak/>
+                    prevent auto shutdown!
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Center" FontSize="48" Foreground="White" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Margin="20" Text="{Binding FinalCountdown, ConverterParameter={StaticResource ShutdownTimer}, Converter={StaticResource CountdownConverter}}" />
                     </StackPanel>
@@ -946,7 +946,7 @@
                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
                     <StackPanel Visibility="{Binding LowVoltage, Converter={StaticResource BooltoVisConverter}}" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="36"  Margin="10">
                         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
-                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Battery Low! Charge unit"/>
+                            <TextBlock HorizontalAlignment="Center" Foreground="Black" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Battery Low! Charge unit" Width="485"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
