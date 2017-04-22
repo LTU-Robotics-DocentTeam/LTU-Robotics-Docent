@@ -39,11 +39,11 @@
                             <CheckBox IsChecked="{Binding AutonomousNavigation}" IsEnabled="False"></CheckBox>
                         </StackPanel>
                         <TextBlock x:Name="modeName" Text="Testing Mode"></TextBlock>
-                        <TextBlock Text="Alpha:" Margin="50,0,0,0"></TextBlock>
+                        <TextBlock Text="Kp:" Margin="50,0,0,0"></TextBlock>
                         <TextBox Text="{Binding Alpha}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
 
 
-                        <TextBlock Text="Beta:" Margin="50,0,0,0"></TextBlock>
+                        <TextBlock Text="Kd:" Margin="50,0,0,0"></TextBlock>
                         <TextBox Text="{Binding Beta}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
 
                         <TextBlock Text="Hall Array Down:" Margin="50,0,0,0"></TextBlock>
@@ -88,9 +88,9 @@
                         <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Left: "></TextBlock>
-                            <TextBlock Text="{Binding LeftMSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding LeftMValue}" FontWeight="Bold"></TextBlock>
                             <TextBlock Text=" Right: " ></TextBlock>
-                            <TextBlock Text="{Binding RightMSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding RightMValue}" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Left Brake"></TextBlock>

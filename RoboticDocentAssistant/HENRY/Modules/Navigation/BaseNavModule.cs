@@ -16,15 +16,20 @@ namespace HENRY.Modules.Navigation
     {
         public Timer t;
         public Timer tSlow;
-        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0, time = 0;
-        double prevLoc = 0, dirLoc = 0, currLoc = 0, smoothLoc = 0, dspd = 0, smoothdspd = 0, prevsmoothLoc = 0;
+        int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0;
+        
 
         double theta;
         double thetaSmooth;
         double thetaSmoothPrev;
         double thetaDot;
         double thetaDotSmooth;
-        double thetaDotSmoothPrev;
+
+        int time;
+
+
+        double Kp;
+        double Kd;
 
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
@@ -40,8 +45,8 @@ namespace HENRY.Modules.Navigation
             usm = new UltrasonicSensorModule();
             error_log = new ErrorLog(this);
 
-            theta = 0;
-            thetaDot = 0;
+
+            time = 0;
 
 
             SetPropertyValue("Direction", 0.0);
@@ -131,9 +136,6 @@ namespace HENRY.Modules.Navigation
             
 
 
-            error_log.WriteToLog(time++ + "," + theta.ToString() + "," + thetaSmooth.ToString() + "," + thetaDot.ToString() + "," + thetaDotSmooth.ToString());
-
-
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
@@ -152,7 +154,31 @@ namespace HENRY.Modules.Navigation
                 
             }
 
+
+            Kp = GetPropertyValue("Kp").ToDouble();
+            Kd = GetPropertyValue("Kd").ToDouble();
+
+
+            int rmSpeed = 0;
+            int lmSpeed = 0;
+            int differential = 0;
+
+            if (speed > 0)
+            {
+                differential = (int)((speed) * (Kp * (thetaSmooth / Constants.MAX_DIR) + Kd * thetaDotSmooth));
+                rmSpeed = speed + differential;
+                lmSpeed = speed - differential;
+                
+            }
+
+            error_log.WriteToLog(time++ + "," + thetaSmooth.ToString() + "," + thetaDotSmooth.ToString() + "," + differential.ToString());
+
+            SetPropertyValue("LeftSpeed", speed);
+            SetPropertyValue("RightSpeed", speed);
+
         }
+
+
         
         public void StopModule()
         {
@@ -169,12 +195,18 @@ namespace HENRY.Modules.Navigation
             usm.StartRecording();
             error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
             t.Start();
-            time = 0;
-            prevLoc = 0;
-            dirLoc = 0;
-            currLoc = 0; smoothLoc = 0; dspd = 0;
-            smoothdspd = 0;
-            prevsmoothLoc = 0;
+
+            time  = 0;
+
+            lineHoldCounter = 0;
+
+            theta = 0;
+            thetaSmooth = 0;
+            thetaSmoothPrev = 0;
+            thetaDot = 0;
+            thetaDotSmooth = 0;
+
+            
         }
         
         public override string GetModuleName()

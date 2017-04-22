@@ -39,6 +39,8 @@ namespace HENRY
             mnd = new ManualDrive();
             gsm = new GenericSensorModule();
 
+            
+
             vm.Green = 0;
             vm.Red = 0;
             vm.Blue = 0;
