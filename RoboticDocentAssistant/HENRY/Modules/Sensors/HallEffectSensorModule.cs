@@ -57,8 +57,6 @@ namespace HENRY.Modules.Sensors
             for (int i = 0; i < Constants.ARRAY_NUM; i++)
             {
                 arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
-
-                SetPropertyValue("Extra", GetPropertyValue("Extra").ToString() + arr[i].ToString());
                 
             }
 

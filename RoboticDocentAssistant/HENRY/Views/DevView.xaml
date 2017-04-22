@@ -88,6 +88,13 @@
                         <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Left: "></TextBlock>
+                            <TextBlock Text="{Binding LeftSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text=" Right: " ></TextBlock>
+                            <TextBlock Text="{Binding RightSpeed}" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Text="Individual Final Motor Values:" HorizontalAlignment="Center"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Left: "></TextBlock>
                             <TextBlock Text="{Binding LeftMValue}" FontWeight="Bold"></TextBlock>
                             <TextBlock Text=" Right: " ></TextBlock>
                             <TextBlock Text="{Binding RightMValue}" FontWeight="Bold"></TextBlock>

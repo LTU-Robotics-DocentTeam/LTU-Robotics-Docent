@@ -55,6 +55,10 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
 
+            SetPropertyValue("Kp", 0.0);
+
+            SetPropertyValue("Kd", 0.0);
+
             t = new Timer();
             t.Interval = 20;
             t.Elapsed += t_Elapsed;
@@ -129,6 +133,7 @@ namespace HENRY.Modules.Navigation
                 // multiply speed to whatever the ultrasonic reccomends (1 if all clear, 0 if only turns - not moving forward)
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
+                SetPropertyValue("Extra", speed.ToString());
             }
 
             thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.2;
@@ -144,13 +149,22 @@ namespace HENRY.Modules.Navigation
                     SetPropertyValue("Direction", Math.Round(thetaSmooth,2));
                     SetPropertyValue("DeltaDirection", Math.Round(thetaDotSmooth, 2));
                     SetPropertyValue("Speed", speed);
+
+
                 }
                 else
                 {
                     SetPropertyValue("Direction", 0.0);
                     SetPropertyValue("DeltaDirection", 0.0);
                     SetPropertyValue("Speed", 0);
+
+                    thetaSmooth = 0;
+                    thetaDotSmooth = 0;
+
+                    speed = 0;
                 }
+
+                
                 
             }
 
@@ -161,11 +175,11 @@ namespace HENRY.Modules.Navigation
 
             double rmSpeed = 0;
             double lmSpeed = 0;
-            int differential = 0;
+            double differential = 0;
 
             if (speed > 0)
             {
-                differential = (int)((speed) * (Kp * (thetaSmooth / Constants.MAX_DIR) + Kd * thetaDotSmooth));
+                differential = (speed) * (Kp * (thetaSmooth / Constants.MAX_DIR) + Kd * thetaDotSmooth);
                 rmSpeed = speed + differential;
                 lmSpeed = speed - differential;
                 
