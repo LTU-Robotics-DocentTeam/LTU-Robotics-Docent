@@ -55,9 +55,9 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
 
-            SetPropertyValue("Kp", 0.0);
+            SetPropertyValue("Kp", 75.0);
 
-            SetPropertyValue("Kd", 0.0);
+            SetPropertyValue("Kd", 25.0);
 
             t = new Timer();
             t.Interval = 20;
@@ -122,17 +122,19 @@ namespace HENRY.Modules.Navigation
 
             }
 
-            if (ultrasonicError < 0)
+            /*if (ultrasonicError < 0)
             {
-                //errorState = true;
+                errorState = true;
             }
             else
             {
                 // multiply speed to whatever the ultrasonic reccomends (1 if all clear, 0 if only turns - not moving forward)
                 // that 0 might cause troubles. test for effectiveness before commiting to it
-                speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
+                speed = Constants.DEFAULT_SPEED;// *GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
                 SetPropertyValue("Extra", speed.ToString());
-            }
+            }*/
+
+            speed = 5;
 
             thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.2;
             thetaDotSmooth = thetaDotSmooth + (thetaDot - thetaDotSmooth) * 0.2;
@@ -167,8 +169,8 @@ namespace HENRY.Modules.Navigation
             }
 
 
-            Kp = GetPropertyValue("Kp").ToDouble();
-            Kd = GetPropertyValue("Kd").ToDouble();
+            Kp = GetPropertyValue("Kp").ToDouble() / 1000;
+            Kd = GetPropertyValue("Kd").ToDouble() / 1000;
 
 
             double rmSpeed = 0;

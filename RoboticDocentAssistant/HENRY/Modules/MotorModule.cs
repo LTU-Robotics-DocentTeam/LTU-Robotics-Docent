@@ -12,7 +12,6 @@ namespace HENRY.Modules
     {
         TimersTimer t;
         ErrorLog plots;
-        double alpha = 5.0, beta = 0; //Beta = D, Alpha = P
         int time = 0;
         public bool recording = false;
         
@@ -82,13 +81,13 @@ namespace HENRY.Modules
             //Update current property value
             if (!estop && (GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
             {
-                SetPropertyValue("RightMSpeed", rmSpeed);
-                SetPropertyValue("LeftMSpeed", lmSpeed);
+                SetPropertyValue("RightMValue", rmSpeed);
+                SetPropertyValue("LeftMValue", lmSpeed);
             }
             else
             {
-                SetPropertyValue("RightMSpeed", 0);
-                SetPropertyValue("LeftMSpeed", 0);
+                SetPropertyValue("RightMValue", 0);
+                SetPropertyValue("LeftMValue", 0);
             }
         }
 

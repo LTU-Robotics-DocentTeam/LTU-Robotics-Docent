@@ -40,11 +40,11 @@
                         </StackPanel>
                         <TextBlock x:Name="modeName" Text="Testing Mode"></TextBlock>
                         <TextBlock Text="Kp:" Margin="50,0,0,0"></TextBlock>
-                        <TextBox Text="{Binding Alpha}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Kp}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
 
 
                         <TextBlock Text="Kd:" Margin="50,0,0,0"></TextBlock>
-                        <TextBox Text="{Binding Beta}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding Kd}" HorizontalAlignment="Center" Width="50" Height="15" VerticalAlignment="Top"/>
 
                         <TextBlock Text="Hall Array Down:" Margin="50,0,0,0"></TextBlock>
                         <CheckBox IsChecked="{Binding ArrayDown}" HorizontalAlignment="Center"></CheckBox>
