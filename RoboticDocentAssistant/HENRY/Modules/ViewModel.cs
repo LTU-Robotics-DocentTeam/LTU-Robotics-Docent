@@ -581,15 +581,15 @@ namespace HENRY.Modules
         }
 
 
-        public int RightSpeed
+        public double RightSpeed
         {
-            get { return GetPropertyValue("RightSpeed").ToInt32(); }
+            get { return GetPropertyValue("RightSpeed").ToDouble(); }
             set { SetPropertyValue("RightSpeed", value); RaisePropertyChanged("RightSpeed"); }
         }
 
-        public int LeftSpeed
+        public double LeftSpeed
         {
-            get { return GetPropertyValue("LeftSpeed").ToInt32(); }
+            get { return GetPropertyValue("LeftSpeed").ToDouble(); }
             set { SetPropertyValue("LeftSpeed", value); RaisePropertyChanged("LeftSpeed"); }
         }
     }
