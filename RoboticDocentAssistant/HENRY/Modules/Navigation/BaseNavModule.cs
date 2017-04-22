@@ -63,13 +63,11 @@ namespace HENRY.Modules.Navigation
             t.Interval = 20;
             t.Elapsed += t_Elapsed;
 
-            t.Start();
 
             tSlow = new Timer();
             tSlow.Interval = 100;
             tSlow.Elapsed += tSlow_Elapsed;
 
-            tSlow.Start();
 
         }
 
@@ -197,6 +195,7 @@ namespace HENRY.Modules.Navigation
         public void StopModule()
         {
             t.Stop();
+            tSlow.Stop();
             error_log.CloseLog();
             usm.StopRecording();
             SetPropertyValue("Direction", 0.0);
@@ -209,6 +208,7 @@ namespace HENRY.Modules.Navigation
             usm.StartRecording();
             error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
             t.Start();
+            tSlow.Start();
 
             time  = 0;
 

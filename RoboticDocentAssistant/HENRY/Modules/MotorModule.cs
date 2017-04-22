@@ -42,10 +42,10 @@ namespace HENRY.Modules
         {
             bool estop = GetPropertyValue("EStop").ToBoolean();
 
-            int rmSpeed = 0, lmSpeed = 0;
+            
 
-            rmSpeed = (int)Math.Round(GetPropertyValue("RightSpeed").ToDouble());
-            lmSpeed = (int)Math.Round(GetPropertyValue("LeftSpeed").ToDouble());
+            int rmSpeed = (int)Math.Round(GetPropertyValue("RightSpeed").ToDouble());
+            int lmSpeed = (int)Math.Round(GetPropertyValue("LeftSpeed").ToDouble());
 
             // Add deadzone gap to the speed
             if (rmSpeed > 0)
