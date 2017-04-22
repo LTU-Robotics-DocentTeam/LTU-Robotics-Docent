@@ -215,6 +215,14 @@ namespace HENRY
                 {
                     case UserView.UserScreen.Tour:
                         // End stream here
+                        foreach (Process p in Process.GetProcesses())
+                        {
+
+                            if (p.ProcessName == "obs64")
+                            {
+                                p.Kill();
+                            }
+                        }
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:
@@ -620,7 +628,12 @@ namespace HENRY
             if (usv != null)
             {
                 if (!(bool)e.NewValue)
+                {
                     if (userViewControl.stream.IsRunning) userViewControl.stream.SignalToStop();
+                    Mouse.OverrideCursor = Cursors.Cross;                  
+                }
+                else
+                    Mouse.OverrideCursor = Cursors.None;
             }
 
         }
