@@ -289,6 +289,7 @@
                 <StackPanel Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="2" Grid.ColumnSpan="3">
                     <TextBlock FontSize="36"  Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center">
                         START <LineBreak/>
+                        VIDEO<LineBreak/>
                         STREAM
                     </TextBlock>
                 </StackPanel>
@@ -364,6 +365,7 @@
                 </Ellipse>
                 <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" FontSize="36"  Foreground="White" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">
                     STOP <LineBreak/>
+                    VIDEO<LineBreak/>
                     STREAM
                 </TextBlock>
             </Grid>
