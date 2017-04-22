@@ -1,6 +1,7 @@
 ﻿using HENRY.ModuleSystem;
 using System.Timers;
 using System;
+using System.Windows.Forms;
 
 
 namespace HENRY.Modules.Sensors
@@ -13,7 +14,7 @@ namespace HENRY.Modules.Sensors
     /// - Update line following to work with the clusters of two arrangement
     class HallEffectSensorModule : LengarioModuleAuxiliary
     {
-        Timer t;
+        System.Timers.Timer t;
 
         
         
@@ -50,10 +51,15 @@ namespace HENRY.Modules.Sensors
             //-------------------------------------------------------------------------------------------------------------
             // Patrick, feel free to use what I got so far or use your own method. 
 
+            SetPropertyValue("Extra", String.Empty);
+
             //Take serial Hall effect sensor data and load into a boolean array
             for (int i = 0; i < Constants.ARRAY_NUM; i++)
             {
                 arr[i] = GetPropertyValue("ArraySensor" + (i + 1).ToString()).ToBoolean();
+
+                SetPropertyValue("Extra", GetPropertyValue("Extra").ToString() + arr[i].ToString());
+                
             }
 
             //Use Hall effect boolean array data to load cluster array. ****This loop only works for a cluster size of 2****
@@ -152,6 +158,8 @@ namespace HENRY.Modules.Sensors
                 }
             }
 
+            //MessageBox.Show(activeClusters.ToString());
+
             double averageDistance;
 
             if (activeClusters > 0)
@@ -166,7 +174,10 @@ namespace HENRY.Modules.Sensors
 
             double averageAngle;
 
-            averageAngle = Math.Atan(averageDistance / Constants.ARRAY_TO_CENTER);
+
+            
+
+            averageAngle = RadiansToDegrees(Math.Atan(averageDistance / Constants.ARRAY_TO_CENTER));
 
             SetPropertyValue("LineAngle", averageAngle);
             
@@ -177,6 +188,11 @@ namespace HENRY.Modules.Sensors
         public override string GetModuleName()
         {
             return "HallEffectSensorModule";
+        }
+
+        private double RadiansToDegrees(double angle)
+        {
+            return angle * ( 180.0 / Math.PI );
         }
     }
 }

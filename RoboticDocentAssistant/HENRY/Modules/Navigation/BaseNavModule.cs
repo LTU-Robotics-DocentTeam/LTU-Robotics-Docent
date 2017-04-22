@@ -15,8 +15,16 @@ namespace HENRY.Modules.Navigation
     class BaseNavModule : LengarioModuleCore
     {
         public Timer t;
+        public Timer tSlow;
         int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0, speed = 0, time = 0;
         double prevLoc = 0, dirLoc = 0, currLoc = 0, smoothLoc = 0, dspd = 0, smoothdspd = 0, prevsmoothLoc = 0;
+
+        double theta;
+        double thetaSmooth;
+        double thetaSmoothPrev;
+        double thetaDot;
+        double thetaDotSmooth;
+        double thetaDotSmoothPrev;
 
         HallEffectSensorModule hem;
         ImpactSensorModule ism;
@@ -24,7 +32,7 @@ namespace HENRY.Modules.Navigation
         public ErrorLog error_log;
         private bool errorState = false;
 
-        
+
         public BaseNavModule()
         {
             hem = new HallEffectSensorModule();
@@ -32,7 +40,10 @@ namespace HENRY.Modules.Navigation
             usm = new UltrasonicSensorModule();
             error_log = new ErrorLog(this);
 
-            
+            theta = 0;
+            thetaDot = 0;
+
+
             SetPropertyValue("Direction", 0.0);
             SetPropertyValue("DeltaDirection", 0.0);
             SetPropertyValue("Speed", 0); // speed in servo scale (0-180)
@@ -42,7 +53,15 @@ namespace HENRY.Modules.Navigation
             t = new Timer();
             t.Interval = 20;
             t.Elapsed += t_Elapsed;
-            //t.Start();
+
+            t.Start();
+
+            tSlow = new Timer();
+            tSlow.Interval = 100;
+            tSlow.Elapsed += tSlow_Elapsed;
+
+            tSlow.Start();
+
         }
 
         /// <summary>
@@ -50,10 +69,22 @@ namespace HENRY.Modules.Navigation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
+        void tSlow_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            
+            thetaDot = thetaSmooth - thetaSmoothPrev;
+
+            thetaSmoothPrev = thetaSmooth;
+
+        } 
+
+
         void t_Elapsed(object sender, ElapsedEventArgs e)
         {
             // run sensor calculations
             hallEffectError = hem.Calculate();
+
             //ism.Calculate(); // Mostly vestigial, triggers estop for simulation mode, but that's about it
             ultrasonicError = usm.Calculate();
             //ultrasonicError = 0;
@@ -72,16 +103,17 @@ namespace HENRY.Modules.Navigation
                 }
                 else
                 {
-                    dirLoc = prevLoc;
+                    //dirLoc = prevLoc;
                     lineHoldCounter++;
                 }
             }
             else
             {
-                currLoc = GetPropertyValue("LineAngle").ToDouble();
+
+                theta = GetPropertyValue("LineAngle").ToDouble();
+
                 lineHoldCounter = 0;
-                prevLoc = currLoc;
-                dirLoc = currLoc;
+
             }
 
             if (ultrasonicError < 0)
@@ -94,20 +126,22 @@ namespace HENRY.Modules.Navigation
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
             }
-            prevsmoothLoc = smoothLoc;
-            smoothLoc += (dirLoc - smoothLoc) * 0.1;
-            dspd = (smoothLoc - prevsmoothLoc);
-            smoothdspd += (dspd - smoothdspd) * 0.1; 
 
-            error_log.WriteToLog(time++ + "," + dirLoc.ToString() + "," + smoothLoc.ToString() + "," + dspd.ToString() + "," + smoothdspd.ToString());
+            thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.1;
+            thetaDotSmooth = thetaDotSmooth + (thetaDot - thetaDotSmooth) * 0.1;
+            
+
+
+            error_log.WriteToLog(time++ + "," + theta.ToString() + "," + thetaSmooth.ToString() + "," + thetaDot.ToString() + "," + thetaDotSmooth.ToString());
+
 
             //Set calculated direction and speed properties
             if (!GetPropertyValue("ManualDriveEnabled").ToBoolean() && GetPropertyValue("AutonomousNavigation").ToBoolean())
             {
                 if (!errorState)
                 {
-                    SetPropertyValue("Direction", smoothLoc);
-                    SetPropertyValue("DeltaDirection", smoothdspd);
+                    SetPropertyValue("Direction", thetaSmooth);
+                    SetPropertyValue("DeltaDirection", thetaDotSmooth);
                     SetPropertyValue("Speed", speed);
                 }
                 else

@@ -48,6 +48,8 @@
 
                         <TextBlock Text="Hall Array Down:" Margin="50,0,0,0"></TextBlock>
                         <CheckBox IsChecked="{Binding ArrayDown}" HorizontalAlignment="Center"></CheckBox>
+
+                        <TextBlock Text="{Binding Extra}" Margin="50,0,0,0"></TextBlock>
                     </StackPanel>
                     
                 </StackPanel>
@@ -72,7 +74,7 @@
                         <CheckBox IsChecked="{Binding EStop}" HorizontalAlignment="Center"></CheckBox>
                         <Separator></Separator>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Direction: "/>
+                            <TextBlock Text="Theta:"/>
                             <TextBlock Text="{Binding Direction}" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -80,8 +82,8 @@
                             <TextBlock Text="{Binding Speed}" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Directional Speed: "/>
-                            <TextBlock Text="{Binding DirectionalSpeed}" FontWeight="Bold"/>
+                            <TextBlock Text="Theta Dot: "/>
+                            <TextBlock Text="{Binding DeltaDirection}" FontWeight="Bold"/>
                         </StackPanel>
                         <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

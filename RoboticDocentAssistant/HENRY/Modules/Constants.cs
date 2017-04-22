@@ -8,14 +8,14 @@ namespace HENRY.Modules
 {
     class Constants
     {
-        public const int DEFAULT_SPEED = 5; // default speed for both motors when no obstacles are in front or nearby
+        public const int DEFAULT_SPEED = 4; // default speed for both motors when no obstacles are in front or nearby
 
-        public const int MAX_MOTOR_SPEED = 90;                      // Maximum speed the motors can handle - DO NOT SURPASS 180!!
+        public const int MAX_MOTOR_SPEED = 70;                      // Maximum speed the motors can handle - DO NOT SURPASS 180!!
         public const int DEAD_ZONE = 48;                            // Deadzone to lowest signal the motor can take to move - DO NOT GO BELOW 48!
         public const int MAX_SPEED = MAX_MOTOR_SPEED - DEAD_ZONE;   // Determine maximum speed the code can set past the dead zone
 
         public const int MAX_DIST = 2000;
-        public const int LINE_HOLD_BUFFER = 40;
+        public const int LINE_HOLD_BUFFER = 30;
 
         public const double TURN_FACTOR = 1;
         public const int TURN_ZONE = 39;

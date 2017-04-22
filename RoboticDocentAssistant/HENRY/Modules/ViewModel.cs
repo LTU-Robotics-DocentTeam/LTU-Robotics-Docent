@@ -98,6 +98,12 @@ namespace HENRY.Modules
             set { SetPropertyValue("ArduinoData", value); RaisePropertyChanged("ArduinoData"); }
         }
 
+        public string Extra
+        {
+            get { return GetPropertyValue("Extra").ToString(); }
+            set { SetPropertyValue("Extra", value); RaisePropertyChanged("Extra"); }
+        }
+
         public int Generic_Sensor1
         {
             get
@@ -266,10 +272,10 @@ namespace HENRY.Modules
             get { return GetPropertyValue("AutonomousNavigation").ToBoolean(); }
             set { SetPropertyValue("AutonomousNavigation", value); RaisePropertyChanged("AutonomousNavigation"); }
         }
-        public string DirectionalSpeed
+        public string DeltaDirection
         {
-            get { return GetPropertyValue("DirectionalSpeed").ToString(); }
-            set { SetPropertyValue("DirectionalSpeed", value); RaisePropertyChanged("DirectionalSpeed"); }
+            get { return GetPropertyValue("DeltaDirection").ToString(); }
+            set { SetPropertyValue("DeltaDirection", value); RaisePropertyChanged("DeltaDirection"); }
         }
         public string BatteryVoltage
         {

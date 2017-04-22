@@ -57,16 +57,7 @@ namespace HENRY.Modules
                 lmSpeed = spd - dSpd;
                 plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
 
-                //if (direction > 0)
-                //{
-                //    rmSpeed = spd;
-                //    lmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                //}
-                //else
-                //{
-                //    rmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                //    lmSpeed = spd;
-                //}
+              
             }
             else if (spd == 0)
             {
@@ -78,6 +69,9 @@ namespace HENRY.Modules
                 rmSpeed = spd;
                 lmSpeed = spd;
             }
+
+
+
 
             // Add deadzone gap to the speed
             if (rmSpeed > 0)
