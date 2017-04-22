@@ -347,13 +347,6 @@ namespace HENRY.Modules
                         }
                     }
                     break;
-                // Motor Values =================================
-                // Load serial data into motor objects,  each motor is its own object. Data is a double
-                case 'L': SetPropertyValue("LeftMSpeed", value);
-                    break;
-                case 'R': SetPropertyValue("RightMSpeed", value);
-                    break;
-                // ==============================================
                 case 'U': // User View ON?: Determines which View is active at the moment
                     if (value == "1")
                     {
@@ -636,7 +629,7 @@ namespace HENRY.Modules
                     serPort1_dataIn = false;
                 }
                 
-                msg2motor += "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
+                msg2motor += "<R" + GetPropertyValue("RightMValue").ToString() + "><L" + GetPropertyValue("LeftMValue").ToString() + ">";
                 
                 // if estop triggered before, send attempt reset signal when user addresses in the program (i.e. checkbox in DevView, 
                 // alert message from UserView)

@@ -21,8 +21,10 @@ namespace HENRY.Modules
             plots = new ErrorLog(this);
             
             // Initialize properties to default
-            SetPropertyValue("RightMSpeed", 0);
-            SetPropertyValue("LeftMSpeed", 0);
+            SetPropertyValue("RightMValue", 0);
+            SetPropertyValue("LeftMValue", 0);
+            SetPropertyValue("RightSpeed", 0.0);
+            SetPropertyValue("LeftSpeed", 0.0);
             SetPropertyValue("DirectionalSpeed", 0);
             SetPropertyValue("LeftBrake", false);
             SetPropertyValue("RightBrake", false); 
