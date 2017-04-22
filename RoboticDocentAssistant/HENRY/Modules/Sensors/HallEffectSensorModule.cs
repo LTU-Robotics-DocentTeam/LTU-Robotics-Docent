@@ -1,10 +1,11 @@
 ﻿using HENRY.ModuleSystem;
 using System.Timers;
+using System;
 
 
 namespace HENRY.Modules.Sensors
 {
-    /// <summary>
+    /// <summry>
     /// Hall effect secondary processing module. Takes raw boolean inputs from the sensor array and determines
     /// line angle with respect to the robot
     /// </summary>
@@ -21,7 +22,6 @@ namespace HENRY.Modules.Sensors
             for (int i = 1; i <= Constants.ARRAY_NUM; i++)
                 SetPropertyValue("ArraySensor" + i.ToString(), false);
 
-            //0 is hard right, 90 is straight on, 180 is hard left
             SetPropertyValue("LineAngle", 0.0);
 
             //t = new Timer();
@@ -71,6 +71,9 @@ namespace HENRY.Modules.Sensors
 
             // Use cluster data to determine where the line is
             //Find the spaceing between the clusters that are on
+
+
+            /*
 
             int gap = 0; //number of clusters off from the right side
             bool gapSwitch = false; //detects the beginning of a gap
@@ -134,7 +137,38 @@ namespace HENRY.Modules.Sensors
                 lineloc -= Constants.MAX_DIR;
                 SetPropertyValue("LineAngle", -lineloc);
             }
+             * 
+             * */
 
+            int activeClusters = 0;
+            double distanceStorage = 0;
+
+            for (int i = 0; i < (Constants.CLUSTER_NUM); i++)
+            {
+                if(clarr[i])
+                {
+                    distanceStorage += Constants.CLUSTER_GAP * (i - 3.5);
+                    activeClusters++;
+                }
+            }
+
+            double averageDistance;
+
+            if (activeClusters > 0)
+                averageDistance = distanceStorage / activeClusters;
+            else
+            {
+                SetPropertyValue("LineAngle", -100.0);
+                return -1;
+            }
+                
+
+
+            double averageAngle;
+
+            averageAngle = Math.Atan(averageDistance / Constants.ARRAY_TO_CENTER);
+
+            SetPropertyValue("LineAngle", averageAngle);
             
 
             return 0;

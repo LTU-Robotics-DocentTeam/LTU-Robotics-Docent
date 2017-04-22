@@ -7,63 +7,28 @@ void SetMotor(char motor, int newVelocity)
 
 
   if(motor == 'R')
-    RightSeat = newVelocity;
+  {
+    
+    RightSpeed = abs(newVelocity);
+
+    RightReverse = newVelocity < 0;
+  }
+  
+    
     
 
   if(motor == 'L')
-    LeftSeat = newVelocity;
-
-
-
-  
-
-  if(RightSeat != -1 && LeftSeat != -1)
   {
-    
-      
-    if(RightSeat == LeftSeat && RightCache != LeftCache)
-    {
-      if(RightCache != 0 && LeftCache != 0)
-      {
-        int difference = abs(abs(RightCache) - abs(LeftCache));
-          
-         if(RightCache > LeftCache)
-        { 
-          RightPauseTimer = difference * 5;
-        }
-        else if(LeftCache > RightCache)
-        {
-          LeftPauseTimer = difference * 5;
-        }
-      }
-     
-    }
-
-
-    RightCache = RightSeat;
-  
-    LeftCache = LeftSeat;
-  
-
-  
-    RightSpeed = abs(RightSeat);
-
-    RightReverse = RightSeat < 0;
-  
-
  
-    LeftSpeed = abs(LeftSeat);
+    LeftSpeed = abs(newVelocity);
 
-    LeftReverse = LeftSeat < 0;
-  
+    LeftReverse = newVelocity < 0;
+  }
+
     
     CommandHealth = HEALTH_CONSTANT;
 
 
-    RightSeat = -1;
-    LeftSeat = -1;
-    
-  } 
 
 }
 
@@ -73,15 +38,7 @@ void SetMotor(char motor, int newVelocity)
 
 void RunMotors()
 {
-  //  if (MotorCooldown > 0)
-  //  {
-  //    MotorCooldown--;
-  //
-  //    LeftMotor.write(0);
-  //    RightMotor.write(0);
-  //
-  //    return;
-  //  }
+  
 
   if (CommandHealth > 0)
   {
@@ -96,34 +53,15 @@ void RunMotors()
 
 
 
-
   if (LeftReverse == LeftRelayClosed)
   {
-    if (LeftSpeed > LeftMotorValue) //on the way up
-    {
-      if (LeftMotorValue == 0)
-        LeftMotorValue = DEAD_ZONE;
-      else
-        LeftMotorValue += RAMP_CONSTANT;
-
-    }
-
-    if (LeftSpeed < LeftMotorValue) //on the way down
-    {
-      if (LeftMotorValue < DEAD_ZONE)
-        LeftMotorValue = 0;
-      else
-        LeftMotorValue -= RAMP_CONSTANT;
-    }
+    LeftMotorValue = LeftSpeed; 
   }
   else //to zero
   {
     if (LeftMotorValue > 0) // ramp down for relay
     {
-      if (LeftMotorValue < DEAD_ZONE && LeftMotorValue > PRE_JUMP)
-        LeftMotorValue = PRE_JUMP;
-      else
-        LeftMotorValue -= RAMP_CONSTANT;
+      LeftMotorValue = 0;
     }
     else
     {
@@ -138,30 +76,14 @@ void RunMotors()
 
   if (RightReverse == RightRelayClosed) //on the way up
   {
-    if (RightSpeed > RightMotorValue)
-    {
-      if (RightMotorValue == 0)
-        RightMotorValue = DEAD_ZONE;
-      else
-        RightMotorValue += RAMP_CONSTANT;
-    }
-
-    if (RightSpeed < RightMotorValue) //on the way down
-    {
-      if (RightMotorValue < DEAD_ZONE)
-        RightMotorValue = 0;
-      else
-        RightMotorValue -= RAMP_CONSTANT;
-    }
+    RightMotorValue = RightSpeed;
+    
   }
   else //to zero
   {
     if (RightMotorValue > 0)
     {
-      if (RightMotorValue < DEAD_ZONE && RightMotorValue > PRE_JUMP)
-        RightMotorValue = PRE_JUMP;
-      else
-        RightMotorValue -= RAMP_CONSTANT;
+        RightMotorValue = 0;
     }
     else
     {
@@ -170,37 +92,10 @@ void RunMotors()
     }
   }
 
-
-
-
-
-  if (LeftMotorValue == 0)
-  {
-    LeftMotor.write(0);
-  }
   
-  else if ( LeftPauseTimer > 0)
-  {
-    LeftMotor.write(0);
-    LeftPauseTimer--;
-  }
-  
-  else
     LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);
   //Serial.println("Left:" + String(LeftMotorValue));
 
-  if (RightMotorValue == 0)
-  {
-    RightMotor.write(0);
-  }
-
-  else if ( RightPauseTimer > 0)
-  {
-    RightMotor.write(0);
-    RightPauseTimer--;
-  }
-  
-  else
     RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
   //Serial.println("Right:"+ String(RightMotorValue));
 
