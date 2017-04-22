@@ -203,6 +203,10 @@ void loop() {
 
     counter++;
   }
+  else
+  {
+    noTone(P_U1_I2);
+  }
 
   delay(10);
 }
