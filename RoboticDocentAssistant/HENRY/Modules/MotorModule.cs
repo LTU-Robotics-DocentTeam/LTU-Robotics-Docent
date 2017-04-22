@@ -53,20 +53,22 @@ namespace HENRY.Modules
             if (spd > 0)
             {
                 int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
-                rmSpeed = spd + dSpd;
-                lmSpeed = spd - dSpd;
-                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
+                
+                //old code
+                //rmSpeed = spd + dSpd;
+                //lmSpeed = spd - dSpd;
 
-                //if (direction > 0)
-                //{
-                //    rmSpeed = spd;
-                //    lmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                //}
-                //else
-                //{
-                //    rmSpeed = spd - (int)Math.Abs((spd) * (direction / Constants.MAX_DIR));
-                //    lmSpeed = spd;
-                //}
+                if (direction > 0)
+                {
+                    rmSpeed = spd;
+                    lmSpeed = spd - Math.Abs(dSpd);
+                }
+                else
+                {
+                    rmSpeed = spd - Math.Abs(dSpd);
+                    lmSpeed = spd;
+                }
+                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
             }
             else if (spd == 0)
             {
