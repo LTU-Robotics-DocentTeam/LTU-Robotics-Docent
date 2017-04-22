@@ -70,8 +70,8 @@ namespace HENRY.Modules
 
             if (GetPropertyValue("ManualDriveEnabled").ToBoolean())
             {
-                SetPropertyValue("RightSpeed", rspeed);
-                SetPropertyValue("LeftSpeed", lspeed);
+                SetPropertyValue("RightSpeed", (double)rspeed);
+                SetPropertyValue("LeftSpeed", (double)lspeed);
             }
             
         }

@@ -40,12 +40,6 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            alpha = GetPropertyValue("Alpha").ToDouble();
-            beta = GetPropertyValue("Beta").ToDouble();
-
-            double direction = GetPropertyValue("Direction").ToDouble();
-            double delta_direction = GetPropertyValue("DeltaDirection").ToDouble();
-            int spd = GetPropertyValue("Speed").ToInt32();
             bool estop = GetPropertyValue("EStop").ToBoolean();
 
             int rmSpeed = 0, lmSpeed = 0;
@@ -83,6 +77,8 @@ namespace HENRY.Modules
             if (lmSpeed > Constants.MAX_MOTOR_SPEED)
                 lmSpeed = Constants.MAX_MOTOR_SPEED;
 
+            plots.WriteToLog(time++ + "," + rmSpeed.ToString() + "," + lmSpeed.ToString());
+
             //Update current property value
             if (!estop && (GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
             {
@@ -105,7 +101,7 @@ namespace HENRY.Modules
         {
             plots.OpenLog();
             time = 0;
-            plots.WriteToLog("Time,position,speed,result,alpha," + alpha.ToString() + ",beta," + beta.ToString());
+            plots.WriteToLog("Time,Right Motor Speed,Left Motor Speed");
             recording = true;
         }
 
