@@ -74,7 +74,6 @@ namespace HENRY.Modules.Navigation
         {
             
             thetaDot = thetaSmooth - thetaSmoothPrev;
-
             thetaSmoothPrev = thetaSmooth;
 
         } 
@@ -118,7 +117,7 @@ namespace HENRY.Modules.Navigation
 
             if (ultrasonicError < 0)
             {
-                errorState = true;
+                //errorState = true;
             }
             else
             {
@@ -127,8 +126,8 @@ namespace HENRY.Modules.Navigation
                 speed = Constants.DEFAULT_SPEED * GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
             }
 
-            thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.1;
-            thetaDotSmooth = thetaDotSmooth + (thetaDot - thetaDotSmooth) * 0.1;
+            thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.2;
+            thetaDotSmooth = thetaDotSmooth + (thetaDot - thetaDotSmooth) * 0.2;
             
 
 
@@ -140,8 +139,8 @@ namespace HENRY.Modules.Navigation
             {
                 if (!errorState)
                 {
-                    SetPropertyValue("Direction", thetaSmooth);
-                    SetPropertyValue("DeltaDirection", thetaDotSmooth);
+                    SetPropertyValue("Direction", Math.Round(thetaSmooth,2));
+                    SetPropertyValue("DeltaDirection", Math.Round(thetaDotSmooth, 2));
                     SetPropertyValue("Speed", speed);
                 }
                 else
