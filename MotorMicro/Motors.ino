@@ -8,32 +8,26 @@ void SetMotor(char motor, int newVelocity)
 
   if(motor == 'R')
   {
-    
     RightSpeed = abs(newVelocity);
 
-    RightDirection = constrain(newVelocity, -1, 1);
-    
+    RightReverse = newVelocity < 0;
   }
-  
-    
     
 
   if(motor == 'L')
   {
- 
     LeftSpeed = abs(newVelocity);
-
-    LeftDirection = constrain(newVelocity, -1, 1);
+  
+    LeftReverse = newVelocity < 0;
   }
 
+
+  
     
     CommandHealth = HEALTH_CONSTANT;
 
 }
-
-
-
-
+  
 
 void RunMotors()
 {
@@ -52,34 +46,102 @@ void RunMotors()
 
 
 
-  if (LeftDirection == -1)
-    LeftRelayClosed = true;
-
-  if (LeftDirection == 1)
-    LeftRelayClosed = false;
 
 
-  LeftMotorValue = LeftSpeed; 
+  if (LeftReverse == LeftRelayClosed)
+  {
+    if (LeftSpeed > LeftMotorValue) //on the way up
+    {
+      if (LeftMotorValue == 0)
+        LeftMotorValue = DEAD_ZONE;
+      else
+        LeftMotorValue += RAMP_CONSTANT;
+
+    }
+
+    if (LeftSpeed < LeftMotorValue) //on the way down
+    {
+      if (LeftMotorValue < DEAD_ZONE)
+        LeftMotorValue = 0;
+      else
+        LeftMotorValue -= RAMP_CONSTANT;
+    }
+  }
+  else //to zero
+  {
+    if (LeftMotorValue > 0) // ramp down for relay
+    {
+      if (LeftMotorValue < DEAD_ZONE && LeftMotorValue > PRE_JUMP)
+        LeftMotorValue = PRE_JUMP;
+      else
+        LeftMotorValue -= RAMP_CONSTANT;
+    }
+    else
+    {
+      LeftRelayClosed = LeftReverse;
+      //Serial.println("LeftRelay");
+    }
+  }
+
+
   
 
+  if (RightReverse == RightRelayClosed) //on the way up
+  {
+    if (RightSpeed > RightMotorValue)
+    {
+      if (RightMotorValue == 0)
+        RightMotorValue = DEAD_ZONE;
+      else
+        RightMotorValue += RAMP_CONSTANT;
+    }
 
-  if (RightDirection == -1)
-    RightRelayClosed = true;
+    if (RightSpeed < RightMotorValue) //on the way down
+    {
+      if (RightMotorValue < DEAD_ZONE)
+        RightMotorValue = 0;
+      else
+        RightMotorValue -= RAMP_CONSTANT;
+    }
+  }
+  else //to zero
+  {
+    if (RightMotorValue > 0)
+    {
+      if (RightMotorValue < DEAD_ZONE && RightMotorValue > PRE_JUMP)
+        RightMotorValue = PRE_JUMP;
+      else
+        RightMotorValue -= RAMP_CONSTANT;
+    }
+    else
+    {
+      RightRelayClosed = RightReverse;
+      //Serial.println("RightRelay");
+    }
+  }
 
-  if (RightDirection == 1)
-    RightRelayClosed = false;
 
 
-  RightMotorValue = RightSpeed; 
-  
 
 
-  
+
+  if (LeftMotorValue == 0)
+  {
+    LeftMotor.write(0);
+  }
+  else
     LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);
-  //Serial.println("Left:" + String(LeftMotorValue));
+  
 
+
+  if (RightMotorValue == 0)
+  {
+    RightMotor.write(0);
+  }
+  else
     RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
-  //Serial.println("Right:"+ String(RightMotorValue));
+  
+
 
 
   if (LeftRelayClosed)
