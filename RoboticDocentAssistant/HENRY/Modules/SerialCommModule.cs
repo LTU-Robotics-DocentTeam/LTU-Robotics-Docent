@@ -55,7 +55,6 @@ namespace HENRY.Modules
             serPort1.Parity = Parity.None;
             serPort1.StopBits = StopBits.One;
             serPort1.ReadTimeout = 10;
-            serPort1.DtrEnable = true;
             serPort1.DataReceived += new SerialDataReceivedEventHandler(serPort1_DataReceived);
             //====================================================================================================
             // These are all Serial Port 2 initializations
@@ -66,7 +65,6 @@ namespace HENRY.Modules
             serPort2.Parity = Parity.None;
             serPort2.StopBits = StopBits.One;
             serPort2.ReadTimeout = 10;
-            serPort2.DtrEnable = true;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
             userPort = new SerialPort();
@@ -105,7 +103,15 @@ namespace HENRY.Modules
             r = new Random();
         }
 
-
+        void ResetController(SerialPort serPort)
+        {
+            serPort.Close();
+            serPort.DtrEnable = true;
+            System.Threading.Thread.Sleep(200);
+            serPort.Open();
+            System.Threading.Thread.Sleep(200);
+            serPort.DtrEnable = false;
+        }
 
         /// <summary>
         /// Handles the process of connecting to the microcontrollers and manual control
@@ -244,11 +250,13 @@ namespace HENRY.Modules
             if ((!serPort1.IsOpen || serConn1 == Connection.Unknown) && serConn1 != Connection.Disconnected)
             {
                 serConn1 = Connection.Unknown;
+                ResetController(serPort1);
                 ConnectBot(serPort1, "Motor MicroController", ref serConn1);
             }
             if ((!serPort2.IsOpen || serConn2 == Connection.Unknown) && serConn2 != Connection.Disconnected)
             {
                 serConn2 = Connection.Unknown;
+                ResetController(serPort2);
                 ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
             }
             
