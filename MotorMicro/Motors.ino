@@ -11,7 +11,8 @@ void SetMotor(char motor, int newVelocity)
     
     RightSpeed = abs(newVelocity);
 
-    RightReverse = newVelocity < 0;
+    RightDirection = constrain(newVelocity, -1, 1);
+    
   }
   
     
@@ -22,13 +23,11 @@ void SetMotor(char motor, int newVelocity)
  
     LeftSpeed = abs(newVelocity);
 
-    LeftReverse = newVelocity < 0;
+    LeftDirection = constrain(newVelocity, -1, 1);
   }
 
     
     CommandHealth = HEALTH_CONSTANT;
-
-
 
 }
 
@@ -53,44 +52,27 @@ void RunMotors()
 
 
 
-  if (LeftReverse == LeftRelayClosed)
-  {
-    LeftMotorValue = LeftSpeed; 
-  }
-  else //to zero
-  {
-    if (LeftMotorValue > 0) // ramp down for relay
-    {
-      LeftMotorValue = 0;
-    }
-    else
-    {
-      LeftRelayClosed = LeftReverse;
-      //Serial.println("LeftRelay");
-    }
-  }
+  if (LeftDirection == -1)
+    LeftRelayClosed = true;
+
+  if (LeftDirection == 1)
+    LeftRelayClosed = false;
 
 
+  LeftMotorValue = LeftSpeed; 
+  
 
 
+  if (RightDirection == -1)
+    RightRelayClosed = true;
 
-  if (RightReverse == RightRelayClosed) //on the way up
-  {
-    RightMotorValue = RightSpeed;
-    
-  }
-  else //to zero
-  {
-    if (RightMotorValue > 0)
-    {
-        RightMotorValue = 0;
-    }
-    else
-    {
-      RightRelayClosed = RightReverse;
-      //Serial.println("RightRelay");
-    }
-  }
+  if (RightDirection == 1)
+    RightRelayClosed = false;
+
+
+  RightMotorValue = RightSpeed; 
+  
+
 
   
     LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);

@@ -76,8 +76,8 @@ int counter = 0;
 int LeftSpeed = 0;
 int RightSpeed = 0;
 
-bool LeftReverse = false;
-bool RightReverse = false;
+int LeftDirection = 0;
+int RightDirection = 0;
 
 int LeftMotorValue = 0;
 int RightMotorValue = 0;
