@@ -13,7 +13,7 @@ namespace HENRY.Modules.Sensors
         Timer t;
         ErrorLog ultra_log;
 
-        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..\..\Sounds\HENRY_Horn.wav");
+        //System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..\..\Sounds\HENRY_Horn.wav");
         int dist2obstacle = Constants.MAX_DIST;
         private int reccomendedSpeed = 0;
         private string logline;
@@ -75,9 +75,11 @@ namespace HENRY.Modules.Sensors
             }
             else if (dist2obstacle < Constants.STOP_DIST)
             {
-                player.Play();
-                error_flag = true;
-                return -1;
+                reccomendedSpeed = 0;
+                //player.Play();
+                //error_flag = true;
+                //return -1;
+                
             }
             SetPropertyValue("ReccomendedUltrasonicSpeed", reccomendedSpeed);
 

@@ -17,6 +17,8 @@ namespace HENRY.Modules.Navigation
         public Timer t;
         public Timer tSlow;
         int hallEffectError = 0, ultrasonicError = 0, lineHoldCounter = 0;
+
+        bool hornFlag;
         
 
         double theta;
@@ -35,6 +37,7 @@ namespace HENRY.Modules.Navigation
         ImpactSensorModule ism;
         UltrasonicSensorModule usm;
         public ErrorLog error_log;
+        System.Media.SoundPlayer player;
         private bool errorState = false;
 
         
@@ -55,7 +58,9 @@ namespace HENRY.Modules.Navigation
             ism = new ImpactSensorModule();
             usm = new UltrasonicSensorModule();
             error_log = new ErrorLog(this);
+            player = new System.Media.SoundPlayer(@"..\..\Sounds\HENRY_Horn.wav");
 
+            hornFlag = false;
 
             leftForce = false;
             rightForce = false;
@@ -173,11 +178,23 @@ namespace HENRY.Modules.Navigation
             {
                 // multiply speed to whatever the ultrasonic reccomends (1 if all clear, 0 if only turns - not moving forward)
                 // that 0 might cause troubles. test for effectiveness before commiting to it
-                speed = Constants.DEFAULT_SPEED;// *GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
+                int ultraMult = GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
+
+                if(ultraMult == 0 && !hornFlag)
+                {
+                    hornFlag = true;
+                    player.PlaySync();
+
+                }
+                else if(ultraMult == 1 && hornFlag)
+                {
+                    hornFlag = false;
+                }
+
+                speed = Constants.DEFAULT_SPEED * ultraMult;
                 SetPropertyValue("Extra", speed.ToString());
             }
-
-            speed = 5;
+            
 
             thetaSmooth = thetaSmooth + (theta - thetaSmooth) * 0.2;
             thetaDotSmooth = thetaDotSmooth + (thetaDot - thetaDotSmooth) * 0.2;
@@ -239,8 +256,8 @@ namespace HENRY.Modules.Navigation
                     leftForce = true;
                 }
                 
-                lmSpeed = 3;
-                rmSpeed = 5;
+                lmSpeed = 2;
+                rmSpeed = 6;
 
             }
 
@@ -253,8 +270,8 @@ namespace HENRY.Modules.Navigation
                     rightForce = true;
                 }
 
-                lmSpeed = 3;
-                rmSpeed = 5;
+                lmSpeed = 2;
+                rmSpeed = 6;
             }
 
             if (rightForce)

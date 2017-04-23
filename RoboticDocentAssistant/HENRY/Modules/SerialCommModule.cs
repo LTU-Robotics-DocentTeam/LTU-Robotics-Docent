@@ -97,6 +97,7 @@ namespace HENRY.Modules
             SetPropertyValue("LowVoltage", false);
             SetPropertyValue("CriticalVoltage", false);
             SetPropertyValue("Warning", false);
+            SetPropertyValue("ArrayDown", false);
 
             t.Start();
 
@@ -642,7 +643,7 @@ namespace HENRY.Modules
                     {
                         serPort1.Write(msg2motor);
                     }
-                    catch (IOException ex)
+                    catch (Exception ex)
                     {
 
                         
@@ -697,7 +698,16 @@ namespace HENRY.Modules
 
                 if (msg2sensor != "")
                 {
-                    serPort2.Write(msg2sensor);
+                    try
+                    {
+                        serPort2.Write(msg2sensor);
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
+                    
+                    
                     msg2sensor = "";
                 }
 
