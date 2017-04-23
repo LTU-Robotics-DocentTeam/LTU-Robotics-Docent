@@ -37,11 +37,7 @@ namespace HENRY.Modules.Navigation
         public ErrorLog error_log;
         private bool errorState = false;
 
-        int dutyCycleMax = 50;
-        int dutyCyclePos;
-
-        double dutyCycleLeft;
-        double dutyCycleRight;
+        
 
         bool rightForce;
         bool leftForce;
@@ -60,10 +56,6 @@ namespace HENRY.Modules.Navigation
             usm = new UltrasonicSensorModule();
             error_log = new ErrorLog(this);
 
-
-            dutyCycleLeft = 0;
-            dutyCycleRight = 0;
-            dutyCyclePos = 0;
 
             leftForce = false;
             rightForce = false;
@@ -100,12 +92,17 @@ namespace HENRY.Modules.Navigation
 
         void tZero_Elapsed(object sender, ElapsedEventArgs e)
         {
+            double thetaDotSmooth = GetPropertyValue("DeltaDirection").ToDouble();
+
             if(!recovery)
             {
                 recovery = true;
 
                 leftForce = false;
                 rightForce = false;
+
+                tZero.Interval = (int)(4000.0 / (Math.Abs(thetaDotSmooth) + 4));
+                
 
             }
             else
@@ -237,12 +234,12 @@ namespace HENRY.Modules.Navigation
             {
                 if (!recovery && !tZero.Enabled)
                 {
+                    tZero.Interval = 500;
                     tZero.Start();
                     leftForce = true;
                 }
                 
                 rmSpeed = speed;
-                lmSpeed = speed;
 
             }
 
@@ -250,11 +247,11 @@ namespace HENRY.Modules.Navigation
             {
                 if (!recovery && !tZero.Enabled)
                 {
+                    tZero.Interval = 500;
                     tZero.Start();
                     rightForce = true;
                 }
 
-                rmSpeed = speed;
                 lmSpeed = speed;
             }
 
@@ -275,13 +272,7 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("LeftSpeed", lmSpeed);
             SetPropertyValue("RightSpeed", rmSpeed);
 
-            
-
-            dutyCyclePos++;
-            if(dutyCyclePos == dutyCycleMax)
-            {
-                dutyCyclePos = 0;
-            }
+           
 
         }
 
