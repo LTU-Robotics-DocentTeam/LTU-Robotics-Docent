@@ -11,8 +11,8 @@ void EStop()
   LeftMotorValue = 0;
   RightMotorValue = 0;
 
-  LeftDirection = false;
-  RightDirection = false;
+  LeftReverse = false;
+  RightReverse = false;
 
   SerialBuffer("<E1>");
 
