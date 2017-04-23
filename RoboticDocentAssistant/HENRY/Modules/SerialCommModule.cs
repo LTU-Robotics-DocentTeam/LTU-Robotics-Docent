@@ -619,12 +619,14 @@ namespace HENRY.Modules
                     watchdog1++;
                     if (watchdog1 >= SERPORT1_TIMEOUT)
                     {
-                        serConn1 = Connection.Unknown;
+                        //serConn1 = Connection.Unknown;
+                        serPort1.DtrEnable = true;
                         watchdog1 = 0;
                     }
                 }
                 else
                 {
+                    serPort1.DtrEnable = true;
                     watchdog1 = 0;
                     serPort1_dataIn = false;
                 }
@@ -677,11 +679,11 @@ namespace HENRY.Modules
                 }
 
                 //Raise or lower Hall array for dev mode
-                if (GetPropertyValue("DevModeOn").ToBoolean() && GetPropertyValue("ArrayDown").ToBoolean())
+                if (GetPropertyValue("DevModeOn").ToBoolean() && (GetPropertyValue("ArrayDown").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
                 {
                     msg2sensor += "<T1>";  //Hall effect array down
                 }
-                else if (GetPropertyValue("DevModeOn").ToBoolean() && !GetPropertyValue("ArrayDown").ToBoolean())
+                else if (GetPropertyValue("DevModeOn").ToBoolean() && !(GetPropertyValue("ArrayDown").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
                 {
                     msg2sensor += "<T0>";  //Hall effect array up
                 }

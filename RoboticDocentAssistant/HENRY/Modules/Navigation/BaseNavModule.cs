@@ -187,6 +187,9 @@ namespace HENRY.Modules.Navigation
 
             error_log.WriteToLog(time++ + "," + thetaSmooth.ToString() + "," + thetaDotSmooth.ToString() + "," + differential.ToString());
 
+            if (rmSpeed < 0) rmSpeed = 0;
+            if (lmSpeed < 0) lmSpeed = 0;
+
             SetPropertyValue("LeftSpeed", lmSpeed);
             SetPropertyValue("RightSpeed", rmSpeed);
 
@@ -209,6 +212,7 @@ namespace HENRY.Modules.Navigation
             error_log.OpenLog();
             usm.StartRecording();
             error_log.WriteToLog("Time,position,smoothposition,speed,smoothspeed");
+            System.Threading.Thread.Sleep(500);
             t.Start();
             tSlow.Start();
 

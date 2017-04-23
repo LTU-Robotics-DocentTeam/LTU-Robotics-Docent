@@ -170,12 +170,12 @@ namespace HENRY.Modules.Sensors
                 
 
 
-            double averageAngle;
+            //double averageAngle = -RadiansToDegrees(Math.Atan(averageDistance / Constants.ARRAY_TO_CENTER));
 
 
-            
 
-            averageAngle = RadiansToDegrees(Math.Atan(averageDistance / Constants.ARRAY_TO_CENTER));
+            double averageAngle = -averageDistance;
+
 
             SetPropertyValue("LineAngle", averageAngle);
             

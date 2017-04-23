@@ -63,8 +63,8 @@ namespace HENRY.Modules
             }
             if (GetPropertyValue("Right").ToBoolean()) // Zero-point turn to the right
             {
-                rspeed += manualSpeed;
-                lspeed -= manualSpeed;
+                rspeed -= manualSpeed;
+                lspeed += manualSpeed;
             }
             
 
