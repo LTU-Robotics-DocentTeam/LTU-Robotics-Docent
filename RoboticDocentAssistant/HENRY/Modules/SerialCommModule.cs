@@ -55,6 +55,7 @@ namespace HENRY.Modules
             serPort1.Parity = Parity.None;
             serPort1.StopBits = StopBits.One;
             serPort1.ReadTimeout = 10;
+            serPort1.DtrEnable = true;
             serPort1.DataReceived += new SerialDataReceivedEventHandler(serPort1_DataReceived);
             //====================================================================================================
             // These are all Serial Port 2 initializations
@@ -65,6 +66,7 @@ namespace HENRY.Modules
             serPort2.Parity = Parity.None;
             serPort2.StopBits = StopBits.One;
             serPort2.ReadTimeout = 10;
+            serPort2.DtrEnable = true;
             serPort2.DataReceived += new SerialDataReceivedEventHandler(serPort2_DataReceived);
             //====================================================================================================
             userPort = new SerialPort();
@@ -239,29 +241,15 @@ namespace HENRY.Modules
         void UpdateConnectionStatus()
         {
             // Check if serial ports are still open
-            if (!serPort1.IsOpen && serConn1 != Connection.Disconnected)
+            if ((!serPort1.IsOpen || serConn1 == Connection.Unknown) && serConn1 != Connection.Disconnected)
             {
                 serConn1 = Connection.Unknown;
-                if (System.Windows.MessageBox.Show("serPort1 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ConnectBot(serPort1, "Motor MicroController", ref serConn1);
-                }
-                else
-                {
-                    serConn1 = Connection.Disconnected;
-                }
+                ConnectBot(serPort1, "Motor MicroController", ref serConn1);
             }
-            if (!serPort2.IsOpen && serConn2 != Connection.Disconnected)
+            if ((!serPort2.IsOpen || serConn2 == Connection.Unknown) && serConn2 != Connection.Disconnected)
             {
                 serConn2 = Connection.Unknown;
-                if (System.Windows.MessageBox.Show("serPort2 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
-                }
-                else
-                {
-                    serConn1 = Connection.Disconnected;
-                }
+                ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
             }
             
             // Build connection status string to be displayed
@@ -620,13 +608,11 @@ namespace HENRY.Modules
                     if (watchdog1 >= SERPORT1_TIMEOUT)
                     {
                         //serConn1 = Connection.Unknown;
-                        serPort1.DtrEnable = true;
                         watchdog1 = 0;
                     }
                 }
                 else
                 {
-                    serPort1.DtrEnable = true;
                     watchdog1 = 0;
                     serPort1_dataIn = false;
                 }

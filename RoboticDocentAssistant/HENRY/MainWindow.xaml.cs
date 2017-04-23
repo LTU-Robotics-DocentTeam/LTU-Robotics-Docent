@@ -641,5 +641,11 @@ namespace HENRY
             }
 
         }
+
+        private void MWindow_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+        }
     }
 }

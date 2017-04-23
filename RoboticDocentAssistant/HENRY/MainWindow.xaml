@@ -6,7 +6,8 @@
         Keyboard.KeyDown="keyDownEventHandler" Keyboard.KeyUp="keyUpEventHandler"
         Closing="MWindow_Closing"
         WindowStyle="None" ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Deactivated="MWindow_Deactivated">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooltoVisConverter" />
     </Window.Resources>
