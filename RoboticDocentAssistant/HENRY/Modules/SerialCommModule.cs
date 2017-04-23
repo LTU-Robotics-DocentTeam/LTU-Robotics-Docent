@@ -103,7 +103,15 @@ namespace HENRY.Modules
             r = new Random();
         }
 
-
+        void ResetController(SerialPort serPort)
+        {
+            serPort.Close();
+            serPort.DtrEnable = true;
+            System.Threading.Thread.Sleep(200);
+            serPort.Open();
+            System.Threading.Thread.Sleep(200);
+            serPort.DtrEnable = false;
+        }
 
         /// <summary>
         /// Handles the process of connecting to the microcontrollers and manual control
@@ -239,29 +247,17 @@ namespace HENRY.Modules
         void UpdateConnectionStatus()
         {
             // Check if serial ports are still open
-            if (!serPort1.IsOpen && serConn1 != Connection.Disconnected)
+            if ((!serPort1.IsOpen || serConn1 == Connection.Unknown) && serConn1 != Connection.Disconnected)
             {
                 serConn1 = Connection.Unknown;
-                if (System.Windows.MessageBox.Show("serPort1 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ConnectBot(serPort1, "Motor MicroController", ref serConn1);
-                }
-                else
-                {
-                    serConn1 = Connection.Disconnected;
-                }
+                ResetController(serPort1);
+                ConnectBot(serPort1, "Motor MicroController", ref serConn1);
             }
-            if (!serPort2.IsOpen && serConn2 != Connection.Disconnected)
+            if ((!serPort2.IsOpen || serConn2 == Connection.Unknown) && serConn2 != Connection.Disconnected)
             {
                 serConn2 = Connection.Unknown;
-                if (System.Windows.MessageBox.Show("serPort2 lost connection. Attempt reconnect?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
-                }
-                else
-                {
-                    serConn1 = Connection.Disconnected;
-                }
+                ResetController(serPort2);
+                ConnectBot(serPort2, "Sensor MicroController", ref serConn2);
             }
             
             // Build connection status string to be displayed
@@ -347,13 +343,6 @@ namespace HENRY.Modules
                         }
                     }
                     break;
-                // Motor Values =================================
-                // Load serial data into motor objects,  each motor is its own object. Data is a double
-                case 'L': SetPropertyValue("LeftMSpeed", value);
-                    break;
-                case 'R': SetPropertyValue("RightMSpeed", value);
-                    break;
-                // ==============================================
                 case 'U': // User View ON?: Determines which View is active at the moment
                     if (value == "1")
                     {
@@ -626,7 +615,7 @@ namespace HENRY.Modules
                     watchdog1++;
                     if (watchdog1 >= SERPORT1_TIMEOUT)
                     {
-                        serConn1 = Connection.Unknown;
+                        //serConn1 = Connection.Unknown;
                         watchdog1 = 0;
                     }
                 }
@@ -636,7 +625,7 @@ namespace HENRY.Modules
                     serPort1_dataIn = false;
                 }
                 
-                msg2motor += "<R" + GetPropertyValue("RightMSpeed").ToString() + "><L" + GetPropertyValue("LeftMSpeed").ToString() + ">";
+                msg2motor += "<R" + GetPropertyValue("RightMValue").ToString() + "><L" + GetPropertyValue("LeftMValue").ToString() + ">";
                 
                 // if estop triggered before, send attempt reset signal when user addresses in the program (i.e. checkbox in DevView, 
                 // alert message from UserView)
@@ -684,11 +673,11 @@ namespace HENRY.Modules
                 }
 
                 //Raise or lower Hall array for dev mode
-                if (GetPropertyValue("DevModeOn").ToBoolean() && GetPropertyValue("ArrayDown").ToBoolean())
+                if (GetPropertyValue("DevModeOn").ToBoolean() && (GetPropertyValue("ArrayDown").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
                 {
                     msg2sensor += "<T1>";  //Hall effect array down
                 }
-                else if (GetPropertyValue("DevModeOn").ToBoolean() && !GetPropertyValue("ArrayDown").ToBoolean())
+                else if (GetPropertyValue("DevModeOn").ToBoolean() && !(GetPropertyValue("ArrayDown").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
                 {
                     msg2sensor += "<T0>";  //Hall effect array up
                 }

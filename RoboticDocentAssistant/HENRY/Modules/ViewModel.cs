@@ -98,6 +98,12 @@ namespace HENRY.Modules
             set { SetPropertyValue("ArduinoData", value); RaisePropertyChanged("ArduinoData"); }
         }
 
+        public string Extra
+        {
+            get { return GetPropertyValue("Extra").ToString(); }
+            set { SetPropertyValue("Extra", value); RaisePropertyChanged("Extra"); }
+        }
+
         public int Generic_Sensor1
         {
             get
@@ -241,15 +247,15 @@ namespace HENRY.Modules
             set { SetPropertyValue("BrakesEngaged", value); RaisePropertyChanged("BrakesEngaged"); }
         }
 
-        public string RightMSpeed
+        public string RightMValue
         {
-            get { return GetPropertyValue("RightMSpeed").ToString(); }
-            set { SetPropertyValue("RightMSpeed", value); RaisePropertyChanged("RightMSpeed"); }
+            get { return GetPropertyValue("RightMValue").ToString(); }
+            set { SetPropertyValue("RightMValue", value); RaisePropertyChanged("RightMValue"); }
         }
-        public string LeftMSpeed
+        public string LeftMValue
         {
-            get { return GetPropertyValue("LeftMSpeed").ToString(); }
-            set { SetPropertyValue("LeftMSpeed", value); RaisePropertyChanged("LeftMSpeed"); }
+            get { return GetPropertyValue("LeftMValue").ToString(); }
+            set { SetPropertyValue("LeftMValue", value); RaisePropertyChanged("LeftMValue"); }
         }
         public string Direction
         {
@@ -266,10 +272,10 @@ namespace HENRY.Modules
             get { return GetPropertyValue("AutonomousNavigation").ToBoolean(); }
             set { SetPropertyValue("AutonomousNavigation", value); RaisePropertyChanged("AutonomousNavigation"); }
         }
-        public string DirectionalSpeed
+        public string DeltaDirection
         {
-            get { return GetPropertyValue("DirectionalSpeed").ToString(); }
-            set { SetPropertyValue("DirectionalSpeed", value); RaisePropertyChanged("DirectionalSpeed"); }
+            get { return GetPropertyValue("DeltaDirection").ToString(); }
+            set { SetPropertyValue("DeltaDirection", value); RaisePropertyChanged("DeltaDirection"); }
         }
         public string BatteryVoltage
         {
@@ -556,22 +562,35 @@ namespace HENRY.Modules
             set { SetPropertyValue("BlackPressed", value); RaisePropertyChanged("BlackPressed"); }
         }
 
-        public double Alpha
+        public double Kp
         {
-            get { return GetPropertyValue("Alpha").ToDouble(); }
-            set { SetPropertyValue("Alpha", value); RaisePropertyChanged("Alpha"); }
+            get { return GetPropertyValue("Kp").ToDouble(); }
+            set { SetPropertyValue("Kp", value); RaisePropertyChanged("Kp"); }
         }
 
-        public double Beta
+        public double Kd
         {
-            get { return GetPropertyValue("Beta").ToDouble(); }
-            set { SetPropertyValue("Beta", value); RaisePropertyChanged("Beta"); }
+            get { return GetPropertyValue("Kd").ToDouble(); }
+            set { SetPropertyValue("Kd", value); RaisePropertyChanged("Kd"); }
         }
         //Value to check if Hall array is down
         public bool ArrayDown
         {
             get { return GetPropertyValue("ArrayDown").ToBoolean(); }
             set { SetPropertyValue("ArrayDown", value); RaisePropertyChanged("ArrayDown"); }
+        }
+
+
+        public double RightSpeed
+        {
+            get { return GetPropertyValue("RightSpeed").ToDouble(); }
+            set { SetPropertyValue("RightSpeed", value); RaisePropertyChanged("RightSpeed"); }
+        }
+
+        public double LeftSpeed
+        {
+            get { return GetPropertyValue("LeftSpeed").ToDouble(); }
+            set { SetPropertyValue("LeftSpeed", value); RaisePropertyChanged("LeftSpeed"); }
         }
     }
 }

@@ -7,81 +7,31 @@ void SetMotor(char motor, int newVelocity)
 
 
   if(motor == 'R')
-    RightSeat = newVelocity;
+  {
+    RightSpeed = abs(newVelocity);
+
+    RightReverse = newVelocity < 0;
+  }
     
 
   if(motor == 'L')
-    LeftSeat = newVelocity;
-
-
-
-  
-
-  if(RightSeat != -1 && LeftSeat != -1)
   {
-    
-      
-    if(RightSeat == LeftSeat && RightCache != LeftCache)
-    {
-      if(RightCache != 0 && LeftCache != 0)
-      {
-        int difference = abs(abs(RightCache) - abs(LeftCache));
-          
-         if(RightCache > LeftCache)
-        { 
-          RightPauseTimer = difference * 5;
-        }
-        else if(LeftCache > RightCache)
-        {
-          LeftPauseTimer = difference * 5;
-        }
-      }
-     
-    }
-
-
-    RightCache = RightSeat;
+    LeftSpeed = abs(newVelocity);
   
-    LeftCache = LeftSeat;
-  
+    LeftReverse = newVelocity < 0;
+  }
 
-  
-    RightSpeed = abs(RightSeat);
 
-    RightReverse = RightSeat < 0;
-  
-
- 
-    LeftSpeed = abs(LeftSeat);
-
-    LeftReverse = LeftSeat < 0;
   
     
     CommandHealth = HEALTH_CONSTANT;
 
-
-    RightSeat = -1;
-    LeftSeat = -1;
-    
-  } 
-
 }
-
-
-
-
+  
 
 void RunMotors()
 {
-  //  if (MotorCooldown > 0)
-  //  {
-  //    MotorCooldown--;
-  //
-  //    LeftMotor.write(0);
-  //    RightMotor.write(0);
-  //
-  //    return;
-  //  }
+  
 
   if (CommandHealth > 0)
   {
@@ -93,6 +43,7 @@ void RunMotors()
     SetMotor('R',0);
     SetMotor('L',0);
   }
+
 
 
 
@@ -133,8 +84,7 @@ void RunMotors()
   }
 
 
-
-
+  
 
   if (RightReverse == RightRelayClosed) //on the way up
   {
@@ -174,35 +124,24 @@ void RunMotors()
 
 
 
+
   if (LeftMotorValue == 0)
   {
     LeftMotor.write(0);
   }
-  
-  else if ( LeftPauseTimer > 0)
-  {
-    LeftMotor.write(0);
-    LeftPauseTimer--;
-  }
-  
   else
     LeftMotor.write(LeftMotorValue + LEFT_CORRECTION);
-  //Serial.println("Left:" + String(LeftMotorValue));
+  
+
 
   if (RightMotorValue == 0)
   {
     RightMotor.write(0);
   }
-
-  else if ( RightPauseTimer > 0)
-  {
-    RightMotor.write(0);
-    RightPauseTimer--;
-  }
-  
   else
     RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
-  //Serial.println("Right:"+ String(RightMotorValue));
+  
+
 
 
   if (LeftRelayClosed)

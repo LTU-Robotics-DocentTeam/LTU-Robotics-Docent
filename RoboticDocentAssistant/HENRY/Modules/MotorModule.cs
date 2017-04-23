@@ -12,7 +12,6 @@ namespace HENRY.Modules
     {
         TimersTimer t;
         ErrorLog plots;
-        double alpha = 5.0, beta = 0; //Beta = D, Alpha = P
         int time = 0;
         public bool recording = false;
         
@@ -21,14 +20,14 @@ namespace HENRY.Modules
             plots = new ErrorLog(this);
             
             // Initialize properties to default
-            SetPropertyValue("RightMSpeed", 0);
-            SetPropertyValue("LeftMSpeed", 0);
+            SetPropertyValue("RightMValue", 0);
+            SetPropertyValue("LeftMValue", 0);
+            SetPropertyValue("RightSpeed", 0.0);
+            SetPropertyValue("LeftSpeed", 0.0);
             SetPropertyValue("DirectionalSpeed", 0);
             SetPropertyValue("LeftBrake", false);
             SetPropertyValue("RightBrake", false); 
             SetPropertyValue("EStop", false);
-            SetPropertyValue("Alpha", 0.5);
-            SetPropertyValue("Beta", 14.0);
             
 
             // Set processing timer for module
@@ -40,46 +39,12 @@ namespace HENRY.Modules
 
         private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            alpha = GetPropertyValue("Alpha").ToDouble();
-            beta = GetPropertyValue("Beta").ToDouble();
-
-            double direction = GetPropertyValue("Direction").ToDouble();
-            double delta_direction = GetPropertyValue("DeltaDirection").ToDouble();
-            int spd = GetPropertyValue("Speed").ToInt32();
             bool estop = GetPropertyValue("EStop").ToBoolean();
 
-            int rmSpeed = 0, lmSpeed = 0;
+            
 
-            if (spd > 0)
-            {
-                int dSpd = (int)((spd)*(alpha *(direction / Constants.MAX_DIR) + beta * delta_direction));
-                
-                //old code
-                //rmSpeed = spd + dSpd;
-                //lmSpeed = spd - dSpd;
-
-                if (direction > 0)
-                {
-                    rmSpeed = spd;
-                    lmSpeed = spd - Math.Abs(dSpd);
-                }
-                else
-                {
-                    rmSpeed = spd - Math.Abs(dSpd);
-                    lmSpeed = spd;
-                }
-                plots.WriteToLog(time++ + "," + direction.ToString() + "," + delta_direction.ToString() + "," + dSpd.ToString());
-            }
-            else if (spd == 0)
-            {
-                rmSpeed = (int)direction;
-                lmSpeed = -(int)direction;
-            }
-            else
-            {
-                rmSpeed = spd;
-                lmSpeed = spd;
-            }
+            int rmSpeed = (int)Math.Round(GetPropertyValue("RightSpeed").ToDouble());
+            int lmSpeed = (int)Math.Round(GetPropertyValue("LeftSpeed").ToDouble());
 
             // Add deadzone gap to the speed
             if (rmSpeed > 0)
@@ -111,16 +76,18 @@ namespace HENRY.Modules
             if (lmSpeed > Constants.MAX_MOTOR_SPEED)
                 lmSpeed = Constants.MAX_MOTOR_SPEED;
 
+            plots.WriteToLog(time++ + "," + rmSpeed.ToString() + "," + lmSpeed.ToString());
+
             //Update current property value
             if (!estop && (GetPropertyValue("ManualDriveEnabled").ToBoolean() || GetPropertyValue("AutonomousNavigation").ToBoolean()))
             {
-                SetPropertyValue("RightMSpeed", rmSpeed);
-                SetPropertyValue("LeftMSpeed", lmSpeed);
+                SetPropertyValue("RightMValue", rmSpeed);
+                SetPropertyValue("LeftMValue", lmSpeed);
             }
             else
             {
-                SetPropertyValue("RightMSpeed", 0);
-                SetPropertyValue("LeftMSpeed", 0);
+                SetPropertyValue("RightMValue", 0);
+                SetPropertyValue("LeftMValue", 0);
             }
         }
 
@@ -133,7 +100,7 @@ namespace HENRY.Modules
         {
             plots.OpenLog();
             time = 0;
-            plots.WriteToLog("Time,position,speed,result,alpha," + alpha.ToString() + ",beta," + beta.ToString());
+            plots.WriteToLog("Time,Right Motor Speed,Left Motor Speed");
             recording = true;
         }
 

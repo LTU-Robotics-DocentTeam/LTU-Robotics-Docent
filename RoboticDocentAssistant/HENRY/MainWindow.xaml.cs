@@ -39,6 +39,8 @@ namespace HENRY
             mnd = new ManualDrive();
             gsm = new GenericSensorModule();
 
+            
+
             vm.Green = 0;
             vm.Red = 0;
             vm.Blue = 0;
@@ -638,6 +640,12 @@ namespace HENRY
                     Mouse.OverrideCursor = Cursors.None;
             }
 
+        }
+
+        private void MWindow_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
         }
     }
 }

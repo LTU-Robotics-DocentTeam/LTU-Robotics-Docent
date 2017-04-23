@@ -73,22 +73,11 @@ const int impact[L_NUM] = {P_U3_L1, P_U3_L3, P_U3_L5, P_U3_L7, P_U3_L2, P_U3_L4,
 bool tune = false;
 int counter = 0;
 
-int LeftVelocity = 0;
-int RightVelocity = 0;
-
-
-
-int LeftSeat = -1;
-int RightSeat = -1;
-
-int LeftCache = 0;
-int RightCache = 0;
-
-int RightPauseTimer = 0;
-int LeftPauseTimer = 0;
-
 int LeftSpeed = 0;
 int RightSpeed = 0;
+
+int LeftDirection = 0;
+int RightDirection = 0;
 
 bool LeftReverse = false;
 bool RightReverse = false;
@@ -216,6 +205,10 @@ void loop() {
     else tone(P_U1_I2, 523);
 
     counter++;
+  }
+  else
+  {
+    noTone(P_U1_I2);
   }
 
   delay(10);
