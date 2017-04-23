@@ -83,14 +83,14 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Theta Dot: "/>
-                            <TextBlock Text="{Binding DeltaDirection}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding DeltaDirection}" FontWeight="Bold" FontSize="24"/>
                         </StackPanel>
                         <TextBlock Text="Individual Motor Speeds:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Left: "></TextBlock>
-                            <TextBlock Text="{Binding LeftSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding LeftSpeed}" FontWeight="Bold" FontSize="24"></TextBlock>
                             <TextBlock Text=" Right: " ></TextBlock>
-                            <TextBlock Text="{Binding RightSpeed}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding RightSpeed}" FontWeight="Bold" FontSize="24"></TextBlock>
                         </StackPanel>
                         <TextBlock Text="Individual Final Motor Values:" HorizontalAlignment="Center"></TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

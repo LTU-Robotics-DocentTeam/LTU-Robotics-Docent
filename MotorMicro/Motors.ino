@@ -138,9 +138,20 @@ void RunMotors()
   {
     RightMotor.write(0);
   }
-  else
-    RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
-  
+  else{
+    if(correction)
+    {
+      
+      RightMotor.write(RightMotorValue + RIGHT_CORRECTION);
+      correction = false;
+    }
+    else
+    {
+      RightMotor.write(RightMotorValue);
+      correction = true;
+    }
+    
+  }
 
 
 

@@ -75,7 +75,7 @@ namespace HENRY.Modules.Sensors
             }
             else if (dist2obstacle < Constants.STOP_DIST)
             {
-                //player.Play();
+                player.Play();
                 error_flag = true;
                 return -1;
             }

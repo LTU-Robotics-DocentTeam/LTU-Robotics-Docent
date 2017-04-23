@@ -62,7 +62,7 @@ namespace HENRY.Modules.Navigation
             recovery = false;
 
             time = 0;
-
+            
 
             SetPropertyValue("Direction", 0.0);
             SetPropertyValue("DeltaDirection", 0.0);
@@ -70,9 +70,9 @@ namespace HENRY.Modules.Navigation
             SetPropertyValue("EStop", false); // Send EStop signal (upon Impact)
             SetPropertyValue("AutonomousNavigation", false);
 
-            SetPropertyValue("Kp", 75.0);
+            SetPropertyValue("Kp", 14.0);
 
-            SetPropertyValue("Kd", 25.0);
+            SetPropertyValue("Kd", 175.0);
 
             t = new Timer();
             t.Interval = 20;
@@ -101,7 +101,7 @@ namespace HENRY.Modules.Navigation
                 leftForce = false;
                 rightForce = false;
 
-                tZero.Interval = (int)(4000.0 / (Math.Abs(thetaDotSmooth) + 4));
+                tZero.Interval = (int)(2000.0 / (Math.Abs(thetaDotSmooth) + 4));
                 
 
             }
@@ -165,7 +165,7 @@ namespace HENRY.Modules.Navigation
 
             }
 
-            /*if (ultrasonicError < 0)
+            if (ultrasonicError < 0)
             {
                 errorState = true;
             }
@@ -175,7 +175,7 @@ namespace HENRY.Modules.Navigation
                 // that 0 might cause troubles. test for effectiveness before commiting to it
                 speed = Constants.DEFAULT_SPEED;// *GetPropertyValue("ReccomendedUltrasonicSpeed").ToInt32();
                 SetPropertyValue("Extra", speed.ToString());
-            }*/
+            }
 
             speed = 5;
 
@@ -234,12 +234,13 @@ namespace HENRY.Modules.Navigation
             {
                 if (!recovery && !tZero.Enabled)
                 {
-                    tZero.Interval = 500;
+                    tZero.Interval = 350;
                     tZero.Start();
                     leftForce = true;
                 }
                 
-                rmSpeed = speed;
+                lmSpeed = 3;
+                rmSpeed = 5;
 
             }
 
@@ -247,12 +248,13 @@ namespace HENRY.Modules.Navigation
             {
                 if (!recovery && !tZero.Enabled)
                 {
-                    tZero.Interval = 500;
+                    tZero.Interval = 350;
                     tZero.Start();
                     rightForce = true;
                 }
 
-                lmSpeed = speed;
+                lmSpeed = 3;
+                rmSpeed = 5;
             }
 
             if (rightForce)

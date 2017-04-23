@@ -93,6 +93,8 @@ bool RightRelayClosed = false;
 
 bool prevSwitch;
 
+bool correction;
+
 int CommandHealth = -1;
 int blinkCounter = 100;
 int serialCommCounter = 0;
@@ -110,6 +112,8 @@ void setup()
 {
 
   Serial.begin(115200);
+
+  correction = false;
 
 
   pinMode(P_U1_LD, OUTPUT);
