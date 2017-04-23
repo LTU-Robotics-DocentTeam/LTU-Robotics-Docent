@@ -99,6 +99,11 @@ namespace HENRY
             userViewControl.Dispatcher.Invoke(new Action(() => userViewControl.ShowKioskGetOut()));
         }
 
+        void UserViewDelegateLivestreamOnOff(Visibility v)
+        {
+            userViewControl.Dispatcher.Invoke(new Action(() => userViewControl.LivestreamOnOff(v)));
+        }
+
 
         void CloseWindow()
         {
@@ -187,6 +192,7 @@ namespace HENRY
                 {
                     case UserView.UserScreen.Tour:
                         // Start stream here!
+                        UserViewDelegateLivestreamOnOff(Visibility.Visible);
                         scm.SendStartStream();
                         ResetButton(Buttons.Green);
                         break;
@@ -219,6 +225,7 @@ namespace HENRY
                     case UserView.UserScreen.Tour:
                         // End stream here
                         scm.SendStopStream();
+                        UserViewDelegateLivestreamOnOff(Visibility.Collapsed);
                         ResetButton(Buttons.Red);
                         break;
                     case UserView.UserScreen.Shutdown:

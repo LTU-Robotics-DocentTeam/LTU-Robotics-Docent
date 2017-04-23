@@ -173,7 +173,12 @@ namespace HENRY.Views
             kioskPromptText.Visibility = Visibility.Visible;
             kioskPromptTimer.Start();
         }
-        
+
+
+        internal void LivestreamOnOff(System.Windows.Visibility visibility)
+        {
+            LivePopUp.Visibility = visibility;
+        }
     }
 
 }

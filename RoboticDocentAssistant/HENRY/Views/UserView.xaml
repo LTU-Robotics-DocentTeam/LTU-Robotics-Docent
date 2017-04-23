@@ -953,6 +953,36 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
+            <Grid x:Name="LivePopUp" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top" Panel.ZIndex="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="1" Grid.Column="1" Opacity="0.95" Grid.ColumnSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFA5A5A5" Offset="1"/>
+                            <GradientStop Color="White"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                    <StackPanel VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center" TextBlock.FontSize="38"  Margin="10">
+                        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
+                            <Ellipse Width="{Binding ActualHeight, ElementName=shutdownPromptButton, Mode=OneWay}" Margin="10,0" Fill="Red" />
+                            <TextBlock HorizontalAlignment="Center" Foreground="Red" FontFamily="Tahoma" FontWeight="Bold" TextAlignment="Center" Panel.ZIndex="3" VerticalAlignment="Center" Text="Live" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
 
         </StackPanel>
     </Grid>
