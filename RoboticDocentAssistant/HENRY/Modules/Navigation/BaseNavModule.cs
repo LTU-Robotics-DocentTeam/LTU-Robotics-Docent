@@ -37,6 +37,21 @@ namespace HENRY.Modules.Navigation
         public ErrorLog error_log;
         private bool errorState = false;
 
+        int dutyCycleMax = 50;
+        int dutyCyclePos;
+
+        double dutyCycleLeft;
+        double dutyCycleRight;
+
+        bool rightForce;
+        bool leftForce;
+
+        bool recovery;
+
+        Timer tZero;
+
+        
+
 
         public BaseNavModule()
         {
@@ -45,6 +60,14 @@ namespace HENRY.Modules.Navigation
             usm = new UltrasonicSensorModule();
             error_log = new ErrorLog(this);
 
+
+            dutyCycleLeft = 0;
+            dutyCycleRight = 0;
+            dutyCyclePos = 0;
+
+            leftForce = false;
+            rightForce = false;
+            recovery = false;
 
             time = 0;
 
@@ -68,6 +91,29 @@ namespace HENRY.Modules.Navigation
             tSlow.Interval = 100;
             tSlow.Elapsed += tSlow_Elapsed;
 
+            tZero = new Timer();
+            tZero.Interval = 500;
+            tZero.Elapsed += tZero_Elapsed;
+
+
+        }
+
+        void tZero_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if(!recovery)
+            {
+                recovery = true;
+
+                leftForce = false;
+                rightForce = false;
+
+            }
+            else
+            {
+                tZero.Stop();
+                recovery = false;
+            }
+            
 
         }
 
@@ -165,7 +211,6 @@ namespace HENRY.Modules.Navigation
                 }
 
                 
-                
             }
 
 
@@ -177,13 +222,50 @@ namespace HENRY.Modules.Navigation
             double lmSpeed = 0;
             double differential = 0;
 
+
             if (speed > 0)
             {
-                differential = (speed) * (Kp * (thetaSmooth / Constants.MAX_DIR) + Kd * thetaDotSmooth);
+                differential = (speed) * (Kp * thetaSmooth + Kd * thetaDotSmooth);
                 rmSpeed = speed + differential;
                 lmSpeed = speed - differential;
                 
             }
+
+
+
+            if (thetaSmooth > Constants.HARD_TURN_ZONE)
+            {
+                if (!recovery && !tZero.Enabled)
+                {
+                    tZero.Start();
+                    leftForce = true;
+                }
+                
+                rmSpeed = speed;
+                lmSpeed = speed;
+
+            }
+
+            if (thetaSmooth < -Constants.HARD_TURN_ZONE)
+            {
+                if (!recovery && !tZero.Enabled)
+                {
+                    tZero.Start();
+                    rightForce = true;
+                }
+
+                rmSpeed = speed;
+                lmSpeed = speed;
+            }
+
+            if (rightForce)
+                rmSpeed = 0;
+
+            if (leftForce)
+                lmSpeed = 0;
+
+
+            SetPropertyValue("Extra", recovery.ToString());
 
             error_log.WriteToLog(time++ + "," + thetaSmooth.ToString() + "," + thetaDotSmooth.ToString() + "," + differential.ToString());
 
@@ -192,6 +274,14 @@ namespace HENRY.Modules.Navigation
 
             SetPropertyValue("LeftSpeed", lmSpeed);
             SetPropertyValue("RightSpeed", rmSpeed);
+
+            
+
+            dutyCyclePos++;
+            if(dutyCyclePos == dutyCycleMax)
+            {
+                dutyCyclePos = 0;
+            }
 
         }
 

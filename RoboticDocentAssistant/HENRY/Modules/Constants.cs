@@ -17,9 +17,7 @@ namespace HENRY.Modules
         public const int MAX_DIST = 2000;
         public const int LINE_HOLD_BUFFER = 15;
 
-        public const double TURN_FACTOR = 1;
-        public const int TURN_ZONE = 39;
-        public const int ZERO_POINT_ZONE = 75;
+        public const int HARD_TURN_ZONE = 20;
 
         //Number of sensors we have
         public const int US_NUM = 5;
