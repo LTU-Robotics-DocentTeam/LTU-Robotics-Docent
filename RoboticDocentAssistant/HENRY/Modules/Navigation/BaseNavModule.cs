@@ -256,7 +256,7 @@ namespace HENRY.Modules.Navigation
                     leftForce = true;
                 }
                 
-                lmSpeed = 2;
+                lmSpeed = 3;
                 rmSpeed = 6;
 
             }
@@ -270,7 +270,7 @@ namespace HENRY.Modules.Navigation
                     rightForce = true;
                 }
 
-                lmSpeed = 2;
+                lmSpeed = 3;
                 rmSpeed = 6;
             }
 
